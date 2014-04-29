@@ -95,7 +95,7 @@ def instructor_dashboard(request, course_id):
     
     #use this variable to hide some elements from teachers in instructor_dashboard.html (issue №3343)
     teacher_role = (
-        CourseTeacherRole(course, None).has_user(user)
+        CourseTeacherRole(course.location, None).has_user(request.user)
     )
 
     forum_admin_access = has_forum_access(request.user, course_id, FORUM_ROLE_ADMINISTRATOR)

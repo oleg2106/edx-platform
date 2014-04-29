@@ -396,8 +396,6 @@ class CourseFields(object):
     # Explicit comparison to True because we always want to return a bool.
     hide_progress_tab = Boolean(help=_("DO NOT USE THIS"), scope=Scope.settings)
 
-    hide_wiki_tab = Boolean(help=_("DO NOT USE THISE"), scope=Scope.settings)
-
     display_organization = String(help=_("An optional display string for the course organization that will get rendered in the LMS"),
                                   scope=Scope.settings)
 

@@ -165,14 +165,14 @@ def fullstat(request = None):
     request = DummyRequest()
     
 
-    header = [u'Фамилия', u'Имя', u'Отчество', u'Фамилия (измененное)', u'Имя (измененное)', u'Отчество (измененное)', u'логин школы', u'email', u'email (измененное)', u'курс', u'курс опубл.', u'зарег. в пакет рег.', u"дата рег. на курс", u'2/3', u'100%', u'Задачи/Задания(Модули)']
+    header = [u'Фамилия', u'Имя', u'Отчество', u'Фамилия (измененное)', u'Имя (измененное)', u'Отчество (измененное)', u'логин школы', u'email', u'email (измененное)', u'активирован', u'курс', u'курс опубл.', u'зарег. в пакет рег.', u"дата рег. на курс", u'2/3', u'100%', u'Задачи/Задания(Модули)']
     assignments = []
     datatablefull = {'header': header, 'assignments': assignments, 'students': []}
     datafull = []
 
     for course in modulestore().get_courses():
         
-        datarow = [u'-', u'-', u'-', u'-', u'-', course.id, u'-', u'-', u'-', u'-', u'-']
+        datarow = [u'-', u'-', u'-', u'-', u'-', u'-', course.id, u'-', u'-', u'-', u'-', u'-']
         
         assignments = []
         
@@ -294,7 +294,7 @@ def fullstat(request = None):
                 try:
                     datarow += [rows[0]['login']]
                 except:
-                    datarow += [u'']
+                    datarow += [user.profile.work_login]
 
                 email = ''
                 try:
@@ -306,6 +306,11 @@ def fullstat(request = None):
                     datarow += [user.email]
                 else:
                     datarow += [u'']
+
+                if user.is_active:
+                    datarow += [u'Да']
+                else:
+                    datarow += [u'Нет']
 
                 #Course
                 datarow += [course.display_number_with_default + " " + course.display_name_with_default]
@@ -366,6 +371,11 @@ def fullstat(request = None):
                 email = userrow['email']
                 datarow += [email]
                 datarow += [u'']
+
+                if user.is_active:
+                    datarow += [u'Да']
+                else:
+                    datarow += [u'Нет']
 
                 #Course
                 datarow += [userrow['subject']]
