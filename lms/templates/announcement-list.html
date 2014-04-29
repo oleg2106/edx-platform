@@ -315,12 +315,14 @@ section.announcements div > h3 {
     <section class="user-info announcements">
       <ul>
       <div class="announcement-list">
-          % for announcement in site_wide_announcements[0:5]:
-                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")}</br>${announcement.title}</h2>
+          % for announcement in site_wide_announcements:
+                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")}</br>
+                    ${announcement.title}</h2>
                     <div class="content">
-                    ${' '.join(announcement.content.split()[:10])}...<br/>
+                    ${announcement.content}<br/>
                     </div>
                 % endfor
+        <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
                 </div>
       </ul>
     </section>

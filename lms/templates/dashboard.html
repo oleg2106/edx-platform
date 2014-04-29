@@ -289,15 +289,14 @@ heightStyle: "content"
     </header>
     <section class="user-info announcements">
       <ul>
-        <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
       <div class="announcement-list">
-          % for announcement in site_wide_announcements[0:5]:
+          % for announcement in site_wide_announcements:
                     <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")}</br>${announcement.title}</h2>
                     <div class="content">
-                    ${' '.join(announcement.content.split()[:10])}...<br/>
-                    <a href="${reverse('announcement_list')}">Читать далее</a>
+                    ${announcement.content}<br/>
                     </div>
                 % endfor
+          <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
                 </div>
       </ul>
     </section>
