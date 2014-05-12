@@ -94,7 +94,7 @@ command again, adding --insert or --delete to edit the list.
             elif options['fix']:
                 for index, item in enumerate(course.tabs):
                     found = False
-                    if item.get("type") == "open_ended":
+                    if u"open_ended" in item.get("type"):
                         if found:
                             tabs.primitive_delete(course, index - 1)
                             break
