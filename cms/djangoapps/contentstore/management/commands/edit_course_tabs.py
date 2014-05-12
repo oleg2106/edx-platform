@@ -64,7 +64,7 @@ command again, adding --insert or --delete to edit the list.
                              default=False,
                              help='--fix')
 
-    option_list = BaseCommand.option_list + (course_option, delete_option, insert_option)
+    option_list = BaseCommand.option_list + (course_option, delete_option, insert_option, fix_option)
 
     def handle(self, *args, **options):
         if not options['course']:
