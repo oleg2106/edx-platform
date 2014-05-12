@@ -58,6 +58,12 @@ command again, adding --insert or --delete to edit the list.
                                 default=False,
                                 help='--insert <tab-number> <type> <name>, e.g. 2 "course_info" "Course Info"')
 
+    fix_option = make_option("--fix",
+                             action='store_true',
+                             dest='fix',
+                             default=False,
+                             help='--fix')
+
     option_list = BaseCommand.option_list + (course_option, delete_option, insert_option)
 
     def handle(self, *args, **options):
@@ -85,6 +91,15 @@ command again, adding --insert or --delete to edit the list.
                 name = args[2]
                 if query_yes_no('Inserting tab {0} "{1}" "{2}" Confirm?'.format(num, tab_type, name), default='no'):
                     tabs.primitive_insert(course, num - 1, tab_type, name)  # -1 as above
+            elif options['fix']:
+                for index, item in enumerate(course.tabs):
+                    found = False
+                    if item.get("type") == "open_ended":
+                        if found:
+                            tabs.primitive_delete(course, index - 1)
+                            break
+                        else:
+                            found = True
         except ValueError as e:
             # Cute: translate to CommandError so the CLI error prints nicely.
             raise CommandError(e)
