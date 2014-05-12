@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-04-28 13:17+0000\n"
-"PO-Revision-Date: 2014-04-29 15:17+0300\n"
+"PO-Revision-Date: 2014-05-12 18:24+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -3867,7 +3867,7 @@ msgstr "ДИСКУССИИ:"
 
 #: lms/templates/discussion/_underscore_templates.html:260
 msgid "HOW TO USE EDX DISCUSSIONS"
-msgstr ""
+msgstr "КАК ИСПОЛЬЗОВАТЬ ДИСКУССИИ"
 
 #: lms/templates/discussion/_underscore_templates.html:263
 msgid "Find discussions"
@@ -3883,7 +3883,7 @@ msgstr "Искать сообщения"
 
 #: lms/templates/discussion/_underscore_templates.html:274
 msgid "Sort by date, vote, or comments"
-msgstr ""
+msgstr "Сортировать по дате, голосам или комментариям"
 
 #: lms/templates/discussion/_underscore_templates.html:278
 msgid "Engage with posts"
