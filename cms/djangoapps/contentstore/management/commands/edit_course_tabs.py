@@ -92,8 +92,8 @@ command again, adding --insert or --delete to edit the list.
                 if query_yes_no('Inserting tab {0} "{1}" "{2}" Confirm?'.format(num, tab_type, name), default='no'):
                     tabs.primitive_insert(course, num - 1, tab_type, name)  # -1 as above
             elif options['fix']:
+                found = False
                 for index, item in enumerate(course.tabs):
-                    found = False
                     if u"open_ended" in item.get("type"):
                         if found:
                             tabs.primitive_delete(course, index - 1)
