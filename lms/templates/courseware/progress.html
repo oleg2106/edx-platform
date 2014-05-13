@@ -44,7 +44,7 @@ from django.conf import settings
   <div class="profile-wrapper">
 
     <div class="course-info" id="course-info-progress" aria-label="${_('Course Progress')}">
-      % if staff_access and studio_url is not None:
+      % if staff_access and studio_url is not None and not teacher_role:
         <div class="wrap-instructor-info">
           <a class="instructor-info-action studio-view" href="${studio_url}">${_("View Grading in studio")}</a>
         </div>

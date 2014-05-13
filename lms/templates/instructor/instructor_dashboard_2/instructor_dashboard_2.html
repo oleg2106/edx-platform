@@ -56,7 +56,7 @@
   <div class="instructor-dashboard-wrapper-2">
     <section class="instructor-dashboard-content-2" id="instructor-dashboard-content">
       <div class="wrap-instructor-info studio-view">
-        %if studio_url:
+        %if studio_url and not teacher_role:
           <a class="instructor-info-action" href="${studio_url}">${_("View Course in Studio")}</a>
         %endif
         <a class="instructor-info-action" href="${ old_dashboard_url }"> ${_("Back to Standard Dashboard")} </a>
