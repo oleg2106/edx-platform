@@ -30,7 +30,7 @@ $(document).ready(function(){
     % if user.is_authenticated():
     <section class="updates">
       % if staff_access and masquerade is not UNDEFINED and studio_url is not None:
-        % if masquerade == 'staff':
+        % if masquerade == 'staff' and not teacher_role:
           <div class="wrap-instructor-info studio-view">
             <a class="instructor-info-action" href="${studio_url}">${_("View Updates in Studio")}</a>
           </div>
