@@ -108,7 +108,7 @@ def _get_recipient_queryset(email_obj, user_id, to_option, course_id, course_loc
 
     if to_option == SEND_TO_MYSELF:
         recipient_qset = User.objects.filter(id=user_id)
-    if to_option == SEND_TO_LIST:
+    elif to_option == SEND_TO_LIST:
         recipient_qset = User.objects.filter(email__in=email_obj.to_list)    
     else:
         staff_qset = CourseStaffRole(course_location).users_with_role()
