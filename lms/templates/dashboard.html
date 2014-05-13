@@ -304,23 +304,24 @@
     </header>
     <section class="user-info announcements">
       <ul>
-      <div class="announcement-list">
+        <div class="announcement-list">
           % for announcement in site_wide_announcements:
-                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
-                    ${announcement.title}</h3>
-                    <div class="ann_content">
-                      ${announcement.content.split(".")[0] + "."}
-                      <div class="ann_hidden_content" style="display: none;">
-                        ${".".join(announcement.content.split(".")[1:])}
-                      </div>
-                      <div class="ann_expand_content" style="display:block; text-decoration:underline">
-                        Читать далее <br/>
-                      </div>
-                    </div>
-                % endfor
-          <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
-                </div>
+            <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
+              ${announcement.title}
+            </h3>
+            <div class="ann_content">
+              ${announcement.content.split(".")[0] + "."}
+              <div class="ann_hidden_content" style="display: none;">
+                ${".".join(announcement.content.split(".")[1:])}
+              </div>
+              <div class="ann_expand_content" style="display:block; text-decoration:underline">
+                Читать далее <br/>
+              </div>
+            </div>
+          % endfor
+        </div>
       </ul>
+      <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
     </section>
 
   </section>

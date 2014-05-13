@@ -251,6 +251,8 @@
   }
   div.announcements-wrapper section.announcements > ol > li {
   margin-bottom: 1em;
+  font-family:Ascender;
+  font-size: normal;
   }
   div.announcements-wrapper section.announcements > ol > li h2 {
   font-size: normal;
@@ -277,6 +279,11 @@ div.announcements-wrapper section.announcements > ol > li {
   margin-left: 20px;
   margin-top: 10px;
   width: 70.57627%; /* ðàçîáðàòüñÿ ñ òî÷íûì çíà÷åíèåì!!*/
+}
+
+div.announcement-list > div.ann_content {
+  font-family:Ascender;
+  font-size: small;
 }
 
 /****** ×ÒÎÁÛ ÍÅ ÁÛËÎ SCROLL â îêíå íîâîñòåé ******************/
@@ -329,18 +336,20 @@ section.announcements div > h3 {
       <ul>
         <div class="announcement-list">
           % for announcement in site_wide_announcements:
-                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
-                    ${announcement.title}</h3>
-                    <div class="ann_content">
-                      ${announcement.content.split(".")[0] + "."}
-                      <div class="ann_hidden_content" style="display: none;">
-                        ${".".join(announcement.content.split(".")[1:])}
-                      </div>
-                      <div class="ann_expand_content" style="display:block; text-decoration:underline">
-                        Читать далее <br/>
-                      </div>
-                    </div>
-                % endfor
+            <h3 class="title">
+              ${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
+              ${announcement.title}
+            </h3>
+            <div class="ann_content">
+              ${announcement.content.split(".")[0] + "."}
+              <div class="ann_hidden_content" style="display: none;">
+                ${".".join(announcement.content.split(".")[1:])}
+              </div>
+              <div class="ann_expand_content" style="display:block; text-decoration:underline">
+                Читать далее<br/>
+              </div>
+            </div>
+          % endfor
         </div>
       </ul>
     </section>
@@ -350,21 +359,23 @@ section.announcements div > h3 {
     <header>
       <h2>Все новости</h2>
     </header>
-          <div class="announcements-wrapper">
-           <section class="announcements">
-            <ol>
-                % for announcement in announcements:
-                <li class="announcement">
-                    <h2 class="date">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")} - ${announcement.title}</h2>
-                    ${announcement.content}
-                </li>
-                % endfor
-            </ol>
-           </section>
-        </div>
-
-    
+    <div class="announcements-wrapper">
+      <section class="announcements">
+        <ol>
+          % for announcement in announcements:
+            <li class="announcement">
+                <h2 class="date">
+                  ${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")} - 
+                  ${announcement.title}
+                </h2>
+                ${announcement.content}
+            </li>
+          % endfor
+        </ol>
+      </section>
+    </div>
   </section>
+
 </section>
 
 
