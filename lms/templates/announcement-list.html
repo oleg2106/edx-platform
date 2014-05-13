@@ -170,8 +170,21 @@
 
     $('.announcement-list').accordion({
       collapsible: true,
-heightStyle: "content"
+      heightStyle: "content"
     })
+
+    $('.ann_hidden_content').each(function(index){
+        $(this).attr("id", "ann_hidden_content-" + index);
+      });
+
+    $('.ann_expand_content').each(function(index){
+        $(this).attr("id", "ann_expand_content-" + index);
+      });
+
+    $(".ann_expand_content").click(function(){
+        $("#ann_hidden_content-" + $(".ann_expand_content").index(this)).attr("style", 'display:inline');
+        $(this).attr("style", "display: none");
+      });
 
   });
   </script>
@@ -218,7 +231,7 @@ heightStyle: "content"
   margin-top: 5px;
   padding-top: 5px;
   overflow-x: hidden;
-  text-transform: capitalize;
+  text-transform: none;
   }
   section.announcements div > h3.title.ui-accordion-header-active {
   background: url("/static/images/calendar-icon.png") 0px 10px no-repeat, url("/static/images/small-grey-arrows-right.png") 0px 28px no-repeat;
@@ -238,6 +251,8 @@ heightStyle: "content"
   }
   div.announcements-wrapper section.announcements > ol > li {
   margin-bottom: 1em;
+  font-family:Ascender;
+  font-size: normal;
   }
   div.announcements-wrapper section.announcements > ol > li h2 {
   font-size: normal;
@@ -245,7 +260,7 @@ heightStyle: "content"
   background: url("/static/images/calendar-icon.png") 0 center no-repeat;
   padding-left: 20px;
   margin-bottom: 0px;
-  text-transform: capitalize;
+  text-transform: none;
   }
 
 html, body {
@@ -264,6 +279,11 @@ div.announcements-wrapper section.announcements > ol > li {
   margin-left: 20px;
   margin-top: 10px;
   width: 70.57627%; /* ðàçîáðàòüñÿ ñ òî÷íûì çíà÷åíèåì!!*/
+}
+
+div.announcement-list > div.ann_content {
+  font-family:Ascender;
+  font-size: small;
 }
 
 /****** ×ÒÎÁÛ ÍÅ ÁÛËÎ SCROLL â îêíå íîâîñòåé ******************/
@@ -314,38 +334,48 @@ section.announcements div > h3 {
     </header>
     <section class="user-info announcements">
       <ul>
-      <div class="announcement-list">
-          % for announcement in site_wide_announcements[0:5]:
-                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")}</br>${announcement.title}</h2>
-                    <div class="content">
-                    ${' '.join(announcement.content.split()[:10])}...<br/>
-                    </div>
-                % endfor
-                </div>
+        <div class="announcement-list">
+          % for announcement in site_wide_announcements:
+            <h3 class="title">
+              ${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
+              ${announcement.title}
+            </h3>
+            <div class="ann_content">
+              ${announcement.content.split(".")[0] + "."}
+              <div class="ann_hidden_content" style="display: none;">
+                ${".".join(announcement.content.split(".")[1:])}
+              </div>
+              <div class="ann_expand_content" style="display:block; text-decoration:underline">
+                Читать далее<br/>
+              </div>
+            </div>
+          % endfor
+        </div>
       </ul>
     </section>
-
   </section>
 
   <section class="my-courses" id="my-courses">
     <header>
       <h2>Все новости</h2>
     </header>
-          <div class="announcements-wrapper">
-           <section class="announcements">
-            <ol>
-                % for announcement in announcements:
-                <li class="announcement">
-                    <h2 class="date">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")} - ${announcement.title}</h2>
-                    ${announcement.content}
-                </li>
-                % endfor
-            </ol>
-           </section>
-        </div>
-
-    
+    <div class="announcements-wrapper">
+      <section class="announcements">
+        <ol>
+          % for announcement in announcements:
+            <li class="announcement">
+                <h2 class="date">
+                  ${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")} - 
+                  ${announcement.title}
+                </h2>
+                ${announcement.content}
+            </li>
+          % endfor
+        </ol>
+      </section>
+    </div>
   </section>
+
 </section>
 
 

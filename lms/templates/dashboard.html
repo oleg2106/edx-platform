@@ -181,12 +181,27 @@
       var trigger = "#" + $(this).attr("id");
       accessible_modal(trigger, "#unenroll-modal .close-modal", "#unenroll-modal", "#dashboard-main");
     });
+
     $('.announcement-list').accordion({
       collapsible: true,
-heightStyle: "content"
+      heightStyle: "content"
     })
 
+    $('.ann_hidden_content').each(function(index){
+        $(this).attr("id", "ann_hidden_content-" + index);
+      });
+
+    $('.ann_expand_content').each(function(index){
+        $(this).attr("id", "ann_expand_content-" + index);
+      });
+
+    $(".ann_expand_content").click(function(){
+        $("#ann_hidden_content-" + $(".ann_expand_content").index(this)).attr("style", 'display:inline');
+        $(this).attr("style", "display: none");
+      });
+
   });
+
   </script>
 </%block>
 
@@ -230,7 +245,7 @@ heightStyle: "content"
   margin-bottom: 3px;
   margin-top: 5px;
   padding-top: 5px;
-  text-transform: capitalize;
+  text-transform: none;
   overflow-x: hidden;
   }
   section.announcements div > h3.title.ui-accordion-header-active {
@@ -243,6 +258,12 @@ heightStyle: "content"
   font-size: small;
   padding-left: 5px;
   }
+
+  div.announcement-list > div.ann_content {
+    font-family:Ascender;
+    font-size: small;
+  }
+
 </style>
 
   <section class="profile-sidebar">
@@ -289,17 +310,24 @@ heightStyle: "content"
     </header>
     <section class="user-info announcements">
       <ul>
-        <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
-      <div class="announcement-list">
-          % for announcement in site_wide_announcements[0:5]:
-                    <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d E Y")}</br>${announcement.title}</h2>
-                    <div class="content">
-                    ${' '.join(announcement.content.split()[:10])}...<br/>
-                    <a href="${reverse('announcement_list')}">Читать далее</a>
-                    </div>
-                % endfor
-                </div>
+        <div class="announcement-list">
+          % for announcement in site_wide_announcements:
+            <h3 class="title">${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")}</br>
+              ${announcement.title}
+            </h3>
+            <div class="ann_content">
+              ${announcement.content.split(".")[0] + "."}
+              <div class="ann_hidden_content" style="display: none;">
+                ${".".join(announcement.content.split(".")[1:])}
+              </div>
+              <div class="ann_expand_content" style="display:block; text-decoration:underline">
+                Читать далее <br/>
+              </div>
+            </div>
+          % endfor
+        </div>
       </ul>
+      <a href="${reverse('announcement_list')}" style="float:right">Все новости</a><br/><br/>
     </section>
 
   </section>
