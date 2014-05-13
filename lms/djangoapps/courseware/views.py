@@ -24,7 +24,7 @@ from markupsafe import escape
 
 from courseware import grades
 from courseware.access import has_access
-from courseware.courses import get_courses, get_course_with_access, get_studio_url, sort_by_announcement
+from courseware.courses import get_course, get_courses, get_course_with_access, get_studio_url, sort_by_announcement
 
 from courseware.masquerade import setup_masquerade
 from courseware.model_data import FieldDataCache
@@ -36,6 +36,7 @@ from open_ended_grading import open_ended_notifications
 from student.models import UserTestGroup, CourseEnrollment
 from student.views import course_from_id, single_course_reverification_info
 from util.cache import cache, cache_if_anonymous
+from util.json_request import JsonResponse
 from xblock.fragment import Fragment
 from xmodule.modulestore import Location
 from xmodule.modulestore.django import modulestore
@@ -647,6 +648,10 @@ def registered_for_course(course, user):
     else:
         return False
 
+def course_api(request, course_id):
+    course = get_course(course_id)
+    return JsonResponse({ 'display_name': course.display_name_with_default,
+                          'display_number': course.display_number_with_default})
 
 @ensure_csrf_cookie
 @cache_if_anonymous
