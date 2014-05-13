@@ -34,7 +34,7 @@ margin-top: 20px;
 >
     <h2 class="problem-header">${display_name}</h2>
 <%
-    formatted_string = get_time_display(due, "DATE_TIME", coerce_tz=settings.TIME_ZONE_DISPLAYED_FOR_DEADLINES)
+    formatted_string = get_time_display(due, "DATE_TIME", coerce_tz='Europe/Moscow')
     due_date = '' if len(formatted_string)==0 else (u'<h4>Дата окончания регистрации: {date}</h4>').format(date=formatted_string)
     %>
     

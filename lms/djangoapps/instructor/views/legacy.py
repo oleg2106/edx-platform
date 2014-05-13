@@ -926,6 +926,7 @@ def instructor_dashboard(request, course_id):
         'course': course,
         'staff_access': True,
         'admin_access': request.user.is_staff,
+        'teacher_role': teacher_role,
         'instructor_access': instructor_access,
         'forum_admin_access': forum_admin_access,
         'datatable': datatable,
