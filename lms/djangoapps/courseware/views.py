@@ -149,6 +149,7 @@ def stat(request):
                     complete100=request.POST.get('complete100')\
                 )
             except:
+                log.exception('Failed to filter')
                 return render_to_response('stat.html', context)
 
     return render_to_response('stat.html', context)
@@ -206,9 +207,9 @@ def return_filtered_stat_csv(school_login='', register_date_min=None, register_d
                         if (school_login == '' or row[6] == school_login) and\
                         (register_date_min == None or register_date_min <= register_date) and\
                         (register_date_max == None or register_date <= register_date_max) and\
-                        (account_activated == None or (len(row[9]) == 4) == bool(account_activated)) and\
-                        (complete70 == None or (len(row[14]) == 4) == bool(complete70)) and\
-                        (complete100 == None or (len(row[15]) == 4) == bool(complete100)):    # ultimate hack: len('da') == 4
+                        (account_activated == None or (len(row[9]) == 2) == bool(account_activated)) and\
+                        (complete70 == None or (len(row[14]) == 2) == bool(complete70)) and\
+                        (complete100 == None or (len(row[15]) == 2) == bool(complete100)):    # ultimate hack: len('da') == 4
                             encoded_row = [unicode(s).encode(encoding) for s in row]
                             writer.writerow(encoded_row)
                     except:
