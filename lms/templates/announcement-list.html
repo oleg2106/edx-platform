@@ -183,19 +183,6 @@
       heightStyle: "content"
     })
 
-    $('.ann_hidden_content').each(function(index){
-        $(this).attr("id", "ann_hidden_content-" + index);
-      });
-
-    $('.ann_expand_content').each(function(index){
-        $(this).attr("id", "ann_expand_content-" + index);
-      });
-
-    $(".ann_expand_content").click(function(){
-        $("#ann_hidden_content-" + $(".ann_expand_content").index(this)).attr("style", 'display:inline');
-        $(this).attr("style", "display: none");
-      });
-
   });
   </script>
 </%block>
@@ -236,6 +223,7 @@
     color:#646464;
   font-size: 0.875em;
   font-weight: bold !important;
+  font-family:"Open Sans";
   padding-left: 20px;
   margin-bottom: 3px;
   margin-top: 5px;
@@ -250,57 +238,60 @@
     background: url("/static/images/calendar-icon.png") 0px 10px no-repeat, url("/static/images/small-grey-arrows-down.png") 0px 28px no-repeat;
   }
   .announcement .content {
-  font-size: small;
+  font-family:"Open Sans";
+  font-size: 0.875em;
   padding-left: 5px;
   }
 
   div.announcements-wrapper section.announcements > ol {
+  font-family:"Open Sans";
   list-style: none;
   margin-bottom: 1.41575em;
   padding-left: 0;
   }
+
   div.announcements-wrapper section.announcements > ol > li {
   margin-bottom: 1em;
-  font-family:Ascender;
-  font-size: normal;
+  font-family:"Open Sans";
+  font-size:normal;
   }
+
   div.announcements-wrapper section.announcements > ol > li h2 {
-  font-size: normal;
+  font-family:"Open Sans";
+  font-size:normal;
   font-weight: bold !important;
+  margin-bottom: 10px !important;
   background: url("/static/images/calendar-icon.png") 0 center no-repeat;
   padding-left: 20px;
   margin-bottom: 0px;
   text-transform: none;
   }
 
-html, body {
-  line-height: 1.2em;
-}
+  html, body {
+    line-height: 1.2em;
+  }
 
-div.announcements-wrapper section.announcements > ol > li h2 {
-  margin-bottom: 10px !important;
-}
+  div.announcements-wrapper section.announcements > ol > li {
+    margin-bottom: 35px !important;
+  }
 
-div.announcements-wrapper section.announcements > ol > li {
-  margin-bottom: 35px !important;
-}
+  .dashboard .my-courses {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 70.57627%; /* ðàçîáðàòüñÿ ñ òî÷íûì çíà÷åíèåì!!*/
+  }
 
-.dashboard .my-courses {
-  margin-left: 20px;
-  margin-top: 10px;
-  width: 70.57627%; /* ðàçîáðàòüñÿ ñ òî÷íûì çíà÷åíèåì!!*/
-}
+  div.announcement-list > div.ann_content {
+    font-family:"Open Sans";
+    font-size: small;
+  }
 
-div.announcement-list > div.ann_content {
-  font-family:Ascender;
-  font-size: small;
-}
-
-/****** ×ÒÎÁÛ ÍÅ ÁÛËÎ SCROLL â îêíå íîâîñòåé ******************/
-section.announcements div > h3 {
-  overflow-y: hidden;
-}
+  /****** ×ÒÎÁÛ ÍÅ ÁÛËÎ SCROLL â îêíå íîâîñòåé ******************/
+  section.announcements div > h3 {
+    overflow-y: hidden;
+  }
 </style>
+
   <section class="profile-sidebar">
     <header class="profile">
       <h1 class="user-name">${ user.username }</h1>
@@ -372,7 +363,9 @@ section.announcements div > h3 {
                   ${_date(announcement.creation_date.astimezone(_timezone(settings.TIME_ZONE)),"d/m/Y")} - 
                   ${announcement.title}
                 </h2>
-                ${announcement.content}
+                <div>
+                  ${announcement.content}
+                </div>
             </li>
           % endfor
         </ol>
