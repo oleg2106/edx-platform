@@ -24,6 +24,16 @@
 <%block name="nav_skip">#my-courses</%block>
 
 <%block name="js_extra">
+  <script src="${static.url('js/vendor/jquery.shorten.js')}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".ann_content").shorten({
+          "showChars": 100,
+          "moreText": "Читать далее",
+          "lessText": "Свернуть",
+        });
+    })
+  </script>
   <script type="text/javascript">
   (function() {
 
@@ -187,22 +197,10 @@
       heightStyle: "content"
     })
 
-    $('.ann_hidden_content').each(function(index){
-        $(this).attr("id", "ann_hidden_content-" + index);
-      });
-
-    $('.ann_expand_content').each(function(index){
-        $(this).attr("id", "ann_expand_content-" + index);
-      });
-
-    $(".ann_expand_content").click(function(){
-        $("#ann_hidden_content-" + $(".ann_expand_content").index(this)).attr("style", 'display:inline');
-        $(this).attr("style", "display: none");
-      });
-
   });
 
   </script>
+
 </%block>
 
 % if reverifications["must_reverify"] or reverifications["denied"]:
@@ -240,6 +238,7 @@
   section.announcements div > h3 {
     color:#646464;
   font-size: 0.875em;
+  font-family:"Open Sans";
   font-weight: bold !important;
   padding-left: 20px;
   margin-bottom: 3px;
@@ -247,6 +246,7 @@
   padding-top: 5px;
   text-transform: none;
   overflow-x: hidden;
+  overflow-y: hidden;
   }
   section.announcements div > h3.title.ui-accordion-header-active {
   background: url("/static/images/calendar-icon.png") 0px 10px no-repeat, url("/static/images/small-grey-arrows-right.png") 0px 28px no-repeat;
@@ -254,14 +254,14 @@
   section.announcements div > h3.title {
     background: url("/static/images/calendar-icon.png") 0px 10px no-repeat, url("/static/images/small-grey-arrows-down.png") 0px 28px no-repeat;
   }
+
   .announcement .content {
-  font-size: small;
-  padding-left: 5px;
+    padding-left: 5px;
   }
 
   div.announcement-list > div.ann_content {
-    font-family:Ascender;
-    font-size: small;
+    font-family:"Open Sans";
+    font-size: 0.875em;
   }
 
 </style>
@@ -316,13 +316,7 @@
               ${announcement.title}
             </h3>
             <div class="ann_content">
-              ${announcement.content.split(".")[0] + "."}
-              <div class="ann_hidden_content" style="display: none;">
-                ${".".join(announcement.content.split(".")[1:])}
-              </div>
-              <div class="ann_expand_content" style="display:block; text-decoration:underline">
-                Читать далее <br/>
-              </div>
+              ${announcement.content}
             </div>
           % endfor
         </div>
