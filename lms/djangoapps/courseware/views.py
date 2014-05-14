@@ -59,6 +59,66 @@ log = logging.getLogger("edx.courseware")
 
 template_imports = {'urllib': urllib}
 
+
+class UTF8Recoder:
+    """
+    Iterator that reads an encoded stream and reencodes the input to UTF-8
+    """
+    def __init__(self, f, encoding):
+        self.reader = codecs.getreader(encoding)(f)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.reader.next().encode("utf-8")
+
+class UnicodeReader:
+    """
+    A CSV reader which will iterate over lines in the CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
+        f = UTF8Recoder(f, encoding)
+        self.reader = csv.reader(f, dialect=dialect, **kwds)
+
+    def next(self):
+        row = self.reader.next()
+        return [unicode(s, "utf-8") for s in row]
+
+    def __iter__(self):
+        return self
+
+class UnicodeWriter:
+    """
+    A CSV writer which will write rows to CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
+        # Redirect output to a queue
+        self.queue = cStringIO.StringIO()
+        self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
+        self.stream = f
+        self.encoder = codecs.getincrementalencoder(encoding)()
+
+    def writerow(self, row):
+        self.writer.writerow([s.encode("utf-8") for s in row])
+        # Fetch UTF-8 output from the queue ...
+        data = self.queue.getvalue()
+        data = data.decode("utf-8")
+        # ... and reencode it into the target encoding
+        data = self.encoder.encode(data)
+        # write to the target stream
+        self.stream.write(data)
+        # empty queue
+        self.queue.truncate(0)
+
+    def writerows(self, rows):
+        for row in rows:
+            self.writerow(row)
+
 def stat(request):
 
     if not request.user.is_staff:
@@ -69,7 +129,7 @@ def stat(request):
     filename = '/edx/app/edxapp/edx-platform/fullstat.csv'
     if request.method == 'POST':
         if 'download_stat_unfiltered' in request.POST:
-            return return_fullstat_csv(filename)
+            return return_fullstat_csv('/edx/app/edxapp/edx-platform/fullstat.xls')
         elif 'download_stat_filtered' in request.POST:
             context['value_error_in_input'] = True
             try:
@@ -99,8 +159,8 @@ def return_fullstat_csv(filename):
     Returns fullstat.csv file.
     """
     wrapper = FileWrapper(file(filename))
-    response = HttpResponse(wrapper, content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=fullstat.csv'
+    response = HttpResponse(wrapper, content_type='text/xls')
+    response['Content-Disposition'] = 'attachment; filename=fullstat.xls'
     return response
 
 
@@ -116,20 +176,23 @@ def return_filtered_stat_csv(school_login='', register_date_min=None, register_d
     If no values are chosen, returns a filtered file with all row of fullstat.csv which contain a valid registration date in the corresponding field.
     """
 
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="stat_filtered.csv"'
-    writer = csv.writer(response)
+    response = HttpResponse(content_type='text/xls')
+    response['Content-Disposition'] = 'attachment; filename="stat_filtered.xls"'
+    writer = csv.writer(response, dialect="excel-tab")
+    encoding = 'cp1251'
 
     with open("/edx/app/edxapp/edx-platform/fullstat.csv", "r") as fullstatfile:
         header_row = True
         first_rows = True
-        for row in csv.reader(fullstatfile):
+        for row in UnicodeReader(fullstatfile):
             if header_row:
-                writer.writerow(row)
+                encoded_row = [unicode(s).encode(encoding) for s in row]
+                writer.writerow(encoded_row)
                 header_row = False
             elif first_rows:
                 if len(row)>0 and row[0]=='-':
-                    writer.writerow(row)
+                    encoded_row = [unicode(s).encode(encoding) for s in row]
+                    writer.writerow(encoded_row)
                 else:
                     first_rows = False
             else:
@@ -146,7 +209,8 @@ def return_filtered_stat_csv(school_login='', register_date_min=None, register_d
                         (account_activated == None or (len(row[9]) == 4) == bool(account_activated)) and\
                         (complete70 == None or (len(row[14]) == 4) == bool(complete70)) and\
                         (complete100 == None or (len(row[15]) == 4) == bool(complete100)):    # ultimate hack: len('da') == 4
-                            writer.writerow(row)
+                            encoded_row = [unicode(s).encode(encoding) for s in row]
+                            writer.writerow(encoded_row)
                     except:
                         pass
                                         

@@ -172,7 +172,7 @@ def fullstat(request = None):
 
     for course in modulestore().get_courses():
         
-        datarow = [u'-', u'-', u'-', u'-', u'-', u'-', course.id, u'-', u'-', u'-', u'-', u'-']
+        datarow = [u'-', u'-', u'-', u'-', u'-', u'-', u'-', u'-', u'-', u'-', course.display_number_with_default + " " + course.display_name_with_default, u'-', u'-', u'-', u'-', u'-']
         
         assignments = []
         
