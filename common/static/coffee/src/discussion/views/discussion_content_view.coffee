@@ -65,9 +65,9 @@ if Backbone?
             @$(".action-endorse").hide()
           else
             @$(".action-endorse").show()
-      can_openclose:
-        enable: -> @$(".action-openclose").closest("li").show()
-        disable: -> @$(".action-openclose").closest("li").hide()
+      # can_openclose:
+      #  enable: -> @$(".action-openclose").closest("li").show()
+      #  disable: -> @$(".action-openclose").closest("li").hide()
 
     renderPartialAttrs: ->
       for attr, value of @model.changedAttributes()

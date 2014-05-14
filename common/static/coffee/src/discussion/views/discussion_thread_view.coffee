@@ -106,9 +106,9 @@ if Backbone?
               {numResponses: @responses.size()},
               true
             )
-        responsePagination.append($("<span>").addClass("response-display-count").html(
-          _.escape(showingResponsesText)
-        ))
+        # responsePagination.append($("<span>").addClass("response-display-count").html(
+        #  _.escape(showingResponsesText)
+        # ))
         if responsesRemaining > 0
           if responsesRemaining < SUBSEQUENT_RESPONSE_PAGE_SIZE
             responseLimit = null
