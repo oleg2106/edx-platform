@@ -47,7 +47,7 @@ from xmodule.tabs import CourseTabList, StaffGradingTab, PeerGradingTab, OpenEnd
 import shoppingcart
 
 #new
-import csv
+import csv, codecs, cStringIO
 import datetime
 from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
