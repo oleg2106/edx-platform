@@ -65,8 +65,14 @@ def stat(request):
             raise Http404
 
     context = {}
+    context['courses'] = get_courses(request.user)
+    context['eval_error'] = ""
+    context['eval_selected_course'] = request.POST.get('eval_selected_course')
+    context['disc_selected_course'] = request.POST.get('disc_selected_course')
+
     context['csrf'] = csrf(request)['csrf_token']
     filename = '/edx/app/edxapp/edx-platform/fullstat.csv'
+
     if request.method == 'POST':
         if 'download_stat_unfiltered' in request.POST:
             return return_fullstat_csv(filename)
@@ -91,8 +97,108 @@ def stat(request):
             except:
                 return render_to_response('stat.html', context)
 
+        elif 'download_eval_stat_unfiltered' in request.POST:
+            try:
+                pass
+            except:
+                pass
+
+        elif 'download_eval_stat_filtered' in request.POST:
+
+            context['eval_value_error_in_input'] = True
+            try:
+                eval_date_min = None
+                eval_date_max = None
+                if request.POST.get('eval_min_date') != '':
+                    eval_date_min = datetime.datetime.strptime(request.POST.get('eval_min_date'), "%d/%m/%Y")
+                if request.POST.get('eval_max_date') != '':
+                    eval_date_max = datetime.datetime.strptime(request.POST.get('eval_max_date'), "%d/%m/%Y")
+                context['eval_value_error_in_input'] = False
+                return return_filtered_eval_stat_csv(\
+                    context,\
+                    eval_date_min=eval_date_min,\
+                    eval_date_max=eval_date_max,\
+                )
+            except:
+                return render_to_response('stat.html', context)
+
+        elif 'download_disc_stat_unfiltered' in request.POST:
+            try:
+                pass
+            except:
+                pass
+
+        elif 'download_disc_stat_filtered' in request.POST:
+
+            context['disc_value_error_in_input'] = True
+            try:
+                disc_date_min = None
+                disc_date_max = None
+                if request.POST.get('disc_min_date') != '':
+                    disc_date_min = datetime.datetime.strptime(request.POST.get('disc_min_date'), "%d/%m/%Y")
+                if request.POST.get('disc_max_date') != '':
+                    disc_date_max = datetime.datetime.strptime(request.POST.get('disc_max_date'), "%d/%m/%Y")
+                context['disc_value_error_in_input'] = False
+                return return_filtered_disc_stat_csv(\
+                    disc_date_min=disc_date_min,\
+                    disc_date_max=disc_date_max,\
+                )
+            except:
+                return render_to_response('stat.html', context)
+
     return render_to_response('stat.html', context)
 
+
+def return_filtered_eval_stat_csv(context, eval_date_min, eval_date_max): #context -- for testing purposes
+    """
+    Will return filtered csv file with info on teacher's work on assessments.
+    """
+
+    '''
+    Query to (two) databases will be here.
+    '''
+
+    try:
+        query_template = "";
+
+        date_condition_min = "<default condition min>"
+        if eval_date_min != None:
+            date_condition_min = "AND date_created >= {0}".format(datetime.datetime.strftime(eval_date_max, "%Y%m%d"))
+
+        date_condition_max = "<default condition max>"
+        if eval_date_max != None:
+            date_condition_max = "AND date_created <= {0}".format(datetime.datetime.strftime(eval_date_max, "%Y%m%d"))
+
+        context['date_condition_min'] = date_condition_min
+        
+
+        #return render_to_response('stat.html', context)
+
+        wrapper = FileWrapper(file('/edx/app/edxapp/edx-platform/test.csv'))
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=test.csv'
+        writer = csv.writer(response)
+        writer.writerow([date_condition_min, date_condition_max])
+        return response
+
+    except Error:
+        context['eval_error'] = Error
+        return render_to_response('stat.html', context)
+    
+
+
+
+def return_filtered_disc_stat_csv(disc_date_min, disc_date_max):
+    """
+    Will return filtered csv file with info on teacher's work in discussions.
+    """
+
+    return render_to_response('stat.html', context)
+
+    '''
+    response = HttpResponse(content_type='text/csv')
+    return response
+    '''
 
 def return_fullstat_csv(filename):
     """
