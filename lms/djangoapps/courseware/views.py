@@ -49,7 +49,6 @@ import shoppingcart
 #new
 import csv, codecs, cStringIO
 import datetime
-from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
 import logging
 
@@ -215,6 +214,18 @@ def return_filtered_stat_csv(school_login='', register_date_min=None, register_d
                     except:
                         pass
                                         
+    return response
+
+
+
+@login_required
+def view_cerf(request, course_id):
+    course = get_course(course_id)
+    filename = "/edx/app/edxapp/cert/" + course.display_number_with_default.replace(" ", "_") + "_" + course.display_name_with_default.replace(" ", "_") + "/" + request.user.username + ".pdf"
+    wrapper = FileWrapper(file(filename))
+    response = HttpResponse(wrapper, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="course_cert.pdf"'
+
     return response
 
 

@@ -244,6 +244,8 @@ if settings.COURSEWARE_ENABLED:
             'courseware.views.course_info', name="course_root"),
         url(r'^courses/(?P<course_id>[^/]+/[^/]+/[^/]+)/info$',
             'courseware.views.course_info', name="info"),
+        url(r'^courses/(?P<course_id>[^/]+/[^/]+/[^/]+)/cert$',
+            'courseware.views.course_cert', name="cert"),
         url(r'^courses/(?P<course_id>[^/]+/[^/]+/[^/]+)/syllabus$',
             'courseware.views.syllabus', name="syllabus"),   # TODO arjun remove when custom tabs in place, see courseware/courses.py
 
