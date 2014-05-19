@@ -433,7 +433,7 @@
         }
 
         .enter-cert {
-          @include button(simple, $yellow);
+          @include button(simple, rgb(247,141,29));
           @include box-sizing(border-box);
           border-radius: 3px;
           display: block;
