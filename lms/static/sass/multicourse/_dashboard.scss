@@ -432,6 +432,33 @@
           }
         }
 
+        .enter-cert {
+          @include button(simple, $yellow);
+          @include box-sizing(border-box);
+          border-radius: 3px;
+          display: block;
+          float: left;
+          font: normal 15px/1.6rem $sans-serif;
+          letter-spacing: 0;
+          padding: 6px 32px 7px;
+          text-align: center;
+          margin-top: 16px;
+
+          &.archived {
+            @include button(simple, $button-archive-color);
+            font: normal 15px/1.6rem $sans-serif;
+            padding: 6px 32px 7px;
+
+            &:hover, &:focus {
+              text-decoration: none;
+            }
+          }
+
+          &:hover, &:focus {
+            text-decoration: none;
+          }
+        }
+
         .enter-course {
           @include button(simple, $button-color);
           @include box-sizing(border-box);
