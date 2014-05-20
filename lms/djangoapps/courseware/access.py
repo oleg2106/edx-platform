@@ -204,6 +204,7 @@ def _has_access_course_desc(user, course, action):
         'load_forum': can_load_forum,
         'enroll': can_enroll,
         'see_exists': see_exists,
+        'teacher': lambda: _has_teacher_access_to_descriptor(user, course),
         'staff': lambda: _has_staff_access_to_descriptor(user, course),
         'instructor': lambda: _has_instructor_access_to_descriptor(user, course),
         }
@@ -393,6 +394,10 @@ def _adjust_start_date_for_beta_testers(user, descriptor, course_context=None):
     return descriptor.start
 
 
+def _has_teacher_access_to_location(user, location, course_context=None):
+    return _has_access_to_location(user, location, 'teacher', course_context)
+
+
 def _has_instructor_access_to_location(user, location, course_context=None):
     return _has_access_to_location(user, location, 'instructor', course_context)
 
@@ -470,6 +475,15 @@ def _has_staff_access_to_course_id(user, course_id):
     """Helper method that takes a course_id instead of a course name"""
     loc = CourseDescriptor.id_to_location(course_id)
     return _has_staff_access_to_location(user, loc, course_id)
+
+
+def _has_teacher_access_to_descriptor(user, descriptor, course_context=None):
+    """Helper method that checks whether the user has staff access to
+    the course of the location.
+
+    descriptor: something that has a location attribute
+    """
+    return _has_teacher_access_to_location(user, descriptor.location, course_context)
 
 
 def _has_instructor_access_to_descriptor(user, descriptor, course_context=None):
