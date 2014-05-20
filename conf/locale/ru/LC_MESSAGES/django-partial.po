@@ -901,7 +901,7 @@ msgstr "Дек"
 #: common/djangoapps/util/date_utils.py:324
 msgctxt "month name"
 msgid "January"
-msgstr "Январь"
+msgstr "Января"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "February 10, 2014". It is used for the %B directive in
@@ -909,7 +909,7 @@ msgstr "Январь"
 #: common/djangoapps/util/date_utils.py:328
 msgctxt "month name"
 msgid "February"
-msgstr "Февраль"
+msgstr "Февраля"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "March 10, 2014". It is used for the %B directive in
@@ -925,7 +925,7 @@ msgstr "Март"
 #: common/djangoapps/util/date_utils.py:336
 msgctxt "month name"
 msgid "April"
-msgstr "Апрель"
+msgstr "Апреля"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "May 10, 2014". It is used for the %B directive in
@@ -933,7 +933,7 @@ msgstr "Апрель"
 #: common/djangoapps/util/date_utils.py:340
 msgctxt "month name"
 msgid "May"
-msgstr "Май"
+msgstr "Мая"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "June 10, 2014". It is used for the %B directive in
@@ -941,7 +941,7 @@ msgstr "Май"
 #: common/djangoapps/util/date_utils.py:344
 msgctxt "month name"
 msgid "June"
-msgstr "Июнь"
+msgstr "Июня"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "July 10, 2014". It is used for the %B directive in
@@ -949,7 +949,7 @@ msgstr "Июнь"
 #: common/djangoapps/util/date_utils.py:348
 msgctxt "month name"
 msgid "July"
-msgstr "Июль"
+msgstr "Июля"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "August 10, 2014". It is used for the %B directive in
@@ -957,7 +957,7 @@ msgstr "Июль"
 #: common/djangoapps/util/date_utils.py:352
 msgctxt "month name"
 msgid "August"
-msgstr "Август"
+msgstr "Августа"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "September 10, 2014". It is used for the %B directive in
@@ -965,7 +965,7 @@ msgstr "Август"
 #: common/djangoapps/util/date_utils.py:356
 msgctxt "month name"
 msgid "September"
-msgstr "Сентябрь"
+msgstr "Сентября"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "October 10, 2014". It is used for the %B directive in
@@ -973,7 +973,7 @@ msgstr "Сентябрь"
 #: common/djangoapps/util/date_utils.py:360
 msgctxt "month name"
 msgid "October"
-msgstr "Октябрь"
+msgstr "Октября"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "November 10, 2014". It is used for the %B directive in
@@ -981,7 +981,7 @@ msgstr "Октябрь"
 #: common/djangoapps/util/date_utils.py:364
 msgctxt "month name"
 msgid "November"
-msgstr "Ноябрь"
+msgstr "Ноября"
 
 #. Translators: this is a month name that will be used when displaying
 #. dates, as in "December 10, 2014". It is used for the %B directive in
@@ -989,7 +989,7 @@ msgstr "Ноябрь"
 #: common/djangoapps/util/date_utils.py:368
 msgctxt "month name"
 msgid "December"
-msgstr "Декабрь"
+msgstr "Декабря"
 
 #: common/djangoapps/util/password_policy_validators.py:23
 #, fuzzy
@@ -2770,8 +2770,8 @@ msgid ""
 "We could not find a file in your submission. Please try choosing a file or "
 "pasting a URL to your file into the answer box."
 msgstr ""
-"Мы не можем найти файл в вашем ответе. Пожалуйста прикрепите файл  или "
-"вставите ссылку на него в поле для ответа."
+"Мы не можем найти файл в вашем ответе. Пожалуйста, прикрепите файл или "
+"вставьте ссылку на него в поле для ответа."
 
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/openendedchild.py:513
 msgid ""
@@ -2867,7 +2867,7 @@ msgstr "Информатика"
 
 #: lms/djangoapps/branding/views.py:88 lms/templates/wiki/history.html:5
 msgid "History"
-msgstr "Историю"
+msgstr "История"
 
 #: lms/djangoapps/branding/views.py:89
 msgid "Literature"
@@ -2890,9 +2890,8 @@ msgid "OBG"
 msgstr "ОБЖ"
 
 #: lms/djangoapps/branding/views.py:94
-#, fuzzy
 msgid "Social Studies"
-msgstr "Социальный педагог"
+msgstr "Обществознание"
 
 #: lms/djangoapps/branding/views.py:95
 msgid "Law"
