@@ -392,6 +392,7 @@ class @CombinedOpenEnded
     else
       @submit_button.show()
       @submit_button.attr('disabled', false)
+      @answer_area.attr("disabled", false)
       @gentle_alert response.error
 
   confirm_save_answer: (event) =>
