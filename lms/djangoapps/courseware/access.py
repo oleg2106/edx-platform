@@ -436,6 +436,10 @@ def _has_access_to_location(user, location, access_level, course_context):
         CourseTeacherRole(location, course_context).has_user(user)
     )
 
+    if access_level == 'teacher':
+        debug("Requesting teacher_access")
+        return teacher_access
+
     if teacher_access and access_level == 'staff':
         debug("Allow: user has course teacher access")
         return True
