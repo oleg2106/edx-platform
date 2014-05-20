@@ -513,6 +513,8 @@ def get_user_role(user, course_id):
     course = get_course(course_id)
     if is_masquerading_as_student(user):
         return 'student'
+    elif has_access(user, course, 'teacher'):
+        return 'teacher'
     elif has_access(user, course, 'instructor'):
         return 'instructor'
     elif has_access(user, course, 'staff'):
