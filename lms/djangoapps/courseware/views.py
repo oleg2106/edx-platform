@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Courseware views functions
 """
@@ -33,7 +34,7 @@ from courseware.models import StudentModule, StudentModuleHistory
 from course_modes.models import CourseMode
 
 from open_ended_grading import open_ended_notifications
-from student.models import UserTestGroup, CourseEnrollment
+from student.models import UserTestGroup, CourseEnrollment, user_by_anonymous_id
 from student.views import course_from_id, single_course_reverification_info
 from util.cache import cache, cache_if_anonymous
 from util.json_request import JsonResponse
@@ -52,6 +53,8 @@ import datetime
 from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
 import logging
+from django.db import connections
+from util.date_utils import strftime_localized
 
 from microsite_configuration import microsite
 
@@ -60,15 +63,16 @@ log = logging.getLogger("edx.courseware")
 template_imports = {'urllib': urllib}
 
 def stat(request):
+    #user.profile.name
 
     if not request.user.is_staff:
             raise Http404
 
     context = {}
     context['courses'] = get_courses(request.user)
-    context['eval_error'] = ""
     context['eval_selected_course'] = request.POST.get('eval_selected_course')
     context['disc_selected_course'] = request.POST.get('disc_selected_course')
+    context['eval_selected_course'] = ""
 
     context['csrf'] = csrf(request)['csrf_token']
     filename = '/edx/app/edxapp/edx-platform/fullstat.csv'
@@ -109,15 +113,18 @@ def stat(request):
             try:
                 eval_date_min = None
                 eval_date_max = None
+
                 if request.POST.get('eval_min_date') != '':
                     eval_date_min = datetime.datetime.strptime(request.POST.get('eval_min_date'), "%d/%m/%Y")
                 if request.POST.get('eval_max_date') != '':
                     eval_date_max = datetime.datetime.strptime(request.POST.get('eval_max_date'), "%d/%m/%Y")
+                context['eval_selected_course'] = request.POST.get('eval_selected_course')
                 context['eval_value_error_in_input'] = False
                 return return_filtered_eval_stat_csv(\
-                    context,\
+                    #context,\
                     eval_date_min=eval_date_min,\
                     eval_date_max=eval_date_max,\
+                    course=request.POST.get('eval_selected_course')
                 )
             except:
                 return render_to_response('stat.html', context)
@@ -149,42 +156,107 @@ def stat(request):
     return render_to_response('stat.html', context)
 
 
-def return_filtered_eval_stat_csv(context, eval_date_min, eval_date_max): #context -- for testing purposes
+
+def return_filtered_eval_stat_csv(eval_date_min, eval_date_max, course):
     """
     Will return filtered csv file with info on teacher's work on assessments.
     """
 
-    '''
-    Query to (two) databases will be here.
-    '''
-
-    try:
-        query_template = "";
-
-        date_condition_min = "<default condition min>"
-        if eval_date_min != None:
-            date_condition_min = "AND date_created >= {0}".format(datetime.datetime.strftime(eval_date_max, "%Y%m%d"))
-
-        date_condition_max = "<default condition max>"
-        if eval_date_max != None:
-            date_condition_max = "AND date_created <= {0}".format(datetime.datetime.strftime(eval_date_max, "%Y%m%d"))
-
-        context['date_condition_min'] = date_condition_min
-        
-
-        #return render_to_response('stat.html', context)
-
-        wrapper = FileWrapper(file('/edx/app/edxapp/edx-platform/test.csv'))
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=test.csv'
-        writer = csv.writer(response)
-        writer.writerow([date_condition_min, date_condition_max])
-        return response
-
-    except Error:
-        context['eval_error'] = Error
-        return render_to_response('stat.html', context)
+    query_template = "\
+        SELECT\
+            g.grader_id as name,\
+            g.date_created as date_created,\
+            count(g.id) as count\
+        FROM \
+            ora.controller_grader as g JOIN ora.controller_submission as s ON g.submission_id = s.id\
+        WHERE \
+            g.grader_type= 'IN' \
+                AND \
+            g.status_code = 'S' \
+                AND\
+            g.date_created >= '{}'\
+                AND\
+            g.date_created <= '{}'\
+                {}\
+        GROUP BY \
+            g.grader_id,\
+            YEAR(g.date_created),\
+            MONTH(g.date_created)\
+        ;";
     
+    date_min = datetime.datetime.now() - datetime.timedelta(days=365)
+    date_max = datetime.datetime.now()
+
+    if eval_date_min is not None:
+        date_min = eval_date_min
+
+    if eval_date_max is not None:
+        date_max = eval_date_max
+
+    '''
+    If eval_date_min = None and eval_date_max < now - 1year, the query will return an empty set.
+    (Which is somehow logic: in this case date_min > date_max)
+    '''
+
+    course_condition = ""
+    if course != '':
+        course_condition = "AND s.course_id = '{0}'".format(course)
+
+    query = query_template.format(\
+        datetime.datetime.strftime(date_min, "%Y%m%d"),\
+        datetime.datetime.strftime(date_max, "%Y%m%d"),\
+        course_condition
+        )
+
+    wrapper = FileWrapper(file('/edx/app/edxapp/edx-platform/test.csv'))
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=test.csv'
+    writer = csv.writer(response)
+
+    title_row = [u'Статистика по оценкам за курс: ']
+    if course != '':
+        title_row.append(course)
+    else:
+        title_row.append(u'все курсы')
+    writer.writerow([unicode(s).encode('utf-8') for s in title_row])
+
+    start_month = date_min.month
+    end_months = (date_max.year - date_min.year)*12 + date_max.month + 1
+    dates = [datetime.datetime(year=yr, month=mn, day=1) for (yr, mn) in (
+          ((m - 1) / 12 + date_min.year, (m - 1) % 12 + 1) for m in range(start_month, end_months)
+    )]
+
+    header_row = [u'ФИО']    
+    for date in dates:
+        header_row.append(strftime_localized(date, "%B %Y")) 
+    writer.writerow([unicode(s).encode('utf-8') for s in header_row])
+
+    cursor = connections['ora'].cursor()
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    cursor.close()
+
+    current_user_id = ""
+    row_to_csv = [0 for x in range(len(dates)+1)]
+
+    for row in rows:
+        if current_user_id != row[0]:
+            if row_to_csv[0] != 0:
+                writer.writerow([unicode(s).encode('utf-8') for s in row_to_csv])
+            row_to_csv = [0 for x in range(len(dates)+1)]
+            current_user_id = row[0]
+            row_to_csv[0] = user_by_anonymous_id(current_user_id).profile.name
+        
+        for i, date in enumerate(dates):
+            if date.month == row[1].month and date.year == row[1].year:
+                row_to_csv[i+1] = row[2]
+            else:
+                pass
+    
+    if len(rows) > 0:
+        writer.writerow([unicode(s).encode('utf-8') for s in row_to_csv])
+ 
+    return response
 
 
 

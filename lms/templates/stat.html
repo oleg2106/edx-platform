@@ -35,8 +35,8 @@
 		</p>
 		<p>
 		Дата регистрации на курс (в формате дд/мм/гггг):<br/>
-		От: <input type="text" name="min_date"><br>
-		До: <input type="text" name="max_date">
+		От (включительно): <input type="text" name="min_date"><br>
+		До (включительно): <input type="text" name="max_date">
 		</p>
 		% if value_error_in_input:
 			<p>
@@ -63,11 +63,6 @@
 </h2>
 
 <p>
-	Выбран курс: ${eval_selected_course}
-	Ошибка: ${eval_error}
-</p>
-
-<p>
 	<form method="post">
 		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 		<p>
@@ -79,14 +74,13 @@
 			    		${course.display_name}
 			    	</option>
 			    % endfor
-  				<option value="dummy_course_2">Курс2</option>
-  				<option value="dummy_course_3">Курс3</option>
 			</select>
 		</p>
 		<p>
 		Дата проверки (в формате дд/мм/гггг):<br/>
-		От: <input type="text" name="eval_min_date"><br>
-		До: <input type="text" name="eval_max_date">
+		От (включительно): <input type="text" name="eval_min_date"><br/>
+		До (включительно): <input type="text" name="eval_max_date"><br/>
+		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' -- текущей дате минус 365 дней.
 		</p>
 		% if eval_value_error_in_input:
 			<p>
