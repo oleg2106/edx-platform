@@ -35,8 +35,8 @@
 		</p>
 		<p>
 		Дата регистрации на курс (в формате дд/мм/гггг):<br/>
-		От: <input type="text" name="min_date"><br>
-		До: <input type="text" name="max_date">
+		От (включительно): <input type="text" name="min_date"><br>
+		До (включительно): <input type="text" name="max_date">
 		</p>
 		% if value_error_in_input:
 			<p>
@@ -57,5 +57,96 @@
 	    <input type="submit" name="download_stat_unfiltered" value="Скачать полную статистику" />
 	</form>
 </p>
+
+<h2>
+	Статистика по проверке работ преподавателями
+</h2>
+
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		<p>
+			Курс:
+			<select name="eval_selected_course">
+				<option selected="selected" value=""></option>
+			    % for course in courses:
+			    	<option value=${course.id}>
+			    		${course.display_name}
+			    	</option>
+			    % endfor
+			</select>
+		</p>
+		<p>
+		Дата проверки (в формате дд/мм/гггг):<br/>
+		От (включительно): <input type="text" name="eval_min_date"><br/>
+		До (включительно): <input type="text" name="eval_max_date"><br/>
+		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' -- текущей дате минус 365 дней.
+		</p>
+		% if eval_value_error_in_input:
+			<p>
+				Пожалуйста, введите дату в корректном формате.
+			</p>
+		% endif
+	    <p>
+	    <input type="reset" value="Сбросить фильтры">
+	    </p>
+
+
+	    <p>
+	    <input type="submit" name="download_eval_stat_filtered" value="Скачать статистику с фильтрами" />
+	    </p>
+	    <p>
+	    <input type="submit" name="download_eval_stat_unfiltered" value="Скачать полную статистику" />
+	    </p>
+	</form>
+</p>
+
+<h2>
+	Статистика по работе преподавателей в дискуссиях
+</h2>
+
+<p>
+	Выбран курс: ${disc_selected_course}
+</p>
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		<p>
+			Курс:
+			<select name="disc_selected_course">
+				<option selected="selected" value=""></option>
+			    % for course in courses:
+			    	<option value=${course.id}>
+			    		${course.display_name}
+			    	</option>
+			    % endfor
+  				<option value="dummy_course_2">Курс2</option>
+  				<option name="dummy_course_3">Курс3</option>
+			</select>
+		</p>
+		<p>
+		Дата работы в дискуссиях (в формате дд/мм/гггг):<br/>
+		От: <input type="text" name="disc_min_date"><br>
+		До: <input type="text" name="disc_max_date">
+		</p>
+		% if disc_value_error_in_input:
+			<p>
+				Пожалуйста, введите дату в корректном формате.
+			</p>
+		% endif
+	    <p>
+	    <input type="reset" value="Сбросить фильтры">
+	    </p>
+
+
+	    <p>
+	    <input type="submit" name="download_disc_stat_filtered" value="Скачать статистику с фильтрами" />
+	    </p>
+	    <p>
+	    <input type="submit" name="download_disc_stat_unfiltered" value="Скачать полную статистику" />
+	    </p>
+	</form>
+</p>
+
 </center>
 
