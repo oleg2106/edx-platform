@@ -508,7 +508,7 @@ function goto( mode)
 ##-----------------------------------------------------------------------------
 
 %if modeflag.get('Manage Groups'):
-  %if instructor_access:
+  %if instructor_access or teacher_role:
     <hr width="40%" style="align:left">
     <p>
     <input type="submit" name="action" onclick="this.value='List beta testers'" value="${_("List beta testers")}">
@@ -525,9 +525,8 @@ function goto( mode)
     <hr width="40%" style="align:left">
 
     %if course.is_cohorted:
-    <%include file="/course_groups/cohort_management.html" />
+      <%include file="/course_groups/cohort_management.html" />
     %endif
-
   %endif
 %endif
 

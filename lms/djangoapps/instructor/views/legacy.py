@@ -952,7 +952,6 @@ def instructor_dashboard(request, course_id):
         'analytics_results': analytics_results,
         'disable_buttons': disable_buttons,
         'metrics_results': metrics_results,
-        'teacher_role': teacher_role,
     }
 
     if settings.FEATURES.get('ENABLE_INSTRUCTOR_BETA_DASHBOARD'):
