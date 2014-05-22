@@ -54,6 +54,7 @@ from django.core.servers.basehttp import FileWrapper
 import logging
 from django.db import connections
 from util.date_utils import strftime_localized
+from student.roles import CourseTeacherRole
 
 from microsite_configuration import microsite
 
@@ -831,6 +832,9 @@ def course_info(request, course_id):
     masq = setup_masquerade(request, staff_access)    # allow staff to toggle masquerade on info page
     studio_url = get_studio_url(course_id, 'course_info')
     reverifications = fetch_reverify_banner_info(request, course_id)
+    teacher_role = (
+        CourseTeacherRole(course.location, None).has_user(request.user)
+    )
 
     context = {
         'request': request,
@@ -841,6 +845,7 @@ def course_info(request, course_id):
         'masquerade': masq,
         'studio_url': studio_url,
         'reverifications': reverifications,
+        'teacher_role': teacher_role,
     }
 
     return render_to_response('courseware/info.html', context)
@@ -953,7 +958,9 @@ def course_about(request, course_id):
 
     # see if we have already filled up all allowed enrollments
     is_course_full = CourseEnrollment.is_course_full(course)
-
+    teacher_role = (
+            CourseTeacherRole(course.location, None).has_user(request.user)
+        )
     return render_to_response('courseware/course_about.html', {
         'course': course,
         'staff_access': staff_access,
@@ -965,7 +972,8 @@ def course_about(request, course_id):
         'in_cart': in_cart,
         'reg_then_add_to_cart_link': reg_then_add_to_cart_link,
         'show_courseware_link': show_courseware_link,
-        'is_course_full': is_course_full
+        'is_course_full': is_course_full,
+        'teacher_role': teacher_role,
     })
 
 
@@ -997,7 +1005,9 @@ def mktg_course_about(request, course_id):
     show_courseware_link = (has_access(request.user, course, 'load') or
                             settings.FEATURES.get('ENABLE_LMS_MIGRATION'))
     course_modes = CourseMode.modes_for_course(course.id)
-
+    teacher_role = (
+            CourseTeacherRole(course.location, None).has_user(request.user)
+        )
     return render_to_response('courseware/mktg_course_about.html', {
         'course': course,
         'registered': registered,
@@ -1005,6 +1015,7 @@ def mktg_course_about(request, course_id):
         'course_target': course_target,
         'show_courseware_link': show_courseware_link,
         'course_modes': course_modes,
+        'teacher_role': teacher_role,
     })
 
 
@@ -1054,7 +1065,9 @@ def _progress(request, course_id, student_id):
     if courseware_summary is None:
         #This means the student didn't have access to the course (which the instructor requested)
         raise Http404
-
+    teacher_role = (
+        CourseTeacherRole(course.location, None).has_user(request.user)
+    )
     context = {
         'course': course,
         'courseware_summary': courseware_summary,
@@ -1062,7 +1075,8 @@ def _progress(request, course_id, student_id):
         'grade_summary': grade_summary,
         'staff_access': staff_access,
         'student': student,
-        'reverifications': fetch_reverify_banner_info(request, course_id)
+        'reverifications': fetch_reverify_banner_info(request, course_id),
+        'teacher_role': teacher_role,
     }
 
     with grades.manual_transaction():
