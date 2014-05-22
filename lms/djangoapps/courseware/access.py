@@ -428,10 +428,6 @@ def _has_access_to_location(user, location, access_level, course_context):
     if is_masquerading_as_student(user):
         return False
 
-    if GlobalStaff().has_user(user):
-        debug("Allow: user.is_staff")
-        return True
-
     if access_level not in ('teacher', 'staff', 'instructor'):
         log.debug("Error in access._has_access_to_location access_level=%s unknown", access_level)
         debug("Deny: unknown access level")
@@ -444,6 +440,10 @@ def _has_access_to_location(user, location, access_level, course_context):
     if access_level == 'teacher':
         debug("Requesting teacher_access")
         return teacher_access
+
+    if GlobalStaff().has_user(user):
+        debug("Allow: user.is_staff")
+        return True
 
     if teacher_access and access_level == 'staff':
         debug("Allow: user has course teacher access")
