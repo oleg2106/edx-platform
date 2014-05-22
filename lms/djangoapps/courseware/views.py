@@ -161,12 +161,6 @@ def stat(request):
                 log.exception('Failed to filter')
                 return render_to_response('stat.html', context)
 
-        elif 'download_eval_stat_unfiltered' in request.POST:
-            try:
-                pass
-            except:
-                pass
-
         elif 'download_eval_stat_filtered' in request.POST:
 
             context['eval_value_error_in_input'] = True
@@ -188,12 +182,6 @@ def stat(request):
                 )
             except:
                 return render_to_response('stat.html', context)
-
-        elif 'download_disc_stat_unfiltered' in request.POST:
-            try:
-                pass
-            except:
-                pass
 
         elif 'download_disc_stat_filtered' in request.POST:
 
