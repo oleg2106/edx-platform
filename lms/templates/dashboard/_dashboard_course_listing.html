@@ -1,3 +1,4 @@
+## -*- coding: utf-8 -*-
 <%page args="course, enrollment, show_courseware_link, cert_status, show_email_settings, course_mode_info, show_refund_option" />
 
 <%! from django.utils.translation import ugettext as _ %>
@@ -5,6 +6,7 @@
   from django.core.urlresolvers import reverse
   from courseware.courses import course_image_url, get_course_about_section
   import waffle
+  import os.path
 %>
 
 <%
@@ -24,6 +26,7 @@
   <article class="course ${enrollment.mode}">
     <%
       course_target = reverse('info', args=[course.id])
+      has_cert = os.path.isfile("/edx/app/edxapp/cert/" + course.display_number_with_default.replace(" ", "_") + "_" + course.display_name_with_default.replace(" ", "_") + "/" + user.email + ".pdf")
     %>
 
     % if show_courseware_link:
@@ -107,7 +110,10 @@
         % if course.has_ended():
           <a href="${course_target}" class="enter-course archived">${_('View Archived Course')}</a>
         % else:
-          <a href="${course_target}" class="enter-course">${_('View Course')}</a>
+          <a href="${course_target}" class="enter-course" ${"style='margin-bottom:40px'" if has_cert else ""}>${_('View Course')}</a>
+        % endif
+        % if has_cert:
+          <a href="${reverse('cert', args=[course.id])}" class="enter-cert" style="position: absolute; margin-top: 70px;">Просмотр сертификата</a>
         % endif
       % endif
 
