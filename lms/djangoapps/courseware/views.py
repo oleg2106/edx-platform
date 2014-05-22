@@ -397,6 +397,7 @@ def return_filtered_stat_csv(school_login='', register_date_min=None, register_d
 
 
 @login_required
+<<<<<<< HEAD
 def view_cert(request, course_id):
     course = get_course(course_id)
     filename = "/edx/app/edxapp/cert/" + course.display_number_with_default.replace(" ", "_") + "_" + course.display_name_with_default.replace(" ", "_") + "/" + request.user.email + ".pdf"
