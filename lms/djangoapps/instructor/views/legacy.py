@@ -1837,7 +1837,11 @@ def get_background_task_table(course_id, problem_url=None, student=None, task_ty
                                "Duration (sec)",
                                "Task State",
                                "Task Status",
-                               "Task Output"]
+                               "Task Output",
+                               "Sent to",
+                               "E-mail Subject",
+                               "E-mail Body",
+                               ]
 
         datatable['data'] = []
         for instructor_task in history_entries:
@@ -1847,6 +1851,10 @@ def get_background_task_table(course_id, problem_url=None, student=None, task_ty
                 task_output = json.loads(instructor_task.task_output)
                 if 'duration_ms' in task_output:
                     duration_sec = int(task_output['duration_ms'] / 1000.0)
+            if hasattr(instructor_task, 'task_input') and instructor_task.task_input is not None:
+                sent_to = json.loads(instructor_task.task_input)['to_option']
+                email_id = json.loads(instructor_task.task_input)['email_id']   # temp
+            email_obj = CourseEmail.objects.get(id=email_id)
             # get progress status message:
             success, task_message = get_task_completion_info(instructor_task)
             status = "Complete" if success else "Incomplete"
@@ -1859,7 +1867,10 @@ def get_background_task_table(course_id, problem_url=None, student=None, task_ty
                 duration_sec,
                 str(instructor_task.task_state),
                 status,
-                task_message
+                task_message,
+                email_obj.to_option,
+                email_obj.subject,
+                email_obj.html_message, # also possible: email_obj.text_message
             ]
             datatable['data'].append(row)
 
