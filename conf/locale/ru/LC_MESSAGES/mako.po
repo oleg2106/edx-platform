@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-04-28 13:17+0000\n"
-"PO-Revision-Date: 2014-05-12 18:24+0300\n"
+"PO-Revision-Date: 2014-05-26 14:19+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -2245,7 +2245,7 @@ msgstr "Регистрация на {course.display_number_with_default}"
 
 #: lms/templates/courseware/course_about.html:206
 msgid "View About Page in studio"
-msgstr ""
+msgstr "Просмотреть информацию о курсе в Студии"
 
 #: lms/templates/courseware/course_about.html:211
 msgid "Overview"
