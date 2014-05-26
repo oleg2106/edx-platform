@@ -68,6 +68,8 @@ from util.json_request import JsonResponse
 
 from microsite_configuration import microsite
 
+from student.roles import CourseTeacherRole
+
 log = logging.getLogger(__name__)
 
 # internal commands for managing forum roles:
@@ -93,7 +95,6 @@ def instructor_dashboard(request, course_id):
 
     instructor_access = has_access(request.user, course, 'instructor')   # an instructor can manage staff lists
     
-    #use this variable to hide some elements from teachers in instructor_dashboard.html (issue №3343)
     teacher_role = (
         CourseTeacherRole(course.location, None).has_user(request.user)
     )
