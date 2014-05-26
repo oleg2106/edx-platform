@@ -187,6 +187,7 @@ def stat(request):
                     course=request.POST.get('eval_selected_course')
                 )
             except:
+                log.exception('Failed to filter')               
                 return render_to_response('stat.html', context)
 
         elif 'download_disc_stat_unfiltered' in request.POST:
@@ -268,7 +269,6 @@ def return_filtered_eval_stat_csv(eval_date_min, eval_date_max, course):
         course_condition
         )
 
-    wrapper = FileWrapper(file('/edx/app/edxapp/edx-platform/test.csv'))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=test.csv'
     writer = csv.writer(response)
