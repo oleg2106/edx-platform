@@ -80,7 +80,7 @@
 		Дата проверки (в формате дд/мм/гггг):<br/>
 		От (включительно): <input type="text" name="eval_min_date"><br/>
 		До (включительно): <input type="text" name="eval_max_date"><br/>
-		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' -- текущей дате минус 365 дней.
+		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' — текущей дате минус 365 дней.
 		</p>
 		% if eval_value_error_in_input:
 			<p>
@@ -90,26 +90,21 @@
 	    <p>
 	    <input type="reset" value="Сбросить фильтры">
 	    </p>
-
-
 	    <p>
-	    <input type="submit" name="download_eval_stat_filtered" value="Скачать статистику с фильтрами" />
-	    </p>
-	    <p>
-	    <input type="submit" name="download_eval_stat_unfiltered" value="Скачать полную статистику" />
+	    <input type="submit" name="download_eval_stat_filtered" value="Скачать статистику" />
 	    </p>
 	</form>
 </p>
 
-<h2>
+<h2 hidden="true">
 	Статистика по работе преподавателей в дискуссиях
 </h2>
 
-<p>
+<p hidden="true">
 	Выбран курс: ${disc_selected_course}
 </p>
-<p>
-	<form method="post">
+<p hidden="true">
+	<form method="post" hidden="true">
 		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 		<p>
 			Курс:
@@ -137,13 +132,8 @@
 	    <p>
 	    <input type="reset" value="Сбросить фильтры">
 	    </p>
-
-
 	    <p>
-	    <input type="submit" name="download_disc_stat_filtered" value="Скачать статистику с фильтрами" />
-	    </p>
-	    <p>
-	    <input type="submit" name="download_disc_stat_unfiltered" value="Скачать полную статистику" />
+	    <input type="submit" name="download_disc_stat_filtered" value="Скачать статистику" />
 	    </p>
 	</form>
 </p>

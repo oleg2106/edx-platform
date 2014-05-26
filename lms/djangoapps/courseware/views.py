@@ -161,12 +161,6 @@ def stat(request):
                 log.exception('Failed to filter')
                 return render_to_response('stat.html', context)
 
-        elif 'download_eval_stat_unfiltered' in request.POST:
-            try:
-                pass
-            except:
-                pass
-
         elif 'download_eval_stat_filtered' in request.POST:
 
             context['eval_value_error_in_input'] = True
@@ -188,12 +182,6 @@ def stat(request):
                 )
             except:
                 return render_to_response('stat.html', context)
-
-        elif 'download_disc_stat_unfiltered' in request.POST:
-            try:
-                pass
-            except:
-                pass
 
         elif 'download_disc_stat_filtered' in request.POST:
 
@@ -272,13 +260,14 @@ def return_filtered_eval_stat_csv(eval_date_min, eval_date_max, course):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=test.csv'
     writer = csv.writer(response)
+    encoding = 'cp1251'
 
-    title_row = [u'Статистика по оценкам за курс: ']
+    title_row = [u'Статистика по проверке работ преподавателями для курса: ']
     if course != '':
         title_row.append(course)
     else:
         title_row.append(u'все курсы')
-    writer.writerow([unicode(s).encode('utf-8') for s in title_row])
+    writer.writerow([unicode(s).encode(encoding) for s in title_row])
 
     start_month = date_min.month
     end_months = (date_max.year - date_min.year)*12 + date_max.month + 1
@@ -286,10 +275,10 @@ def return_filtered_eval_stat_csv(eval_date_min, eval_date_max, course):
           ((m - 1) / 12 + date_min.year, (m - 1) % 12 + 1) for m in range(start_month, end_months)
     )]
 
-    header_row = [u'ФИО']    
+    header_row = [u'ФИО', 'E-mail']
     for date in dates:
-        header_row.append(strftime_localized(date, "%B %Y")) 
-    writer.writerow([unicode(s).encode('utf-8') for s in header_row])
+        header_row.append(strftime_localized(date, "%b %Y")) 
+    writer.writerow([unicode(s).encode(encoding) for s in header_row])
 
     cursor = connections['ora'].cursor()
     cursor.execute(query)
@@ -297,40 +286,29 @@ def return_filtered_eval_stat_csv(eval_date_min, eval_date_max, course):
     cursor.close()
 
     current_user_id = ""
-    row_to_csv = [0 for x in range(len(dates)+1)]
+    row_to_csv = [0 for x in range(len(dates)+2)]
 
     for row in rows:
         if current_user_id != row[0]:
             if row_to_csv[0] != 0:
-                writer.writerow([unicode(s).encode('utf-8') for s in row_to_csv])
-            row_to_csv = [0 for x in range(len(dates)+1)]
+                writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
+            row_to_csv = [0 for x in range(len(dates)+2)]
             current_user_id = row[0]
             row_to_csv[0] = user_by_anonymous_id(current_user_id).profile.name
+            row_to_csv[1] = user_by_anonymous_id(current_user_id).email
         
         for i, date in enumerate(dates):
             if date.month == row[1].month and date.year == row[1].year:
-                row_to_csv[i+1] = row[2]
+                row_to_csv[i+2] = row[2]
             else:
                 pass
     
     if len(rows) > 0:
-        writer.writerow([unicode(s).encode('utf-8') for s in row_to_csv])
+        writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
  
     return response
 
 
-
-def return_filtered_disc_stat_csv(disc_date_min, disc_date_max):
-    """
-    Will return filtered csv file with info on teacher's work in discussions.
-    """
-
-    return render_to_response('stat.html', context)
-
-    '''
-    response = HttpResponse(content_type='text/csv')
-    return response
-    '''
 
 def return_fullstat_csv(filename):
     """
