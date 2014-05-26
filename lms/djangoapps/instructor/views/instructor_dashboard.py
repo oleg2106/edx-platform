@@ -27,6 +27,8 @@ from class_dashboard.dashboard_data import get_section_display_name, get_array_s
 
 from .tools import get_units_with_due_date, title_or_url
 
+from student.roles import CourseTeacherRole
+
 
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
@@ -76,13 +78,16 @@ def instructor_dashboard_2(request, course_id):
     max_enrollment_for_buttons = settings.FEATURES.get("MAX_ENROLLMENT_INSTR_BUTTONS")
     if max_enrollment_for_buttons is not None:
         disable_buttons = enrollment_count > max_enrollment_for_buttons
-
+    teacher_role = (
+            CourseTeacherRole(course.location, None).has_user(request.user)
+        )
     context = {
         'course': course,
         'old_dashboard_url': reverse('instructor_dashboard', kwargs={'course_id': course_id}),
         'studio_url': studio_url,
         'sections': sections,
         'disable_buttons': disable_buttons,
+        'teacher_role': teacher_role,
     }
 
     return render_to_response('instructor/instructor_dashboard_2/instructor_dashboard_2.html', context)

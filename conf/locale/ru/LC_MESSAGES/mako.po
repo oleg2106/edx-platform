@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-04-28 13:17+0000\n"
-"PO-Revision-Date: 2014-05-12 18:24+0300\n"
+"PO-Revision-Date: 2014-05-26 15:39+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -2245,7 +2245,7 @@ msgstr "Регистрация на {course.display_number_with_default}"
 
 #: lms/templates/courseware/course_about.html:206
 msgid "View About Page in studio"
-msgstr ""
+msgstr "Просмотреть информацию о курсе в Студии"
 
 #: lms/templates/courseware/course_about.html:211
 msgid "Overview"
@@ -2459,9 +2459,8 @@ msgid "{course_number} Course Info"
 msgstr "{course_number} Информация о курсе"
 
 #: lms/templates/courseware/info.html:35
-#, fuzzy
 msgid "View Updates in Studio"
-msgstr "Новое обновление"
+msgstr "Просмотреть обновления в Студии"
 
 #: lms/templates/courseware/info.html:40 lms/templates/courseware/info.html:49
 msgid "Course Updates &amp; News"
@@ -2484,9 +2483,8 @@ msgstr "Личная страница инструктора"
 
 #: lms/templates/courseware/instructor_dashboard.html:123
 #: lms/templates/instructor/instructor_dashboard_2/instructor_dashboard_2.html:60
-#, fuzzy
 msgid "View Course in Studio"
-msgstr "Редактировать курс в Студии"
+msgstr "Просмотреть курс в Студии"
 
 #: lms/templates/courseware/instructor_dashboard.html:126
 msgid "Try New Beta Dashboard"
@@ -3236,9 +3234,8 @@ msgid "Course Progress"
 msgstr "Прогресс Курса"
 
 #: lms/templates/courseware/progress.html:49
-#, fuzzy
 msgid "View Grading in studio"
-msgstr "Редактировать настройки оценивания"
+msgstr "Просмотреть оценки в Студии"
 
 #: lms/templates/courseware/progress.html:54
 msgid "Course Progress for Student '{username}' ({email})"
