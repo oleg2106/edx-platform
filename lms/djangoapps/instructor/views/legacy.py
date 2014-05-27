@@ -802,10 +802,6 @@ def instructor_dashboard(request, course_id):
         message, datatable = get_background_task_table(course_id, task_type='bulk_course_email')
         msg += message
 
-    elif "Show Background Email Task History" in action:
-        message, datatable = get_background_task_table(course_id, task_type='bulk_course_email')
-        msg += message
-
     #----------------------------------------
     # psychometrics
 
@@ -1838,7 +1834,15 @@ def get_background_task_table(course_id, problem_url=None, student=None, task_ty
                                "Duration (sec)",
                                "Task State",
                                "Task Status",
-                               "Task Output"]
+                               "Task Output",
+                               ]
+
+        if (task_type == 'bulk_course_email'):
+            datatable['header'] += [
+                   "Sent to",
+                   "E-mail Subject",
+                   "E-mail Body",
+                ]
 
         datatable['data'] = []
         for instructor_task in history_entries:
@@ -1860,8 +1864,18 @@ def get_background_task_table(course_id, problem_url=None, student=None, task_ty
                 duration_sec,
                 str(instructor_task.task_state),
                 status,
-                task_message
+                task_message,                
             ]
+
+            if task_type == 'bulk_course_email':
+                if hasattr(instructor_task, 'task_input') and instructor_task.task_input is not None:
+                    email_obj = CourseEmail.objects.get(id=json.loads(instructor_task.task_input)['email_id'])
+                    row += [
+                        email_obj.to_option,
+                        email_obj.subject,
+                        email_obj.html_message, # also possible: email_obj.text_message
+                    ]
+
             datatable['data'].append(row)
 
         if problem_url is None:
