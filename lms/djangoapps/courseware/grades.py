@@ -1,6 +1,6 @@
 # Compute grades using real division, with no integer truncation
 from __future__ import division
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 import json
 import random
 import logging
@@ -23,7 +23,7 @@ from .models import StudentModule
 from .module_render import get_module_for_descriptor
 
 log = logging.getLogger("edx.courseware")
-
+Attempts = namedtuple("Attempts","student_attempts max_attempts")
 
 def yield_dynamic_descriptor_descendents(descriptor, module_creator):
     """
@@ -348,16 +348,18 @@ def _progress_summary(student, request, course):
 
                 graded = section_module.graded
                 scores = []
-
+                attempts = []
                 module_creator = section_module.xmodule_runtime.get_module
 
                 for module_descriptor in yield_dynamic_descriptor_descendents(section_module, module_creator):
                     course_id = course.id
                     (correct, total) = get_score(course_id, student, module_descriptor, module_creator)
+                    (student_attempts,max_attempts) = get_attempts(course_id, student, module_descriptor, module_creator)
                     if correct is None and total is None:
                         continue
 
                     scores.append(Score(correct, total, graded, module_descriptor.display_name_with_default))
+                    attempts.append(Attempts(student_attempts,max_attempts))
 
                 scores.reverse()
                 section_total, _ = graders.aggregate_scores(
@@ -368,6 +370,7 @@ def _progress_summary(student, request, course):
                     'display_name': section_module.display_name_with_default,
                     'url_name': section_module.url_name,
                     'scores': scores,
+                    'attempts' : attempts,
                     'section_total': section_total,
                     'format': module_format,
                     'due': get_extended_due_date(section_module),
@@ -453,8 +456,65 @@ def get_score(course_id, user, problem_descriptor, module_creator):
         correct = correct * weight / total
         total = weight
 
+
     return (correct, total)
 
+def get_attempts(course_id, user, problem_descriptor, module_creator):
+    """
+    Return the score for a user on a problem, as a tuple (correct, total).
+    e.g. (5,7) if you got 5 out of 7 points.
+
+    If this problem doesn't have a score, or we couldn't load it, returns (None,
+    None).
+
+    user: a Student object
+    problem_descriptor: an XModuleDescriptor
+    module_creator: a function that takes a descriptor, and returns the corresponding XModule for this user.
+           Can return None if user doesn't have access, or if something else went wrong.
+    cache: A FieldDataCache
+    """
+    if not user.is_authenticated():
+        return (None, None)
+
+    # some problems have state that is updated independently of interaction
+    # with the LMS, so they need to always be scored. (E.g. foldit.)
+    if problem_descriptor.always_recalculate_grades:
+        problem = module_creator(problem_descriptor)
+        if problem is None:
+            return (None, None)
+        max_attampts = getattr(problem,'max_attempts') if hasattr(problem,'max_attempts') else None
+        student_attempts = getattr(problem,'student_attempts') if hasattr(problem,'student_attempts') else None
+        return (student_attempts,max_attampts)
+
+    if not problem_descriptor.has_score:
+        # These are not problems, and do not have a score
+        return (None, None)
+
+    try:
+        student_module = StudentModule.objects.get(
+            student=user,
+            course_id=course_id,
+            module_state_key=problem_descriptor.location
+        )
+    except StudentModule.DoesNotExist:
+        student_module = None
+
+    if student_module is not None and student_module.max_grade is not None:
+        correct = student_module.grade if student_module.grade is not None else 0
+        total = student_module.max_grade
+        return (None, None)
+    else:
+        # If the problem was not in the cache, or hasn't been graded yet,
+        # we need to instantiate the problem.
+        # Otherwise, the max score (cached in student_module) won't be available
+        problem = module_creator(problem_descriptor)
+        if problem is None:
+            return (None, None)
+
+        max_attampts = getattr(problem,'max_attempts') if hasattr(problem,'max_attempts') else None
+        student_attempts = getattr(problem,'attempts') if hasattr(problem,'attempts') else None
+
+        return (student_attempts,max_attampts)
 
 @contextmanager
 def manual_transaction():
