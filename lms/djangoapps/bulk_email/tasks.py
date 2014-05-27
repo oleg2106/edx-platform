@@ -398,10 +398,7 @@ def _get_source_address(course_id, course_title):
     # so pull out the course_num.  Then make sure that it can be used
     # in an email address, by substituting a '_' anywhere a non-(ascii, period, or dash)
     # character appears.
-    course_num = Location.parse_course_id(course_id)['course']
-    invalid_chars = re.compile(r"[^\w.-]")
-    course_num = invalid_chars.sub('_', course_num)
-
+    
     from_addr = u'{prefix} "{course_name}" <{email}>'.format(prefix = settings.BULK_EMAIL_PREFIX_FROM_EMAIL, course_name = course_title_no_quotes, email = settings.BULK_EMAIL_DEFAULT_FROM_EMAIL)
     return from_addr
 
