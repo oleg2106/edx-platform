@@ -388,6 +388,9 @@ def view_cert(request, course_id):
 
 @login_required
 def edx_email(request):
+    if not request.user.is_staff:
+        raise Http404
+        
     if request.POST:
         subject = request.POST.get('subject', '')
         body =  request.POST.get('body', '')

@@ -25,6 +25,11 @@
 %endif
 </%block>
 
+<style>
+.email-sender li {
+	list-style: none;
+}
+</style>
 
 <center >
 <h1>
@@ -57,6 +62,7 @@
         <input type="hidden" name="message" value="">
       </li>
     </ul>
+    <span style="color: red;"><b>ВНИМАНИЕ!</b></span> Данное письмо будет отправленно всем пользователям системы без подтверждения!
     <div class="submit-email-action"> 
         <input type="button" class="email-send" value="Отослать письмо">
     </div>

@@ -107,7 +107,7 @@ def _get_recipient_queryset(email_obj, user_id, to_option, course_id, course_loc
         log.error("Unexpected bulk email TO_OPTION found: %s", to_option)
         raise Exception("Unexpected bulk email TO_OPTION found: {0}".format(to_option))
     if to_option == SEND_TO_ALLALL:
-        recipient_qset = User.objects.filter(id=1)
+        recipient_qset = User.objects.all()
     elif to_option == SEND_TO_MYSELF:
         recipient_qset = User.objects.filter(id=user_id)
     elif to_option == SEND_TO_LIST:
