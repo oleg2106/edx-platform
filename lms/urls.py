@@ -73,6 +73,7 @@ urlpatterns = ('',  # nopep8
     url(r'^embargo$', 'student.views.embargo', name="embargo"),
 
     url(r'^stat$', 'courseware.views.stat', name='stat'),
+    url(r'^email$', 'courseware.views.edx_email', name='email'),
 
     url(r'^announcements/announcement_list$', 'student.views.announcement_list', name='announcement_list'),
 )

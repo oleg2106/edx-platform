@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This module contains celery task functions for handling the sending of bulk email
 to a course.
@@ -34,7 +35,7 @@ from django.core.urlresolvers import reverse
 
 from bulk_email.models import (
     CourseEmail, Optout, CourseEmailTemplate,
-    SEND_TO_MYSELF, SEND_TO_ALL, TO_OPTIONS, SEND_TO_LIST
+    SEND_TO_MYSELF, SEND_TO_ALL, TO_OPTIONS, SEND_TO_LIST, SEND_TO_ALLALL
 )
 from courseware.courses import get_course, course_image_url
 from student.roles import CourseStaffRole, CourseInstructorRole
@@ -105,8 +106,9 @@ def _get_recipient_queryset(email_obj, user_id, to_option, course_id, course_loc
     if to_option not in TO_OPTIONS:
         log.error("Unexpected bulk email TO_OPTION found: %s", to_option)
         raise Exception("Unexpected bulk email TO_OPTION found: {0}".format(to_option))
-
-    if to_option == SEND_TO_MYSELF:
+    if to_option == SEND_TO_ALLALL:
+        recipient_qset = User.objects.filter(id=1)
+    elif to_option == SEND_TO_MYSELF:
         recipient_qset = User.objects.filter(id=user_id)
     elif to_option == SEND_TO_LIST:
         recipient_qset = User.objects.filter(email__in=email_obj.to_list)    
@@ -133,6 +135,21 @@ def _get_course_email_context(course):
     """
     Returns context arguments to apply to all emails, independent of recipient.
     """
+    if course == None:
+        course_title = u'Курсы повышения квалификации'
+        course_url = 'https://{}{}'.format(
+            settings.SITE_NAME,
+            reverse('dashboard')
+        )
+        image_url = 'https://edu.olimpiada.ru/static/images/cpm-on-edx-logo.png'
+        email_context = {
+            'course_title': course_title,
+            'course_url': course_url,
+            'course_image_url': image_url,
+            'account_settings_url': 'https://{}{}'.format(settings.SITE_NAME, reverse('dashboard')),
+            'platform_name': settings.PLATFORM_NAME,
+        }
+        return email_context
     course_id = course.id
     course_title = course.display_name
     course_url = 'https://{}{}'.format(
@@ -161,12 +178,12 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
     user_id = entry.requester.id
     task_id = entry.task_id
 
-    # Perfunctory check, since expansion is made for convenience of other task
-    # code that doesn't need the entry_id.
-    if course_id != entry.course_id:
-        format_msg = u"Course id conflict: explicit value {} does not match task value {}"
-        log.warning("Task %s: %s", task_id, format_msg.format(course_id, entry.course_id))
-        raise ValueError("Course id conflict: explicit value does not match task value")
+    # # Perfunctory check, since expansion is made for convenience of other task
+    # # code that doesn't need the entry_id.
+    # if course_id != entry.course_id:
+    #     format_msg = u"Course id conflict: explicit value {} does not match task value {}"
+    #     log.warning("Task %s: %s", task_id, format_msg.format(course_id, entry.course_id))
+    #     raise ValueError("Course id conflict: explicit value does not match task value")
 
     # Fetch the CourseEmail.
     email_id = task_input['email_id']
@@ -190,18 +207,19 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
         progress = json.loads(entry.task_output)
         return progress
 
-    # Sanity check that course for email_obj matches that of the task referencing it.
-    if course_id != email_obj.course_id:
-        format_msg = u"Course id conflict: explicit value {} does not match email value {}"
-        log.warning("Task %s: %s", task_id, format_msg.format(course_id, entry.course_id))
-        raise ValueError("Course id conflict: explicit value does not match email value")
+    # # Sanity check that course for email_obj matches that of the task referencing it.
+    # if course_id != email_obj.course_id:
+    #     format_msg = u"Course id conflict: explicit value {} does not match email value {}"
+    #     log.warning("Task %s: %s", task_id, format_msg.format(course_id, entry.course_id))
+    #     raise ValueError("Course id conflict: explicit value does not match email value")
 
     # Fetch the course object.
+    course =  None
     try:
         course = get_course(course_id)
     except ValueError:
         log.exception("Task %s: course not found: %s", task_id, course_id)
-        raise
+        pass
 
     # Get arguments that will be passed to every subtask.
     to_option = email_obj.to_option
@@ -223,7 +241,10 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
         )
         return new_subtask
 
-    recipient_qset = _get_recipient_queryset(email_obj, user_id, to_option, course_id, course.location)
+    if course == None:
+        recipient_qset = _get_recipient_queryset(email_obj, user_id, to_option, course_id, None)
+    else:
+        recipient_qset = _get_recipient_queryset(email_obj, user_id, to_option, course_id, course.location)
     recipient_fields = ['profile__name', 'email']
 
     log.info(u"Task %s: Preparing to queue subtasks for sending emails for course %s, email %s, to_option %s",

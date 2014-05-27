@@ -48,6 +48,7 @@ from xmodule.tabs import CourseTabList, StaffGradingTab, PeerGradingTab, OpenEnd
 import shoppingcart
 
 #new
+from bulk_email.models import CourseEmail
 import csv, codecs, cStringIO
 import datetime
 from django.core.servers.basehttp import FileWrapper
@@ -384,6 +385,19 @@ def view_cert(request, course_id):
     response['Content-Disposition'] = 'attachment; filename="course_cert.pdf"'
 
     return response
+
+@login_required
+def edx_email(request):
+    if request.POST:
+        subject = request.POST.get('subject', '')
+        body =  request.POST.get('body', '')
+        mail = CourseEmail.create('', request.user, 'allall', subject, body)
+        mail.send()
+        return JsonResponse({
+                    'status': 'success',
+                    'msg': _('Your email was successfully queued for sending.')
+                })
+    return render_to_response('email.html')
 
 
 def user_groups(user):
