@@ -71,7 +71,7 @@
 				<option selected="selected" value=""></option>
 			    % for course in courses:
 			    	<option value=${course.id}>
-			    		${course.display_name}
+			    		${course.display_number_with_default} ${course.display_name_with_default}
 			    	</option>
 			    % endfor
 			</select>
