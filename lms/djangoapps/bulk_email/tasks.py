@@ -135,7 +135,7 @@ def _get_course_email_context(course):
     """
     Returns context arguments to apply to all emails, independent of recipient.
     """
-    if course == None:
+    if course is None:
         course_title = u'Курсы повышения квалификации'
         course_url = 'https://{}{}'.format(
             settings.SITE_NAME,
@@ -241,7 +241,7 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
         )
         return new_subtask
 
-    if course == None:
+    if course is None:
         recipient_qset = _get_recipient_queryset(email_obj, user_id, to_option, course_id, None)
     else:
         recipient_qset = _get_recipient_queryset(email_obj, user_id, to_option, course_id, course.location)
