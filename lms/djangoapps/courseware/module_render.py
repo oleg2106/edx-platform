@@ -389,6 +389,7 @@ def get_module_for_descriptor_internal(user, descriptor, field_data_cache, cours
     else:
         anonymous_student_id = anonymous_id_for_user(user, '')
 
+    from courseware.grades import get_score
     system = LmsModuleSystem(
         track_function=track_function,
         render_template=render_to_string,
@@ -435,7 +436,8 @@ def get_module_for_descriptor_internal(user, descriptor, field_data_cache, cours
         },
         get_user_role=lambda: get_user_role(user, course_id),
         descriptor_runtime=descriptor.runtime,
-        bulkmail=CourseEmail
+        bulkmail=CourseEmail,
+        get_score=get_score,
     )
 
     # pass position specified in URL to module through ModuleSystem

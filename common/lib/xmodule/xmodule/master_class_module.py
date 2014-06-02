@@ -23,6 +23,7 @@ from django.utils.timezone import UTC
 
 from xblock.fields import Scope, Dict, Boolean, List, Integer, String
 
+from xmodule.modulestore import Location
 
 log = logging.getLogger(__name__)
 
@@ -60,6 +61,12 @@ class MasterClassFields(object):
         scope=Scope.settings,
         default=250,
         values={"min": 1}
+    )
+    problem_id = String(
+        display_name=_("Masterclass problem id"),
+        help=_("Full id of the problem which is to be acomplished to pass registration for masterclass."),
+        scope=Scope.settings,
+        #default=_("Master Class") # no default
     )
 
     # Fields for descriptor.
@@ -126,7 +133,8 @@ class MasterClassModule(MasterClassFields, XModule):
                 'is_closed': self.is_past_due(),
                 'total_places': self.total_places,
                 'total_register': total_register,
-                'message': message
+                'message': message,
+                'problem_id': self.problem_id,
             }
             data.update(additional_data)
             return json.dumps(data)
@@ -137,6 +145,7 @@ class MasterClassModule(MasterClassFields, XModule):
                 'is_closed': self.is_past_due(),
                 'total_places': self.total_places,
                 'total_register': total_register,
+                'problem_id': self.problem_id,
             }
             data.update(additional_data)
             return json.dumps(data)
@@ -168,12 +177,32 @@ class MasterClassModule(MasterClassFields, XModule):
             # FIXME: we must use raw JSON, not a post data (multipart/form-data)
             master_class = data.getall('master_class[]')
 
-            self.all_registrations.append(self.runtime.user.email)
+            #import pdb; pdb.set_trace()
 
-            self.submitted = True
+            if self.problem_id is None:
+                self.all_registrations.append(self.runtime.user.email)
+                self.submitted = True
+                return self.get_state()
 
-            return self.get_state()
+            problem_location = Location(self.problem_id)
+            problem_descriptor = self.runtime.descriptor_runtime.modulestore.get_item(problem_location)
+            #problem_module = self.runtime.get_module(problem_descriptor)
+            #problem_score = problem_module.get_score()
+            problem_score = self.runtime.get_score(self.runtime.course_id, self.runtime.user, problem_descriptor, self.runtime.get_module)
+
+            if problem_score is not None and len(problem_score) >= 2 and problem_score[0] >= self.autopass_score:
+                    self.all_registrations.append(self.runtime.user.email)
+                    self.submitted = True
+                    return self.get_state()
+            else:
+                return json.dumps({
+                    'status': 'fail',
+                    'error': 'Your score is not sufficient to register for this masterclass.'
+                    })
+
+            
         elif dispatch == 'get_state':
+            #import pdb; pdb.set_trace()
             return self.get_state()
         elif dispatch == 'register':
             logging.error(data)
