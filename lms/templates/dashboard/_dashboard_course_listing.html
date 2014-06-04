@@ -26,7 +26,7 @@
   <article class="course ${enrollment.mode}">
     <%
       course_target = reverse('info', args=[course.id])
-      has_cert = os.path.isfile("/edx/app/edxapp/cert/" + course.display_number_with_default.replace(" ", "_") + "_" + course.display_name_with_default.replace(" ", "_") + "/" + user.email + ".pdf")
+      has_cert = os.path.isfile("/edx/app/edxapp/cert/" + course.id.replace("/", "_") + "/" + user.email + ".pdf")
     %>
 
     % if show_courseware_link:

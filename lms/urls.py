@@ -76,6 +76,8 @@ urlpatterns = ('',  # nopep8
     url(r'^email$', 'courseware.views.edx_email', name='email'),
 
     url(r'^announcements/announcement_list$', 'student.views.announcement_list', name='announcement_list'),
+
+    url(r'^staff/', include('dashboard.staff_urls')),
 )
 
 # if settings.FEATURES.get("MULTIPLE_ENROLLMENT_ROLES"):
