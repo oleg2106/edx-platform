@@ -11,6 +11,7 @@ from django.views.decorators.cache import cache_control
 from django.views.generic.base import TemplateView
 from django.views.decorators.http import condition
 from django_future.csrf import ensure_csrf_cookie
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from edxmako.shortcuts import render_to_response
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
@@ -131,10 +132,14 @@ class ImportCert(StaffDashboardView):
             csvfile = request.FILES['csvfile']
             pdffile = request.FILES['pdffile']
 
+            if isinstance(pdffile, InMemoryUploadedFile):
+                pdffile.mode = "b"
+
             if csvfile is None:
                 self.msg += "No CSV file<br>"
             if pdffile is None:
                 self.msg += "No PDF file<br>"
+            
             if not (csvfile is None or pdffile is None):
                 data = UnicodeDictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
                 inputpdf = PdfFileReader(pdffile)
