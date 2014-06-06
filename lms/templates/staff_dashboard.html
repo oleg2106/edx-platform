@@ -7,6 +7,15 @@
   <%static:css group='style-course'/>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.axislabels.js')}"></script>
+
+
+<%static:css group='style-vendor-tinymce-content'/>
+<%static:css group='style-vendor-tinymce-skin'/>
+
+  <script type="text/javascript" src="${static.url('js/vendor/tinymce/js/tinymce/tinymce.full.min.js')}"></script>
+  <script type="text/javascript" src="${static.url('js/vendor/tinymce/js/tinymce/jquery.tinymce.min.js')}"></script>
+  <%static:js group='module-descriptor-js'/>
+
 </%block>
 
 <style type="text/css">
@@ -55,7 +64,8 @@ textarea {
     <h2 class="instructor-nav">
 	  <a href="${reverse('staff_cert')}" class="${modeflag.get('cert')}">${_('Import certificates')}</a>
       <a href="${reverse('staff_stat')}" class="${modeflag.get('stat')}">${_('Statistics')}</a>
-      <a href="${reverse('staff_settings')}" class="${modeflag.get('settings')}">${_('Settings')}</a>
+      <a href="${reverse('staff_email')}" class="${modeflag.get('email')}">${_('Email')}</a>
+        <a href="${reverse('staff_settings')}" class="${modeflag.get('settings')}">${_('Settings')}</a>
     </h2>
 	<hr />
 
@@ -214,6 +224,113 @@ textarea {
 	    </p>
 	</form>
 </p>
+
+%endif
+
+%if modeflag.get('email'):
+
+<style>
+.email-sender li {
+	list-style: none;
+}
+</style>
+
+<h3>
+	Страница отправки сообщений
+</h3>
+
+    <section class="email-sender" style="width: 800px;">
+    <ul class="list-fields">
+      <li class="field">
+        <label for="id_subject">${_("Subject: ")}</label>
+          <input type="text" id="id_subject" name="subject" maxlength="128" size="50"><br>
+        <span class="tip">${_("(Max 128 characters)")}</span>
+      </li>
+
+      <li class="field">
+        <label>${_("Message:")}</label>
+        <div class="email-editor">
+          <div class="xblock xblock-studio_view xmodule_edit xmodule_HtmlDescriptor" data-runtime-class="LmsRuntime" data-init="XBlockToXModuleShim" data-block-type="None" data-runtime-version="1" data-usage-id="i4x:;_;_dummy_org;_dummy_course;_html;_dummy_name" data-type="HTMLEditingDescriptor" data-course-id="CPM/1/123">
+
+
+<section class="html-editor editor">
+  <div class="row">
+    <textarea class="tiny-mce"></textarea>
+  </div>
+</section>
+
+</div>
+
+        </div>
+        <input type="hidden" name="message" value="">
+      </li>
+    </ul>
+    <span style="color: red;"><b>ВНИМАНИЕ!</b></span> Данное письмо будет отправленно всем пользователям системы без подтверждения!
+    <div class="submit-email-action">
+        <input type="button" class="email-send" value="Отослать письмо">
+    </div>
+    <div class="msg msg-confirm" style="display:none"><p class="copy"></p></div>
+    </section>
+
+
+<script type="text/javascript">
+    var emailEditor;
+      $(document).ready(function(event){
+        emailEditor = XBlock.initializeBlock($('.xblock-studio_view'));
+
+        $('input.email-send').on('click', function () {
+            submitEmail();
+        });
+
+      });
+      function checkemail(event) {
+          this.idashform.message.value = emailEditor.save()['data'];
+          if (!this.idashform.subject.value) {
+              alert("${_("Email subject can not be empty.")}");
+              event.preventDefault();
+              return false;
+          } else if (!this.idashform.message.value) {
+              alert("${_("Email body can not be empty.")}");
+              event.preventDefault();
+              return false;
+          } else {
+              return true;
+          }
+        };
+
+    function submitEmail()  {
+        var _this = this,
+            data = {'action': 'email', 'subject': '', 'body': ''};
+
+        data.body = emailEditor.save()['data'];
+        data.subject = $('#id_subject').val();
+
+        $('.msg-confirm').hide()
+
+      if (!data.subject) {
+          alert(gettext("Email subject can not be empty."));
+          return false;
+      } else if (!data.body) {
+          alert(gettext("Email body can not be empty."));
+          return false;
+      }
+
+        $.post(
+            '${reverse("email")}', $.param(data),
+            function (response) {
+                if (response.status !== 'success') {
+                    console.log('ERROR: ' + response.error);
+
+                    return;
+                }
+
+                $('.msg-confirm .copy').html(response.msg)
+                $('.msg-confirm').show()
+            }
+        );
+
+    };
+    </script>
 
 %endif
 

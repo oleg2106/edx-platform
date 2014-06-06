@@ -76,7 +76,7 @@ urlpatterns = ('',  # nopep8
 
     url(r'^stat$', staff.Stat.as_view(), name='stat'),
 
-    url(r'^email$', 'courseware.views.edx_email', name='email'),
+    url(r'^email$', staff.Email.as_view(), name='email'),
 
     url(r'^announcements/announcement_list$', 'student.views.announcement_list', name='announcement_list'),
 

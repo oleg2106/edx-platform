@@ -7,6 +7,8 @@ import codecs
 import cStringIO
 import datetime
 
+from django.utils.translation import ugettext as _
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.servers.basehttp import FileWrapper
@@ -28,6 +30,8 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.xml import XMLModuleStore
 from courseware.courses import get_course_by_id, get_courses
 from student.models import user_by_anonymous_id
+from util.json_request import JsonResponse
+from bulk_email.models import CourseEmail
 
 log = logging.getLogger(__name__)
 
@@ -235,6 +239,57 @@ class ImportCert(StaffDashboardView):
                         output.write(outputStream)
 
             return self.get(request)
+
+        return self.get(request)
+
+class Email(StaffDashboardView):
+    """
+    The status view provides a view of staffing and enrollment in
+    courses that include an option to download the data as a csv.
+    """
+
+    def get(self, request):
+        """Displays course Enrollment and staffing course statistics"""
+
+        if not request.user.is_staff:
+            raise Http404
+        data = []
+
+        courses = self.get_courses()
+
+        self.context.update({
+            'msg': self.msg,
+            'djangopid': os.getpid(),
+            'modeflag': {'email': 'active-section'},
+            'edx_platform_version': getattr(settings, 'EDX_PLATFORM_VERSION_STRING', ''),
+        })
+        return render_to_response(self.template_name, self.context)
+
+    def post(self, request):
+        """Handle all actions from staffing and enrollment view"""
+
+        action = request.POST.get('action', '')
+        track.views.server_track(request, action, {},
+                                 page='staffing_sysdashboard')
+
+        courses = self.get_courses()
+
+        courses_map = {}
+
+        for course_id in courses:
+            course = get_course_by_id(course_id)
+            courses_map[course.display_number_with_default + " " + course.display_name_with_default] = course
+
+
+        if action == 'email':
+            subject = request.POST.get('subject', '')
+            body =  request.POST.get('body', '')
+            mail = CourseEmail.create('', request.user, 'allall', subject, body)
+            mail.send()
+            return JsonResponse({
+                    'status': 'success',
+                    'msg': _('Your email was successfully queued for sending.')
+                })
 
         return self.get(request)
 
