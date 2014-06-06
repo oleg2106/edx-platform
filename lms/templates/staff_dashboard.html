@@ -7,6 +7,15 @@
   <%static:css group='style-course'/>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.axislabels.js')}"></script>
+
+
+<%static:css group='style-vendor-tinymce-content'/>
+<%static:css group='style-vendor-tinymce-skin'/>
+
+  <script type="text/javascript" src="${static.url('js/vendor/tinymce/js/tinymce/tinymce.full.min.js')}"></script>
+  <script type="text/javascript" src="${static.url('js/vendor/tinymce/js/tinymce/jquery.tinymce.min.js')}"></script>
+  <%static:js group='module-descriptor-js'/>
+
 </%block>
 
 <style type="text/css">
@@ -54,66 +63,11 @@ textarea {
 	<hr />
     <h2 class="instructor-nav">
 	  <a href="${reverse('staff_cert')}" class="${modeflag.get('cert')}">${_('Import certificates')}</a>
+      <a href="${reverse('staff_stat')}" class="${modeflag.get('stat')}">${_('Statistics')}</a>
+      <a href="${reverse('staff_email')}" class="${modeflag.get('email')}">${_('Email')}</a>
+        <a href="${reverse('staff_settings')}" class="${modeflag.get('settings')}">${_('Settings')}</a>
     </h2>
 	<hr />
-%if modeflag.get('users'):
-	<h3>${_('User Management')}</h3>
-
-    <form name="action" method="POST">
-    <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }" />
-
-	<ul class="list-input">
-	  <li class="field text" style="padding-bottom: 1.2em">
-		<label for="student_uname">${_('Email or username')}</label>
-		<input type="text" name="student_uname" size=40 />
-	  </li>
-
-	  <li class="field text">
-		<label for="student_fullname">${_('Full Name')}</label>
-		<input type="text" name="student_fullname" size=40 />
-	  </li>
-	  <li class="field text">
-		<label for="student_password">${_('Password')}</label>
-		<input type="password" name="student_password" size=40 />
-	  </li>
-	</ul>
-
-	<div class="form-actions">
-	  <p>
-		<button type="submit" name="action" value="del_user">${_('Delete user')}</button>
-		<button type="submit" name="action" value="create_user">${_('Create user')}</button>
-	  </p>
-    </div>
-
-	<hr />
-    <p>
-      <button type="submit" name="action" value="download_users" style="width: 350px;">
-		${_('Download list of all users (csv file)')}
-	  </button>
-    </p>
-
-    <p>
-    <button type="submit" name="action" value="repair_eamap" style="width: 350px;">
-	  ${_('Check and repair external authentication map')}
-	</button>
-    </p>
-
-    <hr width="40%" style="align:left">
-	</form>
- %endif
-
-%if modeflag.get('staffing'):
-
-<p>${_("Go to each individual course's Instructor dashboard to manage course enrollment.")}</p>
-<hr />
-
-<h3>${_('Manage course staff and instructors')}</h3><br/>
-<form name="action" method="POST">
-  <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }" />
-  <button type="submit" name="action" value="get_staff_csv">${_('Download staff and instructor list (csv file)')}</button>
-</form>
-
-%endif
 
 %if modeflag.get('certs'):
 <h3>${_('Import certificates')}</h3><br/>
@@ -137,47 +91,261 @@ textarea {
 </form>
 %endif
 
-%if modeflag.get('courses'):
-<h3>${_('Administer Courses')}</h3><br/>
+%if modeflag.get('stat'):
+<h3>
+	Страница статистики
+</h3>
+<h4>
+Статистика по оценкам
+</h4>
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		<p>
+		Логин школы:
+		<input type="text" name="school_login">
+		</p>
+		<p>
+		Активирован ли аккаунт?<br/>
+		<input type="radio" name="activated" value="1">Да
+		<input type="radio" name="activated" value="">Нет
+		</p>
+		<p>
+		Выполнено ли 70 % заданий?<br/>
+		<input type="radio" name="complete70" value="1">Да
+		<input type="radio" name="complete70" value="">Нет
+		</p>
+		<p>
+		Выполнено ли 100 % заданий?<br/>
+		<input type="radio" name="complete100" value="1">Да
+		<input type="radio" name="complete100" value="">Нет
+		</p>
+		<p>
+		Дата регистрации на курс (в формате дд/мм/гггг):<br/>
+		От (включительно): <input type="text" name="min_date"><br>
+		До (включительно): <input type="text" name="max_date">
+		</p>
+		% if value_error_in_input:
+			<p>
+				Пожалуйста, введите дату в корректном формате.
+			</p>
+		% endif
+	    <p>
+	    <input type="reset" value="Сбросить фильтры">
+	    </p>
+	    <p>
+	    <button type="submit" name="action" value="download_stat_filtered">Скачать статистику с фильтрами</button>
+	    </p>
+	</form>
+</p>
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+	    <button type="submit" name="action" value="download_stat_unfiltered">Скачать полную статистику</button>
+	</form>
+</p>
+
+<h4>
+	Статистика по проверке работ преподавателями
+</h4>
+
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		<p>
+			Курс:
+			<select name="eval_selected_course">
+				<option selected="selected" value=""></option>
+			    % for course in courses:
+			    	<option value=${course.id}>
+			    		${course.display_number_with_default} ${course.display_name_with_default}
+			    	</option>
+			    % endfor
+			</select>
+		</p>
+		<p>
+		Дата проверки (в формате дд/мм/гггг):<br/>
+		От (включительно): <input type="text" name="eval_min_date"><br/>
+		До (включительно): <input type="text" name="eval_max_date"><br/>
+		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' — текущей дате минус 365 дней.
+		</p>
+		% if eval_value_error_in_input:
+			<p>
+				Пожалуйста, введите дату в корректном формате.
+			</p>
+		% endif
+	    <p>
+	    <input type="reset" value="Сбросить фильтры">
+	    </p>
+	    <p>
+	    <button type="submit" name="action" value="download_eval_stat_filtered">Скачать статистику</button>
+	    </p>
+	</form>
+</p>
+
+<h4 hidden="true">
+	Статистика по работе преподавателей в дискуссиях
+</h4>
+
+<p hidden="true">
+	Выбран курс: ${disc_selected_course}
+</p>
+<p hidden="true">
+	<form method="post" hidden="true">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		<p>
+			Курс:
+			<select name="disc_selected_course">
+				<option selected="selected" value=""></option>
+			    % for course in courses:
+			    	<option value=${course.id}>
+			    		${course.display_name}
+			    	</option>
+			    % endfor
+  				<option value="dummy_course_2">Курс2</option>
+  				<option name="dummy_course_3">Курс3</option>
+			</select>
+		</p>
+		<p>
+		Дата работы в дискуссиях (в формате дд/мм/гггг):<br/>
+		От: <input type="text" name="disc_min_date"><br>
+		До: <input type="text" name="disc_max_date">
+		</p>
+		% if disc_value_error_in_input:
+			<p>
+				Пожалуйста, введите дату в корректном формате.
+			</p>
+		% endif
+	    <p>
+	    <input type="reset" value="Сбросить фильтры">
+	    </p>
+	    <p>
+	    <button type="submit" name="action" value="download_disc_stat_filtered">Скачать статистику</button>
+	    </p>
+	</form>
+</p>
+
+%endif
+
+%if modeflag.get('email'):
+
+<style>
+.email-sender li {
+	list-style: none;
+}
+</style>
+
+<h3>
+	Страница отправки сообщений
+</h3>
+
+    <section class="email-sender" style="width: 800px;">
+    <ul class="list-fields">
+      <li class="field">
+        <label for="id_subject">${_("Subject: ")}</label>
+          <input type="text" id="id_subject" name="subject" maxlength="128" size="50"><br>
+        <span class="tip">${_("(Max 128 characters)")}</span>
+      </li>
+
+      <li class="field">
+        <label>${_("Message:")}</label>
+        <div class="email-editor">
+          <div class="xblock xblock-studio_view xmodule_edit xmodule_HtmlDescriptor" data-runtime-class="LmsRuntime" data-init="XBlockToXModuleShim" data-block-type="None" data-runtime-version="1" data-usage-id="i4x:;_;_dummy_org;_dummy_course;_html;_dummy_name" data-type="HTMLEditingDescriptor" data-course-id="CPM/1/123">
+
+
+<section class="html-editor editor">
+  <div class="row">
+    <textarea class="tiny-mce"></textarea>
+  </div>
+</section>
+
+</div>
+
+        </div>
+        <input type="hidden" name="message" value="">
+      </li>
+    </ul>
+    <span style="color: red;"><b>ВНИМАНИЕ!</b></span> Данное письмо будет отправленно всем пользователям системы без подтверждения!
+    <div class="submit-email-action">
+        <input type="button" class="email-send" value="Отослать письмо">
+    </div>
+    <div class="msg msg-confirm" style="display:none"><p class="copy"></p></div>
+    </section>
+
+
+<script type="text/javascript">
+    var emailEditor;
+      $(document).ready(function(event){
+        emailEditor = XBlock.initializeBlock($('.xblock-studio_view'));
+
+        $('input.email-send').on('click', function () {
+            submitEmail();
+        });
+
+      });
+      function checkemail(event) {
+          this.idashform.message.value = emailEditor.save()['data'];
+          if (!this.idashform.subject.value) {
+              alert("${_("Email subject can not be empty.")}");
+              event.preventDefault();
+              return false;
+          } else if (!this.idashform.message.value) {
+              alert("${_("Email body can not be empty.")}");
+              event.preventDefault();
+              return false;
+          } else {
+              return true;
+          }
+        };
+
+    function submitEmail()  {
+        var _this = this,
+            data = {'action': 'email', 'subject': '', 'body': ''};
+
+        data.body = emailEditor.save()['data'];
+        data.subject = $('#id_subject').val();
+
+        $('.msg-confirm').hide()
+
+      if (!data.subject) {
+          alert(gettext("Email subject can not be empty."));
+          return false;
+      } else if (!data.body) {
+          alert(gettext("Email body can not be empty."));
+          return false;
+      }
+
+        $.post(
+            '${reverse("email")}', $.param(data),
+            function (response) {
+                if (response.status !== 'success') {
+                    console.log('ERROR: ' + response.error);
+
+                    return;
+                }
+
+                $('.msg-confirm .copy').html(response.msg)
+                $('.msg-confirm').show()
+            }
+        );
+
+    };
+    </script>
+
+%endif
+
+%if modeflag.get('settings'):
+<h3>${_('Settings')}</h3><br/>
 
 <form name="action" method="POST">
-  <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }" />
-  <ul class="list-input">
-	<li class="field text">
-	  <label for="repo_location">
-		## Translators: Repo is short for git repository or source of
-		## courseware
-		${_('Repo Location')}:
-	  </label>
-	  <input type="text" name="repo_location" style="width:60%" />
-	</li>
-	<li class="field text">
-	  <label for="repo_location">
-		## Translators: Repo is short for git repository or source of
-		## courseware and branch is a specific version within that repository
-		${_('Repo Branch (optional)')}:
-	  </label>
-	  <input type="text" name="repo_branch" style="width:60%" />
-	</li>
-  </ul>
-  <div class="form-actions">
-	<button type="submit" name="action" value="add_course">${_('Load new course from github')}</button>
-  </div>
-  <hr />
-  <ul class="list-input">
-	<li class="field text">
-	  <label for="course_id">
-		${_('Course ID or dir')}:
-	  </label>
-	  <input type="text" name="course_id" style="width:60%" />
-	</li>
-  </ul>
-  <div class="form-actions">
-	<button type="submit" name="action" value="del_course">${_('Delete course from site')}</button>
-  </div>
+    <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }" />
+    <input type="checkbox" ${'checked="checked"' if spammer else ''} name="spammer">Присылать все рассылки</input>
+    <div class="form-actions">
+        <button type="submit" name="action" value="save">${_("Save")}</button>
+    </div>
 </form>
-<hr style="width:40%" />
 %endif
+
 
 %if msg:
     <p>${msg}</p>

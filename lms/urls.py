@@ -3,6 +3,8 @@ from django.conf.urls import patterns, include, url
 from ratelimitbackend import admin
 from django.conf.urls.static import static
 
+from dashboard import staff
+
 import django.contrib.auth.views
 
 # Uncomment the next two lines to enable the admin:
@@ -72,8 +74,9 @@ urlpatterns = ('',  # nopep8
 
     url(r'^embargo$', 'student.views.embargo', name="embargo"),
 
-    url(r'^stat$', 'courseware.views.stat', name='stat'),
-    url(r'^email$', 'courseware.views.edx_email', name='email'),
+    url(r'^stat$', staff.Stat.as_view(), name='stat'),
+
+    url(r'^email$', staff.Email.as_view(), name='email'),
 
     url(r'^announcements/announcement_list$', 'student.views.announcement_list', name='announcement_list'),
 
