@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-04-24 12:24+0000\n"
-"PO-Revision-Date: 2014-04-24 16:49+0300\n"
+"PO-Revision-Date: 2014-06-09 15:05+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -2535,19 +2535,19 @@ msgstr ""
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:42
 msgid "Self"
-msgstr ""
+msgstr "Вы (самопроверка)"
 
 #. Translators: "AI" is used to denote an openended response that is machine-
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:45
 msgid "AI"
-msgstr ""
+msgstr "Преподаватель"
 
 #. Translators: "Peer" is used to denote an openended response that is peer-
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:47
 msgid "Peer"
-msgstr ""
+msgstr "Ваши сокурсники"
 
 #. Translators: "Not started" is used to communicate to a student that their
 #. response

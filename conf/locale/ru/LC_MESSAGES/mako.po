@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-04-28 13:17+0000\n"
-"PO-Revision-Date: 2014-06-09 14:52+0300\n"
+"PO-Revision-Date: 2014-06-09 15:05+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -2007,7 +2007,7 @@ msgstr "Открытый ответ"
 
 #: lms/templates/combinedopenended/combined_open_ended.html:19
 msgid "Assessments:"
-msgstr "Оценки:"
+msgstr "Работу проверит:"
 
 #: lms/templates/combinedopenended/combined_open_ended.html:33
 #: lms/templates/peer_grading/peer_grading_problem.html:20
