@@ -28,7 +28,8 @@ SEND_TO_MYSELF = 'myself'
 SEND_TO_STAFF = 'staff'
 SEND_TO_ALL = 'all'
 SEND_TO_LIST = 'list'
-TO_OPTIONS = [SEND_TO_MYSELF, SEND_TO_STAFF, SEND_TO_LIST, SEND_TO_ALL]
+SEND_TO_ALLALL = 'allall'
+TO_OPTIONS = [SEND_TO_MYSELF, SEND_TO_STAFF, SEND_TO_LIST, SEND_TO_ALL, SEND_TO_ALLALL]
 
 
 class Email(models.Model):
@@ -63,7 +64,8 @@ class CourseEmail(Email):
         (SEND_TO_MYSELF, 'Myself'),
         (SEND_TO_STAFF, 'Staff and instructors'),
         (SEND_TO_LIST, 'To list'),
-        (SEND_TO_ALL, 'All')
+        (SEND_TO_ALL, 'All'),
+        (SEND_TO_ALLALL, 'AllAll')
     )
     course_id = models.CharField(max_length=255, db_index=True)
     location = models.CharField(max_length=255, db_index=True, null=True, blank=True)

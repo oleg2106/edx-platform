@@ -111,7 +111,27 @@ from django.conf import settings
                   <h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3>
                   <ol>
                     %for score in section['scores']:
-                    <li>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}</li>
+                    <li>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}
+                    </li>
+                    %endfor
+                  </ol>
+                  <br>
+                  <h3> ${ _("Attempts: ")} </h3>
+                  <ol>
+                    %for attempt in section['attempts']:
+                    <li>
+                    %if attempt.student_attempts is not None:
+                        ${attempt.student_attempts}
+                    %else:
+                        0
+                    %endif
+                        /
+                    %if attempt.max_attempts is not None:
+                        ${attempt.max_attempts}
+                    %else:
+                     &infin;
+                    %endif
+                    </li>
                     %endfor
                   </ol>
                 %else:

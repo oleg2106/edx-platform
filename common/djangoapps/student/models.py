@@ -324,6 +324,8 @@ class UserProfile(models.Model):
     goals = models.TextField(blank=True, null=True)
     allow_certificate = models.BooleanField(default=1)
 
+    spammer = models.BooleanField(default=0)
+
     def get_meta(self):
         js_str = self.meta
         if not js_str:
