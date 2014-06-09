@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-04-24 12:24+0000\n"
+"POT-Creation-Date: 2014-05-26 11:39+0000\n"
 "PO-Revision-Date: 2014-02-12 15:32+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -98,10 +98,6 @@ msgstr ""
 msgid ""
 "Directory already exists, doing a git reset and pull instead of git clone."
 msgstr ""
-
-#: cms/djangoapps/contentstore/utils.py:26
-msgid "My Notes"
-msgstr "Мои заметки"
 
 #: cms/djangoapps/contentstore/management/commands/git_export.py:40
 msgid ""
@@ -274,6 +270,9 @@ msgid ""
 msgstr ""
 "Дополнительные заметки о пользователе (к примеру, почему создание курсов "
 "было запрещено)"
+
+#~ msgid "My Notes"
+#~ msgstr "Мои заметки"
 
 #~ msgid "Open Ended Panel"
 #~ msgstr "Панель задач"

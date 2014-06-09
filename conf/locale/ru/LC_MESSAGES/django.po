@@ -30,14 +30,6 @@ msgstr ""
 "X-POOTLE-MTIME: 1379946749.0\n"
 "#-#-#-#-#  clean-messages.po (edx-platform)  #-#-#-#-#\n"
 
-#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
-#. up a panel that
-#. displays information about open-ended problems that a user has submitted or
-#. needs to grade
-#: cms/djangoapps/contentstore/utils.py common/lib/xmodule/xmodule/tabs.py
-msgid "Open Ended Panel"
-msgstr "Панель задач"
-
 #: common/djangoapps/course_modes/models.py
 msgid "Honor Code Certificate"
 msgstr "Сертификат кода чести"
@@ -2111,10 +2103,6 @@ msgid "DO NOT USE THIS"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
-msgid "DO NOT USE THISE"
-msgstr ""
-
-#: common/lib/xmodule/xmodule/course_module.py
 msgid ""
 "An optional display string for the course organization that will get "
 "rendered in the LMS"
@@ -2425,6 +2413,14 @@ msgstr "Оценка преподавателем"
 #, fuzzy
 msgid "Peer grading"
 msgstr "Перекрестная проверка"
+
+#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
+#. up a panel that
+#. displays information about open-ended problems that a user has submitted or
+#. needs to grade
+#: common/lib/xmodule/xmodule/tabs.py
+msgid "Open Ended Panel"
+msgstr "Панель задач"
 
 #: lms/templates/courseware/syllabus.html
 msgid "Syllabus"
@@ -5233,10 +5229,6 @@ msgid ""
 "Directory already exists, doing a git reset and pull instead of git clone."
 msgstr ""
 
-#: cms/djangoapps/contentstore/utils.py lms/templates/notes.html
-msgid "My Notes"
-msgstr "Мои заметки"
-
 #: cms/djangoapps/contentstore/management/commands/git_export.py
 msgid ""
 "Take the specified course and attempt to export it to a git repository\n"
@@ -6644,6 +6636,10 @@ msgstr ""
 "<strong>Предупреждение:</strong> Ваш браузер не поддерживается полностью. "
 "Рекомендуем использовать {chrome_link_start}Chrome{chrome_link_end} или "
 "{ff_link_start}Firefox{ff_link_end}."
+
+#: lms/templates/notes.html
+msgid "My Notes"
+msgstr "Мои заметки"
 
 #: lms/templates/notes.html lms/templates/textannotation.html
 #: lms/templates/videoannotation.html
