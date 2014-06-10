@@ -921,6 +921,8 @@ class CombinedOpenEndedV1Module():
             'get_html': self.get_html_ajax,
         }
 
+        if (dispatch == 'save_answer'):
+            self.student_attempts += 1
         if dispatch not in handlers:
             return_html = self.current_task.handle_ajax(dispatch, data, self.system)
             return self.update_task_states_ajax(return_html)
@@ -976,7 +978,6 @@ class CombinedOpenEndedV1Module():
                     max_number_of_attempts=self.max_attempts
                 )
             }
-        self.student_attempts +=1
         self.state = self.INITIAL
         self.ready_to_reset = False
         for i in xrange(len(self.task_xml)):
