@@ -356,6 +356,8 @@ def _progress_summary(student, request, course):
                     (correct, total) = get_score(course_id, student, module_descriptor, module_creator)
                     (student_attempts,max_attempts) = get_attempts(course_id, student, module_descriptor, module_creator)
                     if correct is None and total is None:
+                        if  student_attempts is not None and max_attempts is not None:
+                            attempts.append(Attempts(student_attempts,max_attempts))
                         continue
 
                     scores.append(Score(correct, total, graded, module_descriptor.display_name_with_default))
@@ -455,7 +457,6 @@ def get_score(course_id, user, problem_descriptor, module_creator):
             return (correct, total)
         correct = correct * weight / total
         total = weight
-
 
     return (correct, total)
 
