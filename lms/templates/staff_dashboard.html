@@ -183,15 +183,17 @@ textarea {
 	</form>
 </p>
 
-<h4 hidden="true">
+<h4>
 	Статистика по работе преподавателей в дискуссиях
 </h4>
 
-<p hidden="true">
+<p hidden="false">
 	Выбран курс: ${disc_selected_course}
 </p>
-<p hidden="true">
-	<form method="post" hidden="true">
+
+
+<p>
+	<form method="post">
 		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 		<p>
 			Курс:
@@ -202,11 +204,9 @@ textarea {
 			    		${course.display_name}
 			    	</option>
 			    % endfor
-  				<option value="dummy_course_2">Курс2</option>
-  				<option name="dummy_course_3">Курс3</option>
 			</select>
 		</p>
-		<p>
+		<p hidden="true">
 		Дата работы в дискуссиях (в формате дд/мм/гггг):<br/>
 		От: <input type="text" name="disc_min_date"><br>
 		До: <input type="text" name="disc_max_date">
@@ -216,7 +216,7 @@ textarea {
 				Пожалуйста, введите дату в корректном формате.
 			</p>
 		% endif
-	    <p>
+	    <p hidden="true">
 	    <input type="reset" value="Сбросить фильтры">
 	    </p>
 	    <p>

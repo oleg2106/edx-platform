@@ -33,6 +33,11 @@ from student.models import user_by_anonymous_id
 from util.json_request import JsonResponse
 from bulk_email.models import CourseEmail
 
+from django.db.models import Q
+from django.contrib.auth.models import User
+from django_comment_common.models import Role
+import lms.lib.comment_client as cc
+
 log = logging.getLogger(__name__)
 
 
@@ -432,7 +437,6 @@ class Stat(StaffDashboardView):
                 return self.get(request)
 
         elif action == 'download_disc_stat_filtered':
-
             self.context['disc_value_error_in_input'] = True
             try:
                 disc_date_min = None
@@ -445,6 +449,7 @@ class Stat(StaffDashboardView):
                 return self.return_filtered_disc_stat_csv(\
                     disc_date_min=disc_date_min,\
                     disc_date_max=disc_date_max,\
+                    course=request.POST.get('disc_selected_course')
                 )
             except:
                 return self.get(request)
@@ -565,7 +570,7 @@ class Stat(StaffDashboardView):
             )
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=test.csv'
+        response['Content-Disposition'] = 'attachment; filename=eval_stat_filtered.csv'
         writer = csv.writer(response)
         encoding = 'cp1251'
 
@@ -614,6 +619,53 @@ class Stat(StaffDashboardView):
             writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
 
         return response
+
+
+    def return_filtered_disc_stat_csv(self, disc_date_min, disc_date_max, course):
+        
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=disc_stat_filtered.csv'
+        writer = csv.writer(response)
+        encoding = 'cp1251'
+
+        title_row = [u'Статистика по работе преподавателей в дискуссиях для курса: ']
+        header_row = [u'ФИО', u'Количество начатых дискуссий', u'Количество комментариев']
+
+        if course != '':
+            title_row.append(course)
+            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'), roles__course_id = course)
+            writer.writerow([unicode(s).encode(encoding) for s in title_row])
+            writer.writerow([unicode(s).encode(encoding) for s in header_row])
+            for user in users:
+                profiled_user = cc.User(id = user.id)
+                profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
+                profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+                row_to_csv = [user.profile.name, profiled_user_tc, profiled_user_cc]
+                writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
+        else:
+            title_row.append(u'все курсы')
+            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'))
+            users_merged = {}
+            
+            for user in users:
+                profiled_user = cc.User(id = user.id)
+                profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
+                profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+
+                if user.id in users_merged:
+                    users_merged[user.id][1] += profiled_user_tc
+                    users_merged[user.id][2] += profiled_user_cc
+                else:
+                    users_merged[user.id] = [user.profile.name, profiled_user_tc, profiled_user_cc]
+
+            writer.writerow([unicode(s).encode(encoding) for s in title_row])
+            writer.writerow([unicode(s).encode(encoding) for s in header_row])
+            for user.id in users_merged:
+                row_to_csv = users_merged[user.id]
+                writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
+            
+        return response
+
 
 def UnicodeDictReader(utf8_data, **kwargs):
     csv_reader = csv.DictReader(utf8_data, **kwargs)

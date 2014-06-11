@@ -107,7 +107,7 @@ from django.conf import settings
               </p>
 
               <div class="scores">
-                %if len(section['scores']) > 0:
+                %if len(section['scores']) > 0 or len(section['attempts']):
                   <h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3>
                   <ol>
                     %for score in section['scores']:

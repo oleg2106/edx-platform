@@ -1155,7 +1155,7 @@ class ModuleSystem(MetricsMixin,ConfigurableFragmentWrapper, Runtime):  # pylint
             open_ended_grading_interface=None, s3_interface=None,
             cache=None, can_execute_unsafe_code=None, replace_course_urls=None,
             replace_jump_to_id_urls=None, error_descriptor_class=None, get_real_user=None,
-            field_data=None, get_user_role=None, bulkmail=None,
+            field_data=None, get_user_role=None, bulkmail=None, get_score=None,
             **kwargs):
         """
         Create a closure around the system environment.
@@ -1257,6 +1257,8 @@ class ModuleSystem(MetricsMixin,ConfigurableFragmentWrapper, Runtime):  # pylint
         self.descriptor_runtime = descriptor_runtime
 
         self.bulkmail = bulkmail
+
+        self.get_score = get_score
 
     def get(self, attr):
         """	provide uniform access to attributes (like etree)."""
