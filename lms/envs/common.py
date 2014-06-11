@@ -1220,7 +1220,8 @@ INSTALLED_APPS = (
 
     # Monitoring functionality
     'monitoring',
-    'announcements',
+
+    'announcements'
 )
 
 ######################### MARKETING SITE ###############################
@@ -1520,11 +1521,11 @@ OPTIONAL_APPS = (
     'mentoring',
 
     # edx-ora2
-    'submissions',
-    'openassessment',
-    'openassessment.assessment',
-    'openassessment.workflow',
-    'openassessment.xblock'
+#    'submissions',
+#    'openassessment',
+#    'openassessment.assessment',
+#    'openassessment.workflow',
+#    'openassessment.xblock'
 )
 
 for app_name in OPTIONAL_APPS:
