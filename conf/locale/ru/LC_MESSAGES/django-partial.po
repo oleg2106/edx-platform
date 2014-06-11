@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-05-26 11:39+0000\n"
-"PO-Revision-Date: 2014-04-24 16:49+0300\n"
+"POT-Creation-Date: 2014-04-24 12:24+0000\n"
+"PO-Revision-Date: 2014-06-09 15:05+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -15,6 +15,15 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Generated-By: Babel 0.9.6\n"
 "X-POOTLE-MTIME: 1379946749.0\n"
+
+#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
+#. up a panel that
+#. displays information about open-ended problems that a user has submitted or
+#. needs to grade
+#: cms/djangoapps/contentstore/utils.py:25
+#: common/lib/xmodule/xmodule/tabs.py:633
+msgid "Open Ended Panel"
+msgstr "Панель задач"
 
 #: common/djangoapps/course_modes/models.py:43
 msgid "Honor Code Certificate"
@@ -589,8 +598,8 @@ msgstr ""
 
 #: common/djangoapps/student/views.py:1615
 msgid ""
-"You are resetting passwords too frequently. Due to security policies, {0} day"
-"(s) must elapse between password resets"
+"You are resetting passwords too frequently. Due to security policies, {0} "
+"day(s) must elapse between password resets"
 msgstr ""
 
 #: common/djangoapps/student/views.py:1624
@@ -2154,37 +2163,41 @@ msgid "DO NOT USE THIS"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py:399
+msgid "DO NOT USE THISE"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/course_module.py:401
 msgid ""
 "An optional display string for the course organization that will get "
 "rendered in the LMS"
 msgstr ""
 
-#: common/lib/xmodule/xmodule/course_module.py:402
+#: common/lib/xmodule/xmodule/course_module.py:404
 msgid ""
 "An optional display string for the course number that will get rendered in "
 "the LMS"
 msgstr ""
 
-#: common/lib/xmodule/xmodule/course_module.py:405
+#: common/lib/xmodule/xmodule/course_module.py:407
 #, fuzzy
 msgid "Limit the number of students allowed to enroll in this course."
 msgstr "Вы не записаны на этот курс"
 
-#: common/lib/xmodule/xmodule/course_module.py:407
+#: common/lib/xmodule/xmodule/course_module.py:409
 msgid "Use new chapter based progress render"
 msgstr ""
 
-#: common/lib/xmodule/xmodule/course_module.py:409
+#: common/lib/xmodule/xmodule/course_module.py:411
 msgid "List of course_id of courses which this course duplicates"
 msgstr ""
 
-#: common/lib/xmodule/xmodule/course_module.py:454
+#: common/lib/xmodule/xmodule/course_module.py:456
 msgid "General"
 msgstr "Основной раздел"
 
 #. Translators: TBD stands for 'To Be Determined' and is used when a course
 #. does not yet have an announced start date.
-#: common/lib/xmodule/xmodule/course_module.py:856
+#: common/lib/xmodule/xmodule/course_module.py:858
 msgid "TBD"
 msgstr ""
 
@@ -2351,7 +2364,7 @@ msgstr ""
 "данную страницу позже для результатов."
 
 #: common/lib/xmodule/xmodule/master_class_module.py:246
-#: lms/djangoapps/instructor/views/legacy.py:797
+#: lms/djangoapps/instructor/views/legacy.py:792
 msgid "Your email was successfully queued for sending."
 msgstr "Ваше электронное письмо успешно поставлено в очередь для отправки."
 
@@ -2464,14 +2477,6 @@ msgstr "Проверка персоналом"
 msgid "Peer grading"
 msgstr "Перекрестная проверка"
 
-#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
-#. up a panel that
-#. displays information about open-ended problems that a user has submitted or
-#. needs to grade
-#: common/lib/xmodule/xmodule/tabs.py:633
-msgid "Open Ended Panel"
-msgstr "Панель задач"
-
 #. Translators: "Syllabus" appears on a tab that, when clicked, opens the
 #. syllabus of the course.
 #: common/lib/xmodule/xmodule/tabs.py:651
@@ -2530,19 +2535,19 @@ msgstr ""
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:42
 msgid "Self"
-msgstr ""
+msgstr "Вы (самопроверка)"
 
 #. Translators: "AI" is used to denote an openended response that is machine-
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:45
 msgid "AI"
-msgstr ""
+msgstr "Преподаватель"
 
 #. Translators: "Peer" is used to denote an openended response that is peer-
 #. graded
 #: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:47
 msgid "Peer"
-msgstr ""
+msgstr "Ваши сокурсники"
 
 #. Translators: "Not started" is used to communicate to a student that their
 #. response
@@ -2993,12 +2998,12 @@ msgstr ""
 msgid "Visit a course wiki to add an article."
 msgstr ""
 
-#: lms/djangoapps/courseware/views.py:1091
+#: lms/djangoapps/courseware/views.py:754
 #, fuzzy
 msgid "User {username} does not exist."
 msgstr "Пользователь не существует."
 
-#: lms/djangoapps/courseware/views.py:1093
+#: lms/djangoapps/courseware/views.py:756
 msgid "User {username} has never accessed problem {location}"
 msgstr ""
 
@@ -3362,9 +3367,9 @@ msgid "Task is already running."
 msgstr "Задание уже выполняется."
 
 #: lms/djangoapps/instructor/views/api.py:545
-#: lms/djangoapps/instructor/views/legacy.py:1021
-#: lms/djangoapps/instructor/views/legacy.py:1095
-#: lms/djangoapps/instructor/views/legacy.py:1288
+#: lms/djangoapps/instructor/views/legacy.py:1015
+#: lms/djangoapps/instructor/views/legacy.py:1089
+#: lms/djangoapps/instructor/views/legacy.py:1282
 #: lms/djangoapps/instructor/views/tools.py:173
 msgid "Username"
 msgstr ""
@@ -3461,166 +3466,166 @@ msgstr "Загрузка данных"
 msgid "Analytics"
 msgstr "Аналитика"
 
-#: lms/djangoapps/instructor/views/legacy.py:127
+#: lms/djangoapps/instructor/views/legacy.py:122
 #, fuzzy
 msgid "Course Statistics At A Glance"
 msgstr "Курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:196
+#: lms/djangoapps/instructor/views/legacy.py:191
 msgid "Found a single student.  "
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:200
+#: lms/djangoapps/instructor/views/legacy.py:195
 msgid "Couldn't find student with that email or username."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:239
+#: lms/djangoapps/instructor/views/legacy.py:234
 #, fuzzy
 msgid "List of students enrolled in {course_id}"
 msgstr "Вы не записаны на этот курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:245
+#: lms/djangoapps/instructor/views/legacy.py:240
 #, fuzzy
 msgid "Summary Grades of students enrolled in {course_id}"
 msgstr "Вы не записаны на этот курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:252
+#: lms/djangoapps/instructor/views/legacy.py:247
 #, fuzzy
 msgid "Raw Grades of students enrolled in {course_id}"
 msgstr "Вы не записаны на этот курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:281
+#: lms/djangoapps/instructor/views/legacy.py:276
 msgid "Failed to create a background task for rescoring \"{problem_url}\"."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:289
+#: lms/djangoapps/instructor/views/legacy.py:284
 msgid ""
 "Failed to create a background task for rescoring \"{problem_url}\": problem "
 "not found."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:296
+#: lms/djangoapps/instructor/views/legacy.py:291
 msgid "Failed to create a background task for rescoring \"{url}\": {message}."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:308
+#: lms/djangoapps/instructor/views/legacy.py:303
 msgid "Failed to create a background task for resetting \"{problem_url}\"."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:315
+#: lms/djangoapps/instructor/views/legacy.py:310
 msgid ""
 "Failed to create a background task for resetting \"{problem_url}\": problem "
 "not found."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:322
+#: lms/djangoapps/instructor/views/legacy.py:317
 msgid "Failed to create a background task for resetting \"{url}\": {message}."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:366
+#: lms/djangoapps/instructor/views/legacy.py:361
 msgid "Found module.  "
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:368
+#: lms/djangoapps/instructor/views/legacy.py:363
 msgid "Couldn't find module with that urlname: {url}. "
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:378
+#: lms/djangoapps/instructor/views/legacy.py:373
 msgid "Deleted student module state for {state}!"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:392
+#: lms/djangoapps/instructor/views/legacy.py:387
 msgid "Failed to delete module state for {id}/{url}. "
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:416
+#: lms/djangoapps/instructor/views/legacy.py:411
 msgid "Module state successfully reset!"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:419
+#: lms/djangoapps/instructor/views/legacy.py:414
 msgid "Couldn't reset module state for {id}/{url}. "
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:430
+#: lms/djangoapps/instructor/views/legacy.py:425
 msgid ""
 "Failed to create a background task for rescoring \"{key}\" for student {id}."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:438
+#: lms/djangoapps/instructor/views/legacy.py:433
 msgid "Failed to create a background task for rescoring \"{key}\": {id}."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:456
+#: lms/djangoapps/instructor/views/legacy.py:451
 msgid "Progress page for username: {username} with email address: {email}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:473
+#: lms/djangoapps/instructor/views/legacy.py:468
 msgid "Assignment Name"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:497
+#: lms/djangoapps/instructor/views/legacy.py:492
 #, fuzzy
 msgid "Please enter an assignment name"
 msgstr "Пожалуйста, укажите Ваше имя."
 
-#: lms/djangoapps/instructor/views/legacy.py:502
+#: lms/djangoapps/instructor/views/legacy.py:497
 msgid "Invalid assignment name '{name}'"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:506
-#: lms/djangoapps/instructor/views/legacy.py:1288
+#: lms/djangoapps/instructor/views/legacy.py:501
+#: lms/djangoapps/instructor/views/legacy.py:1282
 msgid "External email"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:517
+#: lms/djangoapps/instructor/views/legacy.py:512
 msgid "Grades for assignment \"{name}\""
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:536
+#: lms/djangoapps/instructor/views/legacy.py:531
 msgid "List of Teachers"
 msgstr "Список Преподавателей"
 
-#: lms/djangoapps/instructor/views/legacy.py:541
+#: lms/djangoapps/instructor/views/legacy.py:536
 msgid "List of Staff"
 msgstr "Список Персонала"
 
-#: lms/djangoapps/instructor/views/legacy.py:546
+#: lms/djangoapps/instructor/views/legacy.py:541
 msgid "List of Instructors"
 msgstr "Список Администраторов"
 
-#: lms/djangoapps/instructor/views/legacy.py:596
+#: lms/djangoapps/instructor/views/legacy.py:591
 msgid "Student profile data for course {course_id}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:612
+#: lms/djangoapps/instructor/views/legacy.py:607
 msgid "Found {num} records to dump."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:615
+#: lms/djangoapps/instructor/views/legacy.py:610
 msgid "Couldn't find module with that urlname."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:623
+#: lms/djangoapps/instructor/views/legacy.py:618
 msgid "Student state for problem {problem}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:640
+#: lms/djangoapps/instructor/views/legacy.py:635
 msgid "List of Beta Testers"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:766
+#: lms/djangoapps/instructor/views/legacy.py:761
 msgid "Email subject can not be empty."
 msgstr "Тема письма не может быть пустой."
 
-#: lms/djangoapps/instructor/views/legacy.py:768
+#: lms/djangoapps/instructor/views/legacy.py:763
 msgid "Email body can not be empty."
 msgstr "Тело письма не может быть пустым."
 
-#: lms/djangoapps/instructor/views/legacy.py:783
+#: lms/djangoapps/instructor/views/legacy.py:778
 msgid "Failed to send email! ({error_message})"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:791
+#: lms/djangoapps/instructor/views/legacy.py:786
 msgid ""
 "Your email was successfully queued for sending. Please note that for large "
 "classes, it may take up to an hour (or more, if other courses are "
@@ -3631,140 +3636,140 @@ msgstr ""
 "около 1-2 часов (и даже больше при одновременной рассылке писем из "
 "нескольких курсов)"
 
-#: lms/djangoapps/instructor/views/legacy.py:874
+#: lms/djangoapps/instructor/views/legacy.py:869
 msgid "Grades from {course_id}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:968
+#: lms/djangoapps/instructor/views/legacy.py:962
 msgid "No remote gradebook defined in course metadata"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:973
+#: lms/djangoapps/instructor/views/legacy.py:967
 msgid "No remote gradebook url defined in settings.FEATURES"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:978
+#: lms/djangoapps/instructor/views/legacy.py:972
 msgid "No gradebook name defined in course remote_gradebook metadata"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:990
+#: lms/djangoapps/instructor/views/legacy.py:984
 msgid "Failed to communicate with gradebook server at {url}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:991
+#: lms/djangoapps/instructor/views/legacy.py:985
 msgid "Error: {err}"
 msgstr "Ошибка: {err}"
 
-#: lms/djangoapps/instructor/views/legacy.py:1002
+#: lms/djangoapps/instructor/views/legacy.py:996
 msgid "Remote gradebook response for {action}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1021
-#: lms/djangoapps/instructor/views/legacy.py:1095
+#: lms/djangoapps/instructor/views/legacy.py:1015
+#: lms/djangoapps/instructor/views/legacy.py:1089
 #, fuzzy
 msgid "Full name"
 msgstr "Курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:1021
+#: lms/djangoapps/instructor/views/legacy.py:1015
 msgid "Roles"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1022
+#: lms/djangoapps/instructor/views/legacy.py:1016
 #, fuzzy
 msgid "List of Forum {name}s in course {id}"
 msgstr "Вы не записаны на этот курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:1027
-#: lms/djangoapps/instructor/views/legacy.py:1055
+#: lms/djangoapps/instructor/views/legacy.py:1021
+#: lms/djangoapps/instructor/views/legacy.py:1049
 msgid "Error: unknown rolename \"{rolename}\""
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1051
+#: lms/djangoapps/instructor/views/legacy.py:1045
 msgid "Error: unknown username \"{username}\""
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1063
+#: lms/djangoapps/instructor/views/legacy.py:1057
 msgid ""
 "Error: user \"{username}\" does not have rolename \"{rolename}\", cannot "
 "remove"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1066
+#: lms/djangoapps/instructor/views/legacy.py:1060
 msgid "Removed \"{username}\" from \"{course_id}\" forum role = \"{rolename}\""
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1069
+#: lms/djangoapps/instructor/views/legacy.py:1063
 msgid ""
 "Error: user \"{username}\" already has rolename \"{rolename}\", cannot add"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1072
+#: lms/djangoapps/instructor/views/legacy.py:1066
 msgid ""
 "Error: user \"{username}\" should first be added as staff before adding as a "
 "forum administrator, cannot add"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1075
+#: lms/djangoapps/instructor/views/legacy.py:1069
 msgid "Added \"{username}\" to \"{course_id}\" forum role = \"{rolename}\""
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1097
+#: lms/djangoapps/instructor/views/legacy.py:1091
 msgid "{title} in course {course_id}"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1288
+#: lms/djangoapps/instructor/views/legacy.py:1282
 msgid "ID"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1288
+#: lms/djangoapps/instructor/views/legacy.py:1282
 #: lms/djangoapps/instructor/views/tools.py:173
 #, fuzzy
 msgid "Full Name"
 msgstr "Курс"
 
-#: lms/djangoapps/instructor/views/legacy.py:1288
+#: lms/djangoapps/instructor/views/legacy.py:1282
 #, fuzzy
 msgid "edX email"
 msgstr "Эл. почта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1546
+#: lms/djangoapps/instructor/views/legacy.py:1540
 #, fuzzy
 msgid "Enrollment of students"
 msgstr "Запись на курс закрыта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1622
+#: lms/djangoapps/instructor/views/legacy.py:1616
 msgid "Un-enrollment of students"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1723
+#: lms/djangoapps/instructor/views/legacy.py:1717
 msgid "url_name"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1723
+#: lms/djangoapps/instructor/views/legacy.py:1717
 #, fuzzy
 msgid "display name"
 msgstr "Отображаемое имя:"
 
-#: lms/djangoapps/instructor/views/legacy.py:1723
+#: lms/djangoapps/instructor/views/legacy.py:1717
 msgid "answer id"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1723
+#: lms/djangoapps/instructor/views/legacy.py:1717
 #, fuzzy
 msgid "answer"
 msgstr "Администратор студентов"
 
-#: lms/djangoapps/instructor/views/legacy.py:1723
+#: lms/djangoapps/instructor/views/legacy.py:1717
 msgid "count"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1828
+#: lms/djangoapps/instructor/views/legacy.py:1822
 msgid ""
 "Failed to find any background tasks for course \"{course}\", module "
 "\"{problem}\" and student \"{student}\"."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1831
+#: lms/djangoapps/instructor/views/legacy.py:1825
 msgid ""
 "Failed to find any background tasks for course \"{course}\" and module "
 "\"{problem}\"."
@@ -4339,8 +4344,8 @@ msgid ""
 "\n"
 "            <p class=\"error_msg\">\n"
 "            Sorry! Our payment processor did not accept your payment.\n"
-"            The decision they returned was <span class=\"decision\">"
-"{decision}</span>,\n"
+"            The decision they returned was <span class=\"decision"
+"\">{decision}</span>,\n"
 "            and the reason was <span class=\"reason\">{reason_code}:"
 "{reason_msg}</span>.\n"
 "            You were not charged. Please try a different form of payment.\n"
@@ -4357,8 +4362,8 @@ msgid ""
 "confirmation that had inconsistent data!\n"
 "                We apologize that we cannot verify whether the charge went "
 "through and take further action on your order.\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                Your credit card may possibly have been charged.  Contact us "
 "with payment-specific questions at {email}.\n"
 "                </p>\n"
@@ -4371,8 +4376,8 @@ msgid ""
 "                <p class=\"error_msg\">\n"
 "                Sorry! Due to an error your purchase was charged for a "
 "different amount than the order total!\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                Your credit card has probably been charged. Contact us with "
 "payment-specific questions at {email}.\n"
 "                </p>\n"
@@ -4387,8 +4392,8 @@ msgid ""
 "message regarding your charge, so we are\n"
 "                unable to validate that the message actually came from the "
 "payment processor.\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                We apologize that we cannot verify whether the charge went "
 "through and take further action on your order.\n"
 "                Your credit card may possibly have been charged.  Contact us "
