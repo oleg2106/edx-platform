@@ -105,11 +105,18 @@ class MasterClassModule(MasterClassFields, XModule):
         passreg = []
 
         for email in self.all_registrations:
-            user = User.objects.get(email=email)
-            allreg += [{'email': email, 'name': user.profile.lastname + ' ' + user.profile.firstname + ' ' + user.profile.middlename}]
+            try:
+                user = User.objects.get(email=email)
+                allreg += [{'email': email, 'name': user.profile.lastname + ' ' + user.profile.firstname + ' ' + user.profile.middlename}]
+            except:
+                pass
+             
         for email in self.passed_registrations:
-            user = User.objects.get(email=email)
-            passreg += [{'email': email, 'name': user.profile.lastname + ' ' + user.profile.firstname + ' ' + user.profile.middlename}]
+            try:
+                user = User.objects.get(email=email)
+                passreg += [{'email': email, 'name': user.profile.lastname + ' ' + user.profile.firstname + ' ' + user.profile.middlename}]
+            except:
+                pass
 
         if self.runtime.user_is_staff:
             additional_data['all_registrations'] = allreg
