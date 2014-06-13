@@ -1822,6 +1822,9 @@ def confirm_email_change(request, key):
 @require_POST
 def change_name_request(request):
     """ Log a request for a new name. """
+
+    import pdb; pdb.set_trace()
+    
     if not request.user.is_authenticated():
         raise Http404
 
@@ -1830,13 +1833,16 @@ def change_name_request(request):
     except PendingNameChange.DoesNotExist:
         pnc = PendingNameChange()
     pnc.user = request.user
-    pnc.new_name = request.POST['new_name'].strip()
     pnc.rationale = request.POST['rationale']
-    if len(pnc.new_name) < 2:
+
+    if len(request.POST['new_lastname'].strip()) < 2 or \
+    len(request.POST['new_firstname'].strip()) < 2 or \
+    len(request.POST['new_middlename'].strip()) < 2:
         return JsonResponse({
             "success": False,
             "error": _('Name required'),
         })  # TODO: this should be status code 400  # pylint: disable=fixme
+    pnc.name = request.POST['new_lastname'].strip() + " " + request.POST['new_firstname'].strip() + " " + request.POST['new_middlename'].strip()
     pnc.save()
 
     # The following automatically accepts name change requests. Remove this to

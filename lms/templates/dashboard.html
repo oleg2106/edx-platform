@@ -135,11 +135,15 @@
     });
 
     $("#change_name_form").submit(function(){
-      var new_name = $('#new_name_field').val();
+      #var new_name = $('#new_lastname_field').val();
       var rationale = $('#name_rationale_field').val();
 
+      var new_lastname = $('#new_lastname_field').val();
+      var new_middlename = $('#new_middlename_field').val();
+      var new_firstname = $('#new_firstname_field').val();
+
       $.post('${reverse("change_name")}',
-             {"new_name":new_name, "rationale":rationale},
+             {"new_lastname":new_lastname,"new_middlename":new_middlename,"new_firstname":new_firstname,"rationale":rationale},
              function(data) {
                if(data.success) {
                  location.reload();
@@ -510,8 +514,13 @@
         <fieldset>
           <div class="input-group">
             ## Translators: note that {platform} {cert_name_short} will look something like: "edX certificate". Please do not change the order of these placeholders.
-            <label>${_("Enter your desired full name, as it will appear on your {platform} {cert_name_short}:").format(platform=settings.PLATFORM_NAME, cert_name_short=cert_name_short)}</label>
-            <input id="new_name_field" value="" type="text" />
+            <label>${_("Enter your desired full name, as it will appear on your {platform} {cert_name_short}:").format(platform=settings.PLATFORM_NAME, cert_name_short=cert_name_short)}</label><br/>
+            <label>${_("Lastname")}</label>
+            <input id="new_lastname_field" value="" type="text" />
+            <label>${_("Firstname")}</label>
+            <input id="new_firstname_field" value="" type="text" />
+            <label>${_("Middlename")}</label>
+            <input id="new_middlename_field" value="" type="text" />
             <label>${_("Reason for name change:")}</label>
             <textarea id="name_rationale_field" value=""></textarea>
           </div>
