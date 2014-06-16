@@ -135,15 +135,13 @@
     });
 
     $("#change_name_form").submit(function(){
-      #var new_name = $('#new_lastname_field').val();
+      var new_lastname = $('#new_lastname_field').val();
+      var new_firstname = $('#new_firstname_field').val();
+      var new_middlename = $('#new_middlename_field').val();
       var rationale = $('#name_rationale_field').val();
 
-      var new_lastname = $('#new_lastname_field').val();
-      var new_middlename = $('#new_middlename_field').val();
-      var new_firstname = $('#new_firstname_field').val();
-
       $.post('${reverse("change_name")}',
-             {"new_lastname":new_lastname,"new_middlename":new_middlename,"new_firstname":new_firstname,"rationale":rationale},
+             {"new_lastname":new_lastname, "new_firstname":new_firstname, "new_middlename":new_middlename, "rationale":rationale},
              function(data) {
                if(data.success) {
                  location.reload();
