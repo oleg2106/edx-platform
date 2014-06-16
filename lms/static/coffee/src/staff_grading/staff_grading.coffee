@@ -401,11 +401,15 @@ class @StaffGrading
     return new_text
 
   make_feedbacks: (feedbacks) ->
+    if feedbacks.length < 1
+      return gettext("There is no comments.")
     result = ''
-    for feedback in feedbacks
-      result += "<p>" + feedback + "</p>"
+    for feedback_with_index in feedbacks
+      result += "<p>" + gettext("Comments for attempt number ") + feedback_with_index[0] + ":"
+      for feedback in feedback_with_index[1]
+        result += feedback
+      result += "</p>"
     return result
-
   render_list: () ->
     for problem in @problems
       problem_row = $('<tr>')
