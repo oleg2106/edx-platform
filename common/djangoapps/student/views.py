@@ -1823,7 +1823,7 @@ def confirm_email_change(request, key):
 def change_name_request(request):
     """ Log a request for a new name. """
 
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     
     if not request.user.is_authenticated():
         raise Http404
