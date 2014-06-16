@@ -178,8 +178,14 @@ textarea {
 	    <input type="reset" value="Сбросить фильтры">
 	    </p>
 	    <p>
-	    <button type="submit" name="action" value="download_eval_stat_filtered">Скачать статистику</button>
+	    <button type="submit" name="action" value="download_eval_stat_filtered">Скачать статистику с фильтрами</button>
 	    </p>
+	</form>
+</p>
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+	    <button type="submit" name="action" value="download_eval_stat_unfiltered">Скачать полную статистику</button>
 	</form>
 </p>
 
@@ -201,7 +207,7 @@ textarea {
 				<option selected="selected" value=""></option>
 			    % for course in courses:
 			    	<option value=${course.id}>
-			    		${course.display_name}
+			    		${course.display_number_with_default} ${course.display_name_with_default}
 			    	</option>
 			    % endfor
 			</select>
@@ -220,11 +226,17 @@ textarea {
 	    <input type="reset" value="Сбросить фильтры">
 	    </p>
 	    <p>
-	    <button type="submit" name="action" value="download_disc_stat_filtered">Скачать статистику</button>
+	    <button type="submit" name="action" value="download_disc_stat_filtered">Скачать статистику с фильтрами</button>
 	    </p>
 	</form>
 </p>
 
+<p>
+	<form method="post">
+		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+	    <button type="submit" name="action" value="download_disc_stat_unfiltered">Скачать полную статистику</button>
+	</form>
+</p>
 %endif
 
 %if modeflag.get('email'):
