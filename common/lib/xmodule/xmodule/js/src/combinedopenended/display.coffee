@@ -416,7 +416,7 @@ class @CombinedOpenEnded
       valid_files_attached = false
       if @can_upload_files == true
         files = @$(@file_upload_box_sel)[0].files[0]
-        if files != undefined
+        if (files?)
           valid_files_attached = true
           if files.size > max_filesize
             files = ""
