@@ -638,31 +638,37 @@ class Stat(StaffDashboardView):
 
         if course != '':
             title_row.append(course)
-            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'), roles__course_id = course)
             writer.writerow([unicode(s).encode(encoding) for s in title_row])
             writer.writerow([unicode(s).encode(encoding) for s in header_row])
 
+            users = User.objects.filter((Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator')) & Q(roles__course_id = course))
+            
             for user in users:
-                profiled_user = cc.User(id = user.id)
+                profiled_user = cc.User(id = user.id, course_id=course)
                 profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
                 profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
                 row_to_csv = [user.profile.name, profiled_user_tc, profiled_user_cc]
                 writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
         else:
             title_row.append(u'все курсы')
-            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'))
+
+            courses = modulestore().get_courses()
             users_merged = {}
+            
+            for course in courses:
 
-            for user in users:
-                profiled_user = cc.User(id = user.id)
-                profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
-                profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+                users = User.objects.filter((Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator')) & Q(roles__course_id = course.id))
 
-                if user.id in users_merged:
-                    users_merged[user.id][1] += profiled_user_tc
-                    users_merged[user.id][2] += profiled_user_cc
-                else:
-                    users_merged[user.id] = [user.profile.name, profiled_user_tc, profiled_user_cc]
+                for user in users:
+                    profiled_user = cc.User(id = user.id, course_id=course.id)
+                    profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
+                    profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+
+                    if user.id in users_merged:
+                        users_merged[user.id][1] += profiled_user_tc
+                        users_merged[user.id][2] += profiled_user_cc
+                    else:
+                        users_merged[user.id] = [user.profile.name, profiled_user_tc, profiled_user_cc]
 
             writer.writerow([unicode(s).encode(encoding) for s in title_row])
             writer.writerow([unicode(s).encode(encoding) for s in header_row])
