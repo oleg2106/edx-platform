@@ -396,6 +396,9 @@ class Registration(models.Model):
 class PendingNameChange(models.Model):
     user = models.OneToOneField(User, unique=True, db_index=True)
     new_name = models.CharField(blank=True, max_length=255)
+    new_lastname = models.CharField(blank=True, max_length=127)
+    new_firstname = models.CharField(blank=True, max_length=64)
+    new_middlename = models.CharField(blank=True, max_length=64)
     rationale = models.CharField(blank=True, max_length=1024)
 
 
