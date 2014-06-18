@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-18 13:35+0000\n"
-"PO-Revision-Date: 2014-06-09 15:05+0300\n"
+"PO-Revision-Date: 2014-06-18 18:04+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -623,18 +623,16 @@ msgid "Old email is the same as the new email."
 msgstr "Старый адрес электронной почты совпадает с новым."
 
 #: common/djangoapps/student/views.py:1843
-#, fuzzy
 msgid "Lastname required"
-msgstr "Требуется имя"
+msgstr "Требуется фамилия"
 
 #: common/djangoapps/student/views.py:1848
 msgid "Name required"
 msgstr "Требуется имя"
 
 #: common/djangoapps/student/views.py:1853
-#, fuzzy
 msgid "Middlename required"
-msgstr "Требуется имя"
+msgstr "Требуется отчество"
 
 #: common/djangoapps/student/views.py:1896
 #: common/djangoapps/student/views.py:1909
