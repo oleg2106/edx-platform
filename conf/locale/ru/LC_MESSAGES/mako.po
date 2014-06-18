@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-11 12:35+0400\n"
+"POT-Creation-Date: 2014-06-18 14:55+0400\n"
 "PO-Revision-Date: 2014-06-09 15:05+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -126,8 +126,8 @@ msgstr "Нужна помощь?"
 #: cms/templates/manage_users.html:15 cms/templates/settings.html:55
 #: cms/templates/settings_advanced.html:45
 #: cms/templates/settings_graders.html:46 cms/templates/widgets/header.html:70
-#: lms/templates/staff_dashboard.html:68
-#: lms/templates/staff_dashboard.html:338
+#: lms/templates/staff_dashboard.html:76
+#: lms/templates/staff_dashboard.html:345
 #: lms/templates/wiki/includes/article_menu.html:55
 msgid "Settings"
 msgstr "Настройки"
@@ -139,7 +139,7 @@ msgstr "Администратор"
 
 #: cms/templates/overview.html:60 cms/templates/overview.html:80
 #: cms/templates/overview.html:99 cms/templates/overview.html:305
-#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:344
+#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:351
 #: lms/templates/word_cloud.html:20
 #: lms/templates/combinedopenended/openended/open_ended.html:36
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:25
@@ -152,17 +152,20 @@ msgstr "Сохранить"
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: cms/templates/register.html:40 lms/templates/register.html:178
+#: cms/templates/register.html:40 lms/templates/announcement-list.html:488
+#: lms/templates/dashboard.html:516 lms/templates/register.html:178
 #: lms/templates/signup_modal.html:65
 msgid "Lastname"
 msgstr "Фамилия"
 
-#: cms/templates/register.html:44 lms/templates/register.html:182
+#: cms/templates/register.html:44 lms/templates/announcement-list.html:490
+#: lms/templates/dashboard.html:518 lms/templates/register.html:182
 #: lms/templates/signup_modal.html:69
 msgid "Firstname"
 msgstr "Имя"
 
-#: cms/templates/register.html:48 lms/templates/register.html:186
+#: cms/templates/register.html:48 lms/templates/announcement-list.html:492
+#: lms/templates/dashboard.html:520 lms/templates/register.html:186
 #: lms/templates/signup_modal.html:73
 msgid "Middlename"
 msgstr "Отчество"
@@ -529,7 +532,7 @@ msgstr ""
 "Вы получите подтверждение в вашем входящем ящике. Пожалуйста, пройдите по "
 "ссылке, указанной в письме, для смены почтового адреса."
 
-#: lms/templates/announcement-list.html:307 lms/templates/dashboard.html:276
+#: lms/templates/announcement-list.html:309 lms/templates/dashboard.html:278
 #: lms/templates/register-shib.html:141 lms/templates/register.html:161
 #: lms/templates/sysadmin_dashboard.html:75
 #: lms/templates/verify_student/_modal_editname.html:19
@@ -537,48 +540,48 @@ msgstr ""
 msgid "Full Name"
 msgstr "Полное имя"
 
-#: lms/templates/announcement-list.html:307
-#: lms/templates/announcement-list.html:312 lms/templates/dashboard.html:276
-#: lms/templates/dashboard.html:281
+#: lms/templates/announcement-list.html:309
+#: lms/templates/announcement-list.html:314 lms/templates/dashboard.html:278
+#: lms/templates/dashboard.html:283
 #: lms/templates/dashboard/_dashboard_info_language.html:9
 msgid "edit"
 msgstr "изменить"
 
-#: lms/templates/announcement-list.html:310 lms/templates/dashboard.html:279
-#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:67
+#: lms/templates/announcement-list.html:312 lms/templates/dashboard.html:281
+#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:75
 #: lms/templates/courseware/instructor_dashboard.html:148
 #: lms/templates/university_profile/edge.html:18
 msgid "Email"
 msgstr "Эл. почта"
 
-#: lms/templates/announcement-list.html:323
-#: lms/templates/announcement-list.html:326 lms/templates/dashboard.html:292
-#: lms/templates/dashboard.html:295
+#: lms/templates/announcement-list.html:325
+#: lms/templates/announcement-list.html:328 lms/templates/dashboard.html:294
+#: lms/templates/dashboard.html:297
 msgid "Reset Password"
 msgstr "Восстановить/изменить пароль"
 
 #. Translators: this is a control to allow users to exit out of this modal
 #. interface (a menu or piece of UI that takes the full focus of the screen)
-#: lms/templates/announcement-list.html:390
-#: lms/templates/announcement-list.html:419
-#: lms/templates/announcement-list.html:462
+#: lms/templates/announcement-list.html:392
+#: lms/templates/announcement-list.html:421
+#: lms/templates/announcement-list.html:464
 msgid "Close Modal"
 msgstr "Закрыть"
 
-#: lms/templates/announcement-list.html:396 lms/templates/dashboard.html:422
+#: lms/templates/announcement-list.html:398 lms/templates/dashboard.html:424
 msgid "Password Reset Email Sent"
 msgstr "Письмо с инструкциями по восстановлению пароля выслано"
 
 #. Translators: this text gives status on if the modal interface (a menu or
 #. piece of UI that takes the full focus of the screen) is open or not
-#: lms/templates/announcement-list.html:399
-#: lms/templates/announcement-list.html:428
-#: lms/templates/announcement-list.html:471
+#: lms/templates/announcement-list.html:401
+#: lms/templates/announcement-list.html:430
+#: lms/templates/announcement-list.html:473
 #: lms/templates/modal/accessible_confirm.html:17
 msgid "modal open"
 msgstr ""
 
-#: lms/templates/announcement-list.html:407 lms/templates/dashboard.html:433
+#: lms/templates/announcement-list.html:409 lms/templates/dashboard.html:435
 msgid ""
 "An email has been sent to {email}. Follow the link in the email to change "
 "your password."
@@ -586,34 +589,34 @@ msgstr ""
 "Письмо было выслано по адресу {email}. Перейдите по ссылке в письме для "
 "изменения пароля."
 
-#: lms/templates/announcement-list.html:425
-#: lms/templates/announcement-list.html:447 lms/templates/dashboard.html:452
-#: lms/templates/dashboard.html:474
+#: lms/templates/announcement-list.html:427
+#: lms/templates/announcement-list.html:449 lms/templates/dashboard.html:454
+#: lms/templates/dashboard.html:476
 msgid "Change Email"
 msgstr "Изменить Email"
 
-#: lms/templates/announcement-list.html:438 lms/templates/dashboard.html:465
+#: lms/templates/announcement-list.html:440 lms/templates/dashboard.html:467
 msgid "Please enter your new email address:"
 msgstr "Введите новый адрес электронной почты:"
 
-#: lms/templates/announcement-list.html:440 lms/templates/dashboard.html:467
+#: lms/templates/announcement-list.html:442 lms/templates/dashboard.html:469
 msgid "Please confirm your password:"
 msgstr "Подтвердите ваш пароль:"
 
-#: lms/templates/announcement-list.html:444 lms/templates/dashboard.html:471
+#: lms/templates/announcement-list.html:446 lms/templates/dashboard.html:473
 msgid ""
 "We will send a confirmation to both {email} and your new email as part of "
 "the process."
 msgstr "Мы вышлем подтверждения и на адрес {email}, и на новый адрес."
 
-#: lms/templates/announcement-list.html:468 lms/templates/dashboard.html:496
+#: lms/templates/announcement-list.html:470 lms/templates/dashboard.html:498
 msgid "Change your name"
 msgstr "Изменение отображаемого имени"
 
 #. Translators: note that {platform} {cert_name_short} will look something
 #. like: "edX certificate". Please do not change the order of these
 #. placeholders.
-#: lms/templates/announcement-list.html:480 lms/templates/dashboard.html:508
+#: lms/templates/announcement-list.html:482 lms/templates/dashboard.html:510
 msgid ""
 "To uphold the credibility of your {platform} {cert_name_short}, all name "
 "changes will be logged and recorded."
@@ -624,18 +627,18 @@ msgstr ""
 #. Translators: note that {platform} {cert_name_short} will look something
 #. like: "edX certificate". Please do not change the order of these
 #. placeholders.
-#: lms/templates/announcement-list.html:485 lms/templates/dashboard.html:513
+#: lms/templates/announcement-list.html:487 lms/templates/dashboard.html:515
 msgid ""
 "Enter your desired full name, as it will appear on your {platform} "
 "{cert_name_short}:"
 msgstr "Введите Ваше полное имя, как оно будет напечатано на сертификате ЦПМ:"
 
-#: lms/templates/announcement-list.html:487 lms/templates/dashboard.html:515
+#: lms/templates/announcement-list.html:494 lms/templates/dashboard.html:522
 #: lms/templates/verify_student/_modal_editname.html:21
 msgid "Reason for name change:"
 msgstr "Причина изменения имени:"
 
-#: lms/templates/announcement-list.html:491 lms/templates/dashboard.html:519
+#: lms/templates/announcement-list.html:498 lms/templates/dashboard.html:526
 msgid "Change My Name"
 msgstr "Изменить имя"
 
@@ -776,31 +779,31 @@ msgstr "Поиск"
 msgid "Dashboard"
 msgstr "Личный кабинет"
 
-#: lms/templates/dashboard.html:331
+#: lms/templates/dashboard.html:333
 msgid "Current Courses"
 msgstr "Текущие курсы"
 
-#: lms/templates/dashboard.html:349
+#: lms/templates/dashboard.html:351
 msgid "Looks like you haven't registered for any courses yet."
 msgstr "Вы не зарегистрированы ни на один курс"
 
-#: lms/templates/dashboard.html:351
+#: lms/templates/dashboard.html:353
 msgid "Find courses now!"
 msgstr "Найти курсы!"
 
-#: lms/templates/dashboard.html:354
+#: lms/templates/dashboard.html:356
 msgid "Looks like you haven't been enrolled in any courses yet."
 msgstr "Вы не зарегистрированы ни на один курс"
 
-#: lms/templates/dashboard.html:361
+#: lms/templates/dashboard.html:363
 msgid "Course-loading errors"
 msgstr "Ошибка при загрузке курсов"
 
 #. Translators: this is a control to allow users to exit out of this modal
 #. interface (a menu or piece of UI that takes the full focus of the screen)
-#: lms/templates/dashboard.html:383 lms/templates/dashboard.html:416
-#: lms/templates/dashboard.html:446 lms/templates/dashboard.html:490
-#: lms/templates/dashboard.html:533
+#: lms/templates/dashboard.html:385 lms/templates/dashboard.html:418
+#: lms/templates/dashboard.html:448 lms/templates/dashboard.html:492
+#: lms/templates/dashboard.html:540
 #: lms/templates/forgot_password_modal.html:11
 #: lms/templates/help_modal.html:25 lms/templates/help_modal.html:74
 #: lms/templates/help_modal.html:108 lms/templates/signup_modal.html:33
@@ -813,34 +816,34 @@ msgstr "Ошибка при загрузке курсов"
 msgid "Close"
 msgstr "Закрыть"
 
-#: lms/templates/dashboard.html:389
+#: lms/templates/dashboard.html:391
 msgid "Email Settings for {course_number}"
 msgstr "Настройки email для {course_number}"
 
 #. Translators: this text gives status on if the modal interface (a menu or
 #. piece of UI that takes the full focus of the screen) is open or not
-#: lms/templates/dashboard.html:392 lms/templates/dashboard.html:425
-#: lms/templates/dashboard.html:455 lms/templates/dashboard.html:499
-#: lms/templates/dashboard.html:542
+#: lms/templates/dashboard.html:394 lms/templates/dashboard.html:427
+#: lms/templates/dashboard.html:457 lms/templates/dashboard.html:501
+#: lms/templates/dashboard.html:549
 #: lms/templates/modal/_modal-settings-language.html:23
 msgid "window open"
 msgstr ""
 
-#: lms/templates/dashboard.html:400
+#: lms/templates/dashboard.html:402
 msgid "Receive course emails"
 msgstr "Получать рассылку курса"
 
-#: lms/templates/dashboard.html:402
+#: lms/templates/dashboard.html:404
 msgid "Save Settings"
 msgstr "Сохранить настройки"
 
-#: lms/templates/dashboard.html:539
+#: lms/templates/dashboard.html:546
 msgid ""
 "<span id=\"track-info\"></span> {course_number}?  <span id=\"refund-info\"></"
 "span>"
 msgstr ""
 
-#: lms/templates/dashboard.html:552
+#: lms/templates/dashboard.html:559
 #: lms/templates/dashboard/_dashboard_course_listing.html:123
 #: lms/templates/dashboard/_dashboard_course_listing.html:129
 #: lms/templates/dashboard/_dashboard_course_listing.html:135
@@ -1051,7 +1054,7 @@ msgstr "Включите сообщения об ошибках, шаги, ко�
 
 #: lms/templates/help_modal.html:98 lms/templates/import_users.html:29
 #: lms/templates/manage_user_standing.html:20
-#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:89
+#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:97
 #: lms/templates/combinedopenended/openended/open_ended.html:37
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:26
 #: lms/templates/discussion/_underscore_templates.html:26
@@ -1059,7 +1062,7 @@ msgstr "Включите сообщения об ошибках, шаги, ко�
 #: lms/templates/discussion/mustache/_inline_thread.mustache:21
 #: lms/templates/discussion/mustache/_inline_thread_cohorted.mustache:22
 #: lms/templates/instructor/staff_grading.html:63
-#: lms/templates/instructor/staff_grading.html:86
+#: lms/templates/instructor/staff_grading.html:88
 #: lms/templates/peer_grading/peer_grading_problem.html:57
 msgid "Submit"
 msgstr "Отправить"
@@ -1225,19 +1228,19 @@ msgstr "Студенты, ожидающие регистрацию"
 msgid "Students passed registration"
 msgstr "Студенты, прошедшие регистрацию"
 
-#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:245
+#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:255
 #: lms/templates/courseware/instructor_dashboard.html:559
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:26
 msgid "Subject: "
 msgstr "Тема:"
 
-#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:247
+#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:257
 #: lms/templates/courseware/instructor_dashboard.html:565
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:32
 msgid "(Max 128 characters)"
 msgstr "(Максимум 128 символов)"
 
-#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:251
+#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:261
 #: lms/templates/courseware/instructor_dashboard.html:569
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:35
 msgid "Message:"
@@ -1636,38 +1639,38 @@ msgstr "Учетная запись."
 msgid "Group {group_id}"
 msgstr "Группа {group_id}"
 
-#: lms/templates/staff_dashboard.html:62
+#: lms/templates/staff_dashboard.html:70
 #, fuzzy
 msgid "Staff Dashboard"
 msgstr "Личный кабинет"
 
-#: lms/templates/staff_dashboard.html:65 lms/templates/staff_dashboard.html:73
+#: lms/templates/staff_dashboard.html:73 lms/templates/staff_dashboard.html:81
 #, fuzzy
 msgid "Import certificates"
 msgstr "Сертификат кода чести"
 
-#: lms/templates/staff_dashboard.html:66
+#: lms/templates/staff_dashboard.html:74
 #, fuzzy
 msgid "Statistics"
 msgstr "Статус"
 
-#: lms/templates/staff_dashboard.html:289
+#: lms/templates/staff_dashboard.html:296
 #: lms/templates/courseware/instructor_dashboard.html:599
 msgid "Email subject can not be empty."
 msgstr "Тема сообщения не может быть пустой."
 
-#: lms/templates/staff_dashboard.html:293
+#: lms/templates/staff_dashboard.html:300
 #: lms/templates/courseware/instructor_dashboard.html:603
 msgid "Email body can not be empty."
 msgstr "Сообщение не может быть пустым."
 
-#: lms/templates/staff_dashboard.html:400
+#: lms/templates/staff_dashboard.html:407
 #: lms/templates/sysadmin_dashboard.html:213
 msgid "Django PID"
 msgstr ""
 
 #. Translators: A version number appears after this string
-#: lms/templates/staff_dashboard.html:402
+#: lms/templates/staff_dashboard.html:409
 #: lms/templates/sysadmin_dashboard.html:215
 msgid "Platform Version"
 msgstr ""
@@ -4227,20 +4230,20 @@ msgstr "(скрыть)"
 msgid "Student Response"
 msgstr "Ответ студента"
 
-#: lms/templates/instructor/staff_grading.html:78
+#: lms/templates/instructor/staff_grading.html:80
 #: lms/templates/peer_grading/peer_grading_problem.html:46
 msgid "Written Feedback"
 msgstr "Комментарий к работе"
 
-#: lms/templates/instructor/staff_grading.html:79
+#: lms/templates/instructor/staff_grading.html:81
 msgid "Feedback for student (optional)"
 msgstr "Ответ для студента (дополнительно)"
 
-#: lms/templates/instructor/staff_grading.html:82
+#: lms/templates/instructor/staff_grading.html:84
 msgid "Flag as inappropriate content for later review"
 msgstr "Отметьте, если ответ содержит нецензурную лексику, оскорбления и т.п."
 
-#: lms/templates/instructor/staff_grading.html:87
+#: lms/templates/instructor/staff_grading.html:89
 msgid "Skip"
 msgstr "Пропустить"
 
@@ -5009,7 +5012,7 @@ msgstr "Дата сдачи"
 
 #: lms/templates/peer_grading/peer_grading.html:33
 msgid "Graded"
-msgstr "Оценено"
+msgstr "Оценивается"
 
 #: lms/templates/peer_grading/peer_grading.html:34
 msgid "Available"

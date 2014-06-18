@@ -22,6 +22,14 @@
 a.active-section {
 	color: #551A8B;
 }
+.staff-dashboard-content-stat-subsection {
+	margin-top:1.4em;
+	margin-bottom:1.4em;
+}
+.staff-dashboard-content-stat-section {
+	margin-top:3em;
+	margin-bottom:3em;
+}
 .staff-dashboard-content h2 a {
 	margin-right: 1.2em;
 }
@@ -73,7 +81,7 @@ textarea {
 <h3>${_('Import certificates')}</h3><br/>
 
       <pre>
-    CSV файл должен обладать следубщими свойствами:
+    CSV файл должен обладать следующими свойствами:
     1. Кодировка UTF-8
     2. Разделитель ;
     3. Заголовок должен содержать следующие обязательные столбцы course_num, course_name, email
@@ -92,140 +100,142 @@ textarea {
 %endif
 
 %if modeflag.get('stat'):
-<h3>
+<h2>
 	Страница статистики
-</h3>
-<h4>
-Статистика по оценкам
-</h4>
-<p>
-	<form method="post">
-		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-		<p>
-		Логин школы:
-		<input type="text" name="school_login">
-		</p>
-		<p>
-		Активирован ли аккаунт?<br/>
-		<input type="radio" name="activated" value="1">Да
-		<input type="radio" name="activated" value="">Нет
-		</p>
-		<p>
-		Выполнено ли 70 % заданий?<br/>
-		<input type="radio" name="complete70" value="1">Да
-		<input type="radio" name="complete70" value="">Нет
-		</p>
-		<p>
-		Выполнено ли 100 % заданий?<br/>
-		<input type="radio" name="complete100" value="1">Да
-		<input type="radio" name="complete100" value="">Нет
-		</p>
-		<p>
-		Дата регистрации на курс (в формате дд/мм/гггг):<br/>
-		От (включительно): <input type="text" name="min_date"><br>
-		До (включительно): <input type="text" name="max_date">
-		</p>
-		% if value_error_in_input:
-			<p>
-				Пожалуйста, введите дату в корректном формате.
-			</p>
-		% endif
-	    <p>
-	    <input type="reset" value="Сбросить фильтры">
-	    </p>
-	    <p>
-	    <button type="submit" name="action" value="download_stat_filtered">Скачать статистику с фильтрами</button>
-	    </p>
-	</form>
-</p>
-<p>
-	<form method="post">
-		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-	    <button type="submit" name="action" value="download_stat_unfiltered">Скачать полную статистику</button>
-	</form>
-</p>
+</h2>
+<div class="staff-dashboard-content-stat-section">
+	<h3>
+	Статистика по оценкам
+	</h3>
+	<div>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+			<div class="staff-dashboard-content-stat-subsection">
+				Логин школы:
+				<input type="text" name="school_login">
+			</div>
+			<div class="staff-dashboard-content-stat-subsection">
+				Активирован ли аккаунт?<br/><br/>
+				<input type="radio" name="activated" value="1">Да
+				<input type="radio" name="activated" value="">Нет
+			</div>
+			<div class="staff-dashboard-content-stat-subsection">
+				Выполнено ли 70 % заданий?<br/><br/>
+				<input type="radio" name="complete70" value="1">Да
+				<input type="radio" name="complete70" value="">Нет
+			</div>
+			<div class="staff-dashboard-content-stat-subsection">
+				Выполнено ли 100 % заданий?<br/><br/>
+				<input type="radio" name="complete100" value="1">Да
+				<input type="radio" name="complete100" value="">Нет
+			</div>
+			<div class="staff-dashboard-content-stat-subsection">
+				Дата регистрации на курс (в формате дд/мм/гггг):<br/><br/>
+				От (включительно): <input type="text" name="min_date"><br><br/>
+				До (включительно): <input type="text" name="max_date">
+			</div>
+			% if value_error_in_input:
+				<div class="staff-dashboard-content-stat-subsection">
+					Пожалуйста, введите дату в корректном формате.
+				</div><br/>
+			% endif
+		    <div>
+			    <input type="reset" value="Сбросить фильтры">
+		    </div><br/>
+		    <div>
+			    <button type="submit" name="action" value="download_stat_filtered">Скачать статистику с фильтрами</button>
+		    </div><br/>
+		</form>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		    <button type="submit" name="action" value="download_stat_unfiltered">Скачать полную статистику</button>
+		</form>
+	</div>
+</div>
 
-<h4>
-	Статистика по проверке работ преподавателями
-</h4>
+<div class="staff-dashboard-content-stat-section">
+	<h3>
+		Статистика по проверке работ преподавателями
+	</h3>
+	<div>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+			<div class="staff-dashboard-content-stat-subsection">
+				Курс:
+				<select name="eval_selected_course">
+					<option selected="selected" value=""></option>
+				    % for course in courses:
+				    	<option value=${course.id}>
+				    		${course.display_number_with_default} ${course.display_name_with_default}
+				    	</option>
+				    % endfor
+				</select>
+			</div>
+			<div class="staff-dashboard-content-stat-subsection">
+				Дата проверки (в формате дд/мм/гггг):<br/><br/>
+				От (включительно): <input type="text" name="eval_min_date"><br/><br/>
+				До (включительно): <input type="text" name="eval_max_date"><br/><br/>
+				По умолчанию дата «до» равна текущей дате, дата «от» — текущей дате минус 365 дней.
+			</div>
+			% if eval_value_error_in_input:
+				<div class="staff-dashboard-content-stat-subsection">
+					Пожалуйста, введите дату в корректном формате.
+				</div>
+			% endif
+		    <div>
+			    <input type="reset" value="Сбросить фильтры">
+		    </div><br/>
+		    <div>
+			    <button type="submit" name="action" value="download_eval_stat_filtered">Скачать статистику с фильтрами</button>
+		    </div><br/>
+		</form>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		    <button type="submit" name="action" value="download_eval_stat_unfiltered">Скачать полную статистику</button>
+		</form>
+	</div>
+</div>
 
-<p>
-	<form method="post">
-		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-		<p>
-			Курс:
-			<select name="eval_selected_course">
-				<option selected="selected" value=""></option>
-			    % for course in courses:
-			    	<option value=${course.id}>
-			    		${course.display_number_with_default} ${course.display_name_with_default}
-			    	</option>
-			    % endfor
-			</select>
-		</p>
-		<p>
-		Дата проверки (в формате дд/мм/гггг):<br/>
-		От (включительно): <input type="text" name="eval_min_date"><br/>
-		До (включительно): <input type="text" name="eval_max_date"><br/>
-		Примечание: по умолчанию дата ''от'' равна текущей дате, дата ''до'' — текущей дате минус 365 дней.
-		</p>
-		% if eval_value_error_in_input:
-			<p>
-				Пожалуйста, введите дату в корректном формате.
-			</p>
-		% endif
-	    <p>
-	    <input type="reset" value="Сбросить фильтры">
-	    </p>
-	    <p>
-	    <button type="submit" name="action" value="download_eval_stat_filtered">Скачать статистику</button>
-	    </p>
-	</form>
-</p>
-
-<h4>
-	Статистика по работе преподавателей в дискуссиях
-</h4>
-
-<p hidden="false">
-	Выбран курс: ${disc_selected_course}
-</p>
-
-
-<p>
-	<form method="post">
-		<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-		<p>
-			Курс:
-			<select name="disc_selected_course">
-				<option selected="selected" value=""></option>
-			    % for course in courses:
-			    	<option value=${course.id}>
-			    		${course.display_name}
-			    	</option>
-			    % endfor
-			</select>
-		</p>
-		<p hidden="true">
-		Дата работы в дискуссиях (в формате дд/мм/гггг):<br/>
-		От: <input type="text" name="disc_min_date"><br>
-		До: <input type="text" name="disc_max_date">
-		</p>
-		% if disc_value_error_in_input:
-			<p>
-				Пожалуйста, введите дату в корректном формате.
-			</p>
-		% endif
-	    <p hidden="true">
-	    <input type="reset" value="Сбросить фильтры">
-	    </p>
-	    <p>
-	    <button type="submit" name="action" value="download_disc_stat_filtered">Скачать статистику</button>
-	    </p>
-	</form>
-</p>
-
+<div class="staff-dashboard-content-stat-section">
+	<h3>
+		Статистика по работе преподавателей в дискуссиях
+	</h3>
+	<div>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+			<div class="staff-dashboard-content-stat-subsection">
+				Курс:
+				<select name="disc_selected_course">
+					<option selected="selected" value=""></option>
+				    % for course in courses:
+				    	<option value=${course.id}>
+				    		${course.display_number_with_default} ${course.display_name_with_default}
+				    	</option>
+				    % endfor
+				</select>
+			</div>
+			<div hidden="true">
+				Дата работы в дискуссиях (в формате дд/мм/гггг):<br/><br/>
+				От: <input type="text" name="disc_min_date"><br><br/>
+				До: <input type="text" name="disc_max_date">
+			</div>
+			% if disc_value_error_in_input:
+				<div class="staff-dashboard-content-stat-subsection">
+					Пожалуйста, введите дату в корректном формате.
+				</div><br/>
+			% endif
+		    <div>
+		    	<button type="submit" name="action" value="download_disc_stat_filtered">Скачать статистику с фильтрами</button>
+		    </div><br/>
+		</form>
+		<form method="post">
+			<input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+		    <button type="submit" name="action" value="download_disc_stat_unfiltered">Скачать полную статистику</button>
+		</form>
+	</div>
+</div>
 %endif
+
 
 %if modeflag.get('email'):
 
@@ -239,7 +249,7 @@ textarea {
 	Страница отправки сообщений
 </h3>
 
-    <section class="email-sender" style="width: 800px;">
+<section class="email-sender" style="width: 800px;">
     <ul class="list-fields">
       <li class="field">
         <label for="id_subject">${_("Subject: ")}</label>
@@ -250,17 +260,14 @@ textarea {
       <li class="field">
         <label>${_("Message:")}</label>
         <div class="email-editor">
-          <div class="xblock xblock-studio_view xmodule_edit xmodule_HtmlDescriptor" data-runtime-class="LmsRuntime" data-init="XBlockToXModuleShim" data-block-type="None" data-runtime-version="1" data-usage-id="i4x:;_;_dummy_org;_dummy_course;_html;_dummy_name" data-type="HTMLEditingDescriptor" data-course-id="CPM/1/123">
+        	<div class="xblock xblock-studio_view xmodule_edit xmodule_HtmlDescriptor" data-runtime-class="LmsRuntime" data-init="XBlockToXModuleShim" data-block-type="None" data-runtime-version="1" data-usage-id="i4x:;_;_dummy_org;_dummy_course;_html;_dummy_name" data-type="HTMLEditingDescriptor" data-course-id="CPM/1/123">
 
-
-<section class="html-editor editor">
-  <div class="row">
-    <textarea class="tiny-mce"></textarea>
-  </div>
-</section>
-
-</div>
-
+			<section class="html-editor editor">
+			  <div class="row">
+			    <textarea class="tiny-mce"></textarea>
+			  </div>
+			</section>
+			</div>
         </div>
         <input type="hidden" name="message" value="">
       </li>
@@ -270,7 +277,7 @@ textarea {
         <input type="button" class="email-send" value="Отослать письмо">
     </div>
     <div class="msg msg-confirm" style="display:none"><p class="copy"></p></div>
-    </section>
+</section>
 
 
 <script type="text/javascript">
@@ -330,7 +337,7 @@ textarea {
         );
 
     };
-    </script>
+</script>
 
 %endif
 

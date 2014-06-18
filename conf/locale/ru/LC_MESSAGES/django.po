@@ -30,14 +30,6 @@ msgstr ""
 "X-POOTLE-MTIME: 1379946749.0\n"
 "#-#-#-#-#  clean-messages.po (edx-platform)  #-#-#-#-#\n"
 
-#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
-#. up a panel that
-#. displays information about open-ended problems that a user has submitted or
-#. needs to grade
-#: cms/djangoapps/contentstore/utils.py common/lib/xmodule/xmodule/tabs.py
-msgid "Open Ended Panel"
-msgstr "Панель задач"
-
 #: common/djangoapps/course_modes/models.py
 msgid "Honor Code Certificate"
 msgstr "Сертификат кода чести"
@@ -638,8 +630,16 @@ msgid "Old email is the same as the new email."
 msgstr "Старый адрес электронной почты совпадает с новым."
 
 #: common/djangoapps/student/views.py
+msgid "Lastname required"
+msgstr "Требуется фамилия"
+
+#: common/djangoapps/student/views.py
 msgid "Name required"
 msgstr "Требуется имя"
+
+#: common/djangoapps/student/views.py
+msgid "Middlename required"
+msgstr "Требуется отчество"
 
 #: common/djangoapps/student/views.py common/djangoapps/student/views.py
 msgid "Invalid ID"
@@ -1551,14 +1551,13 @@ msgstr "начальный"
 #: common/lib/xmodule/xmodule/peer_grading_module.py
 #: lms/templates/peer_grading/peer_grading.html
 msgid "Graded"
-msgstr "Оценено"
+msgstr "Оценивается"
 
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py
-#, fuzzy
 msgid ""
 "Defines whether the student gets credit for this problem. Credit is based on"
 " peer grades of this problem."
-msgstr "Определяет, получит ли студент кредит за оценивание данной задачи."
+msgstr "Определяет, получит ли студент оценку за данную задачу."
 
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py
 msgid "Number of attempts taken by the student on this problem"
@@ -2111,10 +2110,6 @@ msgid "DO NOT USE THIS"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
-msgid "DO NOT USE THISE"
-msgstr ""
-
-#: common/lib/xmodule/xmodule/course_module.py
 msgid ""
 "An optional display string for the course organization that will get "
 "rendered in the LMS"
@@ -2283,6 +2278,25 @@ msgid "Autopass score to automaticly pass registration for masterclass."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/master_class_module.py
+msgid "Masterclass problem id"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+msgid ""
+"Full id of the problem which is to be acomplished to pass registration for "
+"masterclass."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#, fuzzy
+msgid "Auto registration"
+msgstr "Прошедшие регистрацию."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+msgid "Auto registration for masterclass if a user passed the test"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/master_class_module.py
 msgid "Whether this student has been register for this master class."
 msgstr "Был ли этот студент зарегистрирован на этом мастер-классе."
 
@@ -2293,6 +2307,12 @@ msgstr "Все регистрации от всех студентов."
 #: common/lib/xmodule/xmodule/master_class_module.py
 msgid "Passed registrations."
 msgstr "Прошедшие регистрацию."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#, fuzzy
+msgid ""
+"Whether this student has passed the task to register for the masterclass."
+msgstr "Был ли этот студент зарегистрирован на этом мастер-классе."
 
 #: common/lib/xmodule/xmodule/master_class_module.py
 msgid ""
@@ -2311,7 +2331,30 @@ msgstr ""
 "данную страницу позже для результатов."
 
 #: common/lib/xmodule/xmodule/master_class_module.py
-#: lms/djangoapps/instructor/views/legacy.py
+#, fuzzy
+msgid ""
+"You have not been registered for this master class because you haven't "
+"passed the test."
+msgstr ""
+"Вы зарегистрированы на мастер-класс. Мы сообщим дополнительную информацию в "
+"скором времени."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#, fuzzy
+msgid ""
+"You have not been registered for this master class because there is not "
+"enough places."
+msgstr ""
+"Вы зарегистрированы на мастер-класс. Мы сообщим дополнительную информацию в "
+"скором времени."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#, fuzzy
+msgid "Not enough places for this master class."
+msgstr "Был ли этот студент зарегистрирован на этом мастер-классе."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#: lms/djangoapps/dashboard/staff.py lms/djangoapps/instructor/views/legacy.py
 msgid "Your email was successfully queued for sending."
 msgstr "Ваше электронное письмо успешно поставлено в очередь для отправки."
 
@@ -2425,6 +2468,14 @@ msgstr "Оценка преподавателем"
 #, fuzzy
 msgid "Peer grading"
 msgstr "Перекрестная проверка"
+
+#. Translators: "Open Ended Panel" appears on a tab that, when clicked, opens
+#. up a panel that
+#. displays information about open-ended problems that a user has submitted or
+#. needs to grade
+#: common/lib/xmodule/xmodule/tabs.py
+msgid "Open Ended Panel"
+msgstr "Панель задач"
 
 #: lms/templates/courseware/syllabus.html
 msgid "Syllabus"
@@ -3335,7 +3386,8 @@ msgstr "Имя"
 #: lms/djangoapps/instructor/views/api.py
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
 #: lms/templates/announcement-list.html lms/templates/dashboard.html
-#: lms/templates/login.html lms/templates/courseware/instructor_dashboard.html
+#: lms/templates/login.html lms/templates/staff_dashboard.html
+#: lms/templates/courseware/instructor_dashboard.html
 #: lms/templates/university_profile/edge.html
 msgid "Email"
 msgstr "Эл. почта"
@@ -3571,6 +3623,7 @@ msgid "List of Beta Testers"
 msgstr ""
 
 #: lms/djangoapps/instructor/views/legacy.py
+#: lms/templates/staff_dashboard.html
 #: lms/templates/courseware/instructor_dashboard.html
 #, fuzzy
 msgid "Email subject can not be empty."
@@ -3581,6 +3634,7 @@ msgstr ""
 "Тема сообщения не может быть пустой."
 
 #: lms/djangoapps/instructor/views/legacy.py
+#: lms/templates/staff_dashboard.html
 #: lms/templates/courseware/instructor_dashboard.html
 #, fuzzy
 msgid "Email body can not be empty."
@@ -5233,10 +5287,6 @@ msgid ""
 "Directory already exists, doing a git reset and pull instead of git clone."
 msgstr ""
 
-#: cms/djangoapps/contentstore/utils.py lms/templates/notes.html
-msgid "My Notes"
-msgstr "Мои заметки"
-
 #: cms/djangoapps/contentstore/management/commands/git_export.py
 msgid ""
 "Take the specified course and attempt to export it to a git repository\n"
@@ -5490,7 +5540,8 @@ msgstr "Пароль"
 
 #: cms/templates/manage_users.html cms/templates/settings.html
 #: cms/templates/settings_advanced.html cms/templates/settings_graders.html
-#: cms/templates/widgets/header.html
+#: cms/templates/widgets/header.html lms/templates/staff_dashboard.html
+#: lms/templates/staff_dashboard.html
 #: lms/templates/wiki/includes/article_menu.html
 msgid "Settings"
 msgstr "Настройки"
@@ -5502,7 +5553,8 @@ msgstr "Администратор"
 
 #: cms/templates/overview.html cms/templates/overview.html
 #: cms/templates/overview.html cms/templates/overview.html
-#: lms/templates/problem.html lms/templates/word_cloud.html
+#: lms/templates/problem.html lms/templates/staff_dashboard.html
+#: lms/templates/word_cloud.html
 #: lms/templates/combinedopenended/openended/open_ended.html
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html
 #: lms/templates/verify_student/face_upload.html
@@ -5514,17 +5566,20 @@ msgstr "Сохранить"
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Lastname"
 msgstr "Фамилия"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Firstname"
 msgstr "Имя"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Middlename"
 msgstr "Отчество"
@@ -6348,6 +6403,7 @@ msgstr ""
 
 #: lms/templates/help_modal.html lms/templates/import_users.html
 #: lms/templates/manage_user_standing.html lms/templates/register-shib.html
+#: lms/templates/staff_dashboard.html
 #: lms/templates/combinedopenended/openended/open_ended.html
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html
 #: lms/templates/discussion/_underscore_templates.html
@@ -6521,19 +6577,19 @@ msgstr "Студенты, ожидающие регистрацию"
 msgid "Students passed registration"
 msgstr "Студенты, прошедшие регистрацию"
 
-#: lms/templates/master_class.html
+#: lms/templates/master_class.html lms/templates/staff_dashboard.html
 #: lms/templates/courseware/instructor_dashboard.html
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html
 msgid "Subject: "
 msgstr "Тема:"
 
-#: lms/templates/master_class.html
+#: lms/templates/master_class.html lms/templates/staff_dashboard.html
 #: lms/templates/courseware/instructor_dashboard.html
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html
 msgid "(Max 128 characters)"
 msgstr "(Максимум 128 символов)"
 
-#: lms/templates/master_class.html
+#: lms/templates/master_class.html lms/templates/staff_dashboard.html
 #: lms/templates/courseware/instructor_dashboard.html
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html
 msgid "Message:"
@@ -6644,6 +6700,10 @@ msgstr ""
 "<strong>Предупреждение:</strong> Ваш браузер не поддерживается полностью. "
 "Рекомендуем использовать {chrome_link_start}Chrome{chrome_link_end} или "
 "{ff_link_start}Firefox{ff_link_end}."
+
+#: lms/templates/notes.html
+msgid "My Notes"
+msgstr "Мои заметки"
 
 #: lms/templates/notes.html lms/templates/textannotation.html
 #: lms/templates/videoannotation.html
@@ -6924,6 +6984,30 @@ msgstr "Учетная запись."
 msgid "Group {group_id}"
 msgstr "Группа {group_id}"
 
+#: lms/templates/staff_dashboard.html
+#, fuzzy
+msgid "Staff Dashboard"
+msgstr "Личный кабинет"
+
+#: lms/templates/staff_dashboard.html lms/templates/staff_dashboard.html
+#, fuzzy
+msgid "Import certificates"
+msgstr "Сертификат кода чести"
+
+#: lms/templates/staff_dashboard.html
+#, fuzzy
+msgid "Statistics"
+msgstr "Статус"
+
+#: lms/templates/staff_dashboard.html lms/templates/sysadmin_dashboard.html
+msgid "Django PID"
+msgstr ""
+
+#. Translators: A version number appears after this string
+#: lms/templates/staff_dashboard.html lms/templates/sysadmin_dashboard.html
+msgid "Platform Version"
+msgstr ""
+
 #: lms/templates/staff_problem_info.html
 msgid "Staff Debug Info"
 msgstr "Отладочная информация для разработчиков"
@@ -7094,15 +7178,6 @@ msgstr "Импорт курса"
 #, fuzzy
 msgid "Delete course from site"
 msgstr "Перезагрузить курс из XML файла"
-
-#: lms/templates/sysadmin_dashboard.html
-msgid "Django PID"
-msgstr ""
-
-#. Translators: A version number appears after this string
-#: lms/templates/sysadmin_dashboard.html
-msgid "Platform Version"
-msgstr ""
 
 #: lms/templates/sysadmin_dashboard_gitlogs.html
 #: lms/templates/sysadmin_dashboard_gitlogs.html
@@ -8511,6 +8586,11 @@ msgstr "Баллы за задачи: "
 #: lms/templates/courseware/progress.html
 msgid "Practice Scores: "
 msgstr "Баллы за практические задачи: "
+
+#: lms/templates/courseware/progress.html
+#, fuzzy
+msgid "Attempts: "
+msgstr "Максимальное число попыток"
 
 #: lms/templates/courseware/progress.html
 msgid "No problem scores in this section"

@@ -382,26 +382,24 @@ msgid "Your changes have been saved."
 msgstr "Ваши изменения были сохранены."
 
 #: cms/static/js/views/xblock_editor.js:43
-#, fuzzy
 msgid "Editor"
-msgstr "Редактировать"
+msgstr "Редактор"
 
 #: cms/static/js/views/xblock_editor.js:44
-#, fuzzy
 msgid "Settings"
-msgstr "Удаление"
+msgstr "Настройки"
 
 #: cms/static/js/views/modals/base_modal.js:86
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: cms/static/js/views/modals/edit_xblock.js:119
 msgid "Component"
-msgstr ""
+msgstr "Компонент"
 
 #: cms/static/js/views/modals/edit_xblock.js:122
 msgid "Editing: %(title)s"
-msgstr ""
+msgstr "Ркдактирование: %(title)s"
 
 #: cms/static/js/views/settings/advanced.js:58
 msgid ""

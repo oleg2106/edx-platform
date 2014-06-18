@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-11 12:36+0400\n"
+"POT-Creation-Date: 2014-06-18 14:55+0400\n"
 "PO-Revision-Date: 2014-04-24 16:46+0300\n"
 "Last-Translator: Lenar Safin <safin@smartdec.ru>\n"
 "Language-Team: Select LTD\n"
@@ -41,7 +41,7 @@ msgstr "Эта ссылка откроется в новом окне или в 
 
 #: common/lib/xmodule/xmodule/js/spec/combinedopenended/display_spec.js:132
 #: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:473
-#: lms/static/coffee/src/staff_grading/staff_grading.js:481
+#: lms/static/coffee/src/staff_grading/staff_grading.js:503
 msgid "Submit"
 msgstr "Отправить"
 
@@ -1284,76 +1284,85 @@ msgstr ""
 msgid "Task Progress"
 msgstr "Прогресс"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:322
+#: lms/static/coffee/src/staff_grading/staff_grading.js:323
 msgid "Grades saved.  Fetching the next submission to grade."
 msgstr ""
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:374
+#: lms/static/coffee/src/staff_grading/staff_grading.js:376
 msgid "Problem Name"
 msgstr "Имя задачи"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:374
+#: lms/static/coffee/src/staff_grading/staff_grading.js:376
 msgid "Graded"
 msgstr "Оценено"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:374
+#: lms/static/coffee/src/staff_grading/staff_grading.js:376
 msgid "Available to Grade"
 msgstr "Доступно для оценивания"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:374
+#: lms/static/coffee/src/staff_grading/staff_grading.js:376
 msgid "Required"
 msgstr "Требуется"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:374
+#: lms/static/coffee/src/staff_grading/staff_grading.js:376
 msgid "Progress"
 msgstr "Прогресс"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:407
+#: lms/static/coffee/src/staff_grading/staff_grading.js:409
 msgid "Problem without name"
 msgstr "Задача без названия"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:454
+#: lms/static/coffee/src/staff_grading/staff_grading.js:430
+#, fuzzy
+msgid "There is no comments."
+msgstr "%s новый комментарий"
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js:435
+msgid "Comments for attempt number "
+msgstr ""
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js:475
 msgid "Back to problem list"
 msgstr "Вернуться к списку заданий"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:459
+#: lms/static/coffee/src/staff_grading/staff_grading.js:480
 msgid "Try loading again"
 msgstr "Пытаюсь загрузить снова"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:463
+#: lms/static/coffee/src/staff_grading/staff_grading.js:484
 #, fuzzy
 msgid "<%= num %> available "
 msgstr "доступно"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:466
+#: lms/static/coffee/src/staff_grading/staff_grading.js:487
 #, fuzzy
 msgid "<%= num %> graded "
 msgstr "доступно"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:469
+#: lms/static/coffee/src/staff_grading/staff_grading.js:490
 #, fuzzy
 msgid "<%= num %> more needed to start ML"
 msgstr "требуется еще для начала автоматической проверки"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:485
+#: lms/static/coffee/src/staff_grading/staff_grading.js:507
 msgid "Re-check for submissions"
 msgstr "Проверить наличие заданий"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:487
+#: lms/static/coffee/src/staff_grading/staff_grading.js:509
 #, fuzzy
 msgid "System got into invalid state: <%= state %>"
 msgstr "Кажется что-то пошло не так"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:504
+#: lms/static/coffee/src/staff_grading/staff_grading.js:526
 msgid "System got into invalid state for submission: "
 msgstr "Кажется что-то пошло не так для посылки: "
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:512
-#: lms/static/coffee/src/staff_grading/staff_grading.js:521
+#: lms/static/coffee/src/staff_grading/staff_grading.js:534
+#: lms/static/coffee/src/staff_grading/staff_grading.js:543
 msgid "(Hide)"
 msgstr "Спрятать"
 
-#: lms/static/coffee/src/staff_grading/staff_grading.js:516
+#: lms/static/coffee/src/staff_grading/staff_grading.js:538
 msgid "(Show)"
 msgstr "Показать"
 

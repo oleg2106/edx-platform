@@ -1298,6 +1298,15 @@ msgid "Problem without name"
 msgstr "Задача без названия"
 
 #: lms/static/coffee/src/staff_grading/staff_grading.js
+#, fuzzy
+msgid "There is no comments."
+msgstr "%s новый комментарий"
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js
+msgid "Comments for attempt number "
+msgstr ""
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js
 msgid "Back to problem list"
 msgstr "Вернуться к списку заданий"
 
@@ -1817,26 +1826,24 @@ msgid "Your changes have been saved."
 msgstr "Ваши изменения были сохранены."
 
 #: cms/static/js/views/xblock_editor.js
-#, fuzzy
 msgid "Editor"
-msgstr "Редактировать"
+msgstr "Редактор"
 
 #: cms/static/js/views/xblock_editor.js
-#, fuzzy
 msgid "Settings"
-msgstr "Удаление"
+msgstr "Настройки"
 
 #: cms/static/js/views/modals/base_modal.js
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: cms/static/js/views/modals/edit_xblock.js
 msgid "Component"
-msgstr ""
+msgstr "Компонент"
 
 #: cms/static/js/views/modals/edit_xblock.js
 msgid "Editing: %(title)s"
-msgstr ""
+msgstr "Ркдактирование: %(title)s"
 
 #: cms/static/js/views/settings/advanced.js
 msgid ""

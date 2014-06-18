@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-11 12:35+0400\n"
-"PO-Revision-Date: 2014-06-09 15:05+0300\n"
+"POT-Creation-Date: 2014-06-18 13:35+0000\n"
+"PO-Revision-Date: 2014-06-18 18:04+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -622,12 +622,20 @@ msgstr "Учетная запись с таким адресом электро�
 msgid "Old email is the same as the new email."
 msgstr "Старый адрес электронной почты совпадает с новым."
 
-#: common/djangoapps/student/views.py:1838
+#: common/djangoapps/student/views.py:1843
+msgid "Lastname required"
+msgstr "Требуется фамилия"
+
+#: common/djangoapps/student/views.py:1848
 msgid "Name required"
 msgstr "Требуется имя"
 
-#: common/djangoapps/student/views.py:1881
-#: common/djangoapps/student/views.py:1894
+#: common/djangoapps/student/views.py:1853
+msgid "Middlename required"
+msgstr "Требуется отчество"
+
+#: common/djangoapps/student/views.py:1896
+#: common/djangoapps/student/views.py:1909
 msgid "Invalid ID"
 msgstr "Неверный ID"
 
@@ -1570,14 +1578,13 @@ msgstr "начальный"
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py:222
 #: common/lib/xmodule/xmodule/peer_grading_module.py:45
 msgid "Graded"
-msgstr "Оценено"
+msgstr "Оценивается"
 
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py:223
-#, fuzzy
 msgid ""
 "Defines whether the student gets credit for this problem. Credit is based on "
 "peer grades of this problem."
-msgstr "Определяет, получит ли студент кредит за оценивание данной задачи."
+msgstr "Определяет, получит ли студент оценку за данную задачу."
 
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py:228
 msgid "Number of attempts taken by the student on this problem"
@@ -2393,7 +2400,12 @@ msgstr ""
 "Вы зарегистрированы на мастер-класс. Мы сообщим дополнительную информацию в "
 "скором времени."
 
-#: common/lib/xmodule/xmodule/master_class_module.py:302
+#: common/lib/xmodule/xmodule/master_class_module.py:243
+#, fuzzy
+msgid "Not enough places for this master class."
+msgstr "Был ли этот студент зарегистрирован на этом мастер-классе."
+
+#: common/lib/xmodule/xmodule/master_class_module.py:303
 #: lms/djangoapps/dashboard/staff.py:296
 #: lms/djangoapps/instructor/views/legacy.py:798
 msgid "Your email was successfully queued for sending."
@@ -3771,44 +3783,44 @@ msgstr "Курс"
 msgid "edX email"
 msgstr "Эл. почта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1543
+#: lms/djangoapps/instructor/views/legacy.py:1544
 #, fuzzy
 msgid "Enrollment of students"
 msgstr "Запись на курс закрыта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1619
+#: lms/djangoapps/instructor/views/legacy.py:1620
 msgid "Un-enrollment of students"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "url_name"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 #, fuzzy
 msgid "display name"
 msgstr "Отображаемое имя:"
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "answer id"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 #, fuzzy
 msgid "answer"
 msgstr "Администратор студентов"
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "count"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1825
+#: lms/djangoapps/instructor/views/legacy.py:1826
 msgid ""
 "Failed to find any background tasks for course \"{course}\", module "
 "\"{problem}\" and student \"{student}\"."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1828
+#: lms/djangoapps/instructor/views/legacy.py:1829
 msgid ""
 "Failed to find any background tasks for course \"{course}\" and module "
 "\"{problem}\"."
