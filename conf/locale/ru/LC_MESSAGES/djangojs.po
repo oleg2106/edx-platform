@@ -1298,6 +1298,15 @@ msgid "Problem without name"
 msgstr "Задача без названия"
 
 #: lms/static/coffee/src/staff_grading/staff_grading.js
+#, fuzzy
+msgid "There is no comments."
+msgstr "%s новый комментарий"
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js
+msgid "Comments for attempt number "
+msgstr ""
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js
 msgid "Back to problem list"
 msgstr "Вернуться к списку заданий"
 

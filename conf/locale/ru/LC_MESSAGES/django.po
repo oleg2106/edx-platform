@@ -630,8 +630,16 @@ msgid "Old email is the same as the new email."
 msgstr "Старый адрес электронной почты совпадает с новым."
 
 #: common/djangoapps/student/views.py
+msgid "Lastname required"
+msgstr "Требуется фамилия"
+
+#: common/djangoapps/student/views.py
 msgid "Name required"
 msgstr "Требуется имя"
+
+#: common/djangoapps/student/views.py
+msgid "Middlename required"
+msgstr "Требуется отчество"
 
 #: common/djangoapps/student/views.py common/djangoapps/student/views.py
 msgid "Invalid ID"
@@ -2339,6 +2347,11 @@ msgid ""
 msgstr ""
 "Вы зарегистрированы на мастер-класс. Мы сообщим дополнительную информацию в "
 "скором времени."
+
+#: common/lib/xmodule/xmodule/master_class_module.py
+#, fuzzy
+msgid "Not enough places for this master class."
+msgstr "Был ли этот студент зарегистрирован на этом мастер-классе."
 
 #: common/lib/xmodule/xmodule/master_class_module.py
 #: lms/djangoapps/dashboard/staff.py lms/djangoapps/instructor/views/legacy.py
@@ -5553,17 +5566,20 @@ msgstr "Сохранить"
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Lastname"
 msgstr "Фамилия"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Firstname"
 msgstr "Имя"
 
-#: cms/templates/register.html lms/templates/register.html
+#: cms/templates/register.html lms/templates/announcement-list.html
+#: lms/templates/dashboard.html lms/templates/register.html
 #: lms/templates/signup_modal.html
 msgid "Middlename"
 msgstr "Отчество"
