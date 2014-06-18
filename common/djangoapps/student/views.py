@@ -1830,12 +1830,27 @@ def change_name_request(request):
     except PendingNameChange.DoesNotExist:
         pnc = PendingNameChange()
     pnc.user = request.user
-    pnc.new_name = request.POST['new_name'].strip()
+
+    lastname = request.POST['new_lastname'].strip()
+    firstname = request.POST['new_firstname'].strip()
+    middlename = request.POST['new_middlename'].strip()
+
+    pnc.new_name = lastname + " " + firstname + " " + middlename
     pnc.rationale = request.POST['rationale']
-    if len(pnc.new_name) < 2:
+    if len(lastname) < 1:
+        return JsonResponse({
+            "success": False,
+            "error": _('Lastname required'),
+        })  # TODO: this should be status code 400  # pylint: disable=fixme
+    if len(firstname) < 1:
         return JsonResponse({
             "success": False,
             "error": _('Name required'),
+        })  # TODO: this should be status code 400  # pylint: disable=fixme
+    if len(middlename) < 1:
+        return JsonResponse({
+            "success": False,
+            "error": _('Middlename required'),
         })  # TODO: this should be status code 400  # pylint: disable=fixme
     pnc.save()
 

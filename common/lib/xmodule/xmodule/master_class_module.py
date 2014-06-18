@@ -204,8 +204,6 @@ class MasterClassModule(MasterClassFields, XModule):
             # FIXME: we must use raw JSON, not a post data (multipart/form-data)
             master_class = data.getall('master_class[]')
 
-            #import pdb; pdb.set_trace()
-
             if self.problem_id is None:
                 self.all_registrations.append(self.runtime.user.email)
                 self.submitted = True
@@ -240,7 +238,10 @@ class MasterClassModule(MasterClassFields, XModule):
                             self.passed_registrations.append(email)
                             self.all_registrations.remove(email)
                     else:
-                        break
+                        return json.dumps({
+                            'status': 'fail',
+                            'error': _("Not enough places for this master class.")
+                        })
                 return self.get_state()
             else:
                 return json.dumps({
