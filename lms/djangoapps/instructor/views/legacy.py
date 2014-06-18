@@ -1407,7 +1407,8 @@ def grade_summary2(request, course_id):
         recto = currpage * rows
         if searchtext and len(searchtext) > 2:
             searchtext = searchtext.lower()
-            data = [row for row in data if searchtext in row[0].lower() or searchtext in row[2].lower()]
+            # searching in columns: name, school login, email
+            data = [row for row in data if searchtext in row[0].lower() or searchtext in row[1].lower() or searchtext in row[2].lower()]
         filtereddata = [ dict(enumerate(row)) for row in data[recfrom:recto]]
         return JsonResponse({'totalpages': int(math.ceil(float(len(data)) / rows)), 'currpage': request.GET.get('page'), 'totalrecords' : len(data), 'data': filtereddata})
 
