@@ -388,9 +388,9 @@ class Stat(StaffDashboardView):
 
         filename = '/edx/app/edxapp/edx-platform/fullstat.csv'
 
-
         if action == 'download_stat_unfiltered':
             return self.return_fullstat_csv('/edx/app/edxapp/edx-platform/fullstat.xls')
+
         elif action == 'download_stat_filtered':
             self.context['value_error_in_input'] = True
             try:
@@ -436,6 +436,9 @@ class Stat(StaffDashboardView):
                 log.exception('Failed to filter')
                 return self.get(request)
 
+        elif action == 'download_eval_stat_unfiltered':
+            return self.return_filtered_eval_stat_csv()
+
         elif action == 'download_disc_stat_filtered':
             self.context['disc_value_error_in_input'] = True
             try:
@@ -454,6 +457,9 @@ class Stat(StaffDashboardView):
             except:
                 return self.get(request)
 
+        elif action == 'download_disc_stat_unfiltered':
+            return self.return_filtered_disc_stat_csv()
+
         return self.get(request)
 
     def return_fullstat_csv(self, filename):
@@ -462,9 +468,8 @@ class Stat(StaffDashboardView):
         """
         wrapper = FileWrapper(file(filename))
         response = HttpResponse(wrapper, content_type='text/xls')
-        response['Content-Disposition'] = 'attachment; filename=fullstat.xls'
+        response['Content-Disposition'] = 'attachment; filename=grade_stat.xls'
         return response
-
 
     def return_filtered_stat_csv(self, school_login='', register_date_min=None, register_date_max=None, account_activated=None, complete70=None, complete100=None):
         """
@@ -479,7 +484,7 @@ class Stat(StaffDashboardView):
         """
 
         response = HttpResponse(content_type='text/xls')
-        response['Content-Disposition'] = 'attachment; filename="stat_filtered.xls"'
+        response['Content-Disposition'] = 'attachment; filename="grade_stat.xls"'
         writer = csv.writer(response, dialect="excel-tab")
         encoding = 'cp1251'
 
@@ -504,6 +509,7 @@ class Stat(StaffDashboardView):
                         # no choice in radio input --> NoneType
 
                         try:
+                            # if no valid date in this field -- pass this line
                             register_date = datetime.datetime.strptime(row[13], "%d/%m/%Y")
                             if (school_login == '' or row[6] == school_login) and\
                             (register_date_min == None or register_date_min <= register_date) and\
@@ -518,9 +524,9 @@ class Stat(StaffDashboardView):
 
         return response
 
-    def return_filtered_eval_stat_csv(self, eval_date_min, eval_date_max, course):
+    def return_filtered_eval_stat_csv(self, eval_date_min=None, eval_date_max=None, course=''):
         """
-        Will return filtered csv file with info on teacher's work on assessments.
+        Returns filtered csv file with info on teacher's work on assessments.
         """
 
         query_template = "\
@@ -569,9 +575,9 @@ class Stat(StaffDashboardView):
             course_condition
             )
 
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=eval_stat_filtered.csv'
-        writer = csv.writer(response)
+        response = HttpResponse(content_type='text/xls')
+        response['Content-Disposition'] = 'attachment; filename="eval_stat.xls"'
+        writer = csv.writer(response, dialect="excel-tab")
         encoding = 'cp1251'
 
         title_row = [u'Статистика по проверке работ преподавателями для курса: ']
@@ -620,12 +626,11 @@ class Stat(StaffDashboardView):
 
         return response
 
-
-    def return_filtered_disc_stat_csv(self, disc_date_min, disc_date_max, course):
+    def return_filtered_disc_stat_csv(self, disc_date_min=None, disc_date_max=None, course=''):
         
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=disc_stat_filtered.csv'
-        writer = csv.writer(response)
+        response = HttpResponse(content_type='text/xls')
+        response['Content-Disposition'] = 'attachment; filename="disc_stat.xls"'
+        writer = csv.writer(response, dialect="excel-tab")
         encoding = 'cp1251'
 
         title_row = [u'Статистика по работе преподавателей в дискуссиях для курса: ']
@@ -633,30 +638,37 @@ class Stat(StaffDashboardView):
 
         if course != '':
             title_row.append(course)
-            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'), roles__course_id = course)
             writer.writerow([unicode(s).encode(encoding) for s in title_row])
             writer.writerow([unicode(s).encode(encoding) for s in header_row])
+
+            users = User.objects.filter((Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator')) & Q(roles__course_id = course))
+            
             for user in users:
-                profiled_user = cc.User(id = user.id)
+                profiled_user = cc.User(id = user.id, course_id=course)
                 profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
                 profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
                 row_to_csv = [user.profile.name, profiled_user_tc, profiled_user_cc]
                 writer.writerow([unicode(s).encode(encoding) for s in row_to_csv])
         else:
             title_row.append(u'все курсы')
-            users = User.objects.filter(Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator'))
+
+            courses = modulestore().get_courses()
             users_merged = {}
             
-            for user in users:
-                profiled_user = cc.User(id = user.id)
-                profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
-                profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+            for course in courses:
 
-                if user.id in users_merged:
-                    users_merged[user.id][1] += profiled_user_tc
-                    users_merged[user.id][2] += profiled_user_cc
-                else:
-                    users_merged[user.id] = [user.profile.name, profiled_user_tc, profiled_user_cc]
+                users = User.objects.filter((Q(roles__name = 'Administrator') | Q(roles__name = 'Moderator')) & Q(roles__course_id = course.id))
+
+                for user in users:
+                    profiled_user = cc.User(id = user.id, course_id=course.id)
+                    profiled_user_tc = 0 if profiled_user['threads_count'] is None else profiled_user['threads_count']
+                    profiled_user_cc = 0 if profiled_user['comments_count'] is None else profiled_user['comments_count']
+
+                    if user.id in users_merged:
+                        users_merged[user.id][1] += profiled_user_tc
+                        users_merged[user.id][2] += profiled_user_cc
+                    else:
+                        users_merged[user.id] = [user.profile.name, profiled_user_tc, profiled_user_cc]
 
             writer.writerow([unicode(s).encode(encoding) for s in title_row])
             writer.writerow([unicode(s).encode(encoding) for s in header_row])
