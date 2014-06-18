@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-18 14:55+0400\n"
+"POT-Creation-Date: 2014-06-18 13:35+0000\n"
 "PO-Revision-Date: 2014-06-09 15:05+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -3785,44 +3785,44 @@ msgstr "Курс"
 msgid "edX email"
 msgstr "Эл. почта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1543
+#: lms/djangoapps/instructor/views/legacy.py:1544
 #, fuzzy
 msgid "Enrollment of students"
 msgstr "Запись на курс закрыта"
 
-#: lms/djangoapps/instructor/views/legacy.py:1619
+#: lms/djangoapps/instructor/views/legacy.py:1620
 msgid "Un-enrollment of students"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "url_name"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 #, fuzzy
 msgid "display name"
 msgstr "Отображаемое имя:"
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "answer id"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 #, fuzzy
 msgid "answer"
 msgstr "Администратор студентов"
 
-#: lms/djangoapps/instructor/views/legacy.py:1720
+#: lms/djangoapps/instructor/views/legacy.py:1721
 msgid "count"
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1825
+#: lms/djangoapps/instructor/views/legacy.py:1826
 msgid ""
 "Failed to find any background tasks for course \"{course}\", module "
 "\"{problem}\" and student \"{student}\"."
 msgstr ""
 
-#: lms/djangoapps/instructor/views/legacy.py:1828
+#: lms/djangoapps/instructor/views/legacy.py:1829
 msgid ""
 "Failed to find any background tasks for course \"{course}\" and module "
 "\"{problem}\"."
