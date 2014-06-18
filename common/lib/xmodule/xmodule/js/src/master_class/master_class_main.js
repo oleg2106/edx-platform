@@ -182,7 +182,7 @@ define('MasterClassMain', [], function (logme) {
             function (response) {
                 if (response.status !== 'success') {
                     console.log('ERROR: ' + response.error);
-
+                    alert(response.error)
                     return;
                 }
 
