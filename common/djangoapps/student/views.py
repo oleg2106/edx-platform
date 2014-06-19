@@ -1835,8 +1835,6 @@ def change_name_request(request):
     firstname = request.POST['new_firstname'].strip()
     middlename = request.POST['new_middlename'].strip()
 
-    pnc.new_name = lastname + " " + firstname + " " + middlename
-    pnc.rationale = request.POST['rationale']
     if len(lastname) < 1:
         return JsonResponse({
             "success": False,
@@ -1852,6 +1850,11 @@ def change_name_request(request):
             "success": False,
             "error": _('Middlename required'),
         })  # TODO: this should be status code 400  # pylint: disable=fixme
+
+    pnc.new_lastname = lastname
+    pnc.new_firstname = firstname
+    pnc.new_middlename = middlename
+    pnc.rationale = request.POST['rationale']
     pnc.save()
 
     # The following automatically accepts name change requests. Remove this to
@@ -1871,7 +1874,9 @@ def pending_name_changes(request):
     for change in PendingNameChange.objects.all():
         profile = UserProfile.objects.get(user=change.user)
         students.append({
-            "new_name": change.new_name,
+            "new_lastname": change.new_lastname,
+            "new_firstname": change.new_firstname,
+            "new_middlename": change.new_middlename,
             "rationale": change.rationale,
             "old_name": profile.name,
             "email": change.user.email,
@@ -1912,6 +1917,7 @@ def accept_name_change_by_id(id):
     u = pnc.user
     up = UserProfile.objects.get(user=u)
 
+
     # Save old name
     meta = up.get_meta()
     if 'old_names' not in meta:
@@ -1919,7 +1925,10 @@ def accept_name_change_by_id(id):
     meta['old_names'].append([up.name, pnc.rationale, datetime.datetime.now(UTC).isoformat()])
     up.set_meta(meta)
 
-    up.name = pnc.new_name
+    up.name = pnc.new_lastname + " " + pnc.new_firstname + " " + pnc.new_middlename
+    up.lastname = pnc.new_lastname
+    up.firstname = pnc.new_firstname
+    up.middlename = pnc.new_middlename
     up.save()
     pnc.delete()
 
