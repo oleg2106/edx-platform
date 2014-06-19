@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-19 12:01+0000\n"
-"PO-Revision-Date: 2014-06-19 13:37+0300\n"
+"PO-Revision-Date: 2014-06-19 16:50+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -3278,9 +3278,8 @@ msgid "Practice Scores: "
 msgstr "Баллы за практические задачи: "
 
 #: lms/templates/courseware/progress.html:119
-#, fuzzy
 msgid "Attempts: "
-msgstr "Максимальное число попыток"
+msgstr "Использовано попыток:"
 
 #: lms/templates/courseware/progress.html:138
 msgid "No problem scores in this section"
