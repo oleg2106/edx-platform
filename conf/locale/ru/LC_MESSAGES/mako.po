@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-18 14:55+0400\n"
+"POT-Creation-Date: 2014-06-19 12:01+0000\n"
 "PO-Revision-Date: 2014-06-19 13:37+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -85,6 +85,7 @@ msgstr "Номер курса"
 #: lms/templates/discussion/_underscore_templates.html:203
 #: lms/templates/discussion/mustache/_inline_discussion.mustache:17
 #: lms/templates/discussion/mustache/_inline_discussion_cohorted.mustache:17
+#: lms/templates/modal/accessible_confirm.html:27
 #: lms/templates/verify_student/face_upload.html:315
 msgid "Cancel"
 msgstr "Отмена"
@@ -4890,6 +4891,10 @@ msgid ""
 "translator!{link_end}"
 msgstr ""
 
+#: lms/templates/modal/accessible_confirm.html:26
+msgid "OK"
+msgstr "OK"
+
 #: lms/templates/open_ended_problems/combined_notifications.html:11
 msgid "{course_number} Combined Notifications"
 msgstr "{course_number} Комбинированные оповещения"
@@ -6790,9 +6795,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Вы действительно хотите удалить этот компонент? Это действие не можетбыть "
 #~ "отменено."
-
-#~ msgid "OK"
-#~ msgstr "OK"
 
 #~ msgid "Deleting&hellip;"
 #~ msgstr "Удаление&hellip;"

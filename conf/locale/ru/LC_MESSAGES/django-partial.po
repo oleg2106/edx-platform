@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-18 13:35+0000\n"
+"POT-Creation-Date: 2014-06-19 12:01+0000\n"
 "PO-Revision-Date: 2014-06-18 18:04+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -622,20 +622,20 @@ msgstr "Учетная запись с таким адресом электро�
 msgid "Old email is the same as the new email."
 msgstr "Старый адрес электронной почты совпадает с новым."
 
-#: common/djangoapps/student/views.py:1843
+#: common/djangoapps/student/views.py:1841
 msgid "Lastname required"
 msgstr "Требуется фамилия"
 
-#: common/djangoapps/student/views.py:1848
+#: common/djangoapps/student/views.py:1846
 msgid "Name required"
 msgstr "Требуется имя"
 
-#: common/djangoapps/student/views.py:1853
+#: common/djangoapps/student/views.py:1851
 msgid "Middlename required"
 msgstr "Требуется отчество"
 
-#: common/djangoapps/student/views.py:1896
-#: common/djangoapps/student/views.py:1909
+#: common/djangoapps/student/views.py:1901
+#: common/djangoapps/student/views.py:1914
 msgid "Invalid ID"
 msgstr "Неверный ID"
 
@@ -2671,7 +2671,7 @@ msgstr "Вы сделали {sub} попыток."
 msgid "Scored rubric"
 msgstr ""
 
-#: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:974
+#: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:976
 #, fuzzy
 msgid ""
 "You have attempted this question {number_of_student_attempts} times. You are "
@@ -2680,7 +2680,7 @@ msgstr ""
 "Вы пытались ответить на этот вопрос {your} раз. Вы можете это сделать только "
 "{allowed} раз."
 
-#: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:1164
+#: common/lib/xmodule/xmodule/open_ended_grading_classes/combined_open_ended_modulev1.py:1166
 #, fuzzy
 msgid "The problem state got out-of-sync. Please try reloading the page."
 msgstr ""
