@@ -1926,6 +1926,9 @@ def accept_name_change_by_id(id):
     up.set_meta(meta)
 
     up.name = pnc.new_lastname + " " + pnc.new_firstname + " " + pnc.new_middlename
+    up.lastname = pnc.new_lastname
+    up.firstname = pnc.new_firstname
+    up.middlename = pnc.new_middlename
     up.save()
     pnc.delete()
 
