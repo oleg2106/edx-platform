@@ -921,13 +921,15 @@ class CombinedOpenEndedV1Module():
             'get_html': self.get_html_ajax,
         }
 
-        if (dispatch == 'save_answer'):
-            self.student_attempts += 1
         if dispatch not in handlers:
             return_html = self.current_task.handle_ajax(dispatch, data, self.system)
             return self.update_task_states_ajax(return_html)
 
         d = handlers[dispatch](data)
+        
+        if (dispatch == 'save_answer' and d.get['success', False]):
+            self.student_attempts += 1
+
         return json.dumps(d, cls=ComplexEncoder)
 
     def get_current_state(self, data):
