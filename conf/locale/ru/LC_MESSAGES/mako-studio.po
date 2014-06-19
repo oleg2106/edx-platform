@@ -8740,7 +8740,7 @@ msgstr "Перетащите для изменения порядка блоко
 #~ msgstr "к примеру MITX или IMF"
 
 #~ msgid "Are you sure you want to unregister from {course_number}?"
-#~ msgstr "Вы уверены что хотите удалить регистрацию с курса {course_number}?"
+#~ msgstr "Вы уверены, что хотите удалить регистрацию с курса {course_number}?"
 
 #~ msgid "Anonymous"
 #~ msgstr "Анонимный"
