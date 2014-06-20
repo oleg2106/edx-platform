@@ -252,10 +252,11 @@ class MasterClassModule(MasterClassFields, XModule):
                                 'list', 
                                 subject, 
                                 body, 
-                                location=get_lms_link_for_item(self.location, course_id=self.id), 
+                                #location=get_lms_link_for_item(self.location, course_id=self.id), 
+                                location=self.id,
                                 to_list=[email]
                                 )
-                            import pdb; pdb.set_trace()
+                            #import pdb; pdb.set_trace()
                             try:
                                 mail.send()
                                 return json.dumps({
