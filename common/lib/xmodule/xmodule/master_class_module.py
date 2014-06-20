@@ -28,6 +28,7 @@ from xmodule.modulestore import Location
 log = logging.getLogger(__name__)
 
 from django.utils.translation import ugettext as _
+#from contentstore.utils import get_lms_link_for_item
 
 
 def pretty_bool(value):
@@ -228,7 +229,6 @@ class MasterClassModule(MasterClassFields, XModule):
         elif dispatch == 'get_state':
             return self.get_state()
         elif dispatch == 'register':
-            #import pdb; pdb.set_trace()
             logging.error(data)
             if self.runtime.user_is_staff:
                 for email in data.getall('emails[]'):
@@ -236,6 +236,38 @@ class MasterClassModule(MasterClassFields, XModule):
                         if (self.all_registrations.count(email) > 0):
                             self.passed_registrations.append(email)
                             self.all_registrations.remove(email)
+
+                            # send email
+
+                            subject = u"Подтверждение регистрации на {masterclass}".format(masterclass=self.display_name)
+                            
+                            body = u"Уважаемый(ая) {fullname}!\nВаша заявка на {masterclass} была одобрена. Подробности Вы можете узнать по ссылке: {url}.\nС уважением, Команда ГБОУ ЦПМ.".format(
+                                    fullname=User.objects.get(email=email).profile.name, 
+                                    masterclass=self.display_name, 
+                                    url=self.id # not exactly right
+                                    )
+
+                            mail = self.runtime.bulkmail.create(self.course_id, 
+                                self.runtime.user, 
+                                'list', 
+                                subject, 
+                                body, 
+                                location=get_lms_link_for_item(self.location, course_id=self.id), 
+                                to_list=[email]
+                                )
+                            import pdb; pdb.set_trace()
+                            try:
+                                mail.send()
+                                return json.dumps({
+                                        'status': 'success',
+                                        'msg': _('Your email was successfully queued for sending.')
+                                    })
+                            except:
+                                return json.dumps({
+                                        'status': 'fail',
+                                        'msg': _('Your email can not be sent.')
+                                    })
+
                     else:
                         return json.dumps({
                             'status': 'fail',
