@@ -117,10 +117,8 @@ class MasterClassModule(MasterClassFields, XModule):
             message = _("You have been registered for this master class. We will provide addition information soon.")
         elif self.runtime.user.email in self.all_registrations:
             message = _("You are pending for registration for this master class. Please visit this page later for result.")
-        elif not self.passed_masterclass_test:
-            message2 = _("You have not been registered for this master class because you haven't passed the test.")
         else:
-            message2 = _("You have not been registered for this master class because there is not enough places.")
+            message2 = _("You have not been registered for this master class. Probably you have to pass a test first or there is not enough places.")
 
         if (total_register is None):
             total_register = 0
@@ -230,6 +228,7 @@ class MasterClassModule(MasterClassFields, XModule):
         elif dispatch == 'get_state':
             return self.get_state()
         elif dispatch == 'register':
+            #import pdb; pdb.set_trace()
             logging.error(data)
             if self.runtime.user_is_staff:
                 for email in data.getall('emails[]'):
