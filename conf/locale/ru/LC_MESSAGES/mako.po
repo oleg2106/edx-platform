@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-19 12:01+0000\n"
-"PO-Revision-Date: 2014-06-19 16:50+0300\n"
+"PO-Revision-Date: 2014-06-20 20:01+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -3450,16 +3450,15 @@ msgstr "Просмотр курса"
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html:122
 msgid "Are you sure you want to unregister from"
-msgstr "Вы уверены что хотите удалить регистрацию с курса"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса"
 
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html:127
 #: lms/templates/dashboard/_dashboard_course_listing.html:133
-#, fuzzy
 msgid ""
 "Are you sure you want to unregister from the verified {cert_name_long} track "
 "of"
-msgstr "Вы уверены что хотите удалить регистрацию с курса {course_number}?"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса {course_number}?"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html:128
 msgid ""
