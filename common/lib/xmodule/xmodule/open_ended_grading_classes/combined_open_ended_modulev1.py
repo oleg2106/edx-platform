@@ -925,7 +925,7 @@ class CombinedOpenEndedV1Module():
             return_html = self.current_task.handle_ajax(dispatch, data, self.system)
             
             try:
-                if (dispatch == 'save_answer' and json.loads(return_html).get('succes', False)):
+                if (dispatch == 'save_answer' and json.loads(return_html).get('success', False)):
                     self.student_attempts += 1
             except Exception:
                 pass
