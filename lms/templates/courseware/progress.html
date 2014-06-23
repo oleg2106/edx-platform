@@ -40,6 +40,13 @@ from django.conf import settings
       category_weights[section['category']] = section['weight']
 %>
 
+<style type="text/css">
+div.scores td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+</style>
+
 <div class="container">
   <div class="profile-wrapper">
 
@@ -112,8 +119,7 @@ from django.conf import settings
                 %if len(section['scores']) > 0 or len(section['attempts']):
                   <td><h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3></td>
                     %for score in section['scores']:
-                    <td>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}
-                    </td>
+                    <td>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}</td>
                     %endfor
                 </tr>
                 <tr>
@@ -121,15 +127,15 @@ from django.conf import settings
                     %for attempt in section['attempts']:
                     <td>
                     %if attempt.student_attempts is not None:
-                        ${attempt.student_attempts}
+${attempt.student_attempts}
                     %else:
-                        0
+0
                     %endif
-                        /
+/
                     %if attempt.max_attempts is not None:
-                        ${attempt.max_attempts}
+${attempt.max_attempts}
                     %else:
-                     &infin;
+&infin;
                     %endif
                     </td>
                     %endfor
