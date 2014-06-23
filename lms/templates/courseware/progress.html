@@ -107,19 +107,19 @@ from django.conf import settings
               </p>
 
               <div class="scores">
+                <table>
+                <tr>
                 %if len(section['scores']) > 0 or len(section['attempts']):
-                  <h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3>
-                  <ol>
+                  <td><h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3></td>
                     %for score in section['scores']:
-                    <li>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}
-                    </li>
+                    <td>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}
+                    </td>
                     %endfor
-                  </ol>
-                  <br>
-                  <h3> ${ _("Attempts: ")} </h3>
-                  <ol>
+                </tr>
+                <tr>
+                  <td><h3> ${ _("Attempts: ")} </h3></td>
                     %for attempt in section['attempts']:
-                    <li>
+                    <td>
                     %if attempt.student_attempts is not None:
                         ${attempt.student_attempts}
                     %else:
@@ -131,12 +131,13 @@ from django.conf import settings
                     %else:
                      &infin;
                     %endif
-                    </li>
+                    </td>
                     %endfor
-                  </ol>
                 %else:
-                  <h3 class="no-scores"> ${_("No problem scores in this section")} </h3>
+                  <td><h3 class="no-scores"> ${_("No problem scores in this section")} </h3></td>
                 %endif
+                </tr>
+                </table>
               </div>
 
 
