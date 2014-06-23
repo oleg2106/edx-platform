@@ -29,6 +29,7 @@ log = logging.getLogger(__name__)
 
 from django.utils.translation import ugettext as _
 #from contentstore.utils import get_lms_link_for_item
+from django.conf import settings
 
 
 def pretty_bool(value):
@@ -237,26 +238,22 @@ class MasterClassModule(MasterClassFields, XModule):
                             self.passed_registrations.append(email)
                             self.all_registrations.remove(email)
 
-                            # send email
-
                             subject = u"Подтверждение регистрации на {masterclass}".format(masterclass=self.display_name)
                             
                             body = u"Уважаемый(ая) {fullname}!\nВаша заявка на {masterclass} была одобрена. Подробности Вы можете узнать по ссылке: {url}.\nС уважением, Команда ГБОУ ЦПМ.".format(
                                     fullname=User.objects.get(email=email).profile.name, 
                                     masterclass=self.display_name, 
-                                    url=self.id # not exactly right
+                                    url='https://' + settings.SITE_NAME + '/courses/' + self.course_id + '/jump_to/{}'.format(Location(self.location))
                                     )
 
                             mail = self.runtime.bulkmail.create(self.course_id, 
                                 self.runtime.user, 
                                 'list', 
                                 subject, 
-                                body, 
-                                #location=get_lms_link_for_item(self.location, course_id=self.id), 
+                                body,
                                 location=self.id,
                                 to_list=[email]
                                 )
-                            #import pdb; pdb.set_trace()
                             try:
                                 mail.send()
                                 return json.dumps({
