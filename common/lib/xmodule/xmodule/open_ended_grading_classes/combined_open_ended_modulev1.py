@@ -923,12 +923,16 @@ class CombinedOpenEndedV1Module():
 
         if dispatch not in handlers:
             return_html = self.current_task.handle_ajax(dispatch, data, self.system)
+            
+            try:
+                if (dispatch == 'save_answer' and json.loads(return_html).get('success', False)):
+                    self.student_attempts += 1
+            except Exception:
+                pass
+
             return self.update_task_states_ajax(return_html)
 
         d = handlers[dispatch](data)
-        
-        if (dispatch == 'save_answer' and d.get['success', False]):
-            self.student_attempts += 1
 
         return json.dumps(d, cls=ComplexEncoder)
 

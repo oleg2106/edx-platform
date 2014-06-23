@@ -8754,16 +8754,15 @@ msgstr "Просмотр курса"
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Are you sure you want to unregister from"
-msgstr "Вы уверены что хотите удалить регистрацию с курса"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса"
 
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html
 #: lms/templates/dashboard/_dashboard_course_listing.html
-#, fuzzy
 msgid ""
 "Are you sure you want to unregister from the verified {cert_name_long} track"
 " of"
-msgstr "Вы уверены что хотите удалить регистрацию с курса {course_number}?"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса {course_number}?"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid ""

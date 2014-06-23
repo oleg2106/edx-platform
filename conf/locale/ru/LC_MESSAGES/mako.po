@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-19 12:01+0000\n"
-"PO-Revision-Date: 2014-06-19 16:50+0300\n"
+"PO-Revision-Date: 2014-06-23 12:16+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -877,8 +877,8 @@ msgstr "e-mail успешно изменен!"
 #: lms/templates/emails_change_successful.html:12
 msgid "You should see your new email in your {link_start}dashboard{link_end}."
 msgstr ""
-"Новый адрес email должен появиться на вашей {link_start}персональной странице"
-"{link_end}."
+"Новый адрес email должен появиться на вашей {link_start}персональной "
+"странице{link_end}."
 
 #: lms/templates/email_exists.html:11
 msgid "An account with the new e-mail address already exists."
@@ -1267,15 +1267,14 @@ msgid "There has been an error on the {platform_name} servers"
 msgstr "На серверах {platform_name} возникла ошибка"
 
 #: lms/templates/module-error.html:10
-#, fuzzy
 msgid ""
 "We're sorry, this module is temporarily unavailable. Our staff is working to "
 "fix it as soon as possible. Please email us at {tech_support_email} to "
 "report any problems or downtime."
 msgstr ""
 "К сожалению, данный объект временно недоступен. Мы работаем над устранением "
-"этой проблемы. Пожалуйста, пишите нам <a href=\"mailto:"
-"{tech_support_email}\">{tech_support_email}</a> о всех проблемах."
+"этой проблемы. Пожалуйста, пишите нам {tech_support_email} о любых проблемах "
+"и недоступности сервисов."
 
 #: lms/templates/module-error.html:18
 msgid "Details"
@@ -1426,8 +1425,8 @@ msgid ""
 "Required fields are noted by <strong class=\"indicator\">bold text and an "
 "asterisk (*)</strong>."
 msgstr ""
-"Обязательные поля <strong class=\"indicator\">выделены жирным и отмечены (*)"
-"</strong>."
+"Обязательные поля <strong class=\"indicator\">выделены жирным и отмечены "
+"(*)</strong>."
 
 #: lms/templates/register-shib.html:117
 msgid "Enter a public username:"
@@ -3450,16 +3449,15 @@ msgstr "Просмотр курса"
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html:122
 msgid "Are you sure you want to unregister from"
-msgstr "Вы уверены что хотите удалить регистрацию с курса"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса"
 
 #. Translators: The course's name will be added to the end of this sentence.
 #: lms/templates/dashboard/_dashboard_course_listing.html:127
 #: lms/templates/dashboard/_dashboard_course_listing.html:133
-#, fuzzy
 msgid ""
 "Are you sure you want to unregister from the verified {cert_name_long} track "
 "of"
-msgstr "Вы уверены что хотите удалить регистрацию с курса {course_number}?"
+msgstr "Вы уверены, что хотите удалить регистрацию с курса {course_number}?"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html:128
 msgid ""
@@ -4697,9 +4695,8 @@ msgid "Add Moderator"
 msgstr "Добавить модератора"
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html:192
-#, fuzzy
 msgid "Discussion Community TAs"
-msgstr "АП форумного общества"
+msgstr "Список Помощьников Сообществу в дисскусиях"
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html:194
 msgid ""
@@ -4710,9 +4707,8 @@ msgid ""
 msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html:200
-#, fuzzy
 msgid "Add Community TA"
-msgstr "Общественные ассистенты преподавателя"
+msgstr "Добавить Помощника Сообществу"
 
 #: lms/templates/instructor/instructor_dashboard_2/metrics.html:16
 msgid "Reload Graphs"
@@ -4880,9 +4876,8 @@ msgid "Please choose your preferred language"
 msgstr ""
 
 #: lms/templates/modal/_modal-settings-language.html:51
-#, fuzzy
 msgid "Save Language Settings"
-msgstr "Сохранить настройки"
+msgstr "Сохранить языковые настройки"
 
 #: lms/templates/modal/_modal-settings-language.html:57
 msgid ""
@@ -5647,8 +5642,8 @@ msgstr "Задать вопрос"
 #: lms/templates/verify_student/_reverification_support.html:23
 #: lms/templates/verify_student/_verification_support.html:9
 msgid ""
-"Please read {a_start}our FAQs to view common questions about our certificates"
-"{a_end}."
+"Please read {a_start}our FAQs to view common questions about our "
+"certificates{a_end}."
 msgstr ""
 "Пожалуйста, прочтите {a_start}наш раздел ЧаВо{a_end} для ответов на вопросы "
 "о наших сертификатах."
@@ -6558,16 +6553,16 @@ msgstr ""
 #~ msgid ""
 #~ "If you have a general question about {platform_name} please email <a href="
 #~ "\"mailto:{contact_email}\">{contact_email}</a>. To see if your question "
-#~ "has already been answered, visit our {faq_link_start}FAQ page"
-#~ "{faq_link_end}. You can also join the discussion on our {fb_link_start}"
-#~ "facebook page{fb_link_end}. Though we may not have a chance to respond to "
-#~ "every email, we take all feedback into consideration."
+#~ "has already been answered, visit our {faq_link_start}FAQ "
+#~ "page{faq_link_end}. You can also join the discussion on our "
+#~ "{fb_link_start}facebook page{fb_link_end}. Though we may not have a "
+#~ "chance to respond to every email, we take all feedback into consideration."
 #~ msgstr ""
 #~ "Если у Вас есть вопрос общего характера о {platform_name}, пожалуйста "
-#~ "напишите письмо по адресу <a href=\"mailto:{contact_email}\">"
-#~ "{contact_email}</a>. Чтобы посмотреть, был ли Ваш вопрос уже отвечен, "
-#~ "посетите наш раздел {faq_link_start}часто задаваемых вопросов"
-#~ "{faq_link_end}. Вы можете также присоединиться к дискуссии в "
+#~ "напишите письмо по адресу <a href=\"mailto:"
+#~ "{contact_email}\">{contact_email}</a>. Чтобы посмотреть, был ли Ваш "
+#~ "вопрос уже отвечен, посетите наш раздел {faq_link_start}часто задаваемых "
+#~ "вопросов{faq_link_end}. Вы можете также присоединиться к дискуссии в "
 #~ "{fb_link_start}Фейсбуке{fb_link_end}. Хотя мы не можем отвечать на каждое "
 #~ "сообщение, полученное по электронной почте, все они рассматриваются."
 
@@ -7297,8 +7292,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Приносим свои извинения. Мы не смогли найти запрашиваемую вами страницу. "
 #~ "Вы можете вернуться на главную страницу и повторить попытку. Если "
-#~ "проблема все еще возникает обратитесь в {link_start}центр поддержки"
-#~ "{link_end} для дальнейшей помощи."
+#~ "проблема все еще возникает обратитесь в {link_start}центр "
+#~ "поддержки{link_end} для дальнейшей помощи."
 
 #~ msgid "Use our feedback tool, Tender, to share your feedback"
 #~ msgstr "Для обратной связи используйте наш инструмент Tender."
@@ -7814,9 +7809,9 @@ msgstr ""
 #~ msgstr "Помощь в студии"
 
 #~ msgid ""
-#~ "Having trouble with your account? Use {link_start}our support center"
-#~ "{link_end} to look over self help steps, find solutions others have found "
-#~ "to the same problem, or let us know of your issue."
+#~ "Having trouble with your account? Use {link_start}our support "
+#~ "center{link_end} to look over self help steps, find solutions others have "
+#~ "found to the same problem, or let us know of your issue."
 #~ msgstr ""
 #~ "Есть проблемы с аккаунтом? Используйте {link_start} наш центр поддержки "
 #~ "{link_end}, чтобы посмотреть пошаговую помощь, найти решения других "
@@ -10705,8 +10700,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Please {contact_link_start}contact edX at exam-help@edx.org"
-#~ "{contact_link_end}."
+#~ "Please {contact_link_start}contact edX at exam-help@edx."
+#~ "org{contact_link_end}."
 #~ msgstr ""
 #~ "В противном случае {link_start}свяжитесь с edX по адресу {email}"
 #~ "{link_end} для получения помощи."
@@ -10888,12 +10883,14 @@ msgstr ""
 
 #~ msgid ""
 #~ "Our staff is currently working to get the site back up as soon as "
-#~ "possible. Please email us at <a href=\"mailto:\\{tech_support_email}\">"
-#~ "{tech_support_email}</a> to report any problems or downtime."
+#~ "possible. Please email us at <a href=\"mailto:"
+#~ "\\{tech_support_email}\">{tech_support_email}</a> to report any problems "
+#~ "or downtime."
 #~ msgstr ""
 #~ "Персонал работает над восстановлением функционирования сайта. Пожалуйста, "
-#~ "пишите нам по адресу <a href=\"mailto:{tech_support_email}\">"
-#~ "{tech_support_email}</a> для сообщений об ошибках или недоступности сайта."
+#~ "пишите нам по адресу <a href=\"mailto:"
+#~ "{tech_support_email}\">{tech_support_email}</a> для сообщений об ошибках "
+#~ "или недоступности сайта."
 
 #, fuzzy
 #~ msgid "Show All Discussionsdf"
