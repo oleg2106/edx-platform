@@ -813,6 +813,7 @@ main_vendor_js = [
     'js/vendor/ova/ova.js',
     'js/vendor/ova/catch/js/catch.js',
     'js/vendor/ova/catch/js/handlebars-1.1.2.js',
+    'js/vendor/jquery.ui.datepicker-ru.js',
     'js/vendor/URI.min.js',
 ]
 
@@ -838,7 +839,8 @@ PIPELINE_CSS = {
             'css/vendor/ova/tags-annotator.css',
             'css/vendor/ova/flagging-annotator.css',
             'css/vendor/ova/ova.css',
-            'js/vendor/ova/catch/css/main.css'
+            'js/vendor/ova/catch/css/main.css',
+            'css/vendor/ui-lightness/jquery-ui-1.8.22.custom.css'
         ],
         'output_filename': 'css/lms-style-vendor.css',
     },
