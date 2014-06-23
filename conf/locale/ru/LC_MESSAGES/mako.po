@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-19 12:01+0000\n"
+"POT-Creation-Date: 2014-06-23 15:30+0000\n"
 "PO-Revision-Date: 2014-06-23 12:16+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -127,8 +127,8 @@ msgstr "Нужна помощь?"
 #: cms/templates/manage_users.html:15 cms/templates/settings.html:55
 #: cms/templates/settings_advanced.html:45
 #: cms/templates/settings_graders.html:46 cms/templates/widgets/header.html:70
-#: lms/templates/staff_dashboard.html:76
-#: lms/templates/staff_dashboard.html:345
+#: lms/templates/staff_dashboard.html:80
+#: lms/templates/staff_dashboard.html:360
 #: lms/templates/wiki/includes/article_menu.html:55
 msgid "Settings"
 msgstr "Настройки"
@@ -140,7 +140,7 @@ msgstr "Администратор"
 
 #: cms/templates/overview.html:60 cms/templates/overview.html:80
 #: cms/templates/overview.html:99 cms/templates/overview.html:305
-#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:351
+#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:366
 #: lms/templates/word_cloud.html:20
 #: lms/templates/combinedopenended/openended/open_ended.html:36
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:25
@@ -549,7 +549,7 @@ msgid "edit"
 msgstr "изменить"
 
 #: lms/templates/announcement-list.html:312 lms/templates/dashboard.html:281
-#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:75
+#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:79
 #: lms/templates/courseware/instructor_dashboard.html:148
 #: lms/templates/university_profile/edge.html:18
 msgid "Email"
@@ -877,8 +877,8 @@ msgstr "e-mail успешно изменен!"
 #: lms/templates/emails_change_successful.html:12
 msgid "You should see your new email in your {link_start}dashboard{link_end}."
 msgstr ""
-"Новый адрес email должен появиться на вашей {link_start}персональной "
-"странице{link_end}."
+"Новый адрес email должен появиться на вашей {link_start}персональной странице"
+"{link_end}."
 
 #: lms/templates/email_exists.html:11
 msgid "An account with the new e-mail address already exists."
@@ -1055,7 +1055,7 @@ msgstr "Включите сообщения об ошибках, шаги, ко�
 
 #: lms/templates/help_modal.html:98 lms/templates/import_users.html:29
 #: lms/templates/manage_user_standing.html:20
-#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:97
+#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:101
 #: lms/templates/combinedopenended/openended/open_ended.html:37
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:26
 #: lms/templates/discussion/_underscore_templates.html:26
@@ -1229,19 +1229,19 @@ msgstr "Студенты, ожидающие регистрацию"
 msgid "Students passed registration"
 msgstr "Студенты, прошедшие регистрацию"
 
-#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:255
+#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:270
 #: lms/templates/courseware/instructor_dashboard.html:559
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:26
 msgid "Subject: "
 msgstr "Тема:"
 
-#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:257
+#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:272
 #: lms/templates/courseware/instructor_dashboard.html:565
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:32
 msgid "(Max 128 characters)"
 msgstr "(Максимум 128 символов)"
 
-#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:261
+#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:276
 #: lms/templates/courseware/instructor_dashboard.html:569
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:35
 msgid "Message:"
@@ -1425,8 +1425,8 @@ msgid ""
 "Required fields are noted by <strong class=\"indicator\">bold text and an "
 "asterisk (*)</strong>."
 msgstr ""
-"Обязательные поля <strong class=\"indicator\">выделены жирным и отмечены "
-"(*)</strong>."
+"Обязательные поля <strong class=\"indicator\">выделены жирным и отмечены (*)"
+"</strong>."
 
 #: lms/templates/register-shib.html:117
 msgid "Enter a public username:"
@@ -1639,35 +1639,35 @@ msgstr "Учетная запись."
 msgid "Group {group_id}"
 msgstr "Группа {group_id}"
 
-#: lms/templates/staff_dashboard.html:70
+#: lms/templates/staff_dashboard.html:74
 msgid "Staff Dashboard"
 msgstr "Панель управления для персонала"
 
-#: lms/templates/staff_dashboard.html:73 lms/templates/staff_dashboard.html:81
+#: lms/templates/staff_dashboard.html:77 lms/templates/staff_dashboard.html:85
 msgid "Import certificates"
 msgstr "Импорт сертификатов"
 
-#: lms/templates/staff_dashboard.html:74
+#: lms/templates/staff_dashboard.html:78
 msgid "Statistics"
 msgstr "Статистика"
 
-#: lms/templates/staff_dashboard.html:296
+#: lms/templates/staff_dashboard.html:311
 #: lms/templates/courseware/instructor_dashboard.html:599
 msgid "Email subject can not be empty."
 msgstr "Тема сообщения не может быть пустой."
 
-#: lms/templates/staff_dashboard.html:300
+#: lms/templates/staff_dashboard.html:315
 #: lms/templates/courseware/instructor_dashboard.html:603
 msgid "Email body can not be empty."
 msgstr "Сообщение не может быть пустым."
 
-#: lms/templates/staff_dashboard.html:407
+#: lms/templates/staff_dashboard.html:422
 #: lms/templates/sysadmin_dashboard.html:213
 msgid "Django PID"
 msgstr ""
 
 #. Translators: A version number appears after this string
-#: lms/templates/staff_dashboard.html:409
+#: lms/templates/staff_dashboard.html:424
 #: lms/templates/sysadmin_dashboard.html:215
 msgid "Platform Version"
 msgstr ""
@@ -2231,7 +2231,7 @@ msgid "{chapter}, current chapter"
 msgstr "{chapter}, текущая глава"
 
 #: lms/templates/courseware/accordion.html:34
-#: lms/templates/courseware/progress.html:101
+#: lms/templates/courseware/progress.html:108
 msgid "due {date}"
 msgstr "Дата сдачи {date}"
 
@@ -3251,40 +3251,40 @@ msgstr "Обновления к сообщениям в дискуссиях, к
 msgid "{course_number} Progress"
 msgstr "{course_number} Прогресс"
 
-#: lms/templates/courseware/progress.html:46
+#: lms/templates/courseware/progress.html:53
 msgid "Course Progress"
 msgstr "Прогресс Курса"
 
-#: lms/templates/courseware/progress.html:49
+#: lms/templates/courseware/progress.html:56
 msgid "View Grading in studio"
 msgstr "Просмотреть оценки в Студии"
 
-#: lms/templates/courseware/progress.html:54
+#: lms/templates/courseware/progress.html:61
 msgid "Course Progress for Student '{username}' ({email})"
 msgstr "Прогресс курса у обучающегося '{username}' ({email})"
 
-#: lms/templates/courseware/progress.html:87
-#: lms/templates/courseware/progress.html:154
+#: lms/templates/courseware/progress.html:94
+#: lms/templates/courseware/progress.html:161
 msgid "{earned:.3n} of {total:.3n} possible points"
 msgstr "{earned:.3n} из {total:.3n} возможных баллов"
 
-#: lms/templates/courseware/progress.html:111
+#: lms/templates/courseware/progress.html:120
 msgid "Problem Scores: "
 msgstr "Баллы за задачи: "
 
-#: lms/templates/courseware/progress.html:111
+#: lms/templates/courseware/progress.html:120
 msgid "Practice Scores: "
 msgstr "Баллы за практические задачи: "
 
-#: lms/templates/courseware/progress.html:119
+#: lms/templates/courseware/progress.html:126
 msgid "Attempts: "
 msgstr "Использовано попыток:"
 
-#: lms/templates/courseware/progress.html:138
+#: lms/templates/courseware/progress.html:143
 msgid "No problem scores in this section"
 msgstr "Нет оцениваемых заданий в этой секции"
 
-#: lms/templates/courseware/progress.html:150
+#: lms/templates/courseware/progress.html:157
 msgid "Total for "
 msgstr "Всего за "
 
@@ -5642,8 +5642,8 @@ msgstr "Задать вопрос"
 #: lms/templates/verify_student/_reverification_support.html:23
 #: lms/templates/verify_student/_verification_support.html:9
 msgid ""
-"Please read {a_start}our FAQs to view common questions about our "
-"certificates{a_end}."
+"Please read {a_start}our FAQs to view common questions about our certificates"
+"{a_end}."
 msgstr ""
 "Пожалуйста, прочтите {a_start}наш раздел ЧаВо{a_end} для ответов на вопросы "
 "о наших сертификатах."
@@ -6553,16 +6553,16 @@ msgstr ""
 #~ msgid ""
 #~ "If you have a general question about {platform_name} please email <a href="
 #~ "\"mailto:{contact_email}\">{contact_email}</a>. To see if your question "
-#~ "has already been answered, visit our {faq_link_start}FAQ "
-#~ "page{faq_link_end}. You can also join the discussion on our "
-#~ "{fb_link_start}facebook page{fb_link_end}. Though we may not have a "
-#~ "chance to respond to every email, we take all feedback into consideration."
+#~ "has already been answered, visit our {faq_link_start}FAQ page"
+#~ "{faq_link_end}. You can also join the discussion on our {fb_link_start}"
+#~ "facebook page{fb_link_end}. Though we may not have a chance to respond to "
+#~ "every email, we take all feedback into consideration."
 #~ msgstr ""
 #~ "Если у Вас есть вопрос общего характера о {platform_name}, пожалуйста "
-#~ "напишите письмо по адресу <a href=\"mailto:"
-#~ "{contact_email}\">{contact_email}</a>. Чтобы посмотреть, был ли Ваш "
-#~ "вопрос уже отвечен, посетите наш раздел {faq_link_start}часто задаваемых "
-#~ "вопросов{faq_link_end}. Вы можете также присоединиться к дискуссии в "
+#~ "напишите письмо по адресу <a href=\"mailto:{contact_email}\">"
+#~ "{contact_email}</a>. Чтобы посмотреть, был ли Ваш вопрос уже отвечен, "
+#~ "посетите наш раздел {faq_link_start}часто задаваемых вопросов"
+#~ "{faq_link_end}. Вы можете также присоединиться к дискуссии в "
 #~ "{fb_link_start}Фейсбуке{fb_link_end}. Хотя мы не можем отвечать на каждое "
 #~ "сообщение, полученное по электронной почте, все они рассматриваются."
 
@@ -7292,8 +7292,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Приносим свои извинения. Мы не смогли найти запрашиваемую вами страницу. "
 #~ "Вы можете вернуться на главную страницу и повторить попытку. Если "
-#~ "проблема все еще возникает обратитесь в {link_start}центр "
-#~ "поддержки{link_end} для дальнейшей помощи."
+#~ "проблема все еще возникает обратитесь в {link_start}центр поддержки"
+#~ "{link_end} для дальнейшей помощи."
 
 #~ msgid "Use our feedback tool, Tender, to share your feedback"
 #~ msgstr "Для обратной связи используйте наш инструмент Tender."
@@ -7809,9 +7809,9 @@ msgstr ""
 #~ msgstr "Помощь в студии"
 
 #~ msgid ""
-#~ "Having trouble with your account? Use {link_start}our support "
-#~ "center{link_end} to look over self help steps, find solutions others have "
-#~ "found to the same problem, or let us know of your issue."
+#~ "Having trouble with your account? Use {link_start}our support center"
+#~ "{link_end} to look over self help steps, find solutions others have found "
+#~ "to the same problem, or let us know of your issue."
 #~ msgstr ""
 #~ "Есть проблемы с аккаунтом? Используйте {link_start} наш центр поддержки "
 #~ "{link_end}, чтобы посмотреть пошаговую помощь, найти решения других "
@@ -10700,8 +10700,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Please {contact_link_start}contact edX at exam-help@edx."
-#~ "org{contact_link_end}."
+#~ "Please {contact_link_start}contact edX at exam-help@edx.org"
+#~ "{contact_link_end}."
 #~ msgstr ""
 #~ "В противном случае {link_start}свяжитесь с edX по адресу {email}"
 #~ "{link_end} для получения помощи."
@@ -10883,14 +10883,12 @@ msgstr ""
 
 #~ msgid ""
 #~ "Our staff is currently working to get the site back up as soon as "
-#~ "possible. Please email us at <a href=\"mailto:"
-#~ "\\{tech_support_email}\">{tech_support_email}</a> to report any problems "
-#~ "or downtime."
+#~ "possible. Please email us at <a href=\"mailto:\\{tech_support_email}\">"
+#~ "{tech_support_email}</a> to report any problems or downtime."
 #~ msgstr ""
 #~ "Персонал работает над восстановлением функционирования сайта. Пожалуйста, "
-#~ "пишите нам по адресу <a href=\"mailto:"
-#~ "{tech_support_email}\">{tech_support_email}</a> для сообщений об ошибках "
-#~ "или недоступности сайта."
+#~ "пишите нам по адресу <a href=\"mailto:{tech_support_email}\">"
+#~ "{tech_support_email}</a> для сообщений об ошибках или недоступности сайта."
 
 #, fuzzy
 #~ msgid "Show All Discussionsdf"
