@@ -364,6 +364,7 @@ def _progress_summary(student, request, course):
                     attempts.append(Attempts(student_attempts,max_attempts))
 
                 scores.reverse()
+                attempts.reverse()
                 section_total, _ = graders.aggregate_scores(
                     scores, section_module.display_name_with_default)
 
