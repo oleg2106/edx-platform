@@ -28,7 +28,6 @@ from xmodule.modulestore import Location
 log = logging.getLogger(__name__)
 
 from django.utils.translation import ugettext as _
-#from contentstore.utils import get_lms_link_for_item
 from django.conf import settings
 
 
