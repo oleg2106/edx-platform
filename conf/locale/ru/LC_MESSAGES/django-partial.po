@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-19 12:01+0000\n"
-"PO-Revision-Date: 2014-06-19 17:49+0300\n"
+"PO-Revision-Date: 2014-06-23 12:25+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -589,8 +589,8 @@ msgstr ""
 
 #: common/djangoapps/student/views.py:1615
 msgid ""
-"You are resetting passwords too frequently. Due to security policies, {0} day"
-"(s) must elapse between password resets"
+"You are resetting passwords too frequently. Due to security policies, {0} "
+"day(s) must elapse between password resets"
 msgstr ""
 
 #: common/djangoapps/student/views.py:1624
@@ -997,11 +997,11 @@ msgstr "Неправильный синтаксис формулы '{0}'"
 
 #: common/djangoapps/util/password_policy_validators.py:30
 msgid "must be {0} characters or more"
-msgstr ""
+msgstr "должно быть {0} символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:32
 msgid "must be {0} characters or less"
-msgstr ""
+msgstr "должно быть {0} символов или меньше"
 
 #: common/djangoapps/util/password_policy_validators.py:39
 msgid "Must be more complex ({0})"
@@ -1009,27 +1009,27 @@ msgstr ""
 
 #: common/djangoapps/util/password_policy_validators.py:65
 msgid "must contain {0} or more uppercase characters"
-msgstr ""
+msgstr "должно быть {0} заглавных символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:67
 msgid "must contain {0} or more lowercase characters"
-msgstr ""
+msgstr "должно быть {0} строчных символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:69
 msgid "must contain {0} or more digits"
-msgstr ""
+msgstr "должно быть {0} цифр или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:71
 msgid "must contain {0} or more punctuation characters"
-msgstr ""
+msgstr "должно быть {0} пунктуационных знаков или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:73
 msgid "must contain {0} or more non ascii characters"
-msgstr ""
+msgstr "должно быть {0} специальных знаков или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:75
 msgid "must contain {0} or more unique words"
-msgstr ""
+msgstr "должно быть {0} уникальных слов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py:92
 msgid "Too similar to a restricted dictionary word."
@@ -1057,11 +1057,11 @@ msgstr ""
 
 #: common/lib/capa/capa/inputtypes.py:293
 msgid "correct"
-msgstr ""
+msgstr "правильно"
 
 #: common/lib/capa/capa/inputtypes.py:294
 msgid "incorrect"
-msgstr ""
+msgstr "неправильно"
 
 #: common/lib/capa/capa/inputtypes.py:295
 #, fuzzy
@@ -1076,30 +1076,36 @@ msgstr "Администратор студентов"
 
 #: common/lib/capa/capa/inputtypes.py:298
 msgid "queued"
-msgstr ""
+msgstr "в очереди"
 
 #: common/lib/capa/capa/inputtypes.py:683
 msgid ""
 "Your file(s) have been submitted. As soon as your submission is graded, this "
 "message will be replaced with the grader's feedback."
 msgstr ""
+"Ваш файл были отправлен на проверку. Как только ваша работа будет проверена, "
+"это сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py:755
 msgid ""
 "Your answer has been submitted. As soon as your submission is graded, this "
 "message will be replaced with the grader's feedback."
 msgstr ""
+"Ваш ответ были отправлен на проверку. Как только ваша работа будет "
+"проверена, это сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py:791
 msgid ""
 "Submitted. As soon as a response is returned, this message will be replaced "
 "by that feedback."
 msgstr ""
+"Отправлено на проверку. Как только ваша работа будет проверена, это "
+"сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py:1143
 #: common/lib/capa/capa/inputtypes.py:1227
 msgid "No formula specified."
-msgstr ""
+msgstr "Отсутствует формула"
 
 #: common/lib/capa/capa/inputtypes.py:1154
 #: common/lib/capa/capa/inputtypes.py:1245
@@ -1108,7 +1114,7 @@ msgstr ""
 
 #: common/lib/capa/capa/inputtypes.py:1238
 msgid "Sorry, couldn't parse formula"
-msgstr ""
+msgstr "Извените, невозможно распознать формулу"
 
 #: common/lib/capa/capa/responsetypes.py:314
 msgid "Error {err} in evaluating hint function {hintfn}."
@@ -4395,8 +4401,8 @@ msgid ""
 "\n"
 "            <p class=\"error_msg\">\n"
 "            Sorry! Our payment processor did not accept your payment.\n"
-"            The decision they returned was <span class=\"decision\">"
-"{decision}</span>,\n"
+"            The decision they returned was <span class=\"decision"
+"\">{decision}</span>,\n"
 "            and the reason was <span class=\"reason\">{reason_code}:"
 "{reason_msg}</span>.\n"
 "            You were not charged. Please try a different form of payment.\n"
@@ -4413,8 +4419,8 @@ msgid ""
 "confirmation that had inconsistent data!\n"
 "                We apologize that we cannot verify whether the charge went "
 "through and take further action on your order.\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                Your credit card may possibly have been charged.  Contact us "
 "with payment-specific questions at {email}.\n"
 "                </p>\n"
@@ -4427,8 +4433,8 @@ msgid ""
 "                <p class=\"error_msg\">\n"
 "                Sorry! Due to an error your purchase was charged for a "
 "different amount than the order total!\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                Your credit card has probably been charged. Contact us with "
 "payment-specific questions at {email}.\n"
 "                </p>\n"
@@ -4443,8 +4449,8 @@ msgid ""
 "message regarding your charge, so we are\n"
 "                unable to validate that the message actually came from the "
 "payment processor.\n"
-"                The specific error message is: <span class=\"exception_msg\">"
-"{msg}</span>.\n"
+"                The specific error message is: <span class=\"exception_msg"
+"\">{msg}</span>.\n"
 "                We apologize that we cannot verify whether the charge went "
 "through and take further action on your order.\n"
 "                Your credit card may possibly have been charged.  Contact us "
