@@ -480,6 +480,7 @@ def get_attempts(course_id, user, problem_descriptor, module_creator):
 
     # some problems have state that is updated independently of interaction
     # with the LMS, so they need to always be scored. (E.g. foldit.)
+
     if problem_descriptor.always_recalculate_grades:
         problem = module_creator(problem_descriptor)
         if problem is None:
@@ -492,31 +493,14 @@ def get_attempts(course_id, user, problem_descriptor, module_creator):
         # These are not problems, and do not have a score
         return (None, None)
 
-    try:
-        student_module = StudentModule.objects.get(
-            student=user,
-            course_id=course_id,
-            module_state_key=problem_descriptor.location
-        )
-    except StudentModule.DoesNotExist:
-        student_module = None
-
-    if student_module is not None and student_module.max_grade is not None:
-        correct = student_module.grade if student_module.grade is not None else 0
-        total = student_module.max_grade
+    problem = module_creator(problem_descriptor)
+    if problem is None:
         return (None, None)
-    else:
-        # If the problem was not in the cache, or hasn't been graded yet,
-        # we need to instantiate the problem.
-        # Otherwise, the max score (cached in student_module) won't be available
-        problem = module_creator(problem_descriptor)
-        if problem is None:
-            return (None, None)
 
-        max_attampts = getattr(problem,'max_attempts') if hasattr(problem,'max_attempts') else None
-        student_attempts = getattr(problem,'attempts') if hasattr(problem,'attempts') else None
+    max_attampts = getattr(problem,'max_attempts') if hasattr(problem,'max_attempts') else None
+    student_attempts = getattr(problem,'attempts') if hasattr(problem,'attempts') else None
 
-        return (student_attempts,max_attampts)
+    return (student_attempts,max_attampts)
 
 @contextmanager
 def manual_transaction():
