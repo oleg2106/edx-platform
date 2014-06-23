@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-23 15:30+0000\n"
-"PO-Revision-Date: 2014-06-23 13:15+0300\n"
+"PO-Revision-Date: 2014-06-23 19:36+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -1114,7 +1114,7 @@ msgstr ""
 
 #: common/lib/capa/capa/inputtypes.py:1238
 msgid "Sorry, couldn't parse formula"
-msgstr "Извените, невозможно распознать формулу"
+msgstr "В качестве ответа к данной задаче принимаются только числа"
 
 #: common/lib/capa/capa/responsetypes.py:314
 msgid "Error {err} in evaluating hint function {hintfn}."
