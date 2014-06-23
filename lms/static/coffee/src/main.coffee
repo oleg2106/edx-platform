@@ -47,3 +47,4 @@ $ ->
             if ele is obj
                 return i + start
         return -1
+  $.datepicker.setDefaults( $.datepicker.regional['ru'] );

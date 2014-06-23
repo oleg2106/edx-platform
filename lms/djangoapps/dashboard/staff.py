@@ -541,9 +541,7 @@ class Stat(StaffDashboardView):
                     AND \
                 g.status_code = 'S' \
                     AND\
-                g.date_created >= '{}'\
-                    AND\
-                g.date_created <= '{}'\
+                CAST(g.date_created AS DATETIME) BETWEEN '{}' AND '{}'\
                     {}\
             GROUP BY \
                 g.grader_id,\
@@ -569,9 +567,10 @@ class Stat(StaffDashboardView):
         if course != '':
             course_condition = "AND s.course_id = '{0}'".format(course)
 
+        # +1 day needed, because '%Y%m%d' evaluates to "%Y%m%d 00:00:00"
         query = query_template.format(\
             datetime.datetime.strftime(date_min, "%Y%m%d"),\
-            datetime.datetime.strftime(date_max, "%Y%m%d"),\
+            datetime.datetime.strftime(date_max + datetime.timedelta(days=1), "%Y%m%d"),\
             course_condition
             )
 
