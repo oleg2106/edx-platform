@@ -400,8 +400,12 @@ def instructor_dashboard(request, course_id):
                 try:
                     # load the state json
                     problem_state = json.loads(student_module.state)
-                    old_number_of_attempts = problem_state["attempts"]
-                    problem_state["attempts"] = 0
+                    if "student_attempts" in problem_state:  # openended
+                        old_number_of_attempts = problem_state["student_attempts"]
+                        problem_state["student_attempts"] = 0
+                    else:
+                        old_number_of_attempts = problem_state["attempts"]
+                        problem_state["attempts"] = 0
                     # save
                     student_module.state = json.dumps(problem_state)
                     student_module.save()
