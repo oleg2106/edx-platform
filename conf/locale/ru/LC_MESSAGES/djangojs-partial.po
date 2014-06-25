@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-18 14:55+0400\n"
+"POT-Creation-Date: 2014-06-25 13:05+0400\n"
 "PO-Revision-Date: 2014-04-24 16:46+0300\n"
 "Last-Translator: Lenar Safin <safin@smartdec.ru>\n"
 "Language-Team: Select LTD\n"
@@ -40,7 +40,7 @@ msgid "This link will open in a new browser window/tab"
 msgstr "Эта ссылка откроется в новом окне или в новой вкладке браузера."
 
 #: common/lib/xmodule/xmodule/js/spec/combinedopenended/display_spec.js:132
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:473
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:479
 #: lms/static/coffee/src/staff_grading/staff_grading.js:503
 msgid "Submit"
 msgstr "Отправить"
@@ -131,14 +131,14 @@ msgstr "не отвечен"
 msgid "Status: unsubmitted"
 msgstr "Статус: не сдан"
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:351
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:357
 msgid "The problem state got out of sync.  Try reloading the page."
 msgstr ""
 "Состояние задачи не синхронизированно. Попробуйте перезагрузить страницу."
 
 #. Translators: A "rating" is a score a student gives to indicate how well
 #. they feel they were graded on this problem
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:418
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:424
 msgid "You need to pick a rating before you can submit."
 msgstr "Вы должны выбрать оценки до того как вы сможете посылать результат"
 
@@ -146,8 +146,8 @@ msgstr "Вы должны выбрать оценки до того как вы 
 #. grading
 #. types (i.e. self assesment to peer assessment). Sometimes, if a student
 #. did not perform well at one step, they cannot move on to the next one.
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:469
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:787
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:475
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:816
 msgid "Your score did not meet the criteria to move to the next step."
 msgstr ""
 "Ваши оценки не соответствуют критериям для того что приступить к следующему "
@@ -156,11 +156,11 @@ msgstr ""
 #. Translators: one clicks this button after one has finished filling out the
 #. grading
 #. form for an openended assessment
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:487
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:493
 msgid "Submit assessment"
 msgstr "Отправить задание"
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:494
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:500
 msgid ""
 "Your response has been submitted. Please check back later for your grade."
 msgstr ""
@@ -169,15 +169,15 @@ msgstr ""
 
 #. Translators: this button is clicked to submit a student's rating of
 #. an evaluator's assessment
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:510
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:516
 msgid "Submit post-assessment"
 msgstr "Отправить ответ"
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:553
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:559
 msgid "Answer saved, but not yet submitted."
 msgstr "Ваш ответ сохранен, но еще не отправлен."
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:593
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:612
 msgid ""
 "Please confirm that you wish to submit your work. You will not be able to "
 "make any changes after submitting."
@@ -185,7 +185,13 @@ msgstr ""
 "Пожалуйста, подтвердите, что вы хотите отправить вашу работу. Вы не сможете "
 "вносить какие-либо изменения после отправки."
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:619
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:624
+msgid ""
+"You're trying to submit an empty answer. Please type an answer in the "
+"corresponding field and then submit."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:648
 msgid ""
 "You are trying to upload a file that is too large for our system.  Please "
 "choose a file under 2MB or paste a link to it into the answer box."
@@ -193,16 +199,16 @@ msgstr ""
 "Вы пытаетесь загрузить слишком большой фаил для нашей системы. Пожалйста "
 "выберите фаил меньше 2MB или вставьте ссылку на ваш фаил в поле для ответа."
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:732
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:761
 msgid ""
 "Are you sure you want to remove your previous response to this question?"
 msgstr "Вы уверены, что хотите удалить предыдущий ответ на этот вопрос?"
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:779
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:808
 msgid "Moved to next step."
 msgstr "Перейти к следующему шагу."
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:843
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:872
 msgid ""
 "File uploads are required for this question, but are not supported in your "
 "browser. Try the newest version of Google Chrome. Alternatively, if you have "
@@ -217,14 +223,14 @@ msgstr ""
 #. Translators: "Show Question" is some text that, when clicked, shows a
 #. question's
 #. content that had been hidden
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:878
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:955
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:907
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:984
 #: common/lib/xmodule/xmodule/js/src/peergrading/peer_grading_problem.js:623
 msgid "Show Question"
 msgstr "Показать задание"
 
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:891
-#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:947
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:920
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:976
 #: common/lib/xmodule/xmodule/js/src/peergrading/peer_grading_problem.js:622
 #: common/lib/xmodule/xmodule/js/src/peergrading/peer_grading_problem.js:631
 msgid "Hide Question"

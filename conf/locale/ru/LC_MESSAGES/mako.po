@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-23 15:30+0000\n"
+"POT-Creation-Date: 2014-06-25 13:05+0400\n"
 "PO-Revision-Date: 2014-06-23 12:16+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -127,8 +127,8 @@ msgstr "Нужна помощь?"
 #: cms/templates/manage_users.html:15 cms/templates/settings.html:55
 #: cms/templates/settings_advanced.html:45
 #: cms/templates/settings_graders.html:46 cms/templates/widgets/header.html:70
-#: lms/templates/staff_dashboard.html:80
-#: lms/templates/staff_dashboard.html:360
+#: lms/templates/staff_dashboard.html:91
+#: lms/templates/staff_dashboard.html:371
 #: lms/templates/wiki/includes/article_menu.html:55
 msgid "Settings"
 msgstr "Настройки"
@@ -140,7 +140,7 @@ msgstr "Администратор"
 
 #: cms/templates/overview.html:60 cms/templates/overview.html:80
 #: cms/templates/overview.html:99 cms/templates/overview.html:305
-#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:366
+#: lms/templates/problem.html:23 lms/templates/staff_dashboard.html:377
 #: lms/templates/word_cloud.html:20
 #: lms/templates/combinedopenended/openended/open_ended.html:36
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:25
@@ -549,7 +549,7 @@ msgid "edit"
 msgstr "изменить"
 
 #: lms/templates/announcement-list.html:312 lms/templates/dashboard.html:281
-#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:79
+#: lms/templates/login.html:187 lms/templates/staff_dashboard.html:90
 #: lms/templates/courseware/instructor_dashboard.html:148
 #: lms/templates/university_profile/edge.html:18
 msgid "Email"
@@ -1055,7 +1055,7 @@ msgstr "Включите сообщения об ошибках, шаги, ко�
 
 #: lms/templates/help_modal.html:98 lms/templates/import_users.html:29
 #: lms/templates/manage_user_standing.html:20
-#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:101
+#: lms/templates/register-shib.html:191 lms/templates/staff_dashboard.html:112
 #: lms/templates/combinedopenended/openended/open_ended.html:37
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html:26
 #: lms/templates/discussion/_underscore_templates.html:26
@@ -1229,19 +1229,19 @@ msgstr "Студенты, ожидающие регистрацию"
 msgid "Students passed registration"
 msgstr "Студенты, прошедшие регистрацию"
 
-#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:270
+#: lms/templates/master_class.html:84 lms/templates/staff_dashboard.html:281
 #: lms/templates/courseware/instructor_dashboard.html:559
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:26
 msgid "Subject: "
 msgstr "Тема:"
 
-#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:272
+#: lms/templates/master_class.html:86 lms/templates/staff_dashboard.html:283
 #: lms/templates/courseware/instructor_dashboard.html:565
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:32
 msgid "(Max 128 characters)"
 msgstr "(Максимум 128 символов)"
 
-#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:276
+#: lms/templates/master_class.html:90 lms/templates/staff_dashboard.html:287
 #: lms/templates/courseware/instructor_dashboard.html:569
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:35
 msgid "Message:"
@@ -1639,35 +1639,35 @@ msgstr "Учетная запись."
 msgid "Group {group_id}"
 msgstr "Группа {group_id}"
 
-#: lms/templates/staff_dashboard.html:74
+#: lms/templates/staff_dashboard.html:85
 msgid "Staff Dashboard"
 msgstr "Панель управления для персонала"
 
-#: lms/templates/staff_dashboard.html:77 lms/templates/staff_dashboard.html:85
+#: lms/templates/staff_dashboard.html:88 lms/templates/staff_dashboard.html:96
 msgid "Import certificates"
 msgstr "Импорт сертификатов"
 
-#: lms/templates/staff_dashboard.html:78
+#: lms/templates/staff_dashboard.html:89
 msgid "Statistics"
 msgstr "Статистика"
 
-#: lms/templates/staff_dashboard.html:311
+#: lms/templates/staff_dashboard.html:322
 #: lms/templates/courseware/instructor_dashboard.html:599
 msgid "Email subject can not be empty."
 msgstr "Тема сообщения не может быть пустой."
 
-#: lms/templates/staff_dashboard.html:315
+#: lms/templates/staff_dashboard.html:326
 #: lms/templates/courseware/instructor_dashboard.html:603
 msgid "Email body can not be empty."
 msgstr "Сообщение не может быть пустым."
 
-#: lms/templates/staff_dashboard.html:422
+#: lms/templates/staff_dashboard.html:440
 #: lms/templates/sysadmin_dashboard.html:213
 msgid "Django PID"
 msgstr ""
 
 #. Translators: A version number appears after this string
-#: lms/templates/staff_dashboard.html:424
+#: lms/templates/staff_dashboard.html:442
 #: lms/templates/sysadmin_dashboard.html:215
 msgid "Platform Version"
 msgstr ""
