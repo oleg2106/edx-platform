@@ -306,7 +306,7 @@ class @CombinedOpenEnded
     else if @child_state == 'initial'
       @answer_area.attr("disabled", false)
       @submit_button.prop('value', gettext 'Submit')
-      @submit_button.click @confirm_save_answer
+      @submit_button.click @check_is_answer_empty      
       @setup_file_upload()
       @save_button.click @store_answer
       @save_button.show()
@@ -395,6 +395,16 @@ class @CombinedOpenEnded
       @answer_area.attr("disabled", false)
       @gentle_alert response.error
 
+  check_is_answer_empty: (event) =>
+    if @can_upload_files == false and @answer_area.val() == ""
+      @abandon_empty_answer()
+      ###
+      Also the user can try to submit an empty answer without file in case @can_upload_files == true. 
+      This alternative is processed in openendedchild.py. 
+      ###
+    else
+      @confirm_save_answer(event)
+
   confirm_save_answer: (event) =>
     ###
     Translators: This string appears in a confirmation box after one tries to submit
@@ -403,6 +413,13 @@ class @CombinedOpenEnded
     confirmation_text = gettext 'Please confirm that you wish to submit your work. You will not be able to make any changes after submitting.' 
     accessible_confirm confirmation_text, =>
       @save_answer(event)
+
+  abandon_empty_answer: (event) =>
+    ###
+    Translators: This string appears when one's trying to submit an empty answer
+    ###
+    abandonment_text = gettext "You're trying to submit an empty answer. Please type an answer in the corresponding field and then submit."          
+    @gentle_alert abandonment_text
 
   save_answer: (event) =>
     @$el.find(@oe_alert_sel).remove()

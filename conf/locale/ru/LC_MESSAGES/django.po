@@ -1003,11 +1003,11 @@ msgstr "Неправильный синтаксис формулы '{0}'"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must be {0} characters or more"
-msgstr ""
+msgstr "должно быть {0} символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must be {0} characters or less"
-msgstr ""
+msgstr "должно быть {0} символов или меньше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "Must be more complex ({0})"
@@ -1015,27 +1015,27 @@ msgstr ""
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more uppercase characters"
-msgstr ""
+msgstr "должно быть {0} заглавных символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more lowercase characters"
-msgstr ""
+msgstr "должно быть {0} строчных символов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more digits"
-msgstr ""
+msgstr "должно быть {0} цифр или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more punctuation characters"
-msgstr ""
+msgstr "должно быть {0} пунктуационных знаков или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more non ascii characters"
-msgstr ""
+msgstr "должно быть {0} специальных знаков или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "must contain {0} or more unique words"
-msgstr ""
+msgstr "должно быть {0} уникальных слов или больше"
 
 #: common/djangoapps/util/password_policy_validators.py
 msgid "Too similar to a restricted dictionary word."
@@ -1063,11 +1063,11 @@ msgstr ""
 
 #: common/lib/capa/capa/inputtypes.py
 msgid "correct"
-msgstr ""
+msgstr "правильно"
 
 #: common/lib/capa/capa/inputtypes.py
 msgid "incorrect"
-msgstr ""
+msgstr "неправильно"
 
 #: common/lib/capa/capa/inputtypes.py
 #, fuzzy
@@ -1081,29 +1081,35 @@ msgstr "Администратор студентов"
 
 #: common/lib/capa/capa/inputtypes.py
 msgid "queued"
-msgstr ""
+msgstr "в очереди"
 
 #: common/lib/capa/capa/inputtypes.py
 msgid ""
 "Your file(s) have been submitted. As soon as your submission is graded, this"
 " message will be replaced with the grader's feedback."
 msgstr ""
+"Ваш файл были отправлен на проверку. Как только ваша работа будет проверена,"
+" это сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py
 msgid ""
 "Your answer has been submitted. As soon as your submission is graded, this "
 "message will be replaced with the grader's feedback."
 msgstr ""
+"Ваш ответ были отправлен на проверку. Как только ваша работа будет "
+"проверена, это сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py
 msgid ""
 "Submitted. As soon as a response is returned, this message will be replaced "
 "by that feedback."
 msgstr ""
+"Отправлено на проверку. Как только ваша работа будет проверена, это "
+"сообщение изменится на отчет о проверке."
 
 #: common/lib/capa/capa/inputtypes.py common/lib/capa/capa/inputtypes.py
 msgid "No formula specified."
-msgstr ""
+msgstr "Отсутствует формула"
 
 #: common/lib/capa/capa/inputtypes.py common/lib/capa/capa/inputtypes.py
 msgid "Error while rendering preview"
@@ -1111,7 +1117,7 @@ msgstr ""
 
 #: common/lib/capa/capa/inputtypes.py
 msgid "Sorry, couldn't parse formula"
-msgstr ""
+msgstr "В качестве ответа к данной задаче принимаются только числа"
 
 #: common/lib/capa/capa/responsetypes.py
 msgid "Error {err} in evaluating hint function {hintfn}."
@@ -1280,9 +1286,8 @@ msgid "Final Check"
 msgstr "Последняя проверка"
 
 #: common/lib/xmodule/xmodule/capa_base.py
-#, fuzzy
 msgid "Checking..."
-msgstr "Проверка"
+msgstr "Проверка..."
 
 #: common/lib/xmodule/xmodule/capa_base.py
 msgid "Warning: The problem has been reset to its initial state!"
@@ -6616,16 +6621,14 @@ msgid "There has been an error on the {platform_name} servers"
 msgstr "На серверах {platform_name} возникла ошибка"
 
 #: lms/templates/module-error.html
-#, fuzzy
 msgid ""
 "We're sorry, this module is temporarily unavailable. Our staff is working to"
 " fix it as soon as possible. Please email us at {tech_support_email} to "
 "report any problems or downtime."
 msgstr ""
 "К сожалению, данный объект временно недоступен. Мы работаем над устранением "
-"этой проблемы. Пожалуйста, пишите нам <a "
-"href=\"mailto:{tech_support_email}\">{tech_support_email}</a> о всех "
-"проблемах."
+"этой проблемы. Пожалуйста, пишите нам {tech_support_email} о любых проблемах"
+" и недоступности сервисов."
 
 #: lms/templates/module-error.html
 msgid "Details"
@@ -9973,9 +9976,8 @@ msgid "Add Moderator"
 msgstr "Добавить модератора"
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
-#, fuzzy
 msgid "Discussion Community TAs"
-msgstr "АП форумного общества"
+msgstr "Список Помощьников Сообществу в дисскусиях"
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
 msgid ""
@@ -9986,9 +9988,8 @@ msgid ""
 msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
-#, fuzzy
 msgid "Add Community TA"
-msgstr "Общественные ассистенты преподавателя"
+msgstr "Добавить Помощника Сообществу"
 
 #: lms/templates/instructor/instructor_dashboard_2/metrics.html
 msgid "Reload Graphs"
@@ -10151,9 +10152,8 @@ msgid "Please choose your preferred language"
 msgstr ""
 
 #: lms/templates/modal/_modal-settings-language.html
-#, fuzzy
 msgid "Save Language Settings"
-msgstr "Сохранить настройки"
+msgstr "Сохранить языковые настройки"
 
 #: lms/templates/modal/_modal-settings-language.html
 msgid ""
