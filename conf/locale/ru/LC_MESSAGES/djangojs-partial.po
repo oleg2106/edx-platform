@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
 "POT-Creation-Date: 2014-06-25 13:05+0400\n"
-"PO-Revision-Date: 2014-04-24 16:46+0300\n"
+"PO-Revision-Date: 2014-06-25 13:59+0300\n"
 "Last-Translator: Lenar Safin <safin@smartdec.ru>\n"
 "Language-Team: Select LTD\n"
 "Language: ru\n"
@@ -190,6 +190,8 @@ msgid ""
 "You're trying to submit an empty answer. Please type an answer in the "
 "corresponding field and then submit."
 msgstr ""
+"Вы пытаетесь отправить пустой ответ. Пожалуйста, введите ответ в "
+"соответствующее поле и после этого отправьте его."
 
 #: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js:648
 msgid ""
@@ -238,11 +240,11 @@ msgstr "Скрыть задание"
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js:129
 msgid "Email subject can not be empty."
-msgstr ""
+msgstr "Нельзя отправить письмо без темы."
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js:132
 msgid "Email body can not be empty."
-msgstr ""
+msgstr "Нельзя отправить пустое письмо."
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js:283
 msgid ""
@@ -395,7 +397,7 @@ msgstr "Показать дискуссии"
 #: common/static/coffee/src/discussion/views/discussion_thread_view.js:115
 #: common/static/coffee/src/discussion/views/response_comment_view.js:103
 msgid "Sorry"
-msgstr ""
+msgstr "Извините"
 
 #: common/static/coffee/src/discussion/discussion_module_view.js:116
 msgid "We had some trouble loading the discussion. Please try again."
