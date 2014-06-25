@@ -7,7 +7,7 @@
   <%static:css group='style-course'/>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.axislabels.js')}"></script>
-
+  <script type="text/javascript" src="${static.url('js/src/combinedopenended/display.js')}"></script>
 
 <%static:css group='style-vendor-tinymce-content'/>
 <%static:css group='style-vendor-tinymce-skin'/>
@@ -47,6 +47,16 @@ table.stat_table td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+div.gentle_alert,
+  .save_message {
+    margin-top: $baseline/2;
+    margin-bottom: $baseline/4;
+    padding: 8px 12px;
+    border: 1px solid #ebe8bf;
+    border-radius: 3px;
+    background: #fffcdd;
+    font-size: 0.9em;
+  }
 
 a.selectedmode { background-color: yellow; }
 
@@ -65,7 +75,7 @@ textarea {
 	  <a href="${reverse('staff_cert')}" class="${modeflag.get('cert')}">${_('Import certificates')}</a>
       <a href="${reverse('staff_stat')}" class="${modeflag.get('stat')}">${_('Statistics')}</a>
       <a href="${reverse('staff_email')}" class="${modeflag.get('email')}">${_('Email')}</a>
-        <a href="${reverse('staff_settings')}" class="${modeflag.get('settings')}">${_('Settings')}</a>
+      <a href="${reverse('staff_settings')}" class="${modeflag.get('settings')}">${_('Settings')}</a>
     </h2>
 	<hr />
 
@@ -341,9 +351,16 @@ textarea {
     <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }" />
     <input type="checkbox" ${'checked="checked"' if spammer else ''} name="spammer">Присылать все рассылки</input>
     <div class="form-actions">
-        <button type="submit" name="action" value="save">${_("Save")}</button>
+        <button type="submit" name="action" value="save" class="save_changes">${_("Save")}</button>
     </div>
 </form>
+
+<script type="text/javascript">
+	$('button.save_changes').on('click', function () {
+        alert("Changes have been saved!");
+        });
+</script>
+
 %endif
 
 
