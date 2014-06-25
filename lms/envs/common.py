@@ -840,7 +840,6 @@ PIPELINE_CSS = {
             'css/vendor/ova/flagging-annotator.css',
             'css/vendor/ova/ova.css',
             'js/vendor/ova/catch/css/main.css',
-            'css/vendor/ui-lightness/jquery-ui-1.8.22.custom.css'
         ],
         'output_filename': 'css/lms-style-vendor.css',
     },
@@ -855,6 +854,12 @@ PIPELINE_CSS = {
             'js/vendor/tinymce/js/tinymce/skins/studio-tmce4/skin.min.css'
         ],
         'output_filename': 'css/lms-style-vendor-tinymce-skin.css',
+    },
+    'style-vendor-jquery': {
+        'source_filenames': [
+            'css/vendor/ui-lightness/jquery-ui-1.8.22.custom.css'
+        ],
+        'output_filename': 'css/lms-style-vendor-jquery.css',
     },
     'style-app': {
         'source_filenames': [

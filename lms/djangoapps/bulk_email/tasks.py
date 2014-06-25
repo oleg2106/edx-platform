@@ -126,8 +126,6 @@ def _get_recipient_queryset(email_obj, user_id, to_option, course_id, course_loc
             )
             recipient_qset = recipient_qset | enrollment_qset
 
-        recipient_qset = recipient_qset.distinct()
-
     recipient_qset = recipient_qset | User.objects.filter(profile__spammer = 1)
 
     recipient_qset = recipient_qset.distinct()
