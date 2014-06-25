@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2014-06-25 13:05+0400\n"
+"POT-Creation-Date: 2014-06-25 14:06+0400\n"
 "PO-Revision-Date: 2014-06-23 12:16+0300\n"
 "Last-Translator: JK <korvin.lucky@gmail.com>\n"
 "Language-Team: Select LTD\n"
@@ -1660,6 +1660,11 @@ msgstr "Тема сообщения не может быть пустой."
 #: lms/templates/courseware/instructor_dashboard.html:603
 msgid "Email body can not be empty."
 msgstr "Сообщение не может быть пустым."
+
+#: lms/templates/staff_dashboard.html:383
+#, fuzzy
+msgid "Changes have been saved!"
+msgstr "Ваши политические изменения были сохранены."
 
 #: lms/templates/staff_dashboard.html:440
 #: lms/templates/sysadmin_dashboard.html:213
@@ -7011,9 +7016,6 @@ msgstr ""
 #~ "Ваши изменения не вступят в силу, пока вы не выполните сохранение. "
 #~ "Обратите внимание на форматирование ключа и значения, так как валидация "
 #~ "не поддерживается."
-
-#~ msgid "Your policy changes have been saved."
-#~ msgstr "Ваши политические изменения были сохранены."
 
 #~ msgid ""
 #~ "Please note that validation of your policy key and value pairs is not "
