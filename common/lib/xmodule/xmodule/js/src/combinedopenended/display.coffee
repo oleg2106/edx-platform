@@ -541,11 +541,10 @@ class @CombinedOpenEnded
           @message_wrapper.html('')
           @child_state = 'initial'
           @coe.after(response.html).remove()
-          @allow_reset = "False"
+          @allow_reset="False"
           @reinitialize(@element)
           @has_been_reset = true
           @rebind()
-          @answer_area.val('')
           @reset_button.hide()
         else
           @errors_area.html(response.error)
