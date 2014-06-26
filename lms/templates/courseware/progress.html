@@ -126,16 +126,17 @@ div.scores td {
                   <td><h3> ${ _("Attempts: ")} </h3></td>
                     %for attempt in section['attempts']:
                     <td>
-                    %if attempt.student_attempts is not None:
-${attempt.student_attempts}
-                    %else:
-0
+                    %if attempt.student_attempts is not None and attempt.max_attempts is not None:
+                    ${attempt.student_attempts}/${attempt.max_attempts}
                     %endif
-/
-                    %if attempt.max_attempts is not None:
-${attempt.max_attempts}
-                    %else:
-&infin;
+                    %if attempt.student_attempts is None and attempt.max_attempts is not None:
+                    0/${attempt.max_attempts}
+                    %endif
+                    %if attempt.student_attempts is not None and attempt.max_attempts is None:
+                    ${attempt.student_attempts}/&infin;
+                    %endif                    
+                    %if attempt.student_attempts is None and attempt.max_attempts is None:
+                    0/&infin; 
                     %endif
                     </td>
                     %endfor
