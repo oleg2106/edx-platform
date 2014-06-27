@@ -28,6 +28,7 @@ from xmodule.modulestore import Location
 log = logging.getLogger(__name__)
 
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 
 def pretty_bool(value):
@@ -117,10 +118,8 @@ class MasterClassModule(MasterClassFields, XModule):
             message = _("You have been registered for this master class. We will provide addition information soon.")
         elif self.runtime.user.email in self.all_registrations:
             message = _("You are pending for registration for this master class. Please visit this page later for result.")
-        elif not self.passed_masterclass_test:
-            message2 = _("You have not been registered for this master class because you haven't passed the test.")
         else:
-            message2 = _("You have not been registered for this master class because there is not enough places.")
+            message2 = _("You have not been registered for this master class. Probably you have to pass a test first or there is not enough places.")
 
         if (total_register is None):
             total_register = 0
@@ -237,6 +236,32 @@ class MasterClassModule(MasterClassFields, XModule):
                         if (self.all_registrations.count(email) > 0):
                             self.passed_registrations.append(email)
                             self.all_registrations.remove(email)
+
+                            subject = u"Подтверждение регистрации на {masterclass}".format(masterclass=self.display_name)
+                            
+                            body = u"Уважаемый(ая) {fullname}!\nВаша заявка на {masterclass} была одобрена. Подробности Вы можете узнать по ссылке: {url}.\nС уважением, Команда ГБОУ ЦПМ.".format(
+                                    fullname=User.objects.get(email=email).profile.name, 
+                                    masterclass=self.display_name, 
+                                    url='https://' + settings.SITE_NAME + '/courses/' + self.course_id + '/jump_to/{}'.format(Location(self.location))
+                                    )
+
+                            mail = self.runtime.bulkmail.create(self.course_id, 
+                                self.runtime.user, 
+                                'list', 
+                                subject, 
+                                body,
+                                location=self.id,
+                                to_list=[email]
+                                )
+                            try:
+                                mail.send()
+                                return self.get_state()
+                            except:
+                                return json.dumps({
+                                        'status': 'fail',
+                                        'msg': _('Your email can not be sent.')
+                                    })
+
                     else:
                         return json.dumps({
                             'status': 'fail',

@@ -315,13 +315,14 @@ define('MasterClassMain', [], function (logme) {
                         .text(value.name + ' (' + value.email +')')
                         .appendTo(li);
                 });
+            counter = response.all_registrations.length
             $.each(response.passed_registrations, function(key, value)
                 {
                     var li = $('<li/>')
                         .addClass('ui-menu-item')
                         .appendTo(passed_registrations);
-                    $('<input/>').addClass('unregister-button').attr('type', 'checkbox').attr('id', 'email_' + key).attr('value', value.email).appendTo(li);
-                    $('<label/>').attr('for', 'email_' + key).html("<span></span>").appendTo(li);
+                    $('<input/>').addClass('unregister-button').attr('type', 'checkbox').attr('id', 'email_' + (counter + key)).attr('value', value.email).appendTo(li);
+                    $('<label/>').attr('for', 'email_' + (counter + key)).html("<span></span>").appendTo(li);
                     $('<a/>')
                         .addClass('ui-all')
                         .text(value.name + ' (' + value.email +')')
