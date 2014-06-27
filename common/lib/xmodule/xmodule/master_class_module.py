@@ -255,10 +255,7 @@ class MasterClassModule(MasterClassFields, XModule):
                                 )
                             try:
                                 mail.send()
-                                return json.dumps({
-                                        'status': 'success',
-                                        'msg': _('Your email was successfully queued for sending.')
-                                    })
+                                return self.get_state()
                             except:
                                 return json.dumps({
                                         'status': 'fail',
