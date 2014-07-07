@@ -168,6 +168,7 @@ class @StaffGrading
     @submission_wrapper = $('.submission-wrapper')
 
     @feedbacks_container = $('.feedbacks')
+    @last_score_container = $('.last-score')
 
     @grading_wrapper = $('.grading-wrapper')
 
@@ -327,6 +328,7 @@ class @StaffGrading
     @num_pending = response.num_pending
     @state = state_grading
     @feedbacks = response.feedbacks
+    @last_score = response.last_score
     if not @max_score?
       @error("No max score specified for submission.")
 
@@ -410,6 +412,12 @@ class @StaffGrading
         result += feedback
       result += "</p>"
     return result
+
+  make_last_score: (last_score) ->
+    if (last_score? && last_score >= 0)
+      return gettext("Last mark was ") + last_score
+    return gettext("There is no previous mark.")
+
   render_list: () ->
     for problem in @problems
       problem_row = $('<tr>')
@@ -458,6 +466,7 @@ class @StaffGrading
       @prompt_name_container.html("#{@prompt_name}")
       @submission_container.html(@make_paragraphs(@submission))
       @feedbacks_container.html(@make_feedbacks(@feedbacks))
+      @last_score_container.html(@make_last_score(@last_score))
       # no submit button until user picks grade.
       show_submit_button = false
       show_action_button = false
