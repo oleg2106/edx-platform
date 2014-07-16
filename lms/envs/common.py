@@ -1228,7 +1228,10 @@ INSTALLED_APPS = (
     # Monitoring functionality
     'monitoring',
 
-    'announcements'
+    'announcements',
+
+    # CPM local modifications consolidated into a single application where possible.
+    'cpm_local'
 )
 
 ######################### MARKETING SITE ###############################
