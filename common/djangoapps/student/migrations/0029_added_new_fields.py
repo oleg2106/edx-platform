@@ -78,7 +78,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'UserProfile.work_occupation_other'
         db.add_column('auth_userprofile', 'work_occupation_other',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=10, blank=True),
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=10, null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'UserProfile.work_teaching_experience'
@@ -327,7 +327,7 @@ class Migration(SchemaMigration):
             'work_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
             'work_number': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'db_index': 'True'}),
             'work_occupation': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'}),
-            'work_occupation_other': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
+            'work_occupation_other': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
             'work_qualification_category': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'}),
             'work_qualification_category_year': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'db_index': 'True'}),
             'work_teaching_experience': ('django.db.models.fields.IntegerField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
