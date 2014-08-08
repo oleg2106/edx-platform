@@ -27,6 +27,9 @@ def i18n_clone_overrides():
     # I'm not sure that's the right way to do this, but whatever.
     if not os.path.isdir(TRANSLATION_OVERRIDES_PATH):
         git.clone(TRANSLATION_OVERRIDES_REPO,TRANSLATION_OVERRIDES_PATH)
+        
+@task
+def i18n_ensure_unreviewed_translations():
     # Ensure that we're always pulling unfiltered translations.
     sh("sed -i -e 's/tx pull --mode=reviewed --all/tx pull --all/g' /edx/app/edxapp/venvs/edxapp/src/i18n-tools/i18n/transifex.py")
 
@@ -42,6 +45,7 @@ def i18n_pull_overrides():
 
 @task
 @needs(
+    "pavelib.kursitet.i18n_ensure_unreviewed_translations",
     "pavelib.i18n.i18n_transifex_pull",
     "pavelib.kursitet.i18n_pull_overrides",
 )
