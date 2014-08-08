@@ -27,6 +27,8 @@ def i18n_clone_overrides():
     # I'm not sure that's the right way to do this, but whatever.
     if not os.path.isdir(TRANSLATION_OVERRIDES_PATH):
         git.clone(TRANSLATION_OVERRIDES_REPO,TRANSLATION_OVERRIDES_PATH)
+    # Ensure that we're always pulling unfiltered translations.
+    sh("sed -i -e 's/tx pull --mode=reviewed --all/tx pull --all/g' /edx/app/edxapp/venvs/edxapp/src/i18n-tools/i18n/transifex.py")
 
 @task
 @needs(
