@@ -801,6 +801,11 @@ OPTIONAL_APPS = (
 
     # milestones
     'milestones',
+    
+    # Mihara: This is required for edx-sga
+    # It's already done for mentoring above.
+    'edx_sga'
+
 )
 
 
