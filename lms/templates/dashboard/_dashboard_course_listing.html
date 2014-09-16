@@ -113,7 +113,7 @@
           <a href="${course_target}" class="enter-course" ${"style='margin-bottom:40px'" if has_cert else ""}>${_('View Course')}</a>
         % endif
         % if has_cert:
-          <a href="${reverse('cert', args=[course.id])}" class="enter-cert" style="position: absolute; margin-top: 70px;">Просмотр сертификата</a>
+          <a href="${reverse('cert', args=[course.id])}" class="enter-cert" style="position: absolute; margin-top: 70px;">Просмотр удостоверения</a>
         % endif
       % endif
 
