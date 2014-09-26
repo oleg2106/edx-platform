@@ -18,6 +18,12 @@
   if cert_name_long == "":
     cert_name_long = settings.CERT_NAME_LONG
   billing_email = settings.PAYMENT_SUPPORT_EMAIL
+  
+  from courseware.access import has_access
+  
+  if course.has_ended() and not (has_access(user,course,"teacher") or has_access(user,course,"instructor") or has_access(user,course,"staff")):
+    show_courseware_link = False
+    
 %>
 
 <%namespace name='static' file='../static_content.html'/>
@@ -27,6 +33,7 @@
     <%
       course_target = reverse('info', args=[course.id])
       has_cert = os.path.isfile("/edx/app/edxapp/cert/" + course.id.replace("/", "_") + "/" + user.email + ".pdf")
+    
     %>
 
     % if show_courseware_link:
@@ -69,10 +76,6 @@
           % endif
         </h3>
       </hgroup>
-
-      % if course.has_ended() and cert_status and not enrollment.mode == 'audit':
-      <%include file='_dashboard_certificate_information.html' args='cert_status=cert_status,course=course, enrollment=enrollment'/>
-      % endif
 
       % if course_mode_info['show_upsell']:
         <div class="message message-upsell has-actions is-expandable is-shown">

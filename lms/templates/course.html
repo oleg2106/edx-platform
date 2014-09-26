@@ -5,11 +5,22 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 %>
 <%page args="course" />
+<%
+
+from courseware.access import has_access
+
+show_link = True
+
+if course.has_ended() and not (has_access(user,course,"teacher") or has_access(user,course,"instructor") or has_access(user,course,"staff")):
+   show_link = False
+%>
 <article id="${course.id}" class="course">
   %if course.is_newish:
     <span class="status">${_("New")}</span>
   %endif
+  %if show_link:
   <a href="${reverse('about_course', args=[course.id])}">
+  %endif
   <div class="inner-wrapper">
       <header class="course-preview">
         <hgroup>
@@ -34,5 +45,7 @@ from courseware.courses import course_image_url, get_course_about_section
     <div class="meta-info sr">
       <p class="university">${get_course_about_section(course, 'university')}</p>
     </div>
+  %if show_link:
   </a>
+  %endif
 </article>
