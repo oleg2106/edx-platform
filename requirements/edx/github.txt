@@ -30,3 +30,8 @@
 
 # Prototype XBlocks for limited roll-outs and user testing. These are not for general use. 
 -e git+https://github.com/pmitros/ConceptXBlock.git@2376fde9ebdd83684b78dde77ef96361c3bd1aa0#egg=concept-xblock
+
+# Mihara: CAS integration needs to go here because reasons. 
+# This will make it more of a pain to correctly update...
+
+-e git+https://github.com/kursitet/kursitet_cas_mapper.git@subproduction#egg=kursitet_cas_mapper
