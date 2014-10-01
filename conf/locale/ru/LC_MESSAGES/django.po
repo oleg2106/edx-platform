@@ -7000,6 +7000,10 @@ msgstr "Импорт сертификатов"
 msgid "Statistics"
 msgstr "Статистика"
 
+#: lms/templates/staff_dashboard.html
+msgid "Changes have been saved!"
+msgstr "Изменения были сохранены!"
+
 #: lms/templates/staff_dashboard.html lms/templates/sysadmin_dashboard.html
 msgid "Django PID"
 msgstr ""

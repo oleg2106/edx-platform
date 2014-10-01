@@ -88,7 +88,7 @@ class Command(BaseCommand):
         # In our case, some modules have state 'initial' but actually contain scores anyway.
         # In these cases we alter the scores as well, just in case.
 
-        if not stateflag in ["initial", "done"]:
+        if not stateflag in ["initial", "assessing", "done"]:
             LOG.info("module {id} for {student} is neither 'done' nor 'initial', it is '{stateflag}'"
                 .format(id=module.module_state_key,
                 student=module.student.username, stateflag=stateflag))
@@ -120,8 +120,10 @@ class Command(BaseCommand):
         # which contain readable scores, so it's easier to alter all
         # the children.
         for index, childhistory in enumerate(task['child_history']):
-            postassessment = json.loads(childhistory['post_assessment'])
-
+            try:
+                postassessment = json.loads(childhistory['post_assessment'])
+            except:
+                continue
             if postassessment['score'] != childhistory['score']:
                 LOG.error("Scores don't match, some assumptions about module_state storage are wrong...")
                 raise ValueError("Programmer misunderstood the nature of XModule.")

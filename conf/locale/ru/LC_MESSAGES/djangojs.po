@@ -185,6 +185,14 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js
 msgid ""
+"You're trying to submit an empty answer. Please type an answer in the "
+"corresponding field and then submit."
+msgstr ""
+"Вы пытаетесь отправить пустой ответ. Пожалуйста, введите ответ в "
+"соответствующее поле и после этого отправьте его."
+
+#: common/lib/xmodule/xmodule/js/src/combinedopenended/display.js
+msgid ""
 "You are trying to upload a file that is too large for our system.  Please "
 "choose a file under 2MB or paste a link to it into the answer box."
 msgstr ""
@@ -230,11 +238,11 @@ msgstr "Скрыть задание"
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js
 msgid "Email subject can not be empty."
-msgstr ""
+msgstr "Нельзя отправить письмо без темы."
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js
 msgid "Email body can not be empty."
-msgstr ""
+msgstr "Нельзя отправить пустое письмо."
 
 #: common/lib/xmodule/xmodule/js/src/master_class/master_class_main.js
 msgid ""
@@ -387,7 +395,7 @@ msgstr "Показать дискуссии"
 #: common/static/coffee/src/discussion/views/discussion_thread_view.js
 #: common/static/coffee/src/discussion/views/response_comment_view.js
 msgid "Sorry"
-msgstr ""
+msgstr "Извините"
 
 #: common/static/coffee/src/discussion/discussion_module_view.js
 msgid "We had some trouble loading the discussion. Please try again."
