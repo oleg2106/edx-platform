@@ -61,7 +61,7 @@ Pass a single filename.'''
                          'allowed_courses': profile.allowed_courses,
                          'mailing_address': profile.mailing_address,
                          'city': profile.city,
-                         'country': profile.country,
+                         'country': profile.country.code,
                          'goals': profile.goals,
                          'allow_certificate': profile.allow_certificate,
                          'spammer': profile.spammer,
@@ -69,6 +69,6 @@ Pass a single filename.'''
                     }
                     userlist.append(record)
                 json.dump(userlist, f)
-        except:
+        except IOError:
             raise CommandError('Filename required.')
 
