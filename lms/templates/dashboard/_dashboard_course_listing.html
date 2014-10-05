@@ -118,7 +118,8 @@
       % if has_cert:
         <a href="${reverse('cert', args=[course.id])}" class="enter-cert" style="position: absolute; margin-top: 70px;">Просмотр удостоверения</a>
       % endif
-
+      
+    % if false:
       % if enrollment.mode != "verified":
         ## Translators: The course's name will be added to the end of this sentence.
         <a href="#unenroll-modal" class="unenroll" rel="leanModal" data-course-id="${course.id}" data-course-number="${course.number}" data-course-display="${course.display_number_with_default | h} ${course.display_name_with_default}" onclick="document.getElementById('track-info').innerHTML='${_("Are you sure you want to unregister from")}'; document.getElementById('refund-info').innerHTML=''">
@@ -137,6 +138,7 @@
           ${_('Unregister')}
         </a>
       % endif
+    % endif
 
 % if show_email_settings:
         <a href="#email-settings-modal" class="email-settings" rel="leanModal" data-course-id="${course.id}" data-course-number="${course.number}" data-optout="${course.id in course_optouts}">${_('Email Settings')}</a>
