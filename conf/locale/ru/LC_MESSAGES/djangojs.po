@@ -1306,9 +1306,12 @@ msgid "Problem without name"
 msgstr "Задача без названия"
 
 #: lms/static/coffee/src/staff_grading/staff_grading.js
-#, fuzzy
 msgid "There is no comments."
-msgstr "%s новый комментарий"
+msgstr "Комментариев нет."
+
+#: lms/static/coffee/src/staff_grading/staff_grading.js
+msgid "There is no previous mark."
+msgstr "Слушатель использует первую попытку."
 
 #: lms/static/coffee/src/staff_grading/staff_grading.js
 msgid "Comments for attempt number "
