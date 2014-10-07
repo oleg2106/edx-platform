@@ -116,7 +116,7 @@
         % endif
       % endif
       % if has_cert:
-        <a href="${reverse('cert', args=[course.id])}" class="enter-cert" style="position: absolute; margin-top: 70px;">Просмотр удостоверения</a>
+        <a href="${reverse('cert', args=[course.id])}" class="enter-cert" ${ "style='position: absolute; margin-top: 70px;'" if show_courseware_link else "" }>Просмотр удостоверения</a>
       % endif
       
     % if false:
