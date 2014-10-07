@@ -8710,7 +8710,7 @@ msgstr "Документально подтвержден"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Course Completed - {end_date}"
-msgstr "Курс выполнен - {end_date}"
+msgstr "Курс закрыт для обучения - {end_date}"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Course Started - {start_date}"
