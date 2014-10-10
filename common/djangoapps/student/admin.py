@@ -13,6 +13,16 @@ from django.contrib.auth.admin import UserAdmin
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
+    fields = (
+        'name',
+        'firstname',
+        'lastname',
+        'middlename',
+        'work_login',
+        'allowed_courses',
+        'meta',
+        'spammer',
+    )
 
 class UserWithProfileAdmin(UserAdmin):
     inlines = [UserProfileInline, ]
