@@ -29,7 +29,7 @@ class User(models.Model):
         # make usernames invisible -- because a LOT of our usernames are email addresses!
         return cls(id=str(user.id),
                    external_id=str(user.id),
-                   username=u"[{0}] {1}".format(hex(user.id)[2:].zfill(6),user.profile.name))
+                   username=u"[{0}] {1}".format(hex(user.id)[2:-1].zfill(6),user.profile.name))
 
     def follow(self, source):
         params = {'source_type': source.type, 'source_id': source.id}
