@@ -25,9 +25,11 @@ class User(models.Model):
 
     @classmethod
     def from_django_user(cls, user):
+        # Mihara: This is a dirty hack, but I hope that's the one place where I can kick it to 
+        # make usernames invisible -- because a LOT of our usernames are email addresses!
         return cls(id=str(user.id),
                    external_id=str(user.id),
-                   username=user.username)
+                   username=u"{0} {1}.".format(user.last_name,user.first_name[0]))
 
     def follow(self, source):
         params = {'source_type': source.type, 'source_id': source.id}
