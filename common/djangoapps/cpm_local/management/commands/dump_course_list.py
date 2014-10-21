@@ -44,8 +44,21 @@ class Command(BaseCommand):
         results = []
         for courserecord in store.get_courses():
             course = courserecord.location.course_id
-            coursedata = {'course_id': '', 'url': '', 'course_name': '', 'students': 0}
+            coursedata = {
+                'course_id': '',
+                'org':'',
+                'number':'',
+                'run': '',
+                'url': '',
+                'course_name': '',
+                'students': 0,
+                'ispublic': False,
+                'display_coursenumber': '',
+                'display_organization': '',
+                'display_name': ''
+            }
             coursedata['course_id'] = course
+            coursedata['org'], coursedata['number'], coursedata['run'] = course.split('/')
             coursedata['url'] = "https://edu.olimpiada.ru/courses/{0}/about".format(course)
 
             content = StringIO()
@@ -56,11 +69,29 @@ class Command(BaseCommand):
             for metaitemid in metadata:
                 metaitem = metadata[metaitemid]
                 if 'category' in metaitem and metaitem['category']=='course' and 'metadata' in metaitem:
-                    if 'ispublic' in metaitem['metadata'] and metaitem['metadata']['ispublic']:
+                    try:
+                        coursedata['ispublic'] = metaitem['metadata']['ispublic']
+                    except KeyError:
+                        pass
+                    try:
                         coursedata['course_name'] = u"{number}: {name}".format(
                             number=metaitem['metadata']['display_coursenumber'],
                             name=metaitem['metadata']['display_name']
                         )
+                    except KeyError:
+                        pass
+                    try:
+                        coursedata['display_coursenumber'] = metaitem['metadata']['display_coursenumber']
+                    except KeyError:
+                        pass
+                    try:
+                        coursedata['display_name'] = metaitem['metadata']['display_name']
+                    except KeyError:
+                        pass
+                    try:
+                        coursedata['display_organization'] = metaitem['metadata']['display_organization']
+                    except KeyError:
+                        pass
 
             enrolled_students = User.objects.filter(courseenrollment__course_id=course,).prefetch_related("groups").order_by('username')
             enrolled_students = [st for st in enrolled_students if not _has_staff_access_to_course_id(st, course)]
