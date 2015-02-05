@@ -469,6 +469,8 @@ def ssl_login(request):
 # -----------------------------------------------------------------------------
 # CAS (Central Authentication Service)
 # -----------------------------------------------------------------------------
+# Mihara: This needs to be csrf exempt to support single sign out.
+@csrf_exempt
 def cas_login(request, next_page=None, required=False):
     """
         Uses django_cas for authentication.
