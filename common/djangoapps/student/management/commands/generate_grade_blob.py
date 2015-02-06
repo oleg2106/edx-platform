@@ -83,7 +83,7 @@ class Command(BaseCommand):
                 blob['courses'].append(course_block)
         if options['output']:
             with open(options['output'],'wb') as output_file:
-                json.dump(blob, output_file, ensure_ascii=False)
+                json.dump(blob, output_file)
         else:
             print "Blob output:"
             print json.dumps(blob, indent=2, ensure_ascii=False)
