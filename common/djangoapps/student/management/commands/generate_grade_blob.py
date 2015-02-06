@@ -11,7 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from xmodule.modulestore.django import modulestore
 from course_about.api import get_course_about_details
-from student.models import CourseEnrollment
+from student.models import CourseEnrollment, CourseAccessRole
 from courseware.grades import iterate_grades_for
 
 class Command(BaseCommand):
@@ -56,7 +56,9 @@ class Command(BaseCommand):
         
         # Mihara: Notice how functions mix course.id objects and course id strings left and right...
         for course in store.get_courses():
+        
             course_id_string = course.id.to_deprecated_string()
+            
             if course_id_string in exclusion_list:
                 print "Skipping {0} by exclusion list."
                 continue
@@ -65,6 +67,12 @@ class Command(BaseCommand):
                 course_block = {
                   'id': course_id_string,
                   'about': get_course_about_details(course_id_string),
+                  'ispublic': course.ispublic,
+                  'lowest_passing_grade': course.lowest_passing_grade,
+                  'has_started': course.has_started(),
+                  'has_ended': course.has_ended(),
+                  'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
+                  'staff': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='staff')],
                 }
                 course_block['grading_data'] = []
                 students = CourseEnrollment.users_enrolled_in(course.id)
