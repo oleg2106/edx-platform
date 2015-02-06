@@ -45,5 +45,6 @@ git+https://github.com/edx/edx-lint.git@e0e73bcc7b3b7ed632a1db6e3b32b0a249721261
 # Mihara: Kursitet-specific requirements.
 # For the moment, I chose to add them here, rather than to private requirements,
 # so as to avoid dealing with issuing a SSH key to ansible.
--e git+https://github.com/gsehub/xblock-mentoring.git@d4532e4f89aaf36b56715be2abc0f9402912794e#egg=xblock-mentoring
--e git+https://github.com/mitodl/edx-sga.git@99166ad6d6a8c08be5b8685f11b0dd2a50781072#egg=edx-sga
+-e git+https://github.com/gsehub/xblock-mentoring.git@4d1cce78dc232d5da6ffd73817b5c490e87a6eee#egg=xblock-mentoring
+-e git+https://github.com/mitodl/edx-sga.git@release#egg=edx-sga
+
