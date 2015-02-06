@@ -66,13 +66,17 @@ class Command(BaseCommand):
                 print "Processing {0}".format(course_id_string)
                 course_block = {
                   'id': course_id_string,
-                  'about': get_course_about_details(course_id_string),
-                  'ispublic': course.ispublic,
-                  'lowest_passing_grade': course.lowest_passing_grade,
-                  'has_started': course.has_started(),
-                  'has_ended': course.has_ended(),
-                  'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
-                  'staff': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='staff')],
+                  'meta_data': {
+                    'about': get_course_about_details(course_id_string),
+                    'ispublic': course.ispublic,
+                    'lowest_passing_grade': course.lowest_passing_grade,
+                    'has_started': course.has_started(),
+                    'has_ended': course.has_ended(),
+                  },
+                  'staff_data': {
+                    'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
+                    'staff': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='staff')],
+                  },
                 }
                 course_block['grading_data'] = []
                 students = CourseEnrollment.users_enrolled_in(course.id)
