@@ -13,6 +13,14 @@ from xmodule.modulestore.django import modulestore
 from course_about.api import get_course_about_details
 from student.models import CourseEnrollment, CourseAccessRole
 from courseware.grades import iterate_grades_for
+from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR, \
+                                         FORUM_ROLE_MODERATOR, FORUM_ROLE_COMMUNITY_TA
+
+IMPORTANT_ROLES = {
+    "administrator": FORUM_ROLE_ADMINISTRATOR,
+    "moderator": FORUM_ROLE_MODERATOR,
+    "assistant": FORUM_ROLE_COMMUNITY_TA,
+    }
 
 class Command(BaseCommand):
     can_import_settings = True
@@ -64,6 +72,12 @@ class Command(BaseCommand):
                 continue
             else:
                 print "Processing {0}".format(course_id_string)
+                forum_roles = {}
+                for packet_name, role_name in IMPORTANT_ROLES.iteritems():
+                    try:
+                        forum_roles[packet_name] = [x.username for x in Role.objects.get(course_id=course.id, name=role_name).users.all()]
+                    except Role.DoesNotExist:
+                        pass
                 course_block = {
                   'id': course_id_string,
                   'meta_data': {
@@ -76,6 +90,7 @@ class Command(BaseCommand):
                   'staff_data': {
                     'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
                     'staff': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='staff')],
+                    'forum': forum_roles,
                   },
                 }
                 course_block['grading_data'] = []
