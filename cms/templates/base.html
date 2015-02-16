@@ -39,6 +39,33 @@ import json
     <%static:css group='style-app'/>
     <%static:css group='style-app-extend1'/>
     <%static:css group='style-xmodule'/>
+    
+    ## Mihara: This is a dirty, dirty hack.
+    ## It is wrong and it is currently the only practical 
+    ## way to fullfill the stupid requirements of
+    ## http://redmine.mccme.ru/issues/3870
+    ## Blame lektorium.tv.
+    <style type="text/css">
+      .mce-content-body h1, .mce-content-body h2, .mce-content-body h3,
+      .xmodule_display.xmodule_HtmlModule h1, .xmodule_display.xmodule_HtmlModule h2,
+      .xmodule_display.xmodule_HtmlModule h3 {
+        font-weight: bold;
+        font-family: Verdana, 'Source Sans' ,'Open Sans',Geneva,sans-serif;
+        color: #2e2e2e;
+        text-align: center;
+      }
+      .mce-content-body h1, .xmodule_display.xmodule_HtmlModule h1 {
+        font-size: 18pt;
+      }
+      .mce-content-body h2, .xmodule_display.xmodule_HtmlModule h2 {
+        font-size: 16pt;
+        text-transform: initial;
+      }
+      .mce-content-body h3, .xmodule_display.xmodule_HtmlModule h3 {
+        font-size: 14pt;
+        text-align: left;
+      }
+    </style>
 
     <%include file="widgets/segment-io.html" />
 
