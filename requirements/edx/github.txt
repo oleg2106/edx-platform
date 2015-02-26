@@ -50,5 +50,5 @@ git+https://github.com/edx/edx-lint.git@e0e73bcc7b3b7ed632a1db6e3b32b0a249721261
 # so as to avoid dealing with issuing a SSH key to ansible.
 -e git+https://github.com/gsehub/xblock-mentoring.git@4d1cce78dc232d5da6ffd73817b5c490e87a6eee#egg=xblock-mentoring
 -e git+https://github.com/mitodl/edx-sga.git@release#egg=edx-sga
--e git+https://github.com/mckinseyacademy/xblock-poll.git@ed6a2086f158a4b1a8b9219e5105d030fff5910a#egg=xblock-poll
+-e git+https://github.com/kursitet/xblock-poll.git@master#egg=xblock-poll
 
