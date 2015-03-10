@@ -282,59 +282,6 @@ class UserProfile(models.Model):
         self.set_meta(meta)
         self.save()
 
-    @transaction.commit_on_success
-    def update_name(self, new_name):
-        """Update the user's name, storing the old name in the history.
-
-        Implicitly saves the model.
-        If the new name is not the same as the old name, do nothing.
-
-        Arguments:
-            new_name (unicode): The new full name for the user.
-
-        Returns:
-            None
-
-        """
-        if self.name == new_name:
-            return
-
-        if self.name:
-            meta = self.get_meta()
-            if 'old_names' not in meta:
-                meta['old_names'] = []
-            meta['old_names'].append([self.name, u"", datetime.now(UTC).isoformat()])
-            self.set_meta(meta)
-
-        self.name = new_name
-        self.save()
-
-    @transaction.commit_on_success
-    def update_email(self, new_email):
-        """Update the user's email and save the change in the history.
-
-        Implicitly saves the model.
-        If the new email is the same as the old email, do not update the history.
-
-        Arguments:
-            new_email (unicode): The new email for the user.
-
-        Returns:
-            None
-        """
-        if self.user.email == new_email:
-            return
-
-        meta = self.get_meta()
-        if 'old_emails' not in meta:
-            meta['old_emails'] = []
-        meta['old_emails'].append([self.user.email, datetime.now(UTC).isoformat()])
-        self.set_meta(meta)
-        self.save()
-
-        self.user.email = new_email
-        self.user.save()
-
 
 class UserSignupSource(models.Model):
     """
@@ -1419,7 +1366,8 @@ def enforce_single_login(sender, request, user, signal, **kwargs):    # pylint: 
             key = request.session.session_key
         else:
             key = None
-        user.profile.set_login_session(key)
+        if user:
+            user.profile.set_login_session(key)
 
 
 class DashboardConfiguration(ConfigurationModel):

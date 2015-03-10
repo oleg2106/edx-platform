@@ -1,27 +1,27 @@
-import json
-import pytz
 from collections import defaultdict
-import logging
 from datetime import datetime
+import json
+import logging
 
+import pytz
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.http import HttpResponse
-from django.utils import simplejson
 from django.utils.timezone import UTC
-
-from django_comment_common.models import Role, FORUM_ROLE_STUDENT
-from django_comment_client.permissions import check_permissions_by_view, cached_has_permission
-
-from edxmako import lookup_template
 import pystache_custom as pystache
-
-from openedx.core.djangoapps.course_groups.cohorts import get_cohort_by_id, get_cohort_id, is_commentable_cohorted, is_course_cohorted
-from openedx.core.djangoapps.course_groups.models import CourseUserGroup
 from opaque_keys.edx.locations import i4xEncoder
 from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
+
+from django_comment_common.models import Role, FORUM_ROLE_STUDENT
+from django_comment_client.permissions import check_permissions_by_view, cached_has_permission
+from edxmako import lookup_template
+
+from openedx.core.djangoapps.course_groups.cohorts import get_cohort_by_id, get_cohort_id, is_commentable_cohorted, \
+    is_course_cohorted
+from openedx.core.djangoapps.course_groups.models import CourseUserGroup
+
 
 log = logging.getLogger(__name__)
 
@@ -60,6 +60,9 @@ def has_forum_access(uname, course_id, rolename):
 
 
 def _get_discussion_modules(course):
+    """
+    Return a list of all valid discussion modules in this course.
+    """
     all_modules = modulestore().get_items(course.id, qualifiers={'category': 'discussion'})
 
     def has_required_keys(module):
@@ -73,7 +76,10 @@ def _get_discussion_modules(course):
 
 
 def get_discussion_id_map(course):
-    def get_entry(module):
+    """
+    Transform the list of this course's discussion modules into a dictionary of metadata keyed by discussion_id.
+    """
+    def get_entry(module):  # pylint: disable=missing-docstring
         discussion_id = module.discussion_id
         title = module.discussion_target
         last_category = module.discussion_category.split("/")[-1].strip()
@@ -133,8 +139,10 @@ def _sort_map_entries(category_map, sort_alpha):
 
 
 def get_discussion_category_map(course):
-    course_id = course.id
-
+    """
+    Transform the list of this course's discussion modules into a recursive dictionary structure.  This is used
+    to render the discussion category map in the discussion tab sidebar.
+    """
     unexpanded_category_map = defaultdict(list)
 
     modules = _get_discussion_modules(course)
@@ -231,9 +239,7 @@ class JsonError(HttpResponse):
     def __init__(self, error_messages=[], status=400):
         if isinstance(error_messages, basestring):
             error_messages = [error_messages]
-        content = simplejson.dumps({'errors': error_messages},
-                                   indent=2,
-                                   ensure_ascii=False)
+        content = json.dumps({'errors': error_messages}, indent=2, ensure_ascii=False)
         super(JsonError, self).__init__(content,
                                         mimetype='application/json; charset=utf-8', status=status)
 
@@ -369,8 +375,12 @@ def extend_content(content):
     return merge_dict(content, content_info)
 
 
-def add_courseware_context(content_list, course):
-    id_map = get_discussion_id_map(course)
+def add_courseware_context(content_list, course, id_map=None):
+    """
+    Decorates `content_list` with courseware metadata.
+    """
+    if id_map is None:
+        id_map = get_discussion_id_map(course)
 
     for content in content_list:
         commentable_id = content['commentable_id']

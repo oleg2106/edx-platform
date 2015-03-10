@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework import permissions
 from rest_framework.exceptions import PermissionDenied
+from django.http import Http404
 
 
 class ApiKeyHeaderPermission(permissions.BasePermission):
@@ -20,6 +21,19 @@ class ApiKeyHeaderPermission(permissions.BasePermission):
         )
 
 
+class ApiKeyHeaderPermissionIsAuthenticated(ApiKeyHeaderPermission, permissions.IsAuthenticated):
+    """
+    Allow someone to access the view if they have the API key OR they are authenticated.
+
+    See ApiKeyHeaderPermission for more information how the API key portion is implemented.
+    """
+    def has_permission(self, request, view):
+        #TODO We can optimize this later on when we know which of these methods is used more often.
+        api_permissions = ApiKeyHeaderPermission.has_permission(self, request, view)
+        is_authenticated_permissions = permissions.IsAuthenticated.has_permission(self, request, view)
+        return api_permissions or is_authenticated_permissions
+
+
 class IsAuthenticatedOrDebug(permissions.BasePermission):
     """
     Allows access only to authenticated users, or anyone if debug mode is enabled.
@@ -31,3 +45,26 @@ class IsAuthenticatedOrDebug(permissions.BasePermission):
 
         user = getattr(request, 'user', None)
         return user and user.is_authenticated()
+
+
+class IsUserInUrl(permissions.BasePermission):
+    """
+    Permission that checks to see if the request user matches the user in the URL.
+    """
+    def has_permission(self, request, view):
+        # Return a 404 instead of a 403 (Unauthorized). If one user is looking up
+        # other users, do not let them deduce the existence of an account.
+        if request.user.username != request.parser_context.get('kwargs', {}).get('username', None):
+            raise Http404()
+        return True
+
+
+class IsUserInUrlOrStaff(IsUserInUrl):
+    """
+    Permission that checks to see if the request user matches the user in the URL or has is_staff access.
+    """
+    def has_permission(self, request, view):
+        if request.user.is_staff:
+            return True
+
+        return super(IsUserInUrlOrStaff, self).has_permission(request, view)

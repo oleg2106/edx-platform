@@ -309,12 +309,13 @@ FEATURES = {
     # Set to True to change the course sorting behavior by their start dates, latest first.
     'ENABLE_COURSE_SORTING_BY_START_DATE': False,
 
+    # Flag to enable new user account APIs.
+    'ENABLE_USER_REST_API': False,
+
     # Expose Mobile REST API. Note that if you use this, you must also set
     # ENABLE_OAUTH2_PROVIDER to True
     'ENABLE_MOBILE_REST_API': False,
-
-    # Enable the new dashboard, account, and profile pages
-    'ENABLE_NEW_DASHBOARD': False,
+    'ENABLE_MOBILE_SOCIAL_FACEBOOK_FEATURES': False,
 
     # Enable the combined login/registration form
     'ENABLE_COMBINED_LOGIN_REGISTRATION': False,
@@ -350,6 +351,9 @@ FEATURES = {
 
     # Courseware search feature
     'ENABLE_COURSEWARE_SEARCH': False,
+
+    # log all information from cybersource callbacks
+    'LOG_POSTPAY_CALLBACKS': True,
 }
 
 # Ignore static asset files on import which match this pattern
@@ -1700,6 +1704,7 @@ if FEATURES.get('ENABLE_CORS_HEADERS'):
     ) + MIDDLEWARE_CLASSES
     CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_WHITELIST = ()
+    CORS_ORIGIN_ALLOW_ALL = False
 
 ###################### Registration ##################################
 
@@ -2054,3 +2059,26 @@ PDF_RECEIPT_COBRAND_LOGO_HEIGHT_MM = 12
 SEARCH_ENGINE = None
 # Use the LMS specific result processor
 SEARCH_RESULT_PROCESSOR = "lms.lib.courseware_search.lms_result_processor.LmsSearchResultProcessor"
+
+# The configuration for learner profiles
+PROFILE_CONFIGURATION = {
+    # Default visibility level for accounts without a specified value
+    # The value is one of: 'all_users', 'private'
+    "default_visibility": "private",
+
+    # The list of all fields that can be shown on a learner's profile
+    "all_fields": [
+        'username',
+        'profile_image',
+        'country',
+        'time_zone',
+        'languages',
+        'bio',
+    ],
+
+    # The list of fields that are always public on a learner's profile
+    "public_fields": [
+        'username',
+        'profile_image',
+    ],
+}

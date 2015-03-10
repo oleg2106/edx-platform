@@ -103,8 +103,6 @@ from . import provider
 # `AUTH_ENROLL_COURSE_ID_KEY` provides the course ID that a student
 # is trying to enroll in, used to generate analytics events
 # and auto-enroll students.
-from openedx.core.djangoapps.user_api.api import profile
-
 AUTH_ENTRY_KEY = 'auth_entry'
 AUTH_REDIRECT_KEY = 'next'
 AUTH_ENROLL_COURSE_ID_KEY = 'enroll_course_id'
@@ -112,7 +110,6 @@ AUTH_EMAIL_OPT_IN_KEY = 'email_opt_in'
 
 AUTH_ENTRY_DASHBOARD = 'dashboard'
 AUTH_ENTRY_LOGIN = 'login'
-AUTH_ENTRY_PROFILE = 'profile'
 AUTH_ENTRY_REGISTER = 'register'
 
 # This is left-over from an A/B test
@@ -143,16 +140,11 @@ AUTH_DISPATCH_URLS = {
     AUTH_ENTRY_LOGIN_2: '/account/login/',
     AUTH_ENTRY_REGISTER_2: '/account/register/',
 
-    # If linking/unlinking an account from the new student profile
-    # page, redirect to the profile page.  Only used if
-    # `FEATURES['ENABLE_NEW_DASHBOARD']` is true.
-    AUTH_ENTRY_PROFILE: '/profile/',
 }
 
 _AUTH_ENTRY_CHOICES = frozenset([
     AUTH_ENTRY_DASHBOARD,
     AUTH_ENTRY_LOGIN,
-    AUTH_ENTRY_PROFILE,
     AUTH_ENTRY_REGISTER,
 
     # This is left-over from an A/B test
@@ -452,8 +444,6 @@ def parse_query_params(strategy, response, *args, **kwargs):
         'is_login': auth_entry in [AUTH_ENTRY_LOGIN, AUTH_ENTRY_LOGIN_2],
         # Whether the auth pipeline entered from /register.
         'is_register': auth_entry in [AUTH_ENTRY_REGISTER, AUTH_ENTRY_REGISTER_2],
-        # Whether the auth pipeline entered from /profile.
-        'is_profile': auth_entry == AUTH_ENTRY_PROFILE,
         # Whether the auth pipeline entered from an API
         'is_api': auth_entry == AUTH_ENTRY_API,
     }
@@ -679,6 +669,8 @@ def change_enrollment(strategy, user=None, is_dashboard=False, *args, **kwargs):
         # If the email opt in parameter is found, set the preference.
         email_opt_in = strategy.session_get(AUTH_EMAIL_OPT_IN_KEY)
         if email_opt_in:
+            # TODO: remove circular dependency on openedx from common
+            from openedx.core.djangoapps.user_api.api import profile
             opt_in = email_opt_in.lower() == 'true'
             profile.update_email_opt_in(user.username, course_id.org, opt_in)
 

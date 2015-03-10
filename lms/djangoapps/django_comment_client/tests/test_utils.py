@@ -5,11 +5,9 @@ from pytz import UTC
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.test.utils import override_settings
 from edxmako import add_lookup
 import mock
 
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from django_comment_client.tests.factories import RoleFactory
 from django_comment_client.tests.unicode import UnicodeTestMixin
 import django_comment_client.utils as utils
@@ -179,6 +177,9 @@ class CategoryMapTestCase(ModuleStoreTestCase):
         )
 
     def assertCategoryMapEquals(self, expected):
+        """
+        Compare a manually-constructed category map to the actual result from `utils.get_discussion_category_map`
+        """
         self.assertEqual(
             utils.get_discussion_category_map(self.course),
             expected
@@ -197,7 +198,7 @@ class CategoryMapTestCase(ModuleStoreTestCase):
             "Topic C": {"id": "Topic_C"}
         }
 
-        def check_cohorted_topics(expected_ids):
+        def check_cohorted_topics(expected_ids):  # pylint: disable=missing-docstring
             self.assertCategoryMapEquals(
                 {
                     "entries": {

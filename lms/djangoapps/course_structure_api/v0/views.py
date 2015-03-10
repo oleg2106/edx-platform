@@ -1,7 +1,6 @@
 """ API implementation for course-oriented interactions. """
 
 import logging
-from operator import attrgetter
 
 from django.conf import settings
 from django.http import Http404
@@ -132,7 +131,7 @@ class CourseList(CourseViewMixin, ListAPIView):
         results = (course for course in results if self.user_can_access_course(self.request.user, course))
 
         # Sort the results in a predictable manner.
-        return sorted(results, key=attrgetter('id'))
+        return sorted(results, key=lambda course: unicode(course.id))
 
 
 class CourseDetail(CourseViewMixin, RetrieveAPIView):
@@ -192,7 +191,7 @@ class CourseStructure(CourseViewMixin, RetrieveAPIView):
             return super(CourseStructure, self).retrieve(request, *args, **kwargs)
         except models.CourseStructure.DoesNotExist:
             # If we don't have data stored, generate it and return a 503.
-            models.update_course_structure.delay(self.course.id)
+            models.update_course_structure.delay(unicode(self.course.id))
             return Response(status=503, headers={'Retry-After': '120'})
 
     def get_object(self, queryset=None):

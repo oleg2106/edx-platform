@@ -313,6 +313,7 @@ if FEATURES.get('ENABLE_CORS_HEADERS'):
     ) + MIDDLEWARE_CLASSES
     CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_WHITELIST = ENV_TOKENS.get('CORS_ORIGIN_WHITELIST', ())
+    CORS_ORIGIN_ALLOW_ALL = ENV_TOKENS.get('CORS_ORIGIN_ALLOW_ALL', False)
 
 ############################## SECURE AUTH ITEMS ###############
 # Secret things: passwords, access keys, etc.
@@ -516,3 +517,8 @@ PDF_RECEIPT_COBRAND_LOGO_HEIGHT_MM = ENV_TOKENS.get(
 if FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
     # Use ElasticSearch as the search engine herein
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
+
+# Facebook app
+FACEBOOK_API_VERSION = AUTH_TOKENS.get("FACEBOOK_API_VERSION")
+FACEBOOK_APP_SECRET = AUTH_TOKENS.get("FACEBOOK_APP_SECRET")
+FACEBOOK_APP_ID = AUTH_TOKENS.get("FACEBOOK_APP_ID")
