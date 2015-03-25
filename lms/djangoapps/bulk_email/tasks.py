@@ -387,7 +387,9 @@ def _get_source_address(course_id, course_title):
     # For the email address, get the course.  Then make sure that it can be used
     # in an email address, by substituting a '_' anywhere a non-(ascii, period, or dash)
     # character appears.
-    from_addr = u'"{0}" Course Staff <{1}-{2}>'.format(
+    # Mihara: In an exclusively-Russian environment this is thought inappropriate.
+    # from_addr = u'"{0}" Course Staff <{1}-{2}>'.format(
+    from_addr = u'"{0}" <{1}-{2}>'.format(
         course_title_no_quotes,
         re.sub(r"[^\w.-]", '_', course_id.course),
         settings.BULK_EMAIL_DEFAULT_FROM_EMAIL
