@@ -26,12 +26,14 @@ class Command(BaseCommand):
     can_import_settings = True
     help = """
     Generate a kursitet-style JSON data blob with grades and course metadata.
-
-    -e, --exclude -- name of a file containing a list of course IDs to exclude from the blob. Optional.
-    -o, --output -- name of the output file.
     """
 
     option_list = BaseCommand.option_list + (
+        make_option('-m', '--meta_only',
+                    action='store_true',
+                    dest='meta_only',
+                    default=False,
+                    help='Do not collect grades, only output metadata.'),
         make_option('-e', '--exclude',
                     metavar='EXCLUDE_FILE',
                     dest='exclude_file',
@@ -56,9 +58,9 @@ class Command(BaseCommand):
                 raise CommandError("Could not read exclusion list from '{0}'".format(options['exclude_file']))
                 
         store = modulestore()
-        
+        epoch = int(time.time())
         blob = {
-            'epoch': int(time.time()),
+            'epoch': epoch,
             'courses': [],
         }
         
@@ -93,19 +95,21 @@ class Command(BaseCommand):
                     'forum': forum_roles,
                   },
                 }
-                course_block['grading_data'] = []
-                students = CourseEnrollment.users_enrolled_in(course.id)
-                print "{0} students in course {1}".format(students.count(),course_id_string)
-                if students.count():
-                    for student, gradeset, error_message \
-                        in iterate_grades_for(course.id, students):
-                        if gradeset:
-                            course_block['grading_data'].append({
-                                'username': student.username,
-                                'grades': gradeset,
-                            })
-                        else:
-                            print error_message
+                if not options['meta_only']:
+                    blob['grading_data_epoch'] = epoch
+                    course_block['grading_data'] = []
+                    students = CourseEnrollment.users_enrolled_in(course.id)
+                    print "{0} students in course {1}".format(students.count(),course_id_string)
+                    if students.count():
+                        for student, gradeset, error_message \
+                            in iterate_grades_for(course.id, students):
+                            if gradeset:
+                                course_block['grading_data'].append({
+                                    'username': student.username,
+                                    'grades': gradeset,
+                                })
+                            else:
+                                print error_message
                     
                 blob['courses'].append(course_block)
         if options['output']:
