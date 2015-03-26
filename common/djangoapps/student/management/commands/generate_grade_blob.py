@@ -80,6 +80,9 @@ class Command(BaseCommand):
                         forum_roles[packet_name] = [x.username for x in Role.objects.get(course_id=course.id, name=role_name).users.all()]
                     except Role.DoesNotExist:
                         pass
+
+                students = CourseEnrollment.users_enrolled_in(course.id)
+
                 course_block = {
                   'id': course_id_string,
                   'meta_data': {
@@ -94,11 +97,12 @@ class Command(BaseCommand):
                     'staff': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='staff')],
                     'forum': forum_roles,
                   },
+                  'students': [x.username for x in students],
                 }
+                
                 if not options['meta_only']:
                     blob['grading_data_epoch'] = epoch
                     course_block['grading_data'] = []
-                    students = CourseEnrollment.users_enrolled_in(course.id)
                     print "{0} students in course {1}".format(students.count(),course_id_string)
                     if students.count():
                         for student, gradeset, error_message \
