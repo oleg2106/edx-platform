@@ -97,7 +97,7 @@ class Command(BaseCommand):
                     # Note: API currently does not return those natively.
                     'overview': get_detail(course,'overview'),
                     'short_description': get_detail(course,'short_description'),
-                    'pre_requisite_courses': get_detail(course,'overview'),
+                    'pre_requisite_courses': get_detail(course,'pre_requisite_courses'),
                     'video': get_detail(course,'video'),
                   },
                   'staff_data': {
