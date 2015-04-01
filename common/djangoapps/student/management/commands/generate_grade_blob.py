@@ -95,9 +95,9 @@ class Command(BaseCommand):
                     'has_started': course.has_started(),
                     'has_ended': course.has_ended(),
                     # Note: API currently does not return those natively.
-                    'overview': get_detail(course,'overview'),
-                    'short_description': get_detail(course,'short_description'),
-                    'pre_requisite_courses': get_detail(course,'pre_requisite_courses'),
+                    'overview': get_detail(course.id,'overview'),
+                    'short_description': get_detail(course.id,'short_description'),
+                    'pre_requisite_courses': get_detail(course.id,'pre_requisite_courses'),
                     'video': get_detail(course,'video'),
                   },
                   'staff_data': {
