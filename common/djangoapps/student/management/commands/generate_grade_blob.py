@@ -98,7 +98,7 @@ class Command(BaseCommand):
                     'overview': get_detail(course.id,'overview'),
                     'short_description': get_detail(course.id,'short_description'),
                     'pre_requisite_courses': get_detail(course.id,'pre_requisite_courses'),
-                    'video': get_detail(course,'video'),
+                    'video': get_detail(course.id,'video'),
                   },
                   'staff_data': {
                     'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
