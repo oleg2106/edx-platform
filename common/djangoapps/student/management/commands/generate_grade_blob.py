@@ -16,6 +16,9 @@ from courseware.grades import iterate_grades_for
 from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR, \
                                          FORUM_ROLE_MODERATOR, FORUM_ROLE_COMMUNITY_TA
 
+# Note: They don't want me to use it.
+from course_about.data import _fetch_course_detail as get_detail
+
 IMPORTANT_ROLES = {
     "administrator": FORUM_ROLE_ADMINISTRATOR,
     "moderator": FORUM_ROLE_MODERATOR,
@@ -91,6 +94,11 @@ class Command(BaseCommand):
                     'lowest_passing_grade': course.lowest_passing_grade,
                     'has_started': course.has_started(),
                     'has_ended': course.has_ended(),
+                    # Note: API currently does not return those natively.
+                    'overview': get_detail(course,'overview'),
+                    'short_description': get_detail(course,'short_description'),
+                    'pre_requisite_courses': get_detail(course,'overview'),
+                    'video': get_detail(course,'video'),
                   },
                   'staff_data': {
                     'instructors': [x.user.username for x in CourseAccessRole.objects.filter(course_id=course.id, role='instructor')],
