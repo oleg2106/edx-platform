@@ -3,12 +3,12 @@
 This module contains legacy code originally from `student.views`.
 """
 import re
-from urllib import urlencode
 
 from django.conf import settings
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils.http import urlencode
 import external_auth.views
 
 from xmodule.modulestore.django import modulestore

@@ -9,12 +9,12 @@ To enable this feature, set in a settings.py:
 This was taken from StackOverflow (http://stackoverflow.com/questions/14830669/how-to-expire-django-session-in-5minutes)
 """
 from datetime import datetime, timedelta
-from urllib import urlencode
 from django.conf import settings
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils.http import urlencode
 
 LAST_TOUCH_KEYNAME = 'SessionInactivityTimeout:last_touch'
 
