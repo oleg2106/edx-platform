@@ -11,6 +11,9 @@ This was taken from StackOverflow (http://stackoverflow.com/questions/14830669/h
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib import auth
+from django.http import HttpResponseRedirect
+from django.utils.http import urlquote
+from django.core.urlresolvers import reverse_lazy
 
 LAST_TOUCH_KEYNAME = 'SessionInactivityTimeout:last_touch'
 
@@ -46,8 +49,11 @@ class SessionInactivityTimeout(object):
                 # did we exceed the timeout limit?
                 if time_since_last_activity > timedelta(seconds=timeout_in_seconds):
                     # yes? Then log the user out
+                    go_back_to = self.request.build_absolute_uri()
                     del request.session[LAST_TOUCH_KEYNAME]
                     auth.logout(request)
+                    if settings.FEATURES.get('AUTH_USE_CAS'):
+                        return HttpResponseRedirect(reverse_lazy('cas-login')+"?next_page={0}".format(urlquote(go_back_to)))
                     return
 
             request.session[LAST_TOUCH_KEYNAME] = utc_now

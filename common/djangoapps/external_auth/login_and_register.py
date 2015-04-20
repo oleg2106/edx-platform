@@ -7,6 +7,7 @@ import re
 from django.conf import settings
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
+from django.utils.http import urlquote
 import external_auth.views
 
 from xmodule.modulestore.django import modulestore
@@ -63,7 +64,12 @@ def login(request):
         response = external_auth.views.redirect_with_get('root', request.GET)
     elif settings.FEATURES.get('AUTH_USE_CAS'):
         # If CAS is enabled, redirect auth handling to there
-        response = redirect(reverse('cas-login'))
+        redirect_to = request.GET.get('next')
+        if redirect_to:
+            # Mihara: Blame Django for the mess with optional get kwargs.
+            response = redirect(reverse('cas-login')+"?next_page={0}".format(urlquote(redirect_to)))
+        else:
+            response = redirect(reverse('cas-login'))
     elif settings.FEATURES.get('AUTH_USE_SHIB'):
         redirect_to = request.GET.get('next')
         if redirect_to:
