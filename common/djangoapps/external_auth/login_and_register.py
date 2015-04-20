@@ -3,11 +3,12 @@
 This module contains legacy code originally from `student.views`.
 """
 import re
+from urllib import urlencode
 
 from django.conf import settings
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
-from django.utils.http import urlquote
+from django.contrib.auth import REDIRECT_FIELD_NAME
 import external_auth.views
 
 from xmodule.modulestore.django import modulestore
@@ -67,7 +68,7 @@ def login(request):
         redirect_to = request.GET.get('next')
         if redirect_to:
             # Mihara: Blame Django for the mess with optional get kwargs.
-            response = redirect(reverse('cas-login')+"?next_page={0}".format(urlquote(redirect_to)))
+            response = redirect(reverse('cas-login')+"?"+urlencode({REDIRECT_FIELD_NAME: redirect_to}))
         else:
             response = redirect(reverse('cas-login'))
     elif settings.FEATURES.get('AUTH_USE_SHIB'):
