@@ -6,6 +6,8 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils.http import urlencode
 
 from edxmako.shortcuts import render_to_response
 
@@ -51,7 +53,15 @@ def login_page(request):
             return redirect('/course/')
     if settings.FEATURES.get('AUTH_USE_CAS'):
         # If CAS is enabled, redirect auth handling to there
-        return redirect(reverse('cas-login'))
+        # Mihara: Since CMS does not use external_auth.login_and_register, the functionality needs to be
+        # duplicated here:
+        redirect_to = request.GET.get('next')
+        if redirect_to:
+            # Mihara: Blame Django for the mess with optional get kwargs.
+            response = redirect(reverse('cas-login')+"?"+urlencode({REDIRECT_FIELD_NAME: redirect_to}))
+        else:
+            response = redirect(reverse('cas-login'))
+        return response
 
     return render_to_response(
         'login.html',
