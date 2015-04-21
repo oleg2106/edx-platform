@@ -21,7 +21,7 @@
 -e git+https://github.com/pmitros/django-pyfs.git@d175715e0fe3367ec0f1ee429c242d603f6e8b10#egg=djpyfs
 #git+https://github.com/mitocw/django-cas.git@60a5b8e5a62e63e0d5d224a87f0b489201a0c695#egg=django-cas
 # Mihara: We use our own fork for this one.
--e git+https://github.com/kursitet/django-cas.git@master#egg=django-cas
+-e git+https://github.com/kursitet/django-cas.git@af4b06aa6d1efe83880e38f77c24947ccc886b98#egg=django-cas
 
 # Our libraries:
 -e git+https://github.com/edx/XBlock.git@0b865f62f2deaa81b77f819b9b7df0303cb0f70c#egg=XBlock
