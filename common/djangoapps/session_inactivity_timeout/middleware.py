@@ -50,7 +50,7 @@ class SessionInactivityTimeout(object):
                 # did we exceed the timeout limit?
                 if time_since_last_activity > timedelta(seconds=timeout_in_seconds):
                     # yes? Then log the user out
-                    go_back_to = self.request.build_absolute_uri()
+                    go_back_to = request.build_absolute_uri()
                     del request.session[LAST_TOUCH_KEYNAME]
                     auth.logout(request)
                     if settings.FEATURES.get('AUTH_USE_CAS'):
