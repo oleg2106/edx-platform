@@ -13,7 +13,7 @@
 # KUN-MIN SYU <qwer20108@gmail.com>, 2014-2015
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
 # LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
-# LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
+# LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014-2015
 # bhsfmiao <mkr_mkr@163.com>, 2014
 # Nicholas Ou <oldmonou@gmail.com>, 2014
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
@@ -23,7 +23,7 @@
 # Xaver Y.R. Chen <yrchen@atcity.org>, 2013
 # Xaver Y.R. Chen <yrchen@atcity.org>, 2013
 # Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
-# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
+# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014-2015
 # KUN-MIN SYU <qwer20108@gmail.com>, 2014
 # 陳子琦 <christtabris@gmail.com>, 2014
 # #-#-#-#-#  django-studio.po (edx-platform)  #-#-#-#-#
@@ -35,12 +35,14 @@
 # carlkang <carlkang@outlook.com>, 2014
 # LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
 # Joey Chiou <Joeyc0916@gmail.com>, 2013
-# Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2014
+# Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2014-2015
+# MOH CHIN LAM <chinlam91@gmail.com>, 2015
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
 # HSU-CHENG CHIANG <tosti.chiang@gmail.com>, 2013
-# Xaver Y.R. Chen <yrchen@atcity.org>, 2014
+# Xaver Y.R. Chen <yrchen@atcity.org>, 2014-2015
 # Xaver Y.R. Chen <yrchen@atcity.org>, 2013
 # Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
+# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2015
 # #-#-#-#-#  mako.po (edx-platform)  #-#-#-#-#
 # edX translation file
 # Copyright (C) 2015 edX
@@ -57,7 +59,7 @@
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
 # LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
 # bhsfmiao <mkr_mkr@163.com>, 2014
-# MOH CHIN LAM <chinlam91@gmail.com>, 2014
+# MOH CHIN LAM <chinlam91@gmail.com>, 2014-2015
 # Nicholas Ou <oldmonou@gmail.com>, 2014
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
 # Timothy K. Shih <timothykshih@gmail.com>, 2013
@@ -65,7 +67,7 @@
 # Timothy K. Shih <timothykshih@gmail.com>, 2013
 # Xaver Y.R. Chen <yrchen@atcity.org>, 2013-2015
 # Yung Wei <oscarwei1988@gmail.com>, 2014
-# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
+# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014-2015
 # KUN-MIN SYU <qwer20108@gmail.com>, 2014
 # #-#-#-#-#  mako-studio.po (edx-platform)  #-#-#-#-#
 # edX translation file
@@ -77,15 +79,15 @@
 # Joey Chiou <Joeyc0916@gmail.com>, 2013
 # lin31504 <lin31504@gmail.com>, 2014
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2014
-# LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
+# LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014-2015
 # bhsfmiao <mkr_mkr@163.com>, 2014
-# MOH CHIN LAM <chinlam91@gmail.com>, 2014
+# MOH CHIN LAM <chinlam91@gmail.com>, 2014-2015
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2013-2014
 # HSU-CHENG CHIANG <tosti.chiang@gmail.com>, 2013
 # Timothy K. Shih <timothykshih@gmail.com>, 2013
 # Xaver Y.R. Chen <yrchen@atcity.org>, 2014-2015
 # Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
-# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014
+# Zhen-Rong Chen <zhenrcaaron@gmail.com>, 2014-2015
 # KUN-MIN SYU <qwer20108@gmail.com>, 2014
 # #-#-#-#-#  messages.po (edx-platform)  #-#-#-#-#
 # edX translation file
@@ -106,14 +108,14 @@
 # LIU,SHU-HAO <jeremy55662004@gmail.com>, 2014
 # lin31504 <lin31504@gmail.com>, 2014
 # Lin Yu-Chun <iftwoplustwoequalsfive@gmail.com>, 2014
-# Xaver Y.R. Chen <yrchen@atcity.org>, 2014
+# Xaver Y.R. Chen <yrchen@atcity.org>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2015-03-02 19:02+0000\n"
-"PO-Revision-Date: 2014-12-30 16:21+0000\n"
-"Last-Translator: LIU,SHU-HAO <jeremy55662004@gmail.com>\n"
+"POT-Creation-Date: 2015-04-21 13:44+0000\n"
+"PO-Revision-Date: 2015-04-07 13:31+0000\n"
+"Last-Translator: Xaver Y.R. Chen <yrchen@atcity.org>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/edx-platform/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,15 +155,22 @@ msgstr "問題"
 msgid "Advanced"
 msgstr "進階"
 
+#: cms/djangoapps/contentstore/views/entrance_exam.py
+#: lms/djangoapps/courseware/tabs.py cms/templates/settings.html
+msgid "Entrance Exam"
+msgstr ""
+
 #: cms/djangoapps/contentstore/views/helpers.py
 #: lms/djangoapps/class_dashboard/dashboard_data.py
 #: cms/templates/course_outline.html lms/templates/seq_module.html
+#: lms/templates/ccx/schedule.html
 #: lms/templates/instructor/instructor_dashboard_2/metrics.html
 msgid "Section"
 msgstr ""
 
 #: cms/djangoapps/contentstore/views/helpers.py
 #: lms/djangoapps/class_dashboard/dashboard_data.py
+#: lms/templates/ccx/schedule.html
 msgid "Subsection"
 msgstr ""
 
@@ -169,13 +178,6 @@ msgstr ""
 #: lms/djangoapps/instructor/views/tools.py
 msgid "Unit"
 msgstr "單元"
-
-#. Translators: This is the status for a video that the servers have
-#. successfully processed
-#: cms/djangoapps/contentstore/views/videos.py
-#: lms/djangoapps/instructor/views/instructor_task_helpers.py
-msgid "Complete"
-msgstr "完成"
 
 #: lms/templates/help_modal.html
 #: lms/templates/instructor/instructor_dashboard_2/generate_registarion_codes_modal.html
@@ -187,15 +189,76 @@ msgid "Name"
 msgstr "名稱"
 
 #: cms/djangoapps/contentstore/views/videos.py
+#: common/lib/xmodule/xmodule/video_module/video_xfields.py
+msgid "Video ID"
+msgstr ""
+
+#: cms/djangoapps/contentstore/views/videos.py
 #: lms/djangoapps/shoppingcart/reports.py
 #: lms/templates/open_ended_problems/open_ended_problems.html
 #: lms/templates/shoppingcart/receipt.html
 msgid "Status"
 msgstr "狀態"
 
+#: common/djangoapps/cors_csrf/models.py
+msgid ""
+"List of domains that are allowed to make cross-domain requests to this site."
+"  Please list each domain on its own line."
+msgstr ""
+
 #: common/djangoapps/course_modes/models.py
 msgid "Honor Code Certificate"
 msgstr "榮譽證書"
+
+#: common/djangoapps/course_modes/models.py
+msgid "Your verification is pending"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "Verified: Pending Verification"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "ID verification pending"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "You're enrolled as a verified student"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+#: lms/templates/instructor/instructor_dashboard_2/course_info.html
+msgid "Verified"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid "ID Verified Ribbon/Badge"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "You're enrolled as an honor code student"
+msgstr ""
+
+#: lms/templates/static_templates/honor.html
+msgid "Honor Code"
+msgstr "榮譽守則"
+
+#: common/djangoapps/course_modes/models.py
+msgid "You're auditing this course"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "Auditing"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "You're enrolled as a professional education student"
+msgstr ""
+
+#: common/djangoapps/course_modes/models.py
+msgid "Professional Ed"
+msgstr ""
 
 #: common/djangoapps/course_modes/views.py
 msgid "Enrollment is closed"
@@ -243,6 +306,12 @@ msgstr ""
 
 #: common/djangoapps/embargo/models.py
 msgid "The message to show when a user is blocked from accessing a course."
+msgstr ""
+
+#: common/djangoapps/embargo/models.py
+msgid ""
+"Allow users who enrolled in an allowed country to access restricted courses "
+"from excluded countries."
 msgstr ""
 
 #: common/djangoapps/embargo/models.py
@@ -386,8 +455,8 @@ msgid "Bachelor's degree"
 msgstr ""
 
 #: common/djangoapps/student/models.py
-msgid "Associate's degree"
-msgstr "副學士學位"
+msgid "Associate degree"
+msgstr ""
 
 #: common/djangoapps/student/models.py
 msgid "Secondary/high school"
@@ -437,6 +506,10 @@ msgstr ""
 msgid "{platform_name} Certificate for {course_name}"
 msgstr ""
 
+#: common/djangoapps/student/models.py
+msgid "The ISO 639-1 language code for this language."
+msgstr ""
+
 #: common/djangoapps/student/views.py
 msgid "Course id not specified"
 msgstr "未指定課程編號"
@@ -473,6 +546,8 @@ msgid ""
 "below, and then link your {platform_name} account with {provider_name} from "
 "your dashboard."
 msgstr ""
+"使用您於 {platform_name} 上的使用者名稱和密碼來登入以下的 {platform_name}，然後從課程儀表板使用 "
+"{provider_name} 來連結您的{platform_name} 帳戶。"
 
 #: common/djangoapps/student/views.py
 msgid ""
@@ -548,6 +623,18 @@ msgstr "使用者名稱'{username}'對應的帳戶已經存在。"
 #: common/djangoapps/student/views.py
 msgid "An account with the Email '{email}' already exists."
 msgstr "電子郵件 '{email}' 對應的帳戶已存在。"
+
+#: common/djangoapps/student/views.py
+msgid "An access_token is required when passing value ({}) for provider."
+msgstr ""
+
+#: common/djangoapps/student/views.py
+msgid "The provided access_token is already associated with another user."
+msgstr ""
+
+#: common/djangoapps/student/views.py
+msgid "The provided access_token is not valid."
+msgstr ""
 
 #: common/djangoapps/student/views.py
 msgid "Unknown error. Please e-mail us to let us know how it happened."
@@ -973,7 +1060,7 @@ msgid "Maximum upload file size is {file_size} bytes."
 msgstr ""
 
 #: common/djangoapps/util/milestones_helpers.py
-msgid "Course {} requires {}"
+msgid "Course {course_id} requires {prerequisite_course_id}"
 msgstr ""
 
 #: common/djangoapps/util/milestones_helpers.py
@@ -1411,6 +1498,10 @@ msgid "This name appears in the horizontal navigation at the top of the page."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/capa_base.py
+msgid "Blank Advanced Problem"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/capa_base.py
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py
 msgid "Number of attempts taken by the student on this problem"
 msgstr ""
@@ -1430,15 +1521,6 @@ msgstr ""
 #: common/lib/xmodule/xmodule/capa_base.py
 #: common/lib/xmodule/xmodule/combined_open_ended_module.py
 msgid "Date that this problem is due by"
-msgstr ""
-
-#: common/lib/xmodule/xmodule/capa_base.py
-#: common/lib/xmodule/xmodule/combined_open_ended_module.py
-#: common/lib/xmodule/xmodule/peer_grading_module.py
-msgid ""
-"Date that this problem is due by for a particular student. This can be set "
-"by an instructor, and will override the global due date if it is set to a "
-"date that is later than the global due date."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/capa_base.py
@@ -1918,12 +2000,14 @@ msgstr ""
 #: common/lib/xmodule/xmodule/course_module.py
 msgid ""
 "Enter pairs of dates between which students cannot post to discussion "
-"forums. Each pair should be formatted as [\"YYYY-MM-DD\", \"YYYY-MM-DD\"]. "
-"To specify times as well as dates, format each pair as [\"YYYY-MM-"
-"DDTHH:MM\", \"YYYY-MM-DDTHH:MM\"] (be sure to include the \"T\" between the "
-"date and time). An entry defining more than one blackout period might look "
-"like this: [[\"2014-09-15\", \"2014-09-21\"], [\"2014-10-01\", "
-"\"2014-10-08\"]]"
+"forums. Inside the provided brackets, enter an additional set of square "
+"brackets surrounding each pair of dates you add. Format each pair of dates "
+"as [\"YYYY-MM-DD\", \"YYYY-MM-DD\"]. To specify times as well as dates, "
+"format each pair as [\"YYYY-MM-DDTHH:MM\", \"YYYY-MM-DDTHH:MM\"]. Be sure to"
+" include the \"T\" between the date and time. For example, an entry defining"
+" two blackout periods looks like this, including the outer pair of square "
+"brackets: [[\"2015-09-15\", \"2015-09-21\"], [\"2015-10-01\", "
+"\"2015-10-08\"]] "
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
@@ -1935,8 +2019,9 @@ msgid ""
 "Enter discussion categories in the following format: \"CategoryName\": "
 "{\"id\": \"i4x-InstitutionName-CourseNumber-course-CourseRun\"}. For "
 "example, one discussion category may be \"Lydian Mode\": {\"id\": \"i4x-"
-"UniversityX-MUS101-course-2014_T1\"}. The \"id\" value for each category "
-"must be unique."
+"UniversityX-MUS101-course-2015_T1\"}. The \"id\" value for each category "
+"must be unique. In \"id\" values, the only special characters that are "
+"supported are underscore, hyphen, and period."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
@@ -1986,7 +2071,7 @@ msgstr ""
 msgid ""
 "Enter true or false. If true, the course will be available to mobile "
 "devices."
-msgstr ""
+msgstr "請輸入\"true\"或\"false\"。當輸入\"true\"時，課程將能在行動裝置上使用。"
 
 #: common/lib/xmodule/xmodule/course_module.py
 msgid "Video Upload Credentials"
@@ -1995,6 +2080,16 @@ msgstr ""
 #: common/lib/xmodule/xmodule/course_module.py
 msgid ""
 "Enter the unique identifier for your course's video files provided by edX."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/course_module.py
+msgid ""
+"Enter the URL for the official course Facebook group. If you provide a URL, "
+"the mobile app includes a button that students can tap to access the group."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/course_module.py
+msgid "Facebook URL"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
@@ -2061,7 +2156,7 @@ msgid ""
 "Enter true or false. If true, students can create discussion posts that are "
 "anonymous to other students. This setting does not make posts anonymous to "
 "course staff."
-msgstr "輸入\"true\"或\"false\"。當輸入\"true\"時，學生可以對其他學生創造出匿名的討論表。但是此設定對課程工作人員並不匿名。"
+msgstr "請輸入\"true\"或\"false\"。當輸入\"true\"時，學生可以對其他學生創造出匿名的討論表。但是此設定對課程工作人員並不匿名。"
 
 #: common/lib/xmodule/xmodule/course_module.py
 #: common/lib/xmodule/xmodule/library_root_xblock.py
@@ -2383,6 +2478,20 @@ msgstr ""
 msgid "Certificate Name (Long)"
 msgstr ""
 
+#. Translators: This field is the container for course-specific certifcate
+#. configuration values
+#: common/lib/xmodule/xmodule/course_module.py
+msgid "Certificate Web/HTML View Overrides"
+msgstr ""
+
+#. Translators: These overrides allow for an alternative configuration of the
+#. certificate web view
+#: common/lib/xmodule/xmodule/course_module.py
+msgid ""
+"Enter course-specific overrides for the Web/HTML template parameters here "
+"(JSON format)"
+msgstr ""
+
 #: common/lib/xmodule/xmodule/course_module.py
 msgid "CSS Class for Course Reruns"
 msgstr ""
@@ -2529,6 +2638,18 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
 msgid "Content module identifier (location) of entrance exam."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/course_module.py
+msgid "Social Media Sharing URL"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/course_module.py
+msgid ""
+"If dashboard social sharing and custom course URLs are enabled, you can "
+"provide a URL (such as the URL to a course About page) that social media "
+"sites can link to. URLs must be fully qualified. For example: "
+"http://www.edx.org/course/Introduction-to-MOOCs-ITM001"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/course_module.py
@@ -2702,17 +2823,16 @@ msgid "Any Type"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
-msgid "\"{value}\" is not a valid library ID."
+#: cms/templates/widgets/header.html
+msgid "Library"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
-#: cms/templates/index.html
-msgid "Libraries"
+msgid "Select the library from which you want to draw content."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
-msgid ""
-"Enter a library ID for each library from which you want to draw content."
+msgid "Library Version"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
@@ -2797,9 +2917,8 @@ msgid "Select another problem type."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
-msgid "The specified libraries are configured to fetch {count} problem, "
-msgid_plural ""
-"The specified libraries are configured to fetch {count} problems, "
+msgid "The specified library is configured to fetch {count} problem, "
+msgid_plural "The specified library is configured to fetch {count} problems, "
 msgstr[0] ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
@@ -2809,6 +2928,14 @@ msgstr[0] ""
 
 #: common/lib/xmodule/xmodule/library_content_module.py
 msgid "Edit the library configuration."
+msgstr ""
+
+#: common/lib/xmodule/xmodule/library_content_module.py
+msgid "Invalid Library"
+msgstr ""
+
+#: common/lib/xmodule/xmodule/library_content_module.py
+msgid "No Library Selected"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/library_root_xblock.py
@@ -3022,6 +3149,7 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/seq_module.py
 #: common/lib/xmodule/xmodule/modulestore/inheritance.py
+#: lms/templates/ccx/schedule.html
 msgid "Due Date"
 msgstr ""
 
@@ -3189,6 +3317,10 @@ msgstr "教學大綱"
 msgid "Instructor"
 msgstr "教師功能面板"
 
+#: common/lib/xmodule/xmodule/tabs.py
+msgid "CCX Coach"
+msgstr ""
+
 #: common/lib/xmodule/xmodule/textannotation_module.py
 msgid "Text Annotation"
 msgstr "文字註解"
@@ -3271,18 +3403,6 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/word_cloud_module.py
 msgid "Top num_top_words words for word cloud."
-msgstr ""
-
-#: common/lib/xmodule/xmodule/modulestore/courseware_index.py
-msgid "Could not index item: {}"
-msgstr ""
-
-#: common/lib/xmodule/xmodule/modulestore/courseware_index.py
-msgid "General indexing error occurred"
-msgstr ""
-
-#: common/lib/xmodule/xmodule/modulestore/courseware_index.py
-msgid "Error(s) present during indexing"
 msgstr ""
 
 #: common/lib/xmodule/xmodule/modulestore/inheritance.py
@@ -3381,7 +3501,7 @@ msgstr ""
 msgid ""
 "Enter true or false. If true, you can use the LaTeX templates for HTML "
 "components and advanced Problem components."
-msgstr ""
+msgstr "請輸入\"true\"或\"false\"。當輸入\"true\"時，您可為HTML元件和進階問題元件使用 LaTeX模板。"
 
 #: common/lib/xmodule/xmodule/modulestore/inheritance.py
 msgid ""
@@ -3430,7 +3550,7 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/modulestore/inheritance.py
 msgid "Show Reset Button for Problems"
-msgstr ""
+msgstr "在問題下顯示重設按鈕"
 
 #: common/lib/xmodule/xmodule/modulestore/inheritance.py
 msgid ""
@@ -3746,7 +3866,8 @@ msgstr ""
 #: common/lib/xmodule/xmodule/video_module/video_xfields.py
 msgid ""
 "Time you want the video to start if you don't want the entire video to play."
-" Formatted as HH:MM:SS. The maximum value is 23:59:59."
+" Not supported in the native mobile app: the full video file will play. "
+"Formatted as HH:MM:SS. The maximum value is 23:59:59."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/video_module/video_xfields.py
@@ -3756,6 +3877,7 @@ msgstr ""
 #: common/lib/xmodule/xmodule/video_module/video_xfields.py
 msgid ""
 "Time you want the video to stop if you don't want the entire video to play. "
+"Not supported in the native mobile app: the full video file will play. "
 "Formatted as HH:MM:SS. The maximum value is 23:59:59."
 msgstr ""
 
@@ -3900,15 +4022,17 @@ msgstr ""
 
 #: common/lib/xmodule/xmodule/video_module/video_xfields.py
 msgid ""
-"If you were assigned a Video ID by edX for the video to play in this "
-"component, enter the ID here. In this case, do not enter values in the "
-"Default Video URL, the Video File URLs, and the YouTube ID fields. If you "
-"were not assigned an edX Video ID, enter values in those other fields and "
-"ignore this field."
+"Specify whether access to this video is limited to browsers only, or if it "
+"can be accessed from other applications including mobile apps."
 msgstr ""
 
 #: common/lib/xmodule/xmodule/video_module/video_xfields.py
-msgid "EdX Video ID"
+msgid ""
+"If you were assigned a Video ID by edX for the video to play in this "
+"component, enter the ID here. In this case, do not enter values in the "
+"Default Video URL, the Video File URLs, and the YouTube ID fields. If you "
+"were not assigned a Video ID, enter values in those other fields and ignore "
+"this field."
 msgstr ""
 
 #: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html
@@ -3934,6 +4058,236 @@ msgstr "搜尋"
 #: lms/templates/static_templates/copyright.html
 msgid "Copyright"
 msgstr "版權"
+
+#: lms/djangoapps/ccx/views.py
+msgid "You must be a CCX Coach to access this view."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid ""
+"A human-readable description of the example certificate.  For example, "
+"'verified' or 'honor' to differentiate between two types of certificates."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid ""
+"A unique identifier for the example certificate.  This is used when we "
+"receive a response from the queue to determine which example certificate was"
+" processed."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid ""
+"An access key for the example certificate.  This is used when we receive a "
+"response from the queue to validate that the sender is the same entity we "
+"asked to generate the certificate."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid "The full name that will appear on the certificate."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid "The template file to use when generating the certificate."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid "The status of the example certificate."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid "The reason an error occurred during certificate generation."
+msgstr ""
+
+#: lms/djangoapps/certificates/models.py
+msgid "The download URL for the generated certificate."
+msgstr ""
+
+#. Translators:  This text is bound to the HTML 'title' element of the page
+#. and appears
+#. in the browser title bar when a requested certificate is not found or
+#. recognized
+#: lms/djangoapps/certificates/views.py
+msgid "Invalid Certificate"
+msgstr ""
+
+#. Translators: This line appears on the certificate after the name of a
+#. course, and provides more
+#. information about the organizations providing the course material to
+#. platform users
+#: lms/djangoapps/certificates/views.py
+msgid "a course of study offered by {partner_name}, through {platform_name}."
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "More Information About {user_name}'s Certificate:"
+msgstr ""
+
+#. Translators:  This line appears on the page just before the generation date
+#. for the certificate
+#: lms/djangoapps/certificates/views.py
+msgid "Issued On:"
+msgstr ""
+
+#. Translators:  The format of the date includes the full name of the month
+#: lms/djangoapps/certificates/views.py
+msgid "{month} {day}, {year}"
+msgstr ""
+
+#. Translators:  The Certificate ID Number is an alphanumeric value unique to
+#. each individual certificate
+#: lms/djangoapps/certificates/views.py
+msgid "Certificate ID Number"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "About {platform_name} Certificates"
+msgstr ""
+
+#. Translators: This text describes the purpose (and therefore, value) of a
+#. course certificate
+#. 'verifying your identity' refers to the process for establishing the
+#. authenticity of the student
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"{platform_name} acknowledges achievements through certificates, which are "
+"awarded for various activities {platform_name} students complete under the "
+"<a href='{tos_url}'>{platform_name} Honor Code</a>.  Some certificates "
+"require completing additional steps, such as <a href='{verified_cert_url}'> "
+"verifying your identity</a>."
+msgstr ""
+
+#. Translators:  Certificate Types correspond to the different enrollment
+#. options available for a given course
+#: lms/djangoapps/certificates/views.py
+msgid "{certificate_type} Certificate"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "How {platform_name} Validates Student Certificates"
+msgstr ""
+
+#. Translators:  This text describes the validation mechanism for a
+#. certificate file (known as GPG security)
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"Certificates issued by {platform_name} are signed by a gpg key so that they "
+"can be validated independently by anyone with the {platform_name} public "
+"key. For independent verification, {platform_name} uses what is called a "
+"\"detached signature\"&quot;\"."
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Validate this certificate for yourself"
+msgstr ""
+
+#. Translators:  This text describes (at a high level) the mission and charter
+#. the edX platform and organization
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"{platform_name} offers interactive online classes and MOOCs from the world's"
+" best universities, including MIT, Harvard, Berkeley, University of Texas, "
+"and many others.  {platform_name} is a non-profit online initiative created "
+"by founding partners Harvard and MIT."
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "About {platform_name}"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Learn more about {platform_name}"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Learn with {platform_name}"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Work at {platform_name}"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Contact {platform_name}"
+msgstr ""
+
+#: cms/templates/widgets/footer.html lms/templates/footer-edx-new.html
+#: lms/templates/footer.html lms/templates/static_templates/privacy.html
+msgid "Privacy Policy"
+msgstr "隱私權保護政策"
+
+#: lms/djangoapps/certificates/views.py
+msgid "Terms of Service &amp; Honor Code"
+msgstr ""
+
+#. Translators:  This text appears near the top of the certficate and
+#. describes the guarantee provided by edX
+#: lms/djangoapps/certificates/views.py
+msgid "{platform_name} acknowledges the following student accomplishment"
+msgstr ""
+
+#: lms/djangoapps/certificates/views.py
+msgid "Certificate Validation"
+msgstr ""
+
+#. Translators:  This text describes the 'Honor' course certificate type.
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"An {cert_type} Certificate signifies that an {platform_name} learner has "
+"agreed to abide by {platform_name}'s honor code and completed all of the "
+"required tasks for this course under its guidelines."
+msgstr ""
+
+#. Translators:  This text describes the 'ID Verified' course certificate
+#. type, which is a higher level of
+#. verification offered by edX.  This type of verification is useful for
+#. professional education/certifications
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"An {cert_type} Certificate signifies that an {platform_name} learner has "
+"agreed to abide by {platform_name}'s honor code and completed all of the "
+"required tasks for this course under its guidelines, as well as having their"
+" photo ID checked to verify their identity."
+msgstr ""
+
+#. Translators:  This text describes the 'XSeries' course certificate type.
+#. An XSeries is a collection of
+#. courses related to each other in a meaningful way, such as a specific topic
+#. or theme, or even an organization
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"An {cert_type} Certificate demonstrates a high level of achievement in a "
+"program of study, and includes verification of the student's identity."
+msgstr ""
+
+#. Translators:  This is the copyright line which appears at the bottom of the
+#. certificate page/screen
+#: lms/djangoapps/certificates/views.py
+msgid "&copy; {year} {platform_name}. All rights reserved."
+msgstr ""
+
+#. Translators:  This text represents the verification of the certificate
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"This is a valid {platform_name} certificate for {user_name}, who "
+"participated in {partner_name} {course_number}"
+msgstr ""
+
+#. Translators:  This text is bound to the HTML 'title' element of the page
+#. and appears in the browser title bar
+#: lms/djangoapps/certificates/views.py
+msgid "Valid {partner_name} {course_number} Certificate | {platform_name}"
+msgstr ""
+
+#. Translators:  This text fragment appears after the student's name
+#. (displayed in a large font) on the certificate
+#. screen.  The text describes the accomplishment represented by the
+#. certificate information displayed to the user
+#: lms/djangoapps/certificates/views.py
+msgid ""
+"successfully completed, received a passing grade, and was awarded a "
+"{platform_name} {certificate_type} Certificate of Completion in "
+msgstr ""
 
 #: lms/djangoapps/class_dashboard/dashboard_data.py
 #: lms/djangoapps/instructor/views/api.py
@@ -3987,15 +4341,11 @@ msgid "Course page automatically created."
 msgstr ""
 
 #: lms/djangoapps/course_wiki/views.py
-msgid "Welcome to the edX Wiki"
-msgstr "歡迎來到edX Wiki"
+msgid "Welcome to the {platform_name} Wiki"
+msgstr ""
 
 #: lms/djangoapps/course_wiki/views.py
 msgid "Visit a course wiki to add an article."
-msgstr ""
-
-#: lms/djangoapps/courseware/tabs.py cms/templates/settings.html
-msgid "Entrance Exam"
 msgstr ""
 
 #. Translators: This will look like '$50', where {currency_symbol} is a symbol
@@ -4052,12 +4402,16 @@ msgstr ""
 msgid "Course is not valid"
 msgstr ""
 
-#: lms/djangoapps/courseware/views.py lms/templates/courseware/progress.html
+#: lms/djangoapps/courseware/views.py
 msgid "Your certificate will be available when you pass the course."
 msgstr ""
 
-#: lms/djangoapps/courseware/views.py lms/templates/courseware/progress.html
-msgid "Creating certificate"
+#: lms/djangoapps/courseware/views.py
+msgid "Certificate has already been created."
+msgstr ""
+
+#: lms/djangoapps/courseware/views.py
+msgid "Certificate is already being created."
 msgstr ""
 
 #: lms/djangoapps/courseware/features/video.py
@@ -4068,7 +4422,7 @@ msgstr "錯誤：找不到可播放的影音來源！"
 msgid ""
 "Path {0} doesn't exist, please create it, or configure a different path with"
 " GIT_REPO_DIR"
-msgstr "路徑{0}不存在，請創建它，或者用GIT_REPO_DIR配置不同的路徑"
+msgstr "路徑{0}不存在，請建立它，或者用GIT_REPO_DIR配置不同的路徑"
 
 #: lms/djangoapps/dashboard/git_import.py
 msgid ""
@@ -4193,11 +4547,11 @@ msgstr "需要電子郵件位置(非使用者名稱)"
 
 #: lms/djangoapps/dashboard/sysadmin.py
 msgid "Oops, failed to create user {user}, {error}"
-msgstr "糟糕，創建使用者 {user} 失敗，{error}"
+msgstr "糟糕，建立使用者 {user} 失敗，{error}"
 
 #: lms/djangoapps/dashboard/sysadmin.py
 msgid "User {user} created successfully!"
-msgstr "使用者 {user} 創建成功！"
+msgstr "使用者 {user} 建立成功！"
 
 #: lms/djangoapps/dashboard/sysadmin.py
 msgid "Cannot find user with email address {email_addr}"
@@ -4245,7 +4599,7 @@ msgstr "修復結果"
 
 #: lms/djangoapps/dashboard/sysadmin.py
 msgid "Create User Results"
-msgstr "創建使用者結果"
+msgstr "建立使用者結果"
 
 #: lms/djangoapps/dashboard/sysadmin.py
 msgid "Delete User Results"
@@ -4403,6 +4757,21 @@ msgstr ""
 msgid "No endpoint was provided for EdxNotes."
 msgstr ""
 
+#: lms/djangoapps/instructor/tests/test_api.py
+#: lms/djangoapps/instructor/views/instructor_task_helpers.py
+msgid "Complete"
+msgstr "完成"
+
+#: lms/djangoapps/instructor/tests/test_api.py
+#: lms/djangoapps/instructor/views/api.py
+msgid "This student (%s) will skip the entrance exam."
+msgstr ""
+
+#: lms/djangoapps/instructor/tests/test_api.py
+#: lms/djangoapps/instructor/views/api.py
+msgid "This student (%s) is already allowed to skip the entrance exam."
+msgstr ""
+
 #: lms/djangoapps/instructor/views/api.py
 msgid "User does not exist."
 msgstr "該使用者不存在。"
@@ -4446,7 +4815,7 @@ msgid "File is not attached."
 msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py
-msgid "Invoice number '{0}' does not exist."
+msgid "Invoice number '{num}' does not exist."
 msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py
@@ -4478,7 +4847,7 @@ msgstr ""
 #. form meant to hold the user's email address.
 #: lms/djangoapps/instructor/views/api.py
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
-#: openedx/core/djangoapps/user_api/views.py lms/templates/dashboard.html
+#: openedx/core/djangoapps/user_api/views.py
 #: lms/templates/courseware/legacy_instructor_dashboard.html
 #: lms/templates/instructor/instructor_dashboard_2/generate_registarion_codes_modal.html
 msgid "Email"
@@ -4672,6 +5041,10 @@ msgstr ""
 msgid "E-Commerce"
 msgstr ""
 
+#: cms/templates/export.html
+msgid "Certificates"
+msgstr "證書"
+
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
 msgid "Please Enter the numeric value for the course price"
 msgstr ""
@@ -4691,6 +5064,10 @@ msgstr ""
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
 msgid "Membership"
 msgstr "會員"
+
+#: lms/djangoapps/instructor/views/instructor_dashboard.py
+msgid "Cohorts"
+msgstr ""
 
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
 msgid "Student Admin"
@@ -5002,6 +5379,20 @@ msgid "Problem successfully {action} for student '{student}'"
 msgstr ""
 
 #. Translators: {action} is a past-tense verb that is localized separately.
+#. {student} is a student identifier.
+#: lms/djangoapps/instructor_task/views.py
+msgid ""
+"Unable to find entrance exam submission to be {action} for student "
+"'{student}'"
+msgstr ""
+
+#. Translators: {action} is a past-tense verb that is localized separately.
+#. {student} is a student identifier.
+#: lms/djangoapps/instructor_task/views.py
+msgid "Entrance exam successfully {action} for student '{student}'"
+msgstr ""
+
+#. Translators: {action} is a past-tense verb that is localized separately.
 #: lms/djangoapps/instructor_task/views.py
 msgid "Unable to find any students with submissions to be {action}"
 msgstr ""
@@ -5064,6 +5455,17 @@ msgstr ""
 #: lms/djangoapps/instructor_task/views.py
 msgid " (out of {total})"
 msgstr "(/ {total})"
+
+#: lms/djangoapps/lms_xblock/mixin.py
+msgid "Whether to display this module in the table of contents"
+msgstr ""
+
+#. Translators: "TOC" stands for "Table of Contents"
+#: lms/djangoapps/lms_xblock/mixin.py
+msgid ""
+"What format this module is in (used for deciding which grader to apply, and "
+"what to show in the TOC)"
+msgstr ""
 
 #: lms/djangoapps/lms_xblock/mixin.py
 msgid "Courseware Chrome"
@@ -5215,7 +5617,7 @@ msgid ""
 msgstr ""
 "\n"
 "同儕評分初始化時發生錯誤。\n"
-"此課程中的同儕互評機制未被創建，所以未核准您對他人進行評級。\n"
+"此課程中的同儕互評機制未被建立，所以未核准您對他人進行評級。\n"
 "請稍後再回來檢查此處。"
 
 #: lms/djangoapps/shoppingcart/models.py
@@ -5300,16 +5702,16 @@ msgstr ""
 
 #: lms/djangoapps/shoppingcart/models.py
 msgid ""
-"You have up to two weeks into the course to unenroll from the Verified "
-"Certificate option and receive a full refund. To receive your refund, "
-"contact {billing_email}. Please include your order number in your email. "
-"Please do NOT include your credit card information."
+"If you haven't verified your identity yet, please start the verification "
+"process ({verification_url})."
 msgstr ""
 
 #: lms/djangoapps/shoppingcart/models.py
 msgid ""
-"If you haven't verified your identity yet, please start the verification "
-"process ({verification_url})."
+"You have up to two weeks into the course to unenroll and receive a full "
+"refund.To receive your refund, contact {billing_email}. Please include your "
+"order number in your email. Please do NOT include your credit card "
+"information."
 msgstr ""
 
 #: lms/djangoapps/shoppingcart/models.py
@@ -6087,8 +6489,8 @@ msgid "Selected price is not valid number."
 msgstr "選擇的價格是無效的數字。"
 
 #: lms/djangoapps/verify_student/views.py
-msgid "This course doesn't support verified certificates"
-msgstr "這個課程並不支援認證書。"
+msgid "This course doesn't support paid certificates"
+msgstr ""
 
 #: lms/djangoapps/verify_student/views.py
 msgid "No selected price or selected price is below minimum."
@@ -6118,8 +6520,74 @@ msgstr ""
 msgid "Verification photos received"
 msgstr ""
 
+#: lms/djangoapps/verify_student/views.py
+msgid "No checkpoint found"
+msgstr ""
+
+#: lms/djangoapps/verify_student/views.py
+msgid "Invalid image data during photo verification."
+msgstr ""
+
+#: lms/djangoapps/verify_student/views.py
+msgid "Could not submit photos"
+msgstr ""
+
+#. #-#-#-#-#  django-partial.po (edx-platform)  #-#-#-#-#
+#. Translators: This is the website name of www.facebook.com.  Please
+#. translate this the way that Facebook advertises in your language.
+#: lms/envs/common.py lms/templates/dashboard/_dashboard_course_listing.html
+msgid "Facebook"
+msgstr ""
+
+#. #-#-#-#-#  django-partial.po (edx-platform)  #-#-#-#-#
+#. Translators: This is the website name of www.twitter.com.  Please
+#. translate this the way that Twitter advertises in your language.
+#: lms/envs/common.py lms/templates/dashboard/_dashboard_course_listing.html
+msgid "Twitter"
+msgstr ""
+
+#. Translators: This is the website name of www.linkedin.com.  Please
+#. translate this the way that LinkedIn advertises in your language.
+#: lms/envs/common.py
+msgid "LinkedIn"
+msgstr ""
+
+#. Translators: This is the website name of plus.google.com.  Please
+#. translate this the way that Google+ advertises in your language.
+#: lms/envs/common.py
+msgid "Google+"
+msgstr ""
+
+#. Translators: This is the website name of www.tumblr.com.  Please
+#. translate this the way that Tumblr advertises in your language.
+#: lms/envs/common.py
+msgid "Tumblr"
+msgstr ""
+
+#. Translators: This is the website name of www.meetup.com.  Please
+#. translate this the way that MeetUp advertises in your language.
+#: lms/envs/common.py
+msgid "Meetup"
+msgstr ""
+
+#. Translators: This is the website name of www.reddit.com.  Please
+#. translate this the way that Reddit advertises in your language.
+#: lms/envs/common.py
+msgid "Reddit"
+msgstr ""
+
+#. Translators: This is the website name of www.youtube.com.  Please
+#. translate this the way that YouTube advertises in your language.
+#: lms/envs/common.py
+msgid "Youtube"
+msgstr ""
+
 #: lms/envs/common.py
 msgid "Taiwan"
+msgstr ""
+
+#: lms/lib/courseware_search/lms_result_processor.py
+msgid "(Unnamed)"
 msgstr ""
 
 #: lms/templates/main_django.html cms/templates/base.html
@@ -6352,7 +6820,7 @@ msgstr "增加新文章"
 
 #: lms/templates/wiki/create.html
 msgid "Create article"
-msgstr "創建文章"
+msgstr "建立文章"
 
 #: lms/templates/wiki/create.html lms/templates/wiki/delete.html
 #: lms/templates/wiki/delete.html.py
@@ -6419,6 +6887,7 @@ msgstr "預覽"
 #. interface (a menu or piece of UI that takes the full focus of the screen)
 #: lms/templates/dashboard.html lms/templates/forgot_password_modal.html
 #: lms/templates/help_modal.html lms/templates/signup_modal.html
+#: lms/templates/ccx/schedule.html
 #: lms/templates/discussion/_underscore_templates.html
 #: lms/templates/instructor/instructor_dashboard_2/add_coupon_modal.html
 #: lms/templates/instructor/instructor_dashboard_2/edit_coupon_modal.html
@@ -6516,7 +6985,7 @@ msgstr "請在完成之後做人工審查。"
 
 #: lms/templates/wiki/history.html
 msgid "Create new merged version"
-msgstr "創建新的已合併後的版本"
+msgstr "建立新的已合併後的版本"
 
 #: lms/templates/wiki/preview_inline.html
 msgid "Previewing revision:"
@@ -6577,7 +7046,7 @@ msgstr "簡明 Markdown 語法指南"
 msgid ""
 "To create a new wiki article, create a link to it. Clicking the link gives "
 "you the creation page."
-msgstr "要創建一篇新的Wiki條目，先為它創建連結。點擊連結後，會導向自動創建頁面。"
+msgstr "要建立一篇新的Wiki條目，先為它建立連結。點擊連結後，會導向自動建立頁面。"
 
 #: lms/templates/wiki/includes/cheatsheet.html
 msgid "[Article Name](wiki:ArticleName)"
@@ -6738,6 +7207,31 @@ msgstr "這篇文章沒有附件"
 msgid "You cannot create two cohorts with the same name"
 msgstr ""
 
+#: openedx/core/djangoapps/course_groups/cohorts.py
+msgid ""
+"There must be one cohort to which students can automatically be assigned."
+msgstr ""
+
+#: openedx/core/djangoapps/course_groups/views.py
+msgid "A cohort with the same name already exists."
+msgstr ""
+
+#: openedx/core/djangoapps/profile_images/images.py
+msgid "bytes"
+msgstr ""
+
+#: openedx/core/djangoapps/profile_images/images.py
+msgid "KB"
+msgstr ""
+
+#: openedx/core/djangoapps/profile_images/images.py
+msgid "MB"
+msgstr ""
+
+#: openedx/core/djangoapps/profile_images/views.py
+msgid "No file provided for profile image"
+msgstr ""
+
 #. Translators: This example email address is used as a placeholder in
 #. a field on the login form meant to hold the user's email address.
 #. Translators: This example email address is used as a placeholder in
@@ -6776,12 +7270,15 @@ msgid ""
 "different username."
 msgstr ""
 
-#. Translators: These instructions appear on the registration form,
-#. immediately
-#. below a field meant to hold the user's full name.
+#. Translators: This example name is used as a placeholder in
+#. a field on the registration form meant to hold the user's name.
 #: openedx/core/djangoapps/user_api/views.py
-msgid "The name that will appear on your certificates"
+msgid "Jane Doe"
 msgstr ""
+
+#: lms/templates/register.html
+msgid "Needed for any certificates you may earn"
+msgstr "對您可能獲得的任何證書都是必需的"
 
 #. Translators: This label appears above a field on the registration form
 #. meant to hold the user's public username.
@@ -6790,7 +7287,15 @@ msgid "Public username"
 msgstr ""
 
 #: openedx/core/djangoapps/user_api/views.py
-msgid "The name that will identify you in your courses"
+msgid ""
+"The name that will identify you in your courses - {bold_start}(cannot be "
+"changed later){bold_end}"
+msgstr ""
+
+#. Translators: This example username is used as a placeholder in
+#. a field on the registration form meant to hold the user's username.
+#: openedx/core/djangoapps/user_api/views.py
+msgid "JaneDoe"
 msgstr ""
 
 #. Translators: This label appears above a dropdown menu on the registration
@@ -6833,11 +7338,6 @@ msgstr ""
 msgid "Please select your Country."
 msgstr ""
 
-#: lms/templates/dashboard/_dashboard_course_listing.html
-#: lms/templates/static_templates/honor.html
-msgid "Honor Code"
-msgstr "榮譽守則"
-
 #: lms/templates/footer-edx-new.html
 msgid "Terms of Service and Honor Code"
 msgstr "服務條款和榮譽守則"
@@ -6855,12 +7355,38 @@ msgstr ""
 msgid "Terms of Service"
 msgstr "服務條款"
 
-#: openedx/core/djangoapps/user_api/accounts/views.py
-msgid "Field '{field_name}' cannot be edited."
+#: openedx/core/djangoapps/user_api/accounts/api.py
+msgid "The '{field_name}' field cannot be edited."
 msgstr ""
 
-#: openedx/core/djangoapps/user_api/accounts/views.py
-msgid "Value '{field_value}' is not valid for field '{field_name}'."
+#: openedx/core/djangoapps/user_api/accounts/api.py
+msgid "This value is invalid."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/api.py
+msgid "Delete failed for user preference '{preference_key}'."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/api.py
+msgid "Preference '{preference_key}' cannot be set to an empty value."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/api.py
+msgid "Invalid user preference key '{preference_key}'."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/api.py
+msgid ""
+"Value '{preference_value}' is not valid for user preference "
+"'{preference_key}'."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/api.py
+msgid "Save failed for user preference '{key}' with value '{value}'."
+msgstr ""
+
+#: openedx/core/djangoapps/user_api/preferences/views.py
+msgid "No data provided for user preference update"
 msgstr ""
 
 #: cms/djangoapps/contentstore/course_info_model.py
@@ -6871,12 +7397,20 @@ msgstr "無效課程更新ID。"
 msgid "Course update not found."
 msgstr "沒有找到課程更新。"
 
+#: cms/djangoapps/contentstore/courseware_index.py
+msgid "Could not index item: {}"
+msgstr ""
+
+#: cms/djangoapps/contentstore/courseware_index.py
+msgid "General indexing error occurred"
+msgstr ""
+
 #: cms/djangoapps/contentstore/git_export_utils.py
 msgid ""
 "GIT_REPO_EXPORT_DIR not set or path {0} doesn't exist, please create it, or "
 "configure a different path with GIT_REPO_EXPORT_DIR"
 msgstr ""
-"未設定GIT_REPO_EXPORT_DIR或者路徑 {0} 不存在，請創建它，或者對GIT_REPO_EXPORT_DIR配置一個不同的路徑 "
+"未設定GIT_REPO_EXPORT_DIR或者路徑 {0} 不存在，請建立它，或者對GIT_REPO_EXPORT_DIR配置一個不同的路徑 "
 
 #: cms/djangoapps/contentstore/git_export_utils.py
 msgid ""
@@ -7021,6 +7555,14 @@ msgstr ""
 msgid "This content group is in use and cannot be deleted."
 msgstr ""
 
+#: cms/djangoapps/contentstore/views/entrance_exam.py
+msgid "Entrance Exam - Subsection"
+msgstr ""
+
+#: cms/djangoapps/contentstore/views/entrance_exam.py
+msgid "Completed Course Entrance Exam"
+msgstr ""
+
 #: cms/djangoapps/contentstore/views/export_git.py
 msgid "Course successfully exported to git repository"
 msgstr "課程成功匯出到Git資源庫"
@@ -7042,8 +7584,8 @@ msgid "File upload corrupted. Please try again"
 msgstr "檔案上傳毀損，請再試一遍。"
 
 #: cms/djangoapps/contentstore/views/import_export.py
-msgid "Could not find the course.xml file in the package."
-msgstr "在課程封裝中無法找到 course.xml 檔案。"
+msgid "Could not find the {0} file in the package."
+msgstr ""
 
 #: cms/djangoapps/contentstore/views/item.py
 msgid "Invalid data"
@@ -7060,6 +7602,20 @@ msgstr "與{0}重複"
 #: cms/djangoapps/contentstore/views/item.py
 msgid "Duplicate of '{0}'"
 msgstr "與'{0}'重複"
+
+#. Translators: The {pct_sign} here represents the percent sign, i.e., '%'
+#. in many languages. This is used to avoid Transifex's misinterpreting of
+#. '% o'. The percent sign is also translatable as a standalone string.
+#: cms/djangoapps/contentstore/views/item.py
+msgid ""
+"Students must score {score}{pct_sign} or higher to access course materials."
+msgstr ""
+
+#. Translators: This is the percent sign. It will be used to represent
+#. a percent value out of 100, e.g. "58%" means "58/100".
+#: cms/djangoapps/contentstore/views/item.py
+msgid "%"
+msgstr ""
 
 #: cms/djangoapps/contentstore/views/item.py
 msgid "{section_or_subsection} \"{display_name}\""
@@ -7129,6 +7685,12 @@ msgstr "上傳中"
 msgid "In Progress"
 msgstr ""
 
+#. Translators: This is the status for a video that the servers have
+#. successfully processed
+#: cms/djangoapps/contentstore/views/videos.py
+msgid "Ready"
+msgstr ""
+
 #. #-#-#-#-#  django-studio.po (edx-platform)  #-#-#-#-#
 #. Translators: This is the status for a video that the servers have failed to
 #. process
@@ -7141,6 +7703,12 @@ msgstr ""
 #. processing token was provided in the course settings
 #: cms/djangoapps/contentstore/views/videos.py
 msgid "Invalid Token"
+msgstr ""
+
+#. Translators: This is the status for a video that was included in a course
+#. import
+#: cms/djangoapps/contentstore/views/videos.py
+msgid "Imported"
 msgstr ""
 
 #. Translators: This is the status for a video that is in an unknown state
@@ -7161,10 +7729,6 @@ msgstr ""
 
 #: cms/djangoapps/contentstore/views/videos.py
 msgid "Date Added"
-msgstr ""
-
-#: cms/djangoapps/contentstore/views/videos.py
-msgid "Video ID"
 msgstr ""
 
 #. #-#-#-#-#  django-studio.po (edx-platform)  #-#-#-#-#
@@ -7209,13 +7773,13 @@ msgstr "上次修改狀態的日期"
 
 #: cms/djangoapps/course_creators/models.py
 msgid "Current course creator state"
-msgstr "目前課程創建者的狀態"
+msgstr "目前課程建立者的狀態"
 
 #: cms/djangoapps/course_creators/models.py
 msgid ""
 "Optional notes about this user (for example, why course creation access was "
 "denied)"
-msgstr "關於使用者的可選提示訊息 (例如：課程創建被拒絕的原因)"
+msgstr "關於使用者的可選提示訊息 (例如：建立課程被拒絕的原因)"
 
 #: cms/djangoapps/models/settings/course_metadata.py
 msgid "Incorrect format for field '{name}'. {detailed_message}"
@@ -7236,6 +7800,7 @@ msgstr "找不到頁面"
 #: lms/templates/courseware/legacy_instructor_dashboard.html
 #: lms/templates/edxnotes/edxnotes.html
 #: lms/templates/instructor/instructor_dashboard_2/metrics.html
+#: lms/templates/student_profile/learner_profile.html
 msgid "Loading"
 msgstr ""
 
@@ -7260,7 +7825,7 @@ msgstr "課程編號"
 #: cms/templates/course_outline.html cms/templates/index.html
 #: lms/templates/dashboard/_dashboard_prompt_midcourse_reverify.html
 msgid "Dismiss"
-msgstr ""
+msgstr "忽略"
 
 #: cms/templates/group_configurations.html cms/templates/manage_users.html
 #: cms/templates/manage_users_lib.html cms/templates/settings.html
@@ -7311,21 +7876,6 @@ msgstr "例：username@domain.com"
 #: cms/templates/login.html lms/templates/login.html
 msgid "Forgot password?"
 msgstr "忘記密碼？"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-#: lms/templates/courseware/legacy_instructor_dashboard.html
-msgid "Admin"
-msgstr ""
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-#: lms/templates/courseware/course_navigation.html
-#: lms/templates/discussion/_underscore_templates.html
-msgid "Staff"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html lms/templates/folditchallenge.html
-msgid "User"
-msgstr "用戶"
 
 #. Translators: This is the placeholder text for a field that requests the
 #. user's full name.
@@ -7379,18 +7929,28 @@ msgstr ""
 #: cms/templates/registration/activation_complete.html
 #: lms/templates/registration/activation_complete.html
 msgid "Visit your {link_start}dashboard{link_end} to see your courses."
+msgstr "訪問您的{link_start}課程儀表板{link_end}來查看您的課程。"
+
+#. Translators: 'Open edX' is a brand, please keep this untranslated. See
+#. http://openedx.org for more information.
+#: cms/templates/widgets/footer.html lms/templates/footer-edx-new.html
+#: lms/templates/footer.html
+msgid "Powered by Open edX"
 msgstr ""
 
-#: cms/templates/widgets/footer.html lms/templates/footer-edx-new.html
-#: lms/templates/footer.html lms/templates/static_templates/privacy.html
-msgid "Privacy Policy"
-msgstr "隱私權保護政策"
+#: cms/templates/widgets/header.html lms/templates/courseware/courseware.html
+msgid "Course Navigation"
+msgstr "課程導覽"
 
 #: cms/templates/widgets/header.html lms/templates/help_modal.html
-#: lms/templates/navigation-edx.html lms/templates/navigation.html
 #: lms/templates/static_templates/help.html wiki/plugins/help/wiki_plugin.py
 msgid "Help"
 msgstr "幫助"
+
+#: cms/templates/widgets/header.html lms/templates/navigation-edx.html
+#: lms/templates/navigation.html
+msgid "Sign Out"
+msgstr ""
 
 #: common/templates/course_modes/choose.html
 msgid "Upgrade Your Enrollment for {} | Choose Your Track"
@@ -7405,7 +7965,37 @@ msgid "Sorry, there was an error when trying to enroll you"
 msgstr ""
 
 #: common/templates/course_modes/choose.html
-msgid "Now choose your course track:"
+msgid "Pursue Academic Credit with a Verified Certificate"
+msgstr ""
+
+#: common/templates/course_modes/choose.html
+msgid ""
+"Become eligible for academic credit and highlight your new skills and "
+"knowledge with a verified certificate. Use this valuable credential to "
+"qualify for academic credit from {org}, advance your career, or strengthen "
+"your school applications."
+msgstr ""
+
+#: common/templates/course_modes/choose.html
+msgid "Benefits of a Verified Certificate"
+msgstr ""
+
+#: common/templates/course_modes/choose.html
+msgid ""
+"{b_start}Eligible for credit:{b_end} Receive academic credit after "
+"successfully completing the course"
+msgstr ""
+
+#: common/templates/course_modes/choose.html
+msgid ""
+"{b_start}Official:{b_end} Receive an instructor-signed certificate with the "
+"institution's logo"
+msgstr ""
+
+#: common/templates/course_modes/choose.html
+msgid ""
+"{b_start}Easily shareable:{b_end} Add the certificate to your CV or resume, "
+"or post it directly on LinkedIn"
 msgstr ""
 
 #: common/templates/course_modes/choose.html
@@ -7414,29 +8004,27 @@ msgstr ""
 
 #: common/templates/course_modes/choose.html
 msgid ""
-"Plan to use your completed coursework for job applications, career "
-"advancement, or school applications? Upgrade to work toward a Verified "
-"Certificate of Achievement to document your accomplishment. A minimum fee "
-"applies."
+"Highlight your new knowledge and skills with a verified certificate. Use "
+"this valuable credential to improve your job prospects and advance your "
+"career, or highlight your certificate in school applications."
 msgstr ""
 
 #: common/templates/course_modes/choose.html
 msgid ""
-"Plan to use your completed coursework for job applications, career "
-"advancement, or school applications? Then work toward a Verified Certificate"
-" of Achievement to document your accomplishment. A minimum fee applies."
+"{b_start}Official: {b_end}Receive an instructor-signed certificate with the "
+"institution's logo"
 msgstr ""
 
 #: common/templates/course_modes/choose.html
-msgid "Select your contribution for this course (min. $"
-msgstr "選擇您對這門課程的貢獻金額 (min. $)"
+msgid ""
+"{b_start}Easily shareable: {b_end}Add the certificate to your CV or resume, "
+"or post it directly on LinkedIn"
+msgstr ""
 
 #: common/templates/course_modes/choose.html
-msgid "):"
-msgstr "):"
-
-#: common/templates/course_modes/choose.html
-msgid "Upgrade Your Enrollment"
+msgid ""
+"{b_start}Motivating: {b_end}Give yourself an additional incentive to "
+"complete the course"
 msgstr ""
 
 #: common/templates/course_modes/choose.html
@@ -7449,10 +8037,6 @@ msgid ""
 "material, activities, tests, and forums. If your work is satisfactory and "
 "you abide by the Honor Code, you'll receive a personalized Honor Code "
 "Certificate to showcase your achievement."
-msgstr ""
-
-#: common/templates/course_modes/choose.html
-msgid "Pursue an Honor Code Certificate"
 msgstr ""
 
 #: lms/templates/admin_dashboard.html
@@ -7483,60 +8067,16 @@ msgid "Hide Annotations"
 msgstr "隱藏註解"
 
 #: lms/templates/course.html
-msgid "New"
-msgstr "新的"
+msgid "LEARN MORE"
+msgstr ""
+
+#: lms/templates/course.html
+msgid "Starts"
+msgstr ""
 
 #: lms/templates/dashboard.html
 msgid "Dashboard"
-msgstr "儀表板"
-
-#: lms/templates/dashboard.html
-#: lms/templates/dashboard/_dashboard_info_language.html
-msgid "edit"
-msgstr "編輯"
-
-#. Translators: this section lists all the third-party authentication
-#. providers
-#. (for example, Google and LinkedIn) the user can link with or unlink from
-#. their edX account.
-#: lms/templates/dashboard.html
-#: lms/templates/student_profile/third_party_auth.html
-msgid "Connected Accounts"
-msgstr ""
-
-#: lms/templates/dashboard.html
-#: lms/templates/student_profile/third_party_auth.html
-msgid "Linked"
-msgstr ""
-
-#: lms/templates/dashboard.html
-#: lms/templates/student_profile/third_party_auth.html
-msgid "Not Linked"
-msgstr ""
-
-#. Translators: clicking on this removes the link between a user's edX account
-#. and their account with an external authentication provider (like Google or
-#. LinkedIn).
-#: lms/templates/dashboard.html
-#: lms/templates/student_profile/third_party_auth.html
-msgid "Unlink"
-msgstr ""
-
-#. Translators: clicking on this creates a link between a user's edX account
-#. and their account with an external authentication provider (like Google or
-#. LinkedIn).
-#: lms/templates/dashboard.html
-#: lms/templates/student_profile/third_party_auth.html
-msgid "Link"
-msgstr ""
-
-#: lms/templates/dashboard.html
-msgid "Order History"
-msgstr ""
-
-#: lms/templates/dashboard.html
-msgid "Reset Password"
-msgstr "重置密碼"
+msgstr "課程儀表板"
 
 #: lms/templates/dashboard.html
 msgid "Current Courses"
@@ -7555,8 +8095,20 @@ msgid "Course-loading errors"
 msgstr "課程讀取錯誤"
 
 #: lms/templates/dashboard.html
+msgid "Want to change your account settings?"
+msgstr ""
+
+#: lms/templates/dashboard.html
+msgid "Click the arrow next to your username above."
+msgstr ""
+
+#: lms/templates/dashboard.html
+msgid "Order History"
+msgstr ""
+
+#: lms/templates/dashboard.html
 msgid "Email Settings for {course_number}"
-msgstr "{course_number}的電子郵件設定"
+msgstr "{course_number} 的電子郵件通知設定"
 
 #: lms/templates/dashboard.html
 msgid "Receive course emails"
@@ -7566,66 +8118,7 @@ msgstr "接收課程郵件"
 msgid "Save Settings"
 msgstr "儲存設定"
 
-#: lms/templates/dashboard.html
-msgid "Password Reset Email Sent"
-msgstr "密碼重置郵件已發送"
-
-#: lms/templates/dashboard.html
-msgid ""
-"An email has been sent to {email}. Follow the link in the email to change "
-"your password."
-msgstr "一封郵件已經被發送至 {email}，請點擊郵件中的連結更改您的密碼。"
-
-#: lms/templates/dashboard.html
-msgid "Change Email"
-msgstr "變更電子郵件信箱"
-
-#: lms/templates/dashboard.html
-msgid "Please enter your new email address:"
-msgstr "請輸入您新的電子郵件信箱地址："
-
-#: lms/templates/dashboard.html
-msgid "Please confirm your password:"
-msgstr "請確認您的密碼："
-
-#: lms/templates/dashboard.html
-msgid ""
-"We will send a confirmation to both {email} and your new email address as "
-"part of the process."
-msgstr ""
-
-#: lms/templates/dashboard.html
-msgid "Change your name"
-msgstr "更改您的姓名"
-
-#. Translators: note that {platform} {cert_name_short} will look something
-#. like: "edX certificate". Please do not change the order of these
-#. placeholders.
-#: lms/templates/dashboard.html
-msgid ""
-"To uphold the credibility of your {platform} {cert_name_short}, all name "
-"changes will be recorded."
-msgstr ""
-
-#. Translators: note that {platform} {cert_name_short} will look something
-#. like: "edX certificate". Please do not change the order of these
-#. placeholders.
-#: lms/templates/dashboard.html
-msgid ""
-"Enter your desired full name, as it will appear on your {platform} "
-"{cert_name_short}:"
-msgstr ""
-
-#: lms/templates/dashboard.html
-#: lms/templates/verify_student/_modal_editname.html
-msgid "Reason for name change:"
-msgstr "更改名字原因："
-
-#: lms/templates/dashboard.html
-msgid "Change My Name"
-msgstr "更改我的姓名"
-
-#: lms/templates/dashboard.html
+#: lms/templates/dashboard.html lms/templates/ccx/enrollment.html
 #: lms/templates/dashboard/_dashboard_course_listing.html
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
 msgid "Unenroll"
@@ -7656,7 +8149,7 @@ msgstr "電子郵件信箱變更成功"
 #: lms/templates/email_change_successful.html
 #: lms/templates/emails_change_successful.html
 msgid "You should see your new email in your {link_start}dashboard{link_end}."
-msgstr "您應該可以在您的{link_start}儀表板{link_end}看到您新的電子郵件信箱"
+msgstr "您應該可以在您的{link_start}課程儀錶板{link_end}看到您新的電子郵件信箱。"
 
 #: lms/templates/email_exists.html
 msgid "An account with the new e-mail address already exists."
@@ -7699,6 +8192,7 @@ msgid "Due:"
 msgstr "原因："
 
 #: lms/templates/folditbasic.html
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
 msgid "Status:"
 msgstr "狀態："
 
@@ -7726,6 +8220,10 @@ msgstr "已提交"
 #: lms/templates/folditchallenge.html
 msgid "Puzzle Leaderboard"
 msgstr "答題排行榜"
+
+#: lms/templates/folditchallenge.html
+msgid "User"
+msgstr "用戶"
 
 #: lms/templates/footer-edx-new.html
 msgid "About edX"
@@ -7794,36 +8292,6 @@ msgstr ""
 msgid "Follow Us"
 msgstr ""
 
-#. Translators: This is the website name of www.twitter.com. Please
-#. translate this the way that Twitter advertises in your language.
-#: lms/templates/footer-edx-new.html
-msgid "Twitter"
-msgstr ""
-
-#. Translators: This is the website name of www.facebook.com. Please
-#. translate this the way that Facebook advertises in your language.
-#: lms/templates/footer-edx-new.html
-msgid "Facebook"
-msgstr ""
-
-#. Translators: This is the website name of www.meetup.com. Please
-#. translate this the way that Meetup advertises in your language.
-#: lms/templates/footer-edx-new.html
-msgid "Meetup"
-msgstr ""
-
-#. Translators: This is the website name of www.linked.com. Please
-#. translate this the way that LinkedIn advertises in your language.
-#: lms/templates/footer-edx-new.html
-msgid "LinkedIn"
-msgstr ""
-
-#. Translators: This is the website name of plus.google.com. Please
-#. translate this the way that Google+ advertises in your language.
-#: lms/templates/footer-edx-new.html
-msgid "Google+"
-msgstr ""
-
 #: lms/templates/footer-edx-new.html
 msgid "Mobile Apps"
 msgstr ""
@@ -7848,12 +8316,6 @@ msgstr ""
 msgid ""
 "{tos_link_start}Terms of Service{tos_link_end} and {honor_link_start}Honor "
 "Code{honor_link_end}"
-msgstr ""
-
-#. Translators: 'Open edX' is a brand, please keep this untranslated. See
-#. http://openedx.org for more information.
-#: lms/templates/footer.html
-msgid "Powered by Open edX"
 msgstr ""
 
 #: lms/templates/forgot_password_modal.html
@@ -8045,6 +8507,10 @@ msgstr ""
 msgid "It works! This is the default homepage for this Open edX instance."
 msgstr ""
 
+#: lms/templates/index.html
+msgid "View all Courses"
+msgstr ""
+
 #: lms/templates/invalid_email_key.html
 msgid "Invalid email change key"
 msgstr "無效的電子郵件變更碼"
@@ -8206,12 +8672,32 @@ msgid "Press to Launch"
 msgstr ""
 
 #: lms/templates/manage_user_standing.html
-msgid "Disable or Reenable student accounts"
+msgid "Manage student accounts"
 msgstr ""
 
 #: lms/templates/manage_user_standing.html
 msgid "Username:"
 msgstr "使用者名稱："
+
+#: lms/templates/manage_user_standing.html
+msgid "Profile:"
+msgstr ""
+
+#: lms/templates/manage_user_standing.html
+msgid "Image:"
+msgstr ""
+
+#: lms/templates/manage_user_standing.html
+msgid "Name:"
+msgstr ""
+
+#: lms/templates/manage_user_standing.html
+msgid "Choose an action:"
+msgstr ""
+
+#: lms/templates/manage_user_standing.html
+msgid "View Profile"
+msgstr ""
 
 #: lms/templates/manage_user_standing.html
 msgid "Disable Account"
@@ -8220,6 +8706,10 @@ msgstr "停用帳號"
 #: lms/templates/manage_user_standing.html
 msgid "Reenable Account"
 msgstr "重新啟用帳號"
+
+#: lms/templates/manage_user_standing.html
+msgid "Remove Profile Image"
+msgstr ""
 
 #: lms/templates/manage_user_standing.html
 msgid "Students whose accounts have been disabled"
@@ -8267,6 +8757,10 @@ msgstr ""
 msgid "Raw data:"
 msgstr "原始資料："
 
+#: lms/templates/navigation-edx.html
+msgid "Home Page"
+msgstr ""
+
 #: lms/templates/navigation-edx.html lms/templates/navigation.html
 msgid "How it Works"
 msgstr "運行機制"
@@ -8277,18 +8771,23 @@ msgstr "尋找課程"
 
 #: lms/templates/navigation-edx.html
 msgid "Schools & Partners"
-msgstr ""
+msgstr "聯盟夥伴"
 
 #: lms/templates/navigation-edx.html lms/templates/navigation.html
 msgid "Dashboard for:"
-msgstr "儀表板："
+msgstr "課程儀表板："
 
 #: lms/templates/navigation-edx.html lms/templates/navigation.html
 msgid "More options dropdown"
 msgstr "更多選擇下拉清單"
 
 #: lms/templates/navigation-edx.html lms/templates/navigation.html
-msgid "Sign out"
+#: lms/templates/student_account/account_settings.html
+msgid "Account Settings"
+msgstr ""
+
+#: lms/templates/navigation-edx.html lms/templates/navigation.html
+msgid "My Profile"
 msgstr ""
 
 #: lms/templates/navigation-edx.html lms/templates/navigation.html
@@ -8313,6 +8812,11 @@ msgstr ""
 msgid "Global"
 msgstr ""
 
+#. Translators: This is short for "System administration".
+#: lms/templates/navigation.html
+msgid "Sysadmin"
+msgstr ""
+
 #: lms/templates/navigation.html
 msgid "Schools"
 msgstr "學校"
@@ -8327,6 +8831,10 @@ msgid "You do not have any notes."
 msgstr "您沒有任何筆記。"
 
 #: lms/templates/problem.html
+msgid "your answer"
+msgstr ""
+
+#: lms/templates/problem.html
 msgid "Reset"
 msgstr "重置"
 
@@ -8335,10 +8843,6 @@ msgstr "重置"
 #: lms/templates/combinedopenended/selfassessment/self_assessment_prompt.html
 #: lms/templates/verify_student/face_upload.html
 msgid "Save"
-msgstr ""
-
-#: lms/templates/problem.html
-msgid "Reveal Answer"
 msgstr ""
 
 #: lms/templates/problem.html
@@ -8385,7 +8889,7 @@ msgstr ""
 msgid ""
 "Required fields are noted by <strong class=\"indicator\">bold text and an "
 "asterisk (*)</strong>."
-msgstr "必需的欄位已經被<strong class=\"indicator\">粗體和星號(*)</strong>所標記。"
+msgstr "必填的欄位已被<strong class=\"indicator\">粗體和星號(*)</strong>所標記。"
 
 #: lms/templates/register-shib.html lms/templates/signup_modal.html
 msgid "Enter a public username:"
@@ -8482,7 +8986,7 @@ msgstr "{platform_name}註冊"
 
 #: lms/templates/register.html
 msgid "Create My {platform_name} Account"
-msgstr "創建我的 {platform_name} 帳戶"
+msgstr "建立我的 {platform_name} 帳戶"
 
 #: lms/templates/register.html
 msgid "Welcome!"
@@ -8490,7 +8994,7 @@ msgstr "歡迎 !"
 
 #: lms/templates/register.html
 msgid "Register below to create your {platform_name} account"
-msgstr "請在下面註冊創建您的 {platform_name} 帳號"
+msgstr "請填寫以下表單以註冊您的{platform_name}帳號"
 
 #. Translators: provider_name is the name of an external, third-party user
 #. authentication service (like Google or LinkedIn).
@@ -8517,10 +9021,6 @@ msgstr ""
 #: lms/templates/register.html
 msgid "Please complete the following fields to register for an account. "
 msgstr "請完整填寫下列欄位以註冊帳戶。"
-
-#: lms/templates/register.html
-msgid "Needed for any certificates you may earn"
-msgstr "對您可能獲得的任何證書都是必需的"
 
 #: lms/templates/register.html
 msgid "cannot be changed later"
@@ -8561,7 +9061,7 @@ msgstr "請與我們分享您註冊 {platform_name}的原因"
 
 #: lms/templates/register.html lms/templates/signup_modal.html
 msgid "Create My Account"
-msgstr "創建我的帳號"
+msgstr "建立我的帳號"
 
 #: lms/templates/resubscribe.html
 msgid "Re-subscribe Successful!"
@@ -8729,6 +9229,10 @@ msgid "Textbook Navigation"
 msgstr "課本導航"
 
 #: lms/templates/staticbook.html
+msgid "Page"
+msgstr ""
+
+#: lms/templates/staticbook.html
 msgid "Previous page"
 msgstr "上一頁"
 
@@ -8771,7 +9275,7 @@ msgstr "刪除用戶"
 
 #: lms/templates/sysadmin_dashboard.html
 msgid "Create user"
-msgstr "創建用戶"
+msgstr "建立用戶"
 
 #: lms/templates/sysadmin_dashboard.html
 msgid "Download list of all users (csv file)"
@@ -8849,6 +9353,7 @@ msgid "Recent git load activity for {course_id}"
 msgstr ""
 
 #: lms/templates/sysadmin_dashboard_gitlogs.html
+#: lms/templates/ccx/schedule.html
 msgid "Error"
 msgstr "錯誤"
 
@@ -9008,7 +9513,7 @@ msgstr "下載影片"
 
 #: lms/templates/video.html
 msgid "Download transcript"
-msgstr ""
+msgstr "下載字幕"
 
 #: lms/templates/video.html
 msgid "Download Handout"
@@ -9177,6 +9682,205 @@ msgstr ""
 
 #: lms/templates/calculator/toggle_calculator.html
 msgid "Calculator Output Field"
+msgstr ""
+
+#: lms/templates/ccx/_dashboard_ccx_listing.html
+msgid "{course_number} {ccx_name} Cover Image"
+msgstr ""
+
+#: lms/templates/ccx/_dashboard_ccx_listing.html
+#: lms/templates/dashboard/_dashboard_course_listing.html
+#: lms/templates/shoppingcart/registration_code_receipt.html
+msgid "View Course"
+msgstr "檢視課程"
+
+#: lms/templates/ccx/coach_dashboard.html
+msgid "CCX Coach Dashboard"
+msgstr ""
+
+#: lms/templates/ccx/coach_dashboard.html
+#: lms/templates/courseware/legacy_instructor_dashboard.html
+msgid "Enrollment"
+msgstr "註冊"
+
+#: lms/templates/ccx/coach_dashboard.html
+msgid "Schedule"
+msgstr ""
+
+#: lms/templates/ccx/coach_dashboard.html
+#: lms/templates/ccx/grading_policy.html
+msgid "Grading Policy"
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Batch Enrollment"
+msgstr "批次招生"
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"Enter email addresses and/or usernames separated by new lines or commas."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"You will not get notification for emails that bounce, so please double-check"
+" spelling."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Email Addresses/Usernames"
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Auto Enroll"
+msgstr "自動註冊"
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"If this option is <em>checked</em>, users who have not yet registered for "
+"{platform_name} will be automatically enrolled."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"If this option is left <em>unchecked</em>, users who have not yet registered"
+" for {platform_name} will not be enrolled, but will be allowed to enroll "
+"once they make an account."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Checking this box has no effect if 'Unenroll' is selected."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Notify users by email"
+msgstr "透過電子郵件通知使用者"
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"If this option is <em>checked</em>, users will receive an email "
+"notification."
+msgstr ""
+
+#: lms/templates/ccx/enrollment.html
+#: lms/templates/courseware/course_about.html
+#: lms/templates/courseware/mktg_course_about.html
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Enroll"
+msgstr "註冊"
+
+#: lms/templates/ccx/enrollment.html
+msgid "Student List Management"
+msgstr ""
+
+#: lms/templates/ccx/grading_policy.html
+msgid "WARNING"
+msgstr ""
+
+#: lms/templates/ccx/grading_policy.html
+msgid ""
+"For advanced users only. Errors in the grading policy can lead to the course"
+" failing to display. This form does not check the validity of the policy "
+"before saving."
+msgstr ""
+
+#: lms/templates/ccx/grading_policy.html
+msgid "Most coaches should not need to make changes to the grading policy."
+msgstr ""
+
+#: lms/templates/ccx/grading_policy.html
+msgid "Save Grading Policy"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "Set date"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "You have unsaved changes."
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "There was an error saving changes."
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "Schedule a Unit"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "Start Date"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "(Optional)"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "Add Unit"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "Add All Units"
+msgstr ""
+
+#: lms/templates/ccx/schedule.html
+msgid "All units have been added."
+msgstr ""
+
+#: lms/templates/ccx/student_admin.html
+msgid "Student Grades"
+msgstr ""
+
+#: lms/templates/ccx/student_admin.html
+msgid "View gradebook"
+msgstr ""
+
+#: lms/templates/ccx/student_admin.html
+msgid "Download student grades"
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid "This is an invalid certificate number"
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid "This Certificate Does Not Exist"
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid ""
+"We cannot find a certificate on file that matches this URL or ID number."
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid "Looking for a Particular Certificate?"
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid ""
+"Ensure that the ID number is an exact match of the ID number on the PDF or "
+"print certificate you are referencing."
+msgstr ""
+
+#: lms/templates/certificates/invalid.html
+msgid ""
+"If you are trying to validate a certificate with this ID number, it may be a"
+" forgery."
+msgstr ""
+
+#: lms/templates/certificates/valid.html
+msgid "Certificate Type"
 msgstr ""
 
 #: lms/templates/chat/toggle_chat.html
@@ -9403,11 +10107,15 @@ msgstr ""
 
 #: lms/templates/courseware/course_about.html
 msgid "Register for {course_name}"
-msgstr ""
+msgstr "註冊 {course_name}"
 
 #: lms/templates/courseware/course_about.html
 msgid "View About Page in studio"
 msgstr "在Studio中檢視關於頁面"
+
+#: lms/templates/courseware/course_about.html
+msgid "Course About"
+msgstr ""
 
 #: lms/templates/courseware/course_about.html
 msgid "Overview"
@@ -9476,12 +10184,6 @@ msgstr "額外資源"
 
 #: lms/templates/courseware/course_about.html
 #: lms/templates/courseware/mktg_course_about.html
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Enroll"
-msgstr "註冊"
-
-#: lms/templates/courseware/course_about.html
-#: lms/templates/courseware/mktg_course_about.html
 msgid "enroll"
 msgstr ""
 
@@ -9491,6 +10193,11 @@ msgstr ""
 
 #: lms/templates/courseware/course_navigation.html
 msgid "View this course as:"
+msgstr ""
+
+#: lms/templates/courseware/course_navigation.html
+#: lms/templates/discussion/_underscore_templates.html
+msgid "Staff"
 msgstr ""
 
 #: lms/templates/courseware/course_navigation.html
@@ -9547,10 +10254,6 @@ msgid "{course_number} Courseware"
 msgstr "{course_number}課程"
 
 #: lms/templates/courseware/courseware.html
-msgid "Return to Exam"
-msgstr "返回考試"
-
-#: lms/templates/courseware/courseware.html
 msgid "Course Search"
 msgstr ""
 
@@ -9563,11 +10266,17 @@ msgid "Clear search"
 msgstr ""
 
 #: lms/templates/courseware/courseware.html
-msgid "Course Navigation"
-msgstr "課程導覽"
+msgid "No content has been added to this course"
+msgstr ""
 
 #: lms/templates/courseware/courseware.html
-msgid "No content has been added to this course"
+msgid ""
+"To access course materials, you must score {required_score}% or higher on "
+"this                 exam. Your current score is {current_score}%."
+msgstr ""
+
+#: lms/templates/courseware/courseware.html
+msgid "Your score is {current_score}%. You have passed the entrance exam."
 msgstr ""
 
 #: lms/templates/courseware/courseware.html
@@ -9653,12 +10362,12 @@ msgid "Psychometrics"
 msgstr "心理測驗學"
 
 #: lms/templates/courseware/legacy_instructor_dashboard.html
-msgid "Forum Admin"
-msgstr "論壇管理員"
+msgid "Admin"
+msgstr ""
 
 #: lms/templates/courseware/legacy_instructor_dashboard.html
-msgid "Enrollment"
-msgstr "註冊"
+msgid "Forum Admin"
+msgstr "論壇管理員"
 
 #: lms/templates/courseware/legacy_instructor_dashboard.html
 msgid "DataDump"
@@ -9902,6 +10611,7 @@ msgid "About {course_id}"
 msgstr "關於{course_id}"
 
 #: lms/templates/courseware/mktg_coming_soon.html
+#: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Coming Soon"
 msgstr "即將來臨"
 
@@ -9911,7 +10621,7 @@ msgstr "關於{course_number}"
 
 #: lms/templates/courseware/mktg_course_about.html
 msgid "Access Courseware"
-msgstr "存取課程"
+msgstr "進入課程"
 
 #: lms/templates/courseware/mktg_course_about.html
 msgid "You Are Enrolled"
@@ -9919,7 +10629,7 @@ msgstr ""
 
 #: lms/templates/courseware/mktg_course_about.html
 msgid "Enroll in"
-msgstr ""
+msgstr "註冊"
 
 #. Translators: This is the second line on a button users can click.  The
 #. first
@@ -9969,9 +10679,17 @@ msgid "Course Progress for Student '{username}' ({email})"
 msgstr "學生 '{username}' ({email}) 的課程進度"
 
 #: lms/templates/courseware/progress.html
+msgid "Your certificate is available"
+msgstr ""
+
+#: lms/templates/courseware/progress.html
 msgid ""
-"You can download your certificate as a PDF. You can then print your "
-"certificate or share it with others."
+"You can now download your certificate as a PDF. If you keep working and "
+"receive a higher grade, you can request an updated certificate."
+msgstr ""
+
+#: lms/templates/courseware/progress.html
+msgid "PDF will open in a new browser window or tab."
 msgstr ""
 
 #: lms/templates/courseware/progress.html
@@ -9979,7 +10697,26 @@ msgid "Download Your Certificate"
 msgstr ""
 
 #: lms/templates/courseware/progress.html
-msgid "Create Your Certificate"
+msgid "We're working on it..."
+msgstr ""
+
+#: lms/templates/courseware/progress.html
+msgid ""
+"We're creating your certificate. You can keep working in your courses and a "
+"link to it will appear here and on your Dashboard when it is ready."
+msgstr ""
+
+#: lms/templates/courseware/progress.html
+msgid "Congratulations, you qualified for a certificate!"
+msgstr ""
+
+#: lms/templates/courseware/progress.html
+msgid ""
+"You can keep working for a higher grade, or request your certificate now."
+msgstr ""
+
+#: lms/templates/courseware/progress.html
+msgid "Request Certificate"
 msgstr ""
 
 #: lms/templates/courseware/progress.html
@@ -10095,73 +10832,82 @@ msgid "{course_number} {course_name} Cover Image"
 msgstr "{course_number} {course_name} 封面圖片"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Your verification is pending"
-msgstr ""
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Enrolled as: "
 msgstr "登記為："
 
-#. Translators: This text describes that the student has enrolled for a
-#. Verified Certificate, but verification of identity is pending.
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "ID verification pending"
-msgstr ""
-
-#. Translators: The student is enrolled for a Verified Certificate, but
-#. verification of identity is pending.
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Verified: Pending Verification"
+msgid "Ended - {end_date}"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "You're enrolled as a verified student"
+msgid "Started - {start_date}"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "ID Verified Ribbon/Badge"
+msgid "Starts - {start_date}"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-#: lms/templates/instructor/instructor_dashboard_2/course_info.html
-msgid "Verified"
+msgid "View Archived Course"
+msgstr "查看已封存的課程"
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid "Share on Facebook"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "You're enrolled as an honor code student"
+msgid "I'm learning on {platform_name}:"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "You're auditing this course"
+msgid "Share on Twitter"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Auditing"
+msgid "Course options dropdown"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "You're enrolled as a professional education student"
+msgid "Additional Actions Menu"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Professional Ed"
+msgid "Available Actions"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Course Completed - {end_date}"
-msgstr "課程已完成 - {end_date}"
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Course Started - {start_date}"
-msgstr "課程已開始 - {start_date}"
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Course has not yet started"
+msgid ""
+"Are you sure you want to unenroll from the purchased course "
+"%(course_number)s?"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Course Starts - {start_date}"
-msgstr "課程開始 - {start_date}"
+msgid "You will be refunded the amount you paid."
+msgstr ""
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid "You will not be refunded the amount you paid."
+msgstr ""
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid "Are you sure you want to unenroll from %(course_number)s?"
+msgstr ""
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid ""
+"Are you sure you want to unenroll from the verified {cert_name_long} track "
+"of %(course_number)s?"
+msgstr ""
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid ""
+"The refund deadline for this course has passed, so you will not receive a "
+"refund."
+msgstr ""
+
+#: lms/templates/dashboard/_dashboard_course_listing.html
+msgid "Email Settings"
+msgstr "電子郵件通知設定"
 
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Verification not yet complete."
@@ -10237,32 +10983,9 @@ msgid ""
 "{unenroll_link_start}unenroll{unenroll_link_end} from this course"
 msgstr ""
 
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "View Archived Course"
-msgstr "查看已存檔的課程"
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-#: lms/templates/shoppingcart/registration_code_receipt.html
-msgid "View Course"
-msgstr "檢視課程"
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Are you sure you want to unenroll from the purchased course"
-msgstr ""
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Are you sure you want to unenroll from"
-msgstr ""
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid ""
-"Are you sure you want to unenroll from the verified {cert_name_long} track "
-"of"
-msgstr ""
-
-#: lms/templates/dashboard/_dashboard_course_listing.html
-msgid "Email Settings"
-msgstr "電子郵件設定"
+#: lms/templates/dashboard/_dashboard_info_language.html
+msgid "edit"
+msgstr "編輯"
 
 #: lms/templates/dashboard/_dashboard_prompt_midcourse_reverify.html
 #: lms/templates/verify_student/prompt_midcourse_reverify.html
@@ -10321,8 +11044,8 @@ msgid "Approved:"
 msgstr ""
 
 #: lms/templates/dashboard/_dashboard_status_verification.html
-msgid "ID-Verification Status"
-msgstr "身分驗證狀態"
+msgid "ID Verification Status"
+msgstr ""
 
 #: lms/templates/dashboard/_dashboard_status_verification.html
 msgid "Reviewed and Verified"
@@ -10939,15 +11662,21 @@ msgstr "感謝您註冊加入 {platform_name}。"
 
 #: lms/templates/emails/activation_email.txt
 msgid ""
-"To get started, please activate your account by clicking on the link below "
-"(you may also copy and paste the link into your browser's address bar)."
+"Change your life and start learning today by activating your {platform_name}"
+" account. Click on the link below or copy and paste it into your browser's "
+"address bar."
 msgstr ""
 
 #: lms/templates/emails/activation_email.txt
 msgid ""
-"Activation ensures that you can register for {platform_name} courses and "
-"access the courseware. If you require assistance, please use our web form at"
-" {contact_us} or email {info_address}."
+"After you activate your account, you can sign up for and take any of the "
+"hundreds of courses {platform_name} offers."
+msgstr ""
+
+#: lms/templates/emails/activation_email.txt
+msgid ""
+"If you need help, please use our web form at {contact_us_url} or email "
+"{info_email_address}."
 msgstr ""
 
 #: lms/templates/emails/activation_email.txt
@@ -10962,9 +11691,7 @@ msgstr ""
 #: lms/templates/emails/activation_email.txt
 msgid ""
 "This email was automatically sent by {site_name} because someone attempted "
-"to create an {platform_name} account using this email address. If you did "
-"not attempt to create this account and do not activate the account, you will"
-" no longer receive emails from {platform_name}."
+"to create an {platform_name} account using this email address."
 msgstr ""
 
 #: lms/templates/emails/activation_email.txt
@@ -11093,10 +11820,12 @@ msgstr ""
 msgid "Company Contact Email:"
 msgstr ""
 
+#. Translators: this will be the name of a person receiving an email
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Recipient Name:"
 msgstr ""
 
+#. Translators: this will be the email address of a person receiving an email
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Recipient Email:"
 msgstr ""
@@ -11117,24 +11846,33 @@ msgid ""
 "template below."
 msgstr ""
 
+#. Translators: This is followed by the instructor or course team name (so
+#. could be singular or plural)
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Warm regards,"
 msgstr ""
 
+#. Translators: The <br> is a line break (empty line), please keep this html
+#. in
+#. the string after the sign off.
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Warm regards,<br>The {platform_name} Team"
 msgstr ""
 
+#. Translators: please translate the text inside [[ ]]. This is meant as a
+#. template for course teams to use.
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Dear [[Name]]"
 msgstr ""
 
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid ""
-"To enroll in ${course_names} we have provided a registration URL for you.  "
+"To enroll in {course_names} we have provided a registration URL for you.  "
 "Please follow the instructions below to claim your access."
 msgstr ""
 
+#. Translators: please translate the text inside [[ ]]. This is meant as a
+#. template for course teams to use.
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "Your redeem url is: [[Enter Redeem URL here from the attached CSV]]"
 msgstr ""
@@ -11165,6 +11903,9 @@ msgid ""
 "(5) Course materials will not be available until the course start date."
 msgstr ""
 
+#. Translators: please translate the text inside [[ ]]. This is meant as a
+#. template for course teams to use. Please also keep the <p> and </p> HTML
+#. tags in place.
 #: lms/templates/emails/business_order_confirmation_email.txt
 msgid "<p>Sincerely,</p><p>[[Your Signature]]</p>"
 msgstr ""
@@ -11260,12 +12001,14 @@ msgstr ""
 msgid ""
 "You have been enrolled in {course_name} at {site_name} by a member of the "
 "course staff. The course should now appear on your {site_name} dashboard."
-msgstr "您已被課程教員加入到了{site_name}上的 \"{course_name}\" 中，該課程應會立即出現在您的{site_name}儀表板中。"
+msgstr ""
+"您已被課程工作人員加入到了 {site_name} 上的  \"{course_name}\" 中，該課程應會立即出現在您的 {site_name} "
+"課程儀表板中。"
 
 #: lms/templates/emails/enroll_email_enrolledmessage.txt
 #: lms/templates/emails/unenroll_email_enrolledmessage.txt
 msgid "This email was automatically sent from {site_name} to {full_name}"
-msgstr "此由電子郵件{site_name}自動寄給{full_name}"
+msgstr "此封電子郵件由 {site_name} 自動寄給 {full_name}"
 
 #: lms/templates/emails/enroll_email_enrolledsubject.txt
 msgid "You have been enrolled in {course_name}"
@@ -11442,8 +12185,8 @@ msgid ""
 " member of the course staff. The course will remain on your dashboard, but "
 "you will no longer be part of the beta testing group."
 msgstr ""
-"您在{site_name}上的 \"{course_name}\" "
-"課程的Beta測試員身份已被課程教員取消。該課程將仍然顯示在您的儀表板中，但您將不再是Beta測試組的一員。"
+"您在 {site_name} 上的 \"{course_name}\" "
+"課程的Beta測試員身份已被課程工作人員取消。該課程將仍然顯示在您的課程儀表板中，但您將不再是Beta測試組的一員。"
 
 #: lms/templates/emails/remove_beta_tester_email_message.txt
 #: lms/templates/emails/unenroll_email_enrolledmessage.txt
@@ -11593,6 +12336,52 @@ msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/add_coupon_modal.html
 msgid "Add expiration date"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Example Certificates"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Generate example certificates for the course."
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Generate Example Certificates"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Generating example {name} certificate"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Error generating example {name} certificate: {error}"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "View {name} certificate"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Refresh Status"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Student-Generated Certificates"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Disable Student-Generated Certificates"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid "Enable Student-Generated Certificates"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/certificates.html
+msgid ""
+"You must successfully generate example certificates before you enable "
+"student-generated certificates."
 msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/course_info.html
@@ -12210,56 +12999,6 @@ msgid "Revert to Legacy Dashboard"
 msgstr "回歸傳統界面儀表板"
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Batch Enrollment"
-msgstr "批次招生"
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid ""
-"Enter email addresses and/or usernames separated by new lines or commas."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid ""
-"You will not get notification for emails that bounce, so please double-check"
-" spelling."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Email Addresses/Usernames"
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Auto Enroll"
-msgstr "自動註冊"
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid ""
-"If this option is <em>checked</em>, users who have not yet registered for "
-"{platform_name} will be automatically enrolled."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid ""
-"If this option is left <em>unchecked</em>, users who have not yet registered"
-" for {platform_name} will not be enrolled, but will be allowed to enroll "
-"once they make an account."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Checking this box has no effect if 'Unenroll' is selected."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid "Notify users by email"
-msgstr "透過電子郵件通知使用者"
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
-msgid ""
-"If this option is <em>checked</em>, users will receive an email "
-"notification."
-msgstr ""
-
-#: lms/templates/instructor/instructor_dashboard_2/membership.html
 msgid "Register/Enroll Students"
 msgstr ""
 
@@ -12423,6 +13162,21 @@ msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/membership.html
 msgid "Add Community TA"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "CCX Coaches"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid ""
+"CCX Coaches are able to create their own Custom Courses based on this "
+"course, which they can use to provide personalized instruction to their own "
+"students based in this course material."
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/membership.html
+msgid "Add CCX Coach"
 msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/metrics.html
@@ -12678,6 +13432,10 @@ msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/student_admin.html
 msgid "Rescore All Problems"
+msgstr ""
+
+#: lms/templates/instructor/instructor_dashboard_2/student_admin.html
+msgid "Let Student Skip Entrance Exam"
 msgstr ""
 
 #: lms/templates/instructor/instructor_dashboard_2/student_admin.html
@@ -13116,7 +13874,7 @@ msgstr ""
 #: lms/templates/shoppingcart/receipt.html
 #: lms/templates/shoppingcart/registration_code_redemption.html
 msgid "View Dashboard"
-msgstr "查看儀表板"
+msgstr "查看課程儀表板"
 
 #: lms/templates/shoppingcart/receipt.html
 msgid ""
@@ -13252,12 +14010,7 @@ msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
 #: lms/templates/shoppingcart/registration_code_redemption.html
-msgid "Confirm your enrollment for:"
-msgstr ""
-
-#: lms/templates/shoppingcart/registration_code_receipt.html
-#: lms/templates/shoppingcart/registration_code_redemption.html
-msgid "course dates"
+msgid "Confirm your enrollment for: {span_start}course dates{span_end}"
 msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
@@ -13273,10 +14026,11 @@ msgid "{end_date}"
 msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
+#: lms/templates/shoppingcart/registration_code_redemption.html
 msgid ""
 "You've clicked a link for an enrollment code that has already been used. "
-"Check your <a href={dashboard_url}>course dashboard</a> to see if you're "
-"enrolled in the course, or contact your company's administrator."
+"Check your {link_start}course dashboard{link_end} to see if you're enrolled "
+"in the course, or contact your company's administrator."
 msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
@@ -13287,9 +14041,10 @@ msgid ""
 msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
+#: lms/templates/shoppingcart/registration_code_redemption.html
 msgid ""
-"You're already enrolled for this course. Visit your <a "
-"href={dashboard_url}>dashboard</a> to see the course."
+"You're already enrolled for this course. Visit your "
+"{link_start}dashboard{link_end} to see the course."
 msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_receipt.html
@@ -13320,19 +14075,6 @@ msgstr ""
 
 #: lms/templates/shoppingcart/registration_code_redemption.html
 msgid "{course_number} {course_title} Cover Image"
-msgstr ""
-
-#: lms/templates/shoppingcart/registration_code_redemption.html
-msgid ""
-"You've clicked a link for an enrollment code that has already been used. "
-"Check your {link_start}course dashboard{link_end} to see if you're enrolled "
-"in the course, or contact your company's administrator."
-msgstr ""
-
-#: lms/templates/shoppingcart/registration_code_redemption.html
-msgid ""
-"You're already enrolled for this course. Visit your "
-"{link_start}dashboard{link_end} to see the course."
 msgstr ""
 
 #: lms/templates/shoppingcart/shopping_cart.html
@@ -13367,11 +14109,8 @@ msgid ""
 msgstr ""
 
 #: lms/templates/shoppingcart/shopping_cart.html
-msgid "After this purchase is complete,"
-msgstr ""
-
-#: lms/templates/shoppingcart/shopping_cart.html
-msgid "will be enrolled in this course."
+msgid ""
+"After this purchase is complete, {username} will be enrolled in this course."
 msgstr ""
 
 #: lms/templates/shoppingcart/shopping_cart_flow.html
@@ -13482,6 +14221,40 @@ msgstr ""
 msgid "Student Profile"
 msgstr ""
 
+#: lms/templates/student_profile/learner_profile.html
+msgid "Learner Profile"
+msgstr ""
+
+#. Translators: this section lists all the third-party authentication
+#. providers
+#. (for example, Google and LinkedIn) the user can link with or unlink from
+#. their edX account.
+#: lms/templates/student_profile/third_party_auth.html
+msgid "Connected Accounts"
+msgstr ""
+
+#: lms/templates/student_profile/third_party_auth.html
+msgid "Linked"
+msgstr ""
+
+#: lms/templates/student_profile/third_party_auth.html
+msgid "Not Linked"
+msgstr ""
+
+#. Translators: clicking on this removes the link between a user's edX account
+#. and their account with an external authentication provider (like Google or
+#. LinkedIn).
+#: lms/templates/student_profile/third_party_auth.html
+msgid "Unlink"
+msgstr ""
+
+#. Translators: clicking on this creates a link between a user's edX account
+#. and their account with an external authentication provider (like Google or
+#. LinkedIn).
+#: lms/templates/student_profile/third_party_auth.html
+msgid "Link"
+msgstr ""
+
 #: lms/templates/survey/survey.html
 msgid "User Survey"
 msgstr ""
@@ -13502,7 +14275,7 @@ msgstr ""
 
 #: lms/templates/survey/survey.html
 msgid "Cancel and Return to Dashboard"
-msgstr "取消並且回到儀表板"
+msgstr "取消並且回到課程儀表板"
 
 #: lms/templates/survey/survey.html
 msgid "Why do I need to complete this information?"
@@ -13539,6 +14312,10 @@ msgid ""
 "To uphold the credibility of {platform} certificates, all name changes will "
 "be logged and recorded."
 msgstr "為了支持 {platform}證書的可信度，所有姓名變更都將被記錄和保存下來。"
+
+#: lms/templates/verify_student/_modal_editname.html
+msgid "Reason for name change:"
+msgstr "更改名字原因："
 
 #: lms/templates/verify_student/_modal_editname.html
 msgid "Change my name"
@@ -13585,35 +14362,19 @@ msgstr ""
 "certificates{a_end}."
 
 #: lms/templates/verify_student/_verification_header.html
-msgid "You are upgrading your enrollment for {organization}'s {course_name}"
+msgid "You are upgrading your enrollment for: {course_name}"
 msgstr ""
 
 #: lms/templates/verify_student/_verification_header.html
-msgid "You are re-verifying for {organization}'s {course_name}"
+msgid "You are re-verifying for: {course_name}"
 msgstr ""
 
 #: lms/templates/verify_student/_verification_header.html
-msgid "You are enrolling in {organization}'s {course_name}"
+msgid "You are enrolling in: {course_name}"
 msgstr ""
 
 #: lms/templates/verify_student/_verification_header.html
-msgid "Congrats! You are now enrolled in {organization}'s {course_name}"
-msgstr ""
-
-#: lms/templates/verify_student/_verification_header.html
-msgid "Professional Education"
-msgstr ""
-
-#: lms/templates/verify_student/_verification_header.html
-msgid "{span_start}Upgrading to:{span_end} Verified"
-msgstr ""
-
-#: lms/templates/verify_student/_verification_header.html
-msgid "{span_start}Re-verifying for:{span_end} Verified"
-msgstr ""
-
-#: lms/templates/verify_student/_verification_header.html
-msgid "{span_start}Enrolling as:{span_end} Verified"
+msgid "Congratulations! You are now enrolled in {course_display}"
 msgstr ""
 
 #: lms/templates/verify_student/_verification_support.html
@@ -13633,6 +14394,10 @@ msgstr ""
 #: lms/templates/verify_student/face_upload.html
 msgid "Edit Your Full Name"
 msgstr "編輯您的全名 "
+
+#: lms/templates/verify_student/incourse_reverify.html
+msgid "Verifying for \"{checkpoint_name}\" in course \"{course_name}\""
+msgstr ""
 
 #: lms/templates/verify_student/midcourse_photo_reverification.html
 msgid "Re-Verify"
@@ -13722,23 +14487,14 @@ msgstr "我們可以將您拍攝的相片與您的ID匹配嗎？"
 
 #: lms/templates/verify_student/midcourse_photo_reverification.html
 #: lms/templates/verify_student/photo_reverification.html
-msgid "Once in position, use the camera button"
-msgstr "一旦到位，使用相機按鈕。"
+msgid ""
+"Once in position, use the camera button {btn_icon} to capture your picture"
+msgstr ""
 
 #: lms/templates/verify_student/midcourse_photo_reverification.html
 #: lms/templates/verify_student/photo_reverification.html
-msgid "to capture your picture"
-msgstr "拍攝您的相片。"
-
-#: lms/templates/verify_student/midcourse_photo_reverification.html
-#: lms/templates/verify_student/photo_reverification.html
-msgid "Use the checkmark button"
-msgstr "使用和曲標記按鈕。"
-
-#: lms/templates/verify_student/midcourse_photo_reverification.html
-#: lms/templates/verify_student/photo_reverification.html
-msgid "once you are happy with the photo"
-msgstr "一旦您對這張照片感到高興"
+msgid "Use the checkmark button {btn_icon} once you are happy with the photo"
+msgstr ""
 
 #: lms/templates/verify_student/midcourse_photo_reverification.html
 #: lms/templates/verify_student/photo_reverification.html
@@ -13785,6 +14541,11 @@ msgid "Edit your name"
 msgstr "編輯您的姓名"
 
 #: lms/templates/verify_student/midcourse_photo_reverification.html
+#: lms/templates/verify_student/photo_reverification.html
+msgid "Verification"
+msgstr ""
+
+#: lms/templates/verify_student/midcourse_photo_reverification.html
 msgid ""
 "Once you verify your photo looks good and your name is correct, you can "
 "finish your re-verification and return to your course.  <strong>Note: You "
@@ -13817,7 +14578,7 @@ msgid ""
 "We have received your re-verification details and submitted them for review."
 " Your dashboard will show the notification status once the review is "
 "complete."
-msgstr "我們已收到您重新驗證的細節並且提交以供審查。審查完成後您的儀表板會顯示通知狀態。"
+msgstr "我們已收到您重新驗證的細節並且提交以供審查。審查完成後您的課程儀表板會顯示通知狀態。"
 
 #: lms/templates/verify_student/midcourse_reverification_confirmation.html
 msgid ""
@@ -14008,9 +14769,9 @@ msgstr "請確認您的ID是光線充足的"
 
 #: lms/templates/verify_student/photo_reverification.html
 msgid ""
-"Acceptable IDs include drivers licenses, passports, or other goverment-"
+"Acceptable IDs include driver's licenses, passports, or other goverment-"
 "issued IDs that include your name and photo"
-msgstr "可接受的IDs包括駕照、護照或其他政府發行的IDs，需包含您的姓名和照片。"
+msgstr ""
 
 #: lms/templates/verify_student/photo_reverification.html
 msgid "Check that there isn't any glare"
@@ -14026,8 +14787,8 @@ msgid ""
 msgstr "試著將您的手指保持在邊緣，以免覆蓋到重要訊息。"
 
 #: lms/templates/verify_student/photo_reverification.html
-msgid "to capture your ID"
-msgstr "捕捉您的ID"
+msgid "Once in position, use the camera button {btn_icon} to capture your ID"
+msgstr ""
 
 #: lms/templates/verify_student/photo_reverification.html
 msgid "Why do you need a photo of my ID?"
@@ -14138,7 +14899,7 @@ msgstr "我們收到了您重新提交的資訊，並將稍後進行審查以核
 #: lms/templates/verify_student/reverification_confirmation.html
 #: lms/templates/verify_student/reverification_window_expired.html
 msgid "Return to Your Dashboard"
-msgstr "回到您的儀表板"
+msgstr "回到您的課程儀表板"
 
 #: lms/templates/verify_student/reverification_window_expired.html
 msgid "Re-Verification Failed"
@@ -14240,8 +15001,8 @@ msgstr "您的帳戶啟動無效"
 #: cms/templates/activation_invalid.html
 msgid ""
 "We're sorry. Something went wrong with your activation. Check to make sure "
-"the URL you went to was correct \\u2014 e-mail programs will sometimes split"
-" it into two lines."
+"the URL you went to was correct, as e-mail programs will sometimes split it "
+"into two lines."
 msgstr ""
 
 #: cms/templates/activation_invalid.html
@@ -14266,11 +15027,14 @@ msgid "Content"
 msgstr "內容"
 
 #: cms/templates/asset_index.html cms/templates/container.html
-#: cms/templates/course_info.html cms/templates/course_outline.html
-#: cms/templates/edit-tabs.html cms/templates/index.html
-#: cms/templates/library.html cms/templates/manage_users.html
-#: cms/templates/manage_users_lib.html cms/templates/textbooks.html
-#: cms/templates/videos_index.html
+#: cms/templates/course-create-rerun.html cms/templates/course_info.html
+#: cms/templates/course_outline.html cms/templates/edit-tabs.html
+#: cms/templates/index.html cms/templates/library.html
+#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
+#: cms/templates/textbooks.html cms/templates/videos_index.html
+#: cms/templates/ux/reference/container.html
+#: cms/templates/ux/reference/course-create-rerun.html
+#: cms/templates/ux/reference/outline.html
 msgid "Page Actions"
 msgstr "頁面功能"
 
@@ -14482,13 +15246,13 @@ msgstr ""
 
 #: cms/templates/course-create-rerun.html
 msgid "You are creating a re-run from:"
-msgstr ""
+msgstr "您正再次執行："
 
 #: cms/templates/course-create-rerun.html
 msgid ""
 "Provide identifying information for this re-run of the course. The original "
 "course is not affected in any way by a re-run."
-msgstr ""
+msgstr "提供用來辨識此重新開課課程的辨識資訊，原始課程並不會被重新開課的課程所影響。"
 
 #: cms/templates/course-create-rerun.html
 msgid ""
@@ -14622,7 +15386,7 @@ msgid ""
 "respond to student questions. You add or edit updates in HTML."
 msgstr "使用公佈欄以提醒學生重要日期或考試、強調論壇中特定的討論內容、公告時間表的改變和回答學生問題。以HTML新增或編輯公告。"
 
-#: cms/templates/course_outline.html cms/templates/settings.html
+#: cms/templates/course_outline.html
 msgid "Course Outline"
 msgstr "課程內容"
 
@@ -14862,11 +15626,28 @@ msgstr ""
 
 #: cms/templates/error.html
 msgid "Back to dashboard"
-msgstr "回到儀表板"
+msgstr "回到課程儀表板"
+
+#: cms/templates/export.html
+msgid "Library Export"
+msgstr ""
 
 #: cms/templates/export.html
 msgid "Course Export"
 msgstr "匯出課程"
+
+#: cms/templates/export.html
+msgid "About Exporting Libraries"
+msgstr ""
+
+#. Translators: ".tar.gz" is a file extension, and should not be translated
+#: cms/templates/export.html
+msgid ""
+"You can export libraries and edit them outside of {studio_name}. The "
+"exported file is a .tar.gz file (that is, a .tar file compressed with GNU "
+"Zip) that contains the library structure and content. You can also re-import"
+" libraries that you've exported."
+msgstr ""
 
 #: cms/templates/export.html
 msgid "About Exporting Courses"
@@ -14891,8 +15672,16 @@ msgid ""
 msgstr ""
 
 #: cms/templates/export.html
+msgid "Export My Library Content"
+msgstr ""
+
+#: cms/templates/export.html
 msgid "Export My Course Content"
 msgstr "匯出我的課程內容"
+
+#: cms/templates/export.html
+msgid "Export Library Content"
+msgstr ""
 
 #: cms/templates/export.html
 msgid "Export Course Content"
@@ -14944,8 +15733,32 @@ msgid "Forum/discussion Data"
 msgstr "論壇/討論資料"
 
 #: cms/templates/export.html
-msgid "Certificates"
-msgstr "證書"
+msgid "Why export a library?"
+msgstr ""
+
+#: cms/templates/export.html
+msgid ""
+"You may want to edit the XML in your library directly, outside of "
+"{studio_name}. You may want to create a backup copy of your library. Or, you"
+" may want to create a copy of your library that you can later import into "
+"another library instance and customize."
+msgstr ""
+
+#: cms/templates/export.html
+msgid "Opening the downloaded file"
+msgstr "開啟下載的檔案"
+
+#. Translators: ".tar.gz" is a file extension, and should not be translated
+#: cms/templates/export.html
+msgid ""
+"Use an archive program to extract the data from the .tar.gz file. Extracted "
+"data includes the library.xml file, as well as subfolders that contain "
+"library content."
+msgstr ""
+
+#: cms/templates/export.html
+msgid "Learn more about exporting a library"
+msgstr ""
 
 #: cms/templates/export.html
 msgid "Why export a course?"
@@ -14971,10 +15784,6 @@ msgid ""
 "data, grading information, discussion forum data, course settings, and "
 "course team information, is not exported."
 msgstr ""
-
-#: cms/templates/export.html
-msgid "Opening the downloaded file"
-msgstr "開啟下載的檔案"
 
 #. Translators: ".tar.gz" is a file extension, and should not be translated
 #: cms/templates/export.html
@@ -15053,25 +15862,27 @@ msgstr ""
 
 #: cms/templates/group_configurations.html
 msgid ""
-"Use content groups to give groups of students access to a specific set of "
-"course content. In addition to course content that is intended for all "
-"students, each content group sees content that you specifically designate as"
-" visible to it. By associating a content group with one or more cohorts, you"
-" can customize the content that a particular cohort or cohorts sees in your "
-"course."
+"If you have cohorts enabled in your course, you can use content groups to "
+"create cohort-specific courseware. In other words, you can customize the "
+"content that particular cohorts see in your course."
+msgstr ""
+
+#: cms/templates/group_configurations.html
+msgid ""
+"Each content group that you create can be associated with one or more "
+"cohorts. In addition to course content that is intended for all students, "
+"you can designate some content as visible only to specified content groups. "
+"Only learners in the cohorts that are associated with the specified content "
+"groups see the additional content."
 msgstr ""
 
 #: cms/templates/group_configurations.html
 msgid ""
 "Click {em_start}New content group{em_end} to add a new content group. To "
 "edit the name of a content group, hover over its box and click "
-"{em_start}Edit{em_end}."
-msgstr ""
-
-#: cms/templates/group_configurations.html
-msgid ""
-"You can delete a content group only if it is not in use by a unit. To delete"
-" a content group, hover over its box and click the delete icon."
+"{em_start}Edit{em_end}. You can delete a content group only if it is not in "
+"use by a unit. To delete a content group, hover over its box and click the "
+"delete icon."
 msgstr ""
 
 #: cms/templates/group_configurations.html
@@ -15080,23 +15891,20 @@ msgstr ""
 
 #: cms/templates/group_configurations.html
 msgid ""
-"Use experiment group configurations to define how many groups of students "
-"are in a content experiment. When you create a content experiment for a "
-"course, you select the group configuration to use."
+"Use experiment group configurations if you are conducting content "
+"experiments, also known as A/B testing, in your course. Experiment group "
+"configurations define how many groups of students are in a content "
+"experiment. When you create a content experiment for a course, you select "
+"the group configuration to use."
 msgstr ""
 
 #: cms/templates/group_configurations.html
 msgid ""
 "Click {em_start}New Group Configuration{em_end} to add a new configuration. "
 "To edit a configuration, hover over its box and click "
-"{em_start}Edit{em_end}."
-msgstr ""
-
-#: cms/templates/group_configurations.html
-msgid ""
-"You can delete a group configuration only if it is not in use in an "
-"experiment. To delete a configuration, hover over its box and click the "
-"delete icon."
+"{em_start}Edit{em_end}. You can delete a group configuration only if it is "
+"not in use in an experiment. To delete a configuration, hover over its box "
+"and click the delete icon."
 msgstr ""
 
 #: cms/templates/group_configurations.html cms/templates/settings.html
@@ -15203,7 +16011,7 @@ msgstr ""
 
 #: cms/templates/howitworks.html
 msgid "Create Learning Pathways"
-msgstr "創建學習途徑"
+msgstr "建立學習途徑"
 
 #: cms/templates/howitworks.html
 msgid ""
@@ -15227,8 +16035,8 @@ msgstr "關於問題類型的豐富知識庫"
 
 #: cms/templates/howitworks.html
 msgid ""
-"It's more than just multiple choice. Studio supports more than a dozen types"
-" of problems to challenge your learners."
+"It's more than just multiple choice. {studio_name} supports more than a "
+"dozen types of problems to challenge your learners."
 msgstr ""
 
 #: cms/templates/howitworks.html
@@ -15310,7 +16118,7 @@ msgstr "不僅僅是講座"
 msgid ""
 "Quickly create videos, text snippets, inline discussions, and a variety of "
 "problem types."
-msgstr "快速創建影片、文件片段、內部討論和各種問題類型。"
+msgstr "快速建立影片、文件片段、內部討論和各種問題類型。"
 
 #: cms/templates/howitworks.html
 msgid "Publishing on Date"
@@ -15333,21 +16141,46 @@ msgid ""
 msgstr ""
 
 #: cms/templates/import.html
+msgid "Library Import"
+msgstr ""
+
+#: cms/templates/import.html
 msgid "Course Import"
 msgstr "匯入課程"
 
 #: cms/templates/import.html
 msgid ""
-"Be sure you want to import a course before continuing. Content of the "
-"imported course replaces all the content of this course. {em_start}You "
-"cannot undo a course import{em_end}. We recommend that you first export the "
-"current course, so you have a backup copy of it."
+"Be sure you want to import a library before continuing. The contents of the "
+"imported library will replace the contents of the existing library. "
+"{em_start}You cannot undo a library import{em_end}. Before you proceed, we "
+"recommend that you export the current library, so that you have a backup "
+"copy of it."
 msgstr ""
-"在繼續之前請確認您想要匯入一門課程。目前匯入課程將取代這個課程的所有內容。{em_start} 您不能夠取消課程匯入 "
-"{em_end}。我們推薦您先匯出目前的課程，如此一來就可以您就擁有一份現有課程的備份。"
 
-#. Translators: ".tar.gz" is a file extension, and files with that extension
-#. are called "gzipped tar files": these terms should not be translated
+#: cms/templates/import.html
+msgid ""
+"The library that you import must be in a .tar.gz file (that is, a .tar file "
+"compressed with GNU Zip). This .tar.gz file must contain a library.xml file."
+" It may also contain other files."
+msgstr ""
+
+#: cms/templates/import.html
+msgid ""
+"The import process has five stages. During the first two stages, you must "
+"stay on this page. You can leave this page after the Unpacking stage has "
+"completed. We recommend, however, that you don't make important changes to "
+"your library until the import operation has completed."
+msgstr ""
+
+#: cms/templates/import.html
+msgid ""
+"Be sure you want to import a course before continuing. The contents of the "
+"imported course will replace the contents of the existing course. "
+"{em_start}You cannot undo a course import{em_end}. Before you proceed, we "
+"recommend that you export the current course, so that you have a backup copy"
+" of it."
+msgstr ""
+
 #: cms/templates/import.html
 msgid ""
 "The course that you import must be in a .tar.gz file (that is, a .tar file "
@@ -15366,8 +16199,10 @@ msgid ""
 msgstr ""
 "匯入的過程有五個步驟。前兩個步驟，您必須停留在這個頁面。您可以在解壓縮步驟完成後離開這個頁面。不過，我們建議您在匯入操作結束前，不要對課程做什麼重要更改。"
 
-#. Translators: ".tar.gz" is a file extension, and files with that extension
-#. are called "gzipped tar files": these terms should not be translated
+#: cms/templates/import.html
+msgid "Select a .tar.gz File to Replace Your Library Content"
+msgstr ""
+
 #: cms/templates/import.html
 msgid "Select a .tar.gz File to Replace Your Course Content"
 msgstr "選擇一個 .tar.gz 檔案來取代您的課程內容"
@@ -15381,8 +16216,16 @@ msgid "File Chosen:"
 msgstr "選擇的檔案："
 
 #: cms/templates/import.html
-msgid "Replace my course with the one above"
-msgstr "用上面的課程替換我的課程"
+msgid "Replace my library with the selected file"
+msgstr ""
+
+#: cms/templates/import.html
+msgid "Replace my course with the selected file"
+msgstr ""
+
+#: cms/templates/import.html
+msgid "Library Import Status"
+msgstr ""
 
 #: cms/templates/import.html
 msgid "Course Import Status"
@@ -15412,13 +16255,23 @@ msgid "Reviewing semantics, syntax, and required data"
 msgstr ""
 
 #: cms/templates/import.html
+msgid "Updating Library"
+msgstr ""
+
+#: cms/templates/import.html
 msgid "Updating Course"
 msgstr "更新課程中"
 
 #: cms/templates/import.html
 msgid ""
-"Integrating your imported content into this course. This may take a while "
-"with larger courses."
+"Integrating your imported content into this library. This process might take"
+" longer with larger libraries."
+msgstr ""
+
+#: cms/templates/import.html
+msgid ""
+"Integrating your imported content into this course. This process might take "
+"longer with larger courses."
 msgstr ""
 
 #: cms/templates/import.html
@@ -15426,12 +16279,47 @@ msgid "Success"
 msgstr "成功"
 
 #: cms/templates/import.html
+msgid "Your imported content has now been integrated into this library"
+msgstr ""
+
+#: cms/templates/import.html
 msgid "Your imported content has now been integrated into this course"
 msgstr "您所匯入的內容現在已經整合到這個課程當中。"
 
 #: cms/templates/import.html
+msgid "View Updated Library"
+msgstr ""
+
+#: cms/templates/import.html
 msgid "View Updated Outline"
 msgstr "檢視更新後的大鋼"
+
+#: cms/templates/import.html
+msgid "Why import a library?"
+msgstr ""
+
+#: cms/templates/import.html
+msgid ""
+"You might want to update an existing library to a new version, or replace an"
+" existing library entirely. You might also have developed a library outside "
+"of {studio_name}."
+msgstr ""
+
+#: cms/templates/import.html
+msgid "Note: Library content is not automatically updated in courses"
+msgstr ""
+
+#: cms/templates/import.html
+msgid ""
+"If you change and import a library that is referenced by randomized content "
+"blocks in one or more courses, those courses do not automatically use the "
+"updated content. You must manually refresh the randomized content blocks to "
+"bring them up to date with the latest library content."
+msgstr ""
+
+#: cms/templates/import.html
+msgid "Learn more about importing a library"
+msgstr ""
 
 #: cms/templates/import.html
 msgid "Why import a course?"
@@ -15471,6 +16359,10 @@ msgstr ""
 "如果您在課程進行中時執行匯入，並更改任何問題組件的網址名稱(或 url_name "
 "節點)，和此問題組件相關的學生資料可能會遺失，這些資料包含學生於問題中獲得的分數。"
 
+#: cms/templates/import.html
+msgid "Learn more about importing a course"
+msgstr ""
+
 #: cms/templates/index.html cms/templates/widgets/header.html
 msgid "{studio_name} Home"
 msgstr ""
@@ -15493,11 +16385,11 @@ msgstr "請更正下面高亮顯示的欄位。"
 
 #: cms/templates/index.html
 msgid "Create a New Course"
-msgstr "創建一個新課程"
+msgstr "建立一個新課程"
 
 #: cms/templates/index.html
 msgid "Required Information to Create a New Course"
-msgstr "創建一個新課程的必要資訊"
+msgstr "建立一個新課程的必要資訊"
 
 #: cms/templates/index.html
 msgid ""
@@ -15538,7 +16430,7 @@ msgstr "您的課程開始的學期。"
 
 #: cms/templates/index.html
 msgid "Create"
-msgstr "創建"
+msgstr "建立"
 
 #: cms/templates/index.html
 msgid "Create a New Library"
@@ -15628,8 +16520,12 @@ msgid ""
 msgstr ""
 
 #: cms/templates/index.html
-msgid "Re-run Course"
+msgid "Libraries"
 msgstr ""
+
+#: cms/templates/index.html
+msgid "Re-run Course"
+msgstr "重新開課"
 
 #: cms/templates/index.html
 msgid "Are you staff on an existing {studio_name} course?"
@@ -15643,7 +16539,7 @@ msgstr ""
 
 #: cms/templates/index.html
 msgid "Create Your First Course"
-msgstr "創建您的第一個課程"
+msgstr "建立您的第一個課程"
 
 #: cms/templates/index.html
 msgid "Your new course is just a click away!"
@@ -15664,15 +16560,15 @@ msgstr ""
 
 #: cms/templates/index.html
 msgid "Your Course Creator Request Status:"
-msgstr "您的課程創建者請求狀態："
+msgstr "您的課程建立者請求狀態："
 
 #: cms/templates/index.html
 msgid "Request the Ability to Create Courses"
-msgstr "請求創建課程所需要的權限"
+msgstr "請求建立課程所需要的權限"
 
 #: cms/templates/index.html
 msgid "Your Course Creator Request Status"
-msgstr "您的課程創建者請求狀態"
+msgstr "您的課程建立者請求狀態"
 
 #: cms/templates/index.html
 msgid ""
@@ -15684,7 +16580,7 @@ msgstr ""
 
 #: cms/templates/index.html
 msgid "Your Course Creator request is:"
-msgstr "您的課程創建者請求："
+msgstr "您的課程建立者請求："
 
 #: cms/templates/index.html
 msgid "Denied"
@@ -15819,21 +16715,6 @@ msgid "Add Component"
 msgstr ""
 
 #: cms/templates/library.html
-msgid "Library ID"
-msgstr ""
-
-#: cms/templates/library.html
-msgid "Tip:"
-msgstr ""
-
-#: cms/templates/library.html
-msgid ""
-"To add content from this library to a course that uses a Randomized Content "
-"Block, copy this ID and enter it in the Libraries field in the Randomized "
-"Content Block settings."
-msgstr ""
-
-#: cms/templates/library.html
 msgid "Adding content to your library"
 msgstr ""
 
@@ -15857,11 +16738,11 @@ msgstr ""
 #: cms/templates/library.html
 msgid ""
 "Use library content in courses by adding the "
-"{em_start}library_content{em_end} policy key to Advanced Settings, then "
-"adding a Randomized Content Block to your courseware. In the settings for "
-"each Randomized Content Block, enter the Library ID for each library from "
-"which you want to draw content, and specify the number of problems to be "
-"randomly selected and displayed to each student."
+"{em_start}library_content{em_end} policy key to the Advanced Module List in "
+"the course's Advanced Settings, then adding a Randomized Content Block to "
+"your courseware. In the settings for each Randomized Content Block, select "
+"this library as the source library, and specify the number of problems to be"
+" randomly selected and displayed to each student."
 msgstr ""
 
 #: cms/templates/library.html
@@ -15925,34 +16806,6 @@ msgstr "請提供您想要新增的課程成員的電子郵件地址"
 msgid "Add User"
 msgstr "新增用戶"
 
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "Current Role:"
-msgstr "當前角色："
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "You!"
-msgstr "您！"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "send an email message to {email}"
-msgstr "發送一封電子郵件給{email}"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "Promote another member to Admin to remove your admin rights"
-msgstr "先提升另一名成員為管理員，才能取消您自己的管理權"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "Remove Admin Access"
-msgstr "取消管理權"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "Add Admin Access"
-msgstr "新增管理者權限"
-
-#: cms/templates/manage_users.html cms/templates/manage_users_lib.html
-msgid "Delete the user, {username}"
-msgstr "刪除用戶，{username}"
-
 #: cms/templates/manage_users.html
 msgid "Add Team Members to This Course"
 msgstr "新增團隊成員到此課程"
@@ -16008,26 +16861,6 @@ msgstr ""
 
 #: cms/templates/manage_users_lib.html
 msgid "Provide the email address of the user you want to add"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html
-msgid "Remove Staff Access"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html
-msgid "Add Staff Access"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html
-msgid "Remove this user"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html
-msgid "Remove me"
-msgstr ""
-
-#: cms/templates/manage_users_lib.html
-msgid "Remove me from this library"
 msgstr ""
 
 #: cms/templates/manage_users_lib.html
@@ -16108,7 +16941,7 @@ msgstr "我同意 {a_start}服務條款{a_end}"
 
 #: cms/templates/register.html
 msgid "Create My Account &amp; Start Authoring Courses"
-msgstr "創建我的帳戶 &AMP; 開始製作課程"
+msgstr "建立我的帳戶 &amp; 開始製作課程"
 
 #: cms/templates/register.html
 msgid "Common {studio_name} Questions"
@@ -16182,7 +17015,7 @@ msgstr "(用於學生註冊和訪問)"
 
 #: cms/templates/settings.html
 msgid "Enroll in {course_display_name}"
-msgstr ""
+msgstr "註冊{course_display_name}"
 
 #: cms/templates/settings.html
 msgid ""
@@ -16388,7 +17221,9 @@ msgid "Require students to pass an exam before beginning the course."
 msgstr ""
 
 #: cms/templates/settings.html
-msgid "You can now view and author your course entrance exam from the "
+msgid ""
+"You can now view and author your course entrance exam from the "
+"{link_start}Course Outline{link_end}."
 msgstr ""
 
 #: cms/templates/settings.html
@@ -16622,11 +17457,16 @@ msgstr ""
 msgid ""
 "After a file uploads successfully, automated processing begins. After "
 "automated processing begins for a file it is listed under Previous Uploads "
-"as {em_start}In Progress{em_end}. When the status is "
-"{em_start}Complete{em_end}, edX assigns a unique video ID to the video file "
-"and you can add it to your course. If something goes wrong, the "
-"{em_start}Failed{em_end} status message appears. Check for problems in the "
-"file and upload a replacement."
+"as {em_start}In Progress{em_end}. You can add the video to your course as "
+"soon as it has a unique video ID and the status is {em_start}Ready{em_end}. "
+"Allow 24 hours for file processing at the external video hosting sites to "
+"complete."
+msgstr ""
+
+#: cms/templates/videos_index.html
+msgid ""
+"If something goes wrong, the {em_start}Failed{em_end} status message "
+"appears. Check for problems in your original file and upload a replacement."
 msgstr ""
 
 #: cms/templates/videos_index.html
@@ -16635,10 +17475,13 @@ msgstr ""
 
 #: cms/templates/videos_index.html
 msgid ""
-"After processing is complete for the video file, you copy its unique video "
-"ID. On the Course Outline page, you create or locate a video component to "
-"play this video. Edit the video component to paste the ID into the Advanced "
-"{em_start}EdX Video ID{em_end} field."
+"As soon as the status for a file is {em_start}Ready{em_end}, you can add "
+"that video to a component in your course. Copy the unique video ID. In "
+"another browser window, on the Course Outline page, create or locate a video"
+" component to play this video. Edit the video component to paste the ID into"
+" the Advanced {em_start}Video ID{em_end} field. The video can play in the "
+"LMS as soon as its status is {em_start}Ready{em_end}, although processing "
+"may not be complete for all encodings and all video hosting sites."
 msgstr ""
 
 #: cms/templates/visibility_editor.html
@@ -16751,6 +17594,10 @@ msgid ""
 "activating your account."
 msgstr "我們已發送一封電子郵件至 {email} ，裡面包含一個啟動帳號的連結，以及啟動帳號的操作說明。"
 
+#: cms/templates/widgets/footer.html cms/templates/widgets/sock.html
+msgid "Contact Us"
+msgstr ""
+
 #. Translators: 'EdX', 'edX', 'Studio', and 'Open edX' are trademarks of 'edX
 #. Inc.'. Please do not translate any of these trademarks and company names.
 #: cms/templates/widgets/footer.html
@@ -16759,16 +17606,8 @@ msgid ""
 "trademarks or trademarks of {link_start}edX Inc.{link_end}"
 msgstr ""
 
-#: cms/templates/widgets/footer.html cms/templates/widgets/sock.html
-msgid "Contact Us"
-msgstr ""
-
 #: cms/templates/widgets/header.html
 msgid "Current Course:"
-msgstr ""
-
-#: cms/templates/widgets/header.html
-msgid "Navigation for {course_name}"
 msgstr ""
 
 #: cms/templates/widgets/header.html
@@ -16800,12 +17639,12 @@ msgid "Current Library:"
 msgstr ""
 
 #: cms/templates/widgets/header.html
-msgid "Library"
+msgid "Account"
 msgstr ""
 
 #: cms/templates/widgets/header.html
-msgid "Help &amp; Account Navigation"
-msgstr "幫助 &amp; 帳戶導航"
+msgid "Account Navigation"
+msgstr ""
 
 #: cms/templates/widgets/header.html
 msgid "Contextual Online Help"
@@ -16813,14 +17652,6 @@ msgstr ""
 
 #: cms/templates/widgets/header.html
 msgid "Currently signed in as:"
-msgstr ""
-
-#: cms/templates/widgets/header.html
-msgid "Sign Out"
-msgstr ""
-
-#: cms/templates/widgets/header.html
-msgid "You're not currently signed in"
 msgstr ""
 
 #: cms/templates/widgets/metadata-edit.html
@@ -16897,7 +17728,7 @@ msgstr "這是一個關鍵字符串"
 
 #: wiki/admin.py wiki/models/article.py
 msgid "created"
-msgstr "創建"
+msgstr "建立"
 
 #: wiki/forms.py
 msgid "Only localhost... muahahaha"
@@ -16987,7 +17818,7 @@ msgid ""
 " Purging is a good idea if you want to free the slug such that users can "
 "create new articles in its place."
 msgstr ""
-"清除文章：徹底刪除它(和它所有的內容)同時沒有復原功能。如果您想釋放特硬的縮略名 ，使得用戶可以在其位置創建新的文章的話，清除是一個好主意。"
+"清除文章：徹底刪除它(和它所有的內容)同時沒有復原功能。如果您想釋放特硬的縮略名 ，使得用戶可以在其位置建立新的文章的話，清除是一個好主意。"
 
 #: wiki/forms.py wiki/plugins/attachments/forms.py
 #: wiki/plugins/images/forms.py
@@ -17495,4 +18326,4 @@ msgstr "合併版本 #%(r1)d 及版本 #%(r2)d"
 msgid ""
 "A new revision was created: Merge between Revision #%(r1)d and Revision "
 "#%(r2)d"
-msgstr "一個新的修訂版被創建：合併自版本 #%(r1)d 以及版本 #%(r2)d"
+msgstr "一個新的修訂版被建立：合併自版本 #%(r1)d 以及版本 #%(r2)d"

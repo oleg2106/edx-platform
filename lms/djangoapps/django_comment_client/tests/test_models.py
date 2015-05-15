@@ -2,7 +2,7 @@
 Tests for the django comment client integration models
 """
 from django.test.testcases import TestCase
-from django.test.utils import override_settings
+from nose.plugins.attrib import attr
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_TOY_MODULESTORE
@@ -10,6 +10,7 @@ import django_comment_common.models as models
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 
+@attr('shard_1')
 class RoleClassTestCase(ModuleStoreTestCase):
     """
     Tests for roles of the comment client service integration
@@ -34,10 +35,6 @@ class RoleClassTestCase(ModuleStoreTestCase):
         self.TA_role_2 = models.Role.objects.get_or_create(name="Community TA",
                                                            course_id=self.course_id_2)[0]
 
-        class Dummy():
-            def render_template():
-                pass
-
     def test_has_permission(self):
         # Whenever you add a permission to student_role,
         # Roles with the same FORUM_ROLE in same class also receives the same
@@ -55,6 +52,7 @@ class RoleClassTestCase(ModuleStoreTestCase):
         self.TA_role_2.inherit_permissions(self.TA_role)
 
 
+@attr('shard_1')
 class PermissionClassTestCase(TestCase):
     """
     Tests for permissions of the comment client service integration

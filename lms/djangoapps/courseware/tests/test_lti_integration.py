@@ -3,15 +3,14 @@
 from collections import OrderedDict
 import json
 import mock
+from nose.plugins.attrib import attr
 import oauthlib
 import urllib
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from courseware.tests import BaseTestXmodule
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from courseware.views import get_course_lti_endpoints
 from lms.djangoapps.lms_xblock.runtime import quote_slashes
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
@@ -19,6 +18,7 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.x_module import STUDENT_VIEW
 
 
+@attr('shard_1')
 class TestLTI(BaseTestXmodule):
     """
     Integration test for lti xmodule.
@@ -124,6 +124,7 @@ class TestLTI(BaseTestXmodule):
         self.assertEqual(generated_content, expected_content)
 
 
+@attr('shard_1')
 class TestLTIModuleListing(ModuleStoreTestCase):
     """
     a test for the rest endpoint that lists LTI modules in a course

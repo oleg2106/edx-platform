@@ -59,8 +59,11 @@ var edx = edx || {};
                     function( price ) { return Boolean( price ); }
                 ),
                 currency: el.data('course-mode-currency'),
-                purchaseEndpoint: el.data('purchase-endpoint'),
-                verificationDeadline: el.data('verification-deadline')
+                processors: el.data('processors'),
+                verificationDeadline: el.data('verification-deadline'),
+                courseModeSlug: el.data('course-mode-slug'),
+                alreadyVerified: el.data('already-verified'),
+                verificationGoodUntil: el.data('verification-good-until')
             },
             'payment-confirmation-step': {
                 courseKey: el.data('course-key'),

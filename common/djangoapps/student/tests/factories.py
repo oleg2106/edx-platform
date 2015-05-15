@@ -40,7 +40,8 @@ class UserProfileFactory(DjangoModelFactory):
     level_of_education = None
     gender = u'm'
     mailing_address = None
-    goals = u'World domination'
+    goals = u'Learn a lot'
+    allow_certificate = True
 
 
 class CourseModeFactory(DjangoModelFactory):

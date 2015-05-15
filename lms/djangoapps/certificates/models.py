@@ -46,9 +46,12 @@ Eligibility:
        unless he has allow_certificate set to False.
 """
 from datetime import datetime
+import json
 import uuid
 
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -111,7 +114,7 @@ class GeneratedCertificate(models.Model):
         auto_now=True, default=datetime.now)
     error_reason = models.CharField(max_length=512, blank=True, default='')
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('user', 'course_id'),)
 
     @classmethod
@@ -182,6 +185,33 @@ def certificate_status_for_student(student, course_id):
     except GeneratedCertificate.DoesNotExist:
         pass
     return {'status': CertificateStatuses.unavailable, 'mode': GeneratedCertificate.MODES.honor}
+
+
+def certificate_info_for_user(user, course_id, grade, user_is_whitelisted=None):
+    """
+    Returns the certificate info for a user for grade report.
+    """
+    if user_is_whitelisted is None:
+        user_is_whitelisted = CertificateWhitelist.objects.filter(
+            user=user, course_id=course_id, whitelist=True
+        ).exists()
+
+    eligible_for_certificate = (user_is_whitelisted or grade is not None) and user.profile.allow_certificate
+
+    if eligible_for_certificate:
+        user_is_eligible = 'Y'
+
+        certificate_status = certificate_status_for_student(user, course_id)
+        certificate_generated = certificate_status['status'] == CertificateStatuses.downloadable
+        certificate_is_delivered = 'Y' if certificate_generated else 'N'
+
+        certificate_type = certificate_status['mode'] if certificate_generated else 'N/A'
+    else:
+        user_is_eligible = 'N'
+        certificate_is_delivered = 'N'
+        certificate_type = 'N/A'
+
+    return [user_is_eligible, certificate_is_delivered, certificate_type]
 
 
 class ExampleCertificateSet(TimeStampedModel):
@@ -503,3 +533,44 @@ class CertificateGenerationConfiguration(ConfigurationModel):
 
     """
     pass
+
+
+class CertificateHtmlViewConfiguration(ConfigurationModel):
+    """
+    Static values for certificate HTML view context parameters.
+    Default values will be applied across all certificate types (course modes)
+    Matching 'mode' overrides will be used instead of defaults, where applicable
+    Example configuration :
+        {
+            "default": {
+                "url": "http://www.edx.org",
+                "logo_src": "http://www.edx.org/static/images/logo.png",
+                "logo_alt": "Valid Certificate"
+            },
+            "honor": {
+                "logo_src": "http://www.edx.org/static/images/honor-logo.png",
+                "logo_alt": "Honor Certificate"
+            }
+        }
+    """
+    configuration = models.TextField(
+        help_text="Certificate HTML View Parameters (JSON)"
+    )
+
+    def clean(self):
+        """
+        Ensures configuration field contains valid JSON.
+        """
+        try:
+            json.loads(self.configuration)
+        except ValueError:
+            raise ValidationError('Must be valid JSON string.')
+
+    @classmethod
+    def get_config(cls):
+        """
+        Retrieves the configuration field value from the database
+        """
+        instance = cls.current()
+        json_data = json.loads(instance.configuration) if instance.enabled else {}
+        return json_data

@@ -18,7 +18,9 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from xmodule_django.models import CourseKeyField, LocationKeyField, BlockTypeKeyField
+from model_utils.models import TimeStampedModel
+
+from xmodule_django.models import CourseKeyField, LocationKeyField, BlockTypeKeyField  # pylint: disable=import-error
 
 
 class StudentModule(models.Model):
@@ -35,8 +37,7 @@ class StudentModule(models.Model):
                     ('course', 'course'),
                     ('chapter', 'Section'),
                     ('sequential', 'Subsection'),
-                    ('library_content', 'Library Content'),
-                    )
+                    ('library_content', 'Library Content'))
     ## These three are the key for the object
     module_type = models.CharField(max_length=32, choices=MODULE_TYPES, default='problem', db_index=True)
 
@@ -46,7 +47,7 @@ class StudentModule(models.Model):
 
     course_id = CourseKeyField(max_length=255, db_index=True)
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('student', 'module_state_key', 'course_id'),)
 
     ## Internal state of the object
@@ -86,7 +87,7 @@ class StudentModule(models.Model):
         return 'StudentModule<%r>' % ({
             'course_id': self.course_id,
             'module_type': self.module_type,
-            'student': self.student.username,
+            'student': self.student.username,  # pylint: disable=no-member
             'module_state_key': self.module_state_key,
             'state': str(self.state)[:20],
         },)
@@ -102,7 +103,7 @@ class StudentModuleHistory(models.Model):
 
     HISTORY_SAVING_TYPES = {'problem'}
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         get_latest_by = "created"
 
     student_module = models.ForeignKey(StudentModule, db_index=True)
@@ -135,7 +136,7 @@ class XBlockFieldBase(models.Model):
     """
     Base class for all XBlock field storage.
     """
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         abstract = True
 
     # The name of the field
@@ -163,7 +164,7 @@ class XModuleUserStateSummaryField(XBlockFieldBase):
     Stores data set in the Scope.user_state_summary scope by an xmodule field
     """
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('usage_id', 'field_name'),)
 
     # The definition id for the module
@@ -175,7 +176,7 @@ class XModuleStudentPrefsField(XBlockFieldBase):
     Stores data set in the Scope.preferences scope by an xmodule field
     """
 
-    class Meta:  # pylint: disable=missing-docstring
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('student', 'module_type', 'field_name'),)
 
     # The type of the module for these preferences
@@ -189,7 +190,7 @@ class XModuleStudentInfoField(XBlockFieldBase):
     Stores data set in the Scope.preferences scope by an xmodule field
     """
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('student', 'field_name'),)
 
     student = models.ForeignKey(User, db_index=True)
@@ -207,7 +208,7 @@ class OfflineComputedGrade(models.Model):
 
     gradeset = models.TextField(null=True, blank=True)		# grades, stored as JSON
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         unique_together = (('user', 'course_id'), )
 
     def __unicode__(self):
@@ -219,7 +220,7 @@ class OfflineComputedGradeLog(models.Model):
     Log of when offline grades are computed.
     Use this to be able to show instructor when the last computed grades were done.
     """
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         ordering = ["-created"]
         get_latest_by = "created"
 
@@ -230,3 +231,20 @@ class OfflineComputedGradeLog(models.Model):
 
     def __unicode__(self):
         return "[OCGLog] %s: %s" % (self.course_id.to_deprecated_string(), self.created)  # pylint: disable=no-member
+
+
+class StudentFieldOverride(TimeStampedModel):
+    """
+    Holds the value of a specific field overriden for a student.  This is used
+    by the code in the `courseware.student_field_overrides` module to provide
+    overrides of xblock fields on a per user basis.
+    """
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    location = LocationKeyField(max_length=255, db_index=True)
+    student = models.ForeignKey(User, db_index=True)
+
+    class Meta(object):   # pylint: disable=missing-docstring
+        unique_together = (('course_id', 'field', 'location', 'student'),)
+
+    field = models.CharField(max_length=255)
+    value = models.TextField(default='null')

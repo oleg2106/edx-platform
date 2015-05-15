@@ -5,7 +5,6 @@ Module for the dual-branch fall-back Draft->Published Versioning ModuleStore
 from xmodule.modulestore.split_mongo.split import SplitMongoModuleStore, EXCLUDE_ALL
 from xmodule.exceptions import InvalidVersionError
 from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.courseware_index import CoursewareSearchIndexer
 from xmodule.modulestore.exceptions import InsufficientSpecificationError, ItemNotFoundError
 from xmodule.modulestore.draft_and_published import (
     ModuleStoreDraftAndPublished, DIRECT_ONLY_CATEGORIES, UnsupportedRevisionError
@@ -58,7 +57,11 @@ class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPubli
         course_id = self._map_revision_to_branch(course_id)
         return super(DraftVersioningModuleStore, self).get_course(course_id, depth=depth, **kwargs)
 
-    def get_library(self, library_id, depth=0, **kwargs):
+    def get_library(self, library_id, depth=0, head_validation=True, **kwargs):
+        if not head_validation and library_id.version_guid:
+            return SplitMongoModuleStore.get_library(
+                self, library_id, depth=depth, head_validation=head_validation, **kwargs
+            )
         library_id = self._map_revision_to_branch(library_id)
         return super(DraftVersioningModuleStore, self).get_library(library_id, depth=depth, **kwargs)
 
@@ -100,7 +103,10 @@ class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPubli
         """
         source_keys = [self._map_revision_to_branch(key) for key in source_keys]
         dest_key = self._map_revision_to_branch(dest_key)
-        new_keys = super(DraftVersioningModuleStore, self).copy_from_template(source_keys, dest_key, user_id)
+        head_validation = kwargs.get('head_validation')
+        new_keys = super(DraftVersioningModuleStore, self).copy_from_template(
+            source_keys, dest_key, user_id, head_validation
+        )
         if dest_key.branch == ModuleStoreEnum.BranchName.draft:
             # Check if any of new_keys or their descendants need to be auto-published.
             # We don't use _auto_publish_no_children since children may need to be published.
@@ -201,17 +207,18 @@ class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPubli
                     ]
                 )
 
+            self._flag_publish_event(location.course_key)
             for branch in branches_to_delete:
                 branched_location = location.for_branch(branch)
                 parent_loc = self.get_parent_location(branched_location)
                 SplitMongoModuleStore.delete_item(self, branched_location, user_id)
                 # publish parent w/o child if deleted element is direct only (not based on type of parent)
-                if branch == ModuleStoreEnum.BranchName.draft and branched_location.block_type in DIRECT_ONLY_CATEGORIES:
+                if (
+                        branch == ModuleStoreEnum.BranchName.draft and
+                        branched_location.block_type in DIRECT_ONLY_CATEGORIES and parent_loc
+                ):
+                    # will publish if its not an orphan
                     self.publish(parent_loc.version_agnostic(), user_id, blacklist=EXCLUDE_ALL, **kwargs)
-
-        # Remove this location from the courseware search index so that searches
-        # will refrain from showing it as a result
-        CoursewareSearchIndexer.add_to_search_index(self, location, delete=True)
 
     def _map_revision_to_branch(self, key, revision=None):
         """
@@ -356,8 +363,7 @@ class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPubli
             blacklist=blacklist
         )
 
-        # Now it's been published, add the object to the courseware search index so that it appears in search results
-        CoursewareSearchIndexer.add_to_search_index(self, location)
+        self._flag_publish_event(location.course_key)
 
         return self.get_item(location.for_branch(ModuleStoreEnum.BranchName.published), **kwargs)
 
@@ -487,14 +493,19 @@ class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPubli
         with self.bulk_operations(course_key):
             # hardcode course root block id
             if block_type == 'course':
-                block_id = self.DEFAULT_ROOT_BLOCK_ID
+                block_id = self.DEFAULT_ROOT_COURSE_BLOCK_ID
+            elif block_type == 'library':
+                block_id = self.DEFAULT_ROOT_LIBRARY_BLOCK_ID
             new_usage_key = course_key.make_usage_key(block_type, block_id)
 
+            # Only the course import process calls import_xblock(). If the branch setting is published_only,
+            # then the non-draft blocks are being imported.
             if self.get_branch_setting() == ModuleStoreEnum.Branch.published_only:
-                # override existing draft (PLAT-297, PLAT-299). NOTE: this has the effect of removing
-                # any local changes w/ the import.
+                # Override any existing drafts (PLAT-297, PLAT-299). This import/publish step removes
+                # any local changes during the course import.
                 draft_course = course_key.for_branch(ModuleStoreEnum.BranchName.draft)
                 with self.branch_setting(ModuleStoreEnum.Branch.draft_preferred, draft_course):
+                    # Importing the block and publishing the block links the draft & published blocks' version history.
                     draft_block = self.import_xblock(user_id, draft_course, block_type, block_id, fields, runtime)
                     return self.publish(draft_block.location.version_agnostic(), user_id, blacklist=EXCLUDE_ALL, **kwargs)
 

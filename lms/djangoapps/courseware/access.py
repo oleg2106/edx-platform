@@ -1,34 +1,41 @@
-"""This file contains (or should), all access control logic for the courseware.
+"""
+This file contains (or should), all access control logic for the courseware.
 Ideally, it will be the only place that needs to know about any special settings
-like DISABLE_START_DATES"""
+like DISABLE_START_DATES
+"""
 import logging
 from datetime import datetime, timedelta
 import pytz
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.utils.timezone import UTC
+
+from opaque_keys.edx.keys import CourseKey, UsageKey
+
+from xblock.core import XBlock
 
 from xmodule.course_module import (
     CourseDescriptor, CATALOG_VISIBILITY_CATALOG_AND_ABOUT,
     CATALOG_VISIBILITY_ABOUT)
 from xmodule.error_module import ErrorDescriptor
-from xmodule.x_module import XModule
+from xmodule.x_module import XModule, DEPRECATION_VSCOMPAT_EVENT
 from xmodule.split_test_module import get_split_user_partitions
-
-from xblock.core import XBlock
 from xmodule.partitions.partitions import NoSuchUserPartitionError, NoSuchUserPartitionGroupError
+from xmodule.util.django import get_current_request_hostname
 
 from external_auth.models import ExternalAuthMap
 from courseware.masquerade import get_masquerade_role, is_masquerading_as_student
-from django.utils.timezone import UTC
 from student import auth
+from student.models import CourseEnrollment, CourseEnrollmentAllowed
 from student.roles import (
     GlobalStaff, CourseStaffRole, CourseInstructorRole,
     OrgStaffRole, OrgInstructorRole, CourseBetaTesterRole
 )
-from student.models import CourseEnrollment, CourseEnrollmentAllowed
-from opaque_keys.edx.keys import CourseKey, UsageKey
 from util.milestones_helpers import get_pre_requisite_courses_not_completed
+
+import dogstats_wrapper as dog_stats_api
+
 DEBUG_ACCESS = False
 
 log = logging.getLogger(__name__)
@@ -232,6 +239,14 @@ def _has_access_course_desc(user, action, course):
         # properly configured enrollment_start times (if course should be
         # staff-only, set enrollment_start far in the future.)
         if settings.FEATURES.get('ACCESS_REQUIRE_STAFF_FOR_COURSE'):
+            dog_stats_api.increment(
+                DEPRECATION_VSCOMPAT_EVENT,
+                tags=(
+                    "location:has_access_course_desc_see_exists",
+                    u"course:{}".format(course),
+                )
+            )
+
             # if this feature is on, only allow courses that have ispublic set to be
             # seen by non-staff
             if course.ispublic:
@@ -422,7 +437,7 @@ def _has_access_descriptor(user, action, descriptor, course_key=None):
                 descriptor,
                 course_key=course_key
             )
-            if now > effective_start:
+            if in_preview_mode() or now > effective_start:
                 # after start date, everyone can see it
                 debug("Allow: now > effective start date")
                 return True
@@ -673,3 +688,11 @@ def get_user_role(user, course_key):
         return 'staff'
     else:
         return 'student'
+
+
+def in_preview_mode():
+    """
+    Returns whether the user is in preview mode or not.
+    """
+    hostname = get_current_request_hostname()
+    return hostname and settings.PREVIEW_DOMAIN in hostname.split('.')

@@ -9,7 +9,7 @@ from django.conf import settings
 
 from edxmako.shortcuts import render_to_string
 from xmodule.modulestore import ModuleStoreEnum
-from opaque_keys.edx.keys import CourseKey, UsageKey
+from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
 from xmodule.contentstore.content import StaticContent
 from xmodule.modulestore.exceptions import ItemNotFoundError
@@ -23,6 +23,8 @@ from courseware.model_data import FieldDataCache
 from courseware.module_render import get_module
 from student.models import CourseEnrollment
 import branding
+
+from opaque_keys.edx.keys import UsageKey
 
 log = logging.getLogger(__name__)
 
@@ -130,6 +132,10 @@ def course_image_url(course):
             url += '/' + course.course_image
         else:
             url += '/images/course_image.jpg'
+    elif course.course_image == '':
+        # if course_image is empty the url will be blank as location
+        # of the course_image does not exist
+        url = ''
     else:
         loc = StaticContent.compute_location(course.id, course.course_image)
         url = StaticContent.serialize_asset_key_with_slash(loc)
@@ -377,7 +383,11 @@ def sort_by_start_date(courses):
     """
     Returns a list of courses sorted by their start date, latest first.
     """
-    courses = sorted(courses, key=lambda course: (course.start is None, course.start), reverse=False)
+    courses = sorted(
+        courses,
+        key=lambda course: (course.has_ended(), course.start is None, course.start),
+        reverse=False
+    )
 
     return courses
 

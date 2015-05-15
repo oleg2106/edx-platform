@@ -9,22 +9,24 @@ import json
 import mock
 import ddt
 import markupsafe
-from django.test import TestCase
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core import mail
+from django.contrib import messages
+from django.contrib.messages.middleware import MessageMiddleware
+from django.test import TestCase
 from django.test.utils import override_settings
+from django.test.client import RequestFactory
 
-from util.testing import UrlResetMixin
-from third_party_auth.tests.testutil import simulate_running_pipeline
 from embargo.test_utils import restrict_course
-from openedx.core.djangoapps.user_api.api import account as account_api
-from openedx.core.djangoapps.user_api.api import profile as profile_api
-from xmodule.modulestore.tests.django_utils import (
-    ModuleStoreTestCase, mixed_store_config
-)
+from openedx.core.djangoapps.user_api.accounts.api import activate_account, create_account
+from openedx.core.djangoapps.user_api.accounts import EMAIL_MAX_LENGTH
+from student.tests.factories import CourseModeFactory, UserFactory
+from student_account.views import account_settings_context
+from third_party_auth.tests.testutil import simulate_running_pipeline
+from util.testing import UrlResetMixin
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
-from student.tests.factories import CourseModeFactory
 
 
 @ddt.ddt
@@ -53,7 +55,7 @@ class StudentAccountUpdateTest(UrlResetMixin, TestCase):
         # Long email -- subtract the length of the @domain
         # except for one character (so we exceed the max length limit)
         u"{user}@example.com".format(
-            user=(u'e' * (account_api.EMAIL_MAX_LENGTH - 11))
+            user=(u'e' * (EMAIL_MAX_LENGTH - 11))
         )
     ]
 
@@ -63,8 +65,8 @@ class StudentAccountUpdateTest(UrlResetMixin, TestCase):
         super(StudentAccountUpdateTest, self).setUp("student_account.urls")
 
         # Create/activate a new account
-        activation_key = account_api.create_account(self.USERNAME, self.OLD_PASSWORD, self.OLD_EMAIL)
-        account_api.activate_account(activation_key)
+        activation_key = create_account(self.USERNAME, self.OLD_PASSWORD, self.OLD_EMAIL)
+        activate_account(activation_key)
 
         # Login
         result = self.client.login(username=self.USERNAME, password=self.OLD_PASSWORD)
@@ -148,7 +150,7 @@ class StudentAccountUpdateTest(UrlResetMixin, TestCase):
         self.client.logout()
 
         # Create a second user, but do not activate it
-        account_api.create_account(self.ALTERNATE_USERNAME, self.OLD_PASSWORD, self.NEW_EMAIL)
+        create_account(self.ALTERNATE_USERNAME, self.OLD_PASSWORD, self.NEW_EMAIL)
 
         # Send the view the email address tied to the inactive user
         response = self._change_password(email=self.NEW_EMAIL)
@@ -209,7 +211,7 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
     EMAIL = "bob@example.com"
     PASSWORD = "password"
 
-    @mock.patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
     def setUp(self):
         super(StudentAccountLoginAndRegistrationTest, self).setUp('embargo')
 
@@ -226,8 +228,8 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
     @ddt.data("account_login", "account_register")
     def test_login_and_registration_form_already_authenticated(self, url_name):
         # Create/activate a new account and log in
-        activation_key = account_api.create_account(self.USERNAME, self.PASSWORD, self.EMAIL)
-        account_api.activate_account(activation_key)
+        activation_key = create_account(self.USERNAME, self.PASSWORD, self.EMAIL)
+        activate_account(activation_key)
         result = self.client.login(username=self.USERNAME, password=self.PASSWORD)
         self.assertTrue(result)
 
@@ -248,12 +250,25 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
             'course_id': 'edX/DemoX/Demo_Course'
         }
 
+        # The response should have a "Sign In" button with the URL
+        # that preserves the querystring params
+        with mock.patch.dict(settings.FEATURES, {'IS_EDX_DOMAIN': is_edx_domain}):
+            response = self.client.get(reverse(url_name), params)
+        self.assertContains(response, "login?course_id=edX%2FDemoX%2FDemo_Course&enrollment_action=enroll")
+
+        # Add an additional "course mode" parameter
+        params['course_mode'] = 'honor'
+
+        # Verify that this parameter is also preserved
         with mock.patch.dict(settings.FEATURES, {'IS_EDX_DOMAIN': is_edx_domain}):
             response = self.client.get(reverse(url_name), params)
 
-        # The response should have a "Sign In" button with the URL
-        # that preserves the querystring params
-        self.assertContains(response, "login?course_id=edX%2FDemoX%2FDemo_Course&enrollment_action=enroll")
+        expected_url = (
+            "login?course_id=edX%2FDemoX%2FDemo_Course"
+            "&enrollment_action=enroll"
+            "&course_mode=honor"
+        )
+        self.assertContains(response, expected_url)
 
     @mock.patch.dict(settings.FEATURES, {"ENABLE_THIRD_PARTY_AUTH": False})
     @ddt.data("account_login", "account_register")
@@ -298,7 +313,7 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
         ]
         self._assert_third_party_auth_data(response, current_provider, expected_providers)
 
-    @ddt.data([], ["honor"], ["honor", "verified", "audit"], ["professional"])
+    @ddt.data([], ["honor"], ["honor", "verified", "audit"], ["professional"], ["no-id-professional"])
     def test_third_party_auth_course_id_verified(self, modes):
         # Create a course with the specified course modes
         course = CourseFactory.create()
@@ -398,7 +413,7 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
         response = self.client.get(reverse("account_login"), {"course_id": unicode(course.id)})
         self._assert_third_party_auth_data(response, None, expected_providers)
 
-    @mock.patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
     def test_third_party_auth_enrollment_embargo(self):
         course = CourseFactory.create()
 
@@ -488,3 +503,66 @@ class StudentAccountLoginAndRegistrationTest(UrlResetMixin, ModuleStoreTestCase)
             url=reverse("social:begin", kwargs={"backend": backend_name}),
             params=urlencode(params)
         )
+
+
+class AccountSettingsViewTest(TestCase):
+    """ Tests for the account settings view. """
+
+    USERNAME = 'student'
+    PASSWORD = 'password'
+    FIELDS = [
+        'country',
+        'gender',
+        'language',
+        'level_of_education',
+        'password',
+        'year_of_birth',
+        'preferred_language',
+    ]
+
+    @mock.patch("django.conf.settings.MESSAGE_STORAGE", 'django.contrib.messages.storage.cookie.CookieStorage')
+    def setUp(self):
+        super(AccountSettingsViewTest, self).setUp()
+        self.user = UserFactory.create(username=self.USERNAME, password=self.PASSWORD)
+        self.client.login(username=self.USERNAME, password=self.PASSWORD)
+
+        self.request = RequestFactory()
+        self.request.user = self.user
+
+        # Python-social saves auth failure notifcations in Django messages.
+        # See pipeline.get_duplicate_provider() for details.
+        self.request.COOKIES = {}
+        MessageMiddleware().process_request(self.request)
+        messages.error(self.request, 'Facebook is already in use.', extra_tags='Auth facebook')
+
+    def test_context(self):
+
+        context = account_settings_context(self.request)
+
+        user_accounts_api_url = reverse("accounts_api", kwargs={'username': self.user.username})
+        self.assertEqual(context['user_accounts_api_url'], user_accounts_api_url)
+
+        user_preferences_api_url = reverse('preferences_api', kwargs={'username': self.user.username})
+        self.assertEqual(context['user_preferences_api_url'], user_preferences_api_url)
+
+        for attribute in self.FIELDS:
+            self.assertIn(attribute, context['fields'])
+
+        self.assertEqual(
+            context['user_accounts_api_url'], reverse("accounts_api", kwargs={'username': self.user.username})
+        )
+        self.assertEqual(
+            context['user_preferences_api_url'], reverse('preferences_api', kwargs={'username': self.user.username})
+        )
+
+        self.assertEqual(context['duplicate_provider'].BACKEND_CLASS.name, 'facebook')
+        self.assertEqual(context['auth']['providers'][0]['name'], 'Facebook')
+        self.assertEqual(context['auth']['providers'][1]['name'], 'Google')
+
+    def test_view(self):
+
+        view_path = reverse('account_settings')
+        response = self.client.get(path=view_path)
+
+        for attribute in self.FIELDS:
+            self.assertIn(attribute, response.content)

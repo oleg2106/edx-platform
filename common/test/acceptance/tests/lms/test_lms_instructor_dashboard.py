@@ -3,6 +3,8 @@
 End-to-end tests for the LMS Instructor Dashboard.
 """
 
+from nose.plugins.attrib import attr
+
 from ..helpers import UniqueCourseTest, get_modal_alert
 from ...pages.common.logout import LogoutPage
 from ...pages.lms.auto_auth import AutoAuthPage
@@ -10,6 +12,7 @@ from ...pages.lms.instructor_dashboard import InstructorDashboardPage
 from ...fixtures.course import CourseFixture
 
 
+@attr('shard_5')
 class AutoEnrollmentWithCSVTest(UniqueCourseTest):
     """
     End-to-end tests for Auto-Registration and enrollment functionality via CSV file.
@@ -87,6 +90,7 @@ class AutoEnrollmentWithCSVTest(UniqueCourseTest):
         self.assertEqual(self.auto_enroll_section.first_notification_message(section_type=self.auto_enroll_section.NOTIFICATION_ERROR), "Make sure that the file you upload is in CSV format with no extraneous characters or rows.")
 
 
+@attr('shard_5')
 class EntranceExamGradeTest(UniqueCourseTest):
     """
     Tests for Entrance exam specific student grading tasks.
@@ -201,6 +205,45 @@ class EntranceExamGradeTest(UniqueCourseTest):
         """
         self.student_admin_section.set_student_email('non_existing@example.com')
         self.student_admin_section.click_rescore_submissions_button()
+        self.student_admin_section.wait_for_ajax()
+        self.assertGreater(len(self.student_admin_section.top_notification.text[0]), 0)
+
+    def test_clicking_skip_entrance_exam_button_with_success(self):
+        """
+        Scenario: Clicking on the  Let Student Skip Entrance Exam button with
+        valid student email address or username should result in success prompt.
+            Given that I am on the Student Admin tab on the Instructor Dashboard
+            When I click the  Let Student Skip Entrance Exam Button under
+            Entrance Exam Grade Adjustment after entering a valid student
+            email address or username
+            Then I should be shown an alert with success message
+        """
+        self.student_admin_section.set_student_email(self.student_identifier)
+        self.student_admin_section.click_skip_entrance_exam_button()
+        #first we have window.confirm
+        alert = get_modal_alert(self.student_admin_section.browser)
+        alert.accept()
+
+        # then we have alert confirming action
+        alert = get_modal_alert(self.student_admin_section.browser)
+        alert.dismiss()
+
+    def test_clicking_skip_entrance_exam_button_with_error(self):
+        """
+        Scenario: Clicking on the Let Student Skip Entrance Exam button with
+        email address or username of a non existing student should result in error message.
+            Given that I am on the Student Admin tab on the Instructor Dashboard
+            When I click the Let Student Skip Entrance Exam Button under
+            Entrance Exam Grade Adjustment after entering non existing
+            student email address or username
+            Then I should be shown an error message
+        """
+        self.student_admin_section.set_student_email('non_existing@example.com')
+        self.student_admin_section.click_skip_entrance_exam_button()
+        #first we have window.confirm
+        alert = get_modal_alert(self.student_admin_section.browser)
+        alert.accept()
+
         self.student_admin_section.wait_for_ajax()
         self.assertGreater(len(self.student_admin_section.top_notification.text[0]), 0)
 

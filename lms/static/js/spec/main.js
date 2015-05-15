@@ -30,6 +30,7 @@
             'backbone': 'xmodule_js/common_static/js/vendor/backbone-min',
             'backbone.associations': 'xmodule_js/common_static/js/vendor/backbone-associations-min',
             'backbone.paginator': 'xmodule_js/common_static/js/vendor/backbone.paginator.min',
+            "backbone-super": "js/vendor/backbone-super",
             'tinymce': 'xmodule_js/common_static/js/vendor/tinymce/js/tinymce/tinymce.full.min',
             'jquery.tinymce': 'xmodule_js/common_static/js/vendor/tinymce/js/tinymce/jquery.tinymce',
             'xmodule': 'xmodule_js/src/xmodule',
@@ -58,8 +59,10 @@
 
             // Manually specify LMS files that are not converted to RequireJS
             'history': 'js/vendor/history',
+            'js/mustache': 'js/mustache',
             'js/verify_student/photocapture': 'js/verify_student/photocapture',
             'js/staff_debug_actions': 'js/staff_debug_actions',
+            'js/vendor/jquery.qubit': 'js/vendor/jquery.qubit',
 
             // Backbone classes loaded explicitly until they are converted to use RequireJS
             'js/models/notification': 'js/models/notification',
@@ -67,6 +70,12 @@
             'js/views/notification': 'js/views/notification',
             'js/groups/models/cohort': 'js/groups/models/cohort',
             'js/groups/models/content_group': 'js/groups/models/content_group',
+            'js/groups/models/course_cohort_settings': 'js/groups/models/course_cohort_settings',
+            'js/groups/models/cohort_discussions': 'js/groups/models/cohort_discussions',
+            'js/groups/views/cohort_discussions': 'js/groups/views/cohort_discussions',
+            'js/groups/views/cohort_discussions_course_wide': 'js/groups/views/cohort_discussions_course_wide',
+            'js/groups/views/cohort_discussions_inline': 'js/groups/views/cohort_discussions_inline',
+            'js/groups/views/course_cohort_settings_notification': 'js/groups/views/course_cohort_settings_notification',
             'js/groups/collections/cohort': 'js/groups/collections/cohort',
             'js/groups/views/cohort_editor': 'js/groups/views/cohort_editor',
             'js/groups/views/cohort_form': 'js/groups/views/cohort_form',
@@ -81,6 +90,9 @@
             'js/student_account/views/RegisterView': 'js/student_account/views/RegisterView',
             'js/student_account/views/AccessView': 'js/student_account/views/AccessView',
             'js/student_profile/profile': 'js/student_profile/profile',
+            'js/student_profile/views/learner_profile_fields': 'js/student_profile/views/learner_profile_fields',
+            'js/student_profile/views/learner_profile_factory': 'js/student_profile/views/learner_profile_factory',
+            'js/student_profile/views/learner_profile_view': 'js/student_profile/views/learner_profile_view',
 
             // edxnotes
             'annotator_1.2.9': 'xmodule_js/common_static/js/vendor/edxnotes/annotator-full.min'
@@ -190,6 +202,9 @@
                 deps: ['backbone'],
                 exports: 'Backbone.Paginator'
             },
+            "backbone-super": {
+                deps: ["backbone"],
+            },
             'youtube': {
                 exports: 'YT'
             },
@@ -292,6 +307,30 @@
             },
             'js/groups/models/content_group': {
                 exports: 'edx.groups.ContentGroupModel',
+                deps: ['backbone']
+            },
+            'js/groups/models/course_cohort_settings': {
+                exports: 'edx.groups.CourseCohortSettingsModel',
+                deps: ['backbone']
+            },
+            'js/groups/models/cohort_discussions': {
+                exports: 'edx.groups.DiscussionTopicsSettingsModel',
+                deps: ['backbone']
+            },
+            'js/groups/views/cohort_discussions': {
+                exports: 'edx.groups.CohortDiscussionConfigurationView',
+                deps: ['backbone']
+            },
+            'js/groups/views/cohort_discussions_course_wide': {
+                exports: 'edx.groups.CourseWideDiscussionsView',
+                deps: ['backbone', 'js/groups/views/cohort_discussions']
+            },
+            'js/groups/views/cohort_discussions_inline': {
+                exports: 'edx.groups.InlineDiscussionsView',
+                deps: ['backbone', 'js/groups/views/cohort_discussions', 'js/vendor/jquery.qubit']
+            },
+            'js/groups/views/course_cohort_settings_notification': {
+                exports: 'edx.groups.CourseCohortSettingsNotificationView',
                 deps: ['backbone']
             },
             'js/groups/collections/cohort': {
@@ -552,7 +591,14 @@
         'lms/include/js/spec/student_account/enrollment_spec.js',
         'lms/include/js/spec/student_account/emailoptin_spec.js',
         'lms/include/js/spec/student_account/shoppingcart_spec.js',
+        'lms/include/js/spec/student_account/account_settings_factory_spec.js',
+        'lms/include/js/spec/student_account/account_settings_fields_spec.js',
+        'lms/include/js/spec/student_account/account_settings_view_spec.js',
         'lms/include/js/spec/student_profile/profile_spec.js',
+        'lms/include/js/spec/views/fields_spec.js',
+        'lms/include/js/spec/student_profile/learner_profile_factory_spec.js',
+        'lms/include/js/spec/student_profile/learner_profile_view_spec.js',
+        'lms/include/js/spec/student_profile/learner_profile_fields_spec.js',
         'lms/include/js/spec/verify_student/pay_and_verify_view_spec.js',
         'lms/include/js/spec/verify_student/webcam_photo_view_spec.js',
         'lms/include/js/spec/verify_student/image_input_spec.js',

@@ -3,10 +3,10 @@ Unit tests for masquerade.
 """
 import json
 from mock import patch
+from nose.plugins.attrib import attr
 from datetime import datetime
 
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from django.utils.timezone import UTC
 
 from capa.tests.response_xml_factory import OptionResponseXMLFactory
@@ -15,7 +15,7 @@ from courseware.tests.factories import StaffFactory
 from courseware.tests.helpers import LoginEnrollmentTestCase, get_request_for_user
 from student.tests.factories import UserFactory
 from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_MOCK_MODULESTORE
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import ItemFactory, CourseFactory
 from xmodule.partitions.partitions import Group, UserPartition
 
@@ -122,6 +122,7 @@ class MasqueradeTestCase(ModuleStoreTestCase, LoginEnrollmentTestCase):
         self.assertEqual(show_answer_expected, "Show Answer" in problem_html)
 
 
+@attr('shard_1')
 class NormalStudentVisibilityTest(MasqueradeTestCase):
     """
     Verify the course displays as expected for a "normal" student (to ensure test setup is correct).
@@ -176,6 +177,7 @@ class StaffMasqueradeTestCase(MasqueradeTestCase):
         return response
 
 
+@attr('shard_1')
 class TestStaffMasqueradeAsStudent(StaffMasqueradeTestCase):
     """
     Check for staff being able to masquerade as student.
@@ -213,6 +215,7 @@ class TestStaffMasqueradeAsStudent(StaffMasqueradeTestCase):
         self.verify_show_answer_present(True)
 
 
+@attr('shard_1')
 class TestGetMasqueradingGroupId(StaffMasqueradeTestCase):
     """
     Check for staff being able to masquerade as belonging to a group.

@@ -13,6 +13,7 @@ from functools import partial
 from static_replace import replace_static_urls
 from xmodule_modifiers import wrap_xblock, request_token
 
+import dogstats_wrapper as dog_stats_api
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
@@ -24,13 +25,13 @@ from xblock.fields import Scope
 from xblock.fragment import Fragment
 
 import xmodule
-from xmodule.tabs import StaticTab, CourseTabList
+from xmodule.tabs import CourseTabList
 from xmodule.modulestore import ModuleStoreEnum, EdxJSONEncoder
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError, InvalidLocationError
 from xmodule.modulestore.inheritance import own_metadata
 from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES
-from xmodule.x_module import PREVIEW_VIEWS, STUDIO_VIEW, STUDENT_VIEW
+from xmodule.x_module import PREVIEW_VIEWS, STUDIO_VIEW, STUDENT_VIEW, DEPRECATION_VSCOMPAT_EVENT
 
 from xmodule.course_module import DEFAULT_START_DATE
 from django.contrib.auth.models import User
@@ -47,7 +48,7 @@ from contentstore.views.preview import get_preview_fragment
 from edxmako.shortcuts import render_to_string
 from models.settings.course_grading import CourseGradingModel
 from cms.lib.xblock.runtime import handler_url, local_resource_url
-from opaque_keys.edx.keys import UsageKey, CourseKey
+from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import LibraryUsageLocator
 from cms.lib.xblock.authoring_mixin import VISIBILITY_VIEW
 
@@ -264,7 +265,7 @@ def xblock_view_handler(request, usage_key_string, view_name):
                 # pylint: disable=too-many-format-args
                 return HttpResponse(
                     content="Couldn't parse paging parameters: enable_paging: "
-                            "%s, page_number: %s, page_size: %s".format(
+                            "{0}, page_number: {1}, page_size: {2}".format(
                                 request.REQUEST.get('enable_paging', 'false'),
                                 request.REQUEST.get('page_number', 0),
                                 request.REQUEST.get('page_size', 0)
@@ -272,6 +273,8 @@ def xblock_view_handler(request, usage_key_string, view_name):
                     status=400,
                     content_type="text/plain",
                 )
+
+            force_render = request.REQUEST.get('force_render', None)
 
             # Set up the context to be passed to each XBlock's render method.
             context = {
@@ -281,6 +284,7 @@ def xblock_view_handler(request, usage_key_string, view_name):
                 'root_xblock': xblock if (view_name == 'container_preview') else None,
                 'reorderable_items': reorderable_items,
                 'paging': paging,
+                'force_render': force_render,
             }
 
             fragment = get_preview_fragment(request, xblock, context)
@@ -589,16 +593,25 @@ def _duplicate_item(parent_usage_key, duplicate_source_usage_key, user, display_
             runtime=source_item.runtime,
         )
 
+        children_handled = False
+
+        if hasattr(dest_module, 'studio_post_duplicate'):
+            # Allow an XBlock to do anything fancy it may need to when duplicated from another block.
+            # These blocks may handle their own children or parenting if needed. Let them return booleans to
+            # let us know if we need to handle these or not.
+            children_handled = dest_module.studio_post_duplicate(store, source_item)
+
         # Children are not automatically copied over (and not all xblocks have a 'children' attribute).
         # Because DAGs are not fully supported, we need to actually duplicate each child as well.
-        if source_item.has_children:
-            dest_module.children = []
+        if source_item.has_children and not children_handled:
+            dest_module.children = dest_module.children or []
             for child in source_item.children:
                 dupe = _duplicate_item(dest_module.location, child, user=user)
                 if dupe not in dest_module.children:  # _duplicate_item may add the child for us.
                     dest_module.children.append(dupe)
             store.update_item(dest_module, user.id)
 
+        # pylint: disable=protected-access
         if 'detached' not in source_item.runtime.load_block_type(category)._class_tags:
             parent = store.get_item(parent_usage_key)
             # If source was already a child of the parent, add duplicate immediately afterward.
@@ -634,6 +647,15 @@ def _delete_item(usage_key, user):
         # if we add one then we need to also add it to the policy information (i.e. metadata)
         # we should remove this once we can break this reference from the course to static tabs
         if usage_key.category == 'static_tab':
+
+            dog_stats_api.increment(
+                DEPRECATION_VSCOMPAT_EVENT,
+                tags=(
+                    "location:_delete_item_static_tab",
+                    u"course:{}".format(unicode(usage_key.course_key)),
+                )
+            )
+
             course = store.get_course(usage_key.course_key)
             existing_tabs = course.tabs or []
             course.tabs = [tab for tab in existing_tabs if tab.get('url_slug') != usage_key.name]
@@ -781,10 +803,24 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
         visibility_state = None
     published = modulestore().has_published_version(xblock) if not is_library_block else None
 
-    #instead of adding a new feature directly into xblock-info, we should add them into override_type.
-    override_type = {}
-    if getattr(xblock, "is_entrance_exam", None):
-        override_type['is_entrance_exam'] = xblock.is_entrance_exam
+    # defining the default value 'True' for delete, drag and add new child actions in xblock_actions for each xblock.
+    xblock_actions = {'deletable': True, 'draggable': True, 'childAddable': True}
+    explanatory_message = None
+    # is_entrance_exam is inherited metadata.
+    if xblock.category == 'chapter' and getattr(xblock, "is_entrance_exam", None):
+        # Entrance exam section should not be deletable, draggable and not have 'New Subsection' button.
+        xblock_actions['deletable'] = xblock_actions['childAddable'] = xblock_actions['draggable'] = False
+        if parent_xblock is None:
+            parent_xblock = get_parent_xblock(xblock)
+
+        # Translators: The {pct_sign} here represents the percent sign, i.e., '%'
+        # in many languages. This is used to avoid Transifex's misinterpreting of
+        # '% o'. The percent sign is also translatable as a standalone string.
+        explanatory_message = _('Students must score {score}{pct_sign} or higher to access course materials.').format(
+            score=int(parent_xblock.entrance_exam_minimum_score_pct * 100),
+            # Translators: This is the percent sign. It will be used to represent
+            # a percent value out of 100, e.g. "58%" means "58/100".
+            pct_sign=_('%'))
 
     xblock_info = {
         "id": unicode(xblock.location),
@@ -805,8 +841,14 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
         "format": xblock.format,
         "course_graders": json.dumps([grader.get('type') for grader in graders]),
         "has_changes": has_changes,
-        "override_type": override_type,
+        "actions": xblock_actions,
+        "explanatory_message": explanatory_message
     }
+
+    # Entrance exam subsection should be hidden. in_entrance_exam is inherited metadata, all children will have it.
+    if xblock.category == 'sequential' and getattr(xblock, "in_entrance_exam", False):
+        xblock_info["is_header_visible"] = False
+
     if data is not None:
         xblock_info["data"] = data
     if metadata is not None:

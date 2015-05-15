@@ -18,6 +18,7 @@ class CourseMetadata(object):
     # Should not be used directly. Instead the filtered_list method should
     # be used if the field needs to be filtered depending on the feature flag.
     FILTERED_LIST = [
+        'cohort_config',
         'xml_attributes',
         'start',
         'end',
@@ -60,6 +61,19 @@ class CourseMetadata(object):
         if not settings.FEATURES.get('ENABLE_EDXNOTES'):
             filtered_list.append('edxnotes')
 
+        # Do not show video_upload_pipeline if the feature is disabled.
+        if not settings.FEATURES.get('ENABLE_VIDEO_UPLOAD_PIPELINE'):
+            filtered_list.append('video_upload_pipeline')
+
+        # Do not show facebook_url if the feature is disabled.
+        if not settings.FEATURES.get('ENABLE_MOBILE_SOCIAL_FACEBOOK_FEATURES'):
+            filtered_list.append('facebook_url')
+
+        # Do not show social sharing url field if the feature is disabled.
+        if (not settings.FEATURES.get('DASHBOARD_SHARE_SETTINGS') or
+                not settings.FEATURES.get("DASHBOARD_SHARE_SETTINGS").get("CUSTOM_COURSE_URLS")):
+            filtered_list.append('social_sharing_url')
+
         return filtered_list
 
     @classmethod
@@ -87,8 +101,8 @@ class CourseMetadata(object):
                 continue
             result[field.name] = {
                 'value': field.read_json(descriptor),
-                'display_name': _(field.display_name),
-                'help': _(field.help),
+                'display_name': _(field.display_name),    # pylint: disable=translation-of-non-string
+                'help': _(field.help),                    # pylint: disable=translation-of-non-string
                 'deprecated': field.runtime_options.get('deprecated', False)
             }
         return result

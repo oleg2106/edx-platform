@@ -29,14 +29,14 @@ THIRD_PARTY_AUTH_CONFIGURED = (
 
 
 @unittest.skipUnless(THIRD_PARTY_AUTH_CONFIGURED, "Third party auth must be configured")
-@patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+@patch.dict(settings.FEATURES, {'EMBARGO': True})
 @ddt.ddt
 class PipelineEnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
     """Test that the pipeline auto-enrolls students upon successful authentication. """
 
     BACKEND_NAME = "google-oauth2"
 
-    @patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def setUp(self):
         """Create a test course and user. """
         super(PipelineEnrollmentTest, self).setUp('embargo')
@@ -129,7 +129,7 @@ class PipelineEnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         self.assertEqual(result, {})
         self.assertFalse(CourseEnrollment.is_enrolled(self.user, self.course.id))
 
-    @patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def test_blocked_by_embargo(self):
         strategy = self._fake_strategy()
         strategy.session_set('enroll_course_id', unicode(self.course.id))
@@ -145,9 +145,9 @@ class PipelineEnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         strategy = self._fake_strategy()
         strategy.session_set('enroll_course_id', unicode(self.course.id))
 
-        # Simulate completing the pipeline from the student dashboard's
+        # Simulate completing the pipeline from the student account settings
         # "link account" button.
-        result = pipeline.change_enrollment(strategy, 1, user=self.user, is_dashboard=True)  # pylint: disable=assignment-from-no-return,redundant-keyword-arg
+        result = pipeline.change_enrollment(strategy, 1, user=self.user, auth_entry=pipeline.AUTH_ENTRY_ACCOUNT_SETTINGS)  # pylint: disable=assignment-from-no-return,redundant-keyword-arg
 
         # Verify that we were NOT enrolled
         self.assertEqual(result, {})
@@ -165,7 +165,7 @@ class PipelineEnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
             details=None,
             response=None,
             uid=None,
-            is_register=True,
+            auth_entry=pipeline.AUTH_ENTRY_REGISTER,
             backend=backend
         )
         self.assertIsNotNone(response)

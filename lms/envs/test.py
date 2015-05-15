@@ -74,6 +74,9 @@ FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
 # Need wiki for courseware views to work. TODO (vshnayder): shouldn't need it.
 WIKI_ENABLED = True
 
+# Enable a parental consent age limit for testing
+PARENTAL_CONSENT_AGE_LIMIT = 13
+
 # Makes the tests run much faster...
 SOUTH_TESTS_MIGRATE = False  # To disable migrations and use syncdb instead
 
@@ -265,7 +268,6 @@ FEATURES['ENABLE_OAUTH2_PROVIDER'] = True
 FEATURES['ENABLE_MOBILE_REST_API'] = True
 FEATURES['ENABLE_MOBILE_SOCIAL_FACEBOOK_FEATURES'] = True
 FEATURES['ENABLE_VIDEO_ABSTRACTION_LAYER_API'] = True
-FEATURES['ENABLE_USER_REST_API'] = True
 
 ###################### Payment ##############################3
 # Enable fake payment processing page
@@ -297,8 +299,7 @@ GIT_REPO_DIR = TEST_ROOT / "course_repos"
 ################################# CELERY ######################################
 
 CELERY_ALWAYS_EAGER = True
-CELERY_RESULT_BACKEND = 'cache'
-BROKER_TRANSPORT = 'memory'
+CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
 
 ######################### MARKETING SITE ###############################
 
@@ -445,7 +446,6 @@ MONGODB_LOG = {
     'db': 'xlog',
 }
 
-
 # Enable EdxNotes for tests.
 FEATURES['ENABLE_EDXNOTES'] = True
 
@@ -460,9 +460,39 @@ FEATURES['ENTRANCE_EXAMS'] = True
 
 # Enable courseware search for tests
 FEATURES['ENABLE_COURSEWARE_SEARCH'] = True
+
+# Enable dashboard search for tests
+FEATURES['ENABLE_DASHBOARD_SEARCH'] = True
+
 # Use MockSearchEngine as the search engine for test scenario
 SEARCH_ENGINE = "search.tests.mock_search_engine.MockSearchEngine"
 
 FACEBOOK_APP_SECRET = "Test"
 FACEBOOK_APP_ID = "Test"
 FACEBOOK_API_VERSION = "v2.2"
+
+# Certificates Views
+FEATURES['CERTIFICATES_HTML_VIEW'] = True
+
+######### custom courses #########
+INSTALLED_APPS += ('ccx',)
+MIDDLEWARE_CLASSES += ('ccx.overrides.CcxMiddleware',)
+FEATURES['CUSTOM_COURSES_EDX'] = True
+
+# Set dummy values for profile image settings.
+PROFILE_IMAGE_BACKEND = {
+    'class': 'storages.backends.overwrite.OverwriteStorage',
+    'options': {
+        'location': MEDIA_ROOT,
+        'base_url': 'http://example-storage.com/profile-images/',
+    },
+}
+PROFILE_IMAGE_DEFAULT_FILENAME = 'default'
+PROFILE_IMAGE_DEFAULT_FILE_EXTENSION = 'png'
+PROFILE_IMAGE_SECRET_KEY = 'secret'
+PROFILE_IMAGE_MAX_BYTES = 1024 * 1024
+PROFILE_IMAGE_MIN_BYTES = 100
+
+# Enable the LTI provider feature for testing
+FEATURES['ENABLE_LTI_PROVIDER'] = True
+INSTALLED_APPS += ('lti_provider',)

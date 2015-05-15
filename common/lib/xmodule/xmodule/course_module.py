@@ -10,8 +10,9 @@ import requests
 from datetime import datetime
 import dateutil.parser
 from lazy import lazy
+from base64 import b32encode
 
-
+from xmodule.exceptions import UndefinedContext
 from xmodule.seq_module import SequenceDescriptor, SequenceModule
 from xmodule.graders import grader_from_conf
 from xmodule.tabs import CourseTabList
@@ -277,11 +278,12 @@ class CourseFields(object):
     discussion_blackouts = List(
         display_name=_("Discussion Blackout Dates"),
         help=_(
-            'Enter pairs of dates between which students cannot post to discussion forums. Each pair should be '
-            'formatted as ["YYYY-MM-DD", "YYYY-MM-DD"]. To specify times as well as dates, format each pair '
-            'as ["YYYY-MM-DDTHH:MM", "YYYY-MM-DDTHH:MM"] (be sure to include the "T" between the date and '
-            'time). An entry defining more than one blackout period might look like this: '
-            '[["2014-09-15", "2014-09-21"], ["2014-10-01", "2014-10-08"]]'
+            'Enter pairs of dates between which students cannot post to discussion forums. Inside the provided '
+            'brackets, enter an additional set of square brackets surrounding each pair of dates you add. '
+            'Format each pair of dates as ["YYYY-MM-DD", "YYYY-MM-DD"]. To specify times as well as dates, '
+            'format each pair as ["YYYY-MM-DDTHH:MM", "YYYY-MM-DDTHH:MM"]. Be sure to include the "T" between '
+            'the date and time. For example, an entry defining two blackout periods looks like this, including '
+            'the outer pair of square brackets: [["2015-09-15", "2015-09-21"], ["2015-10-01", "2015-10-08"]] '
         ),
         scope=Scope.settings
     )
@@ -290,8 +292,9 @@ class CourseFields(object):
         help=_(
             'Enter discussion categories in the following format: "CategoryName": '
             '{"id": "i4x-InstitutionName-CourseNumber-course-CourseRun"}. For example, one discussion '
-            'category may be "Lydian Mode": {"id": "i4x-UniversityX-MUS101-course-2014_T1"}. The "id" '
-            'value for each category must be unique.'
+            'category may be "Lydian Mode": {"id": "i4x-UniversityX-MUS101-course-2015_T1"}. The "id" '
+            'value for each category must be unique. In "id" values, the only special characters that are '
+            'supported are underscore, hyphen, and period.'
         ),
         scope=Scope.settings
     )
@@ -333,6 +336,15 @@ class CourseFields(object):
     video_upload_pipeline = Dict(
         display_name=_("Video Upload Credentials"),
         help=_("Enter the unique identifier for your course's video files provided by edX."),
+        scope=Scope.settings
+    )
+    facebook_url = String(
+        help=_(
+            "Enter the URL for the official course Facebook group. "
+            "If you provide a URL, the mobile app includes a button that students can tap to access the group."
+        ),
+        default=None,
+        display_name=_("Facebook URL"),
         scope=Scope.settings
     )
     no_grade = Boolean(
@@ -670,6 +682,13 @@ class CourseFields(object):
         scope=Scope.settings,
         default=""
     )
+    cert_html_view_overrides = Dict(
+        # Translators: This field is the container for course-specific certifcate configuration values
+        display_name=_("Certificate Web/HTML View Overrides"),
+        # Translators: These overrides allow for an alternative configuration of the certificate web view
+        help=_("Enter course-specific overrides for the Web/HTML template parameters here (JSON format)"),
+        scope=Scope.settings,
+    )
 
     # An extra property is used rather than the wiki_slug/number because
     # there are courses that change the number for different runs. This allows
@@ -816,9 +835,28 @@ class CourseFields(object):
         scope=Scope.settings,
     )
 
+    social_sharing_url = String(
+        display_name=_("Social Media Sharing URL"),
+        help=_(
+            "If dashboard social sharing and custom course URLs are enabled, you can provide a URL "
+            "(such as the URL to a course About page) that social media sites can link to. URLs must "
+            "be fully qualified. For example: http://www.edx.org/course/Introduction-to-MOOCs-ITM001"
+        ),
+        default=None,
+        scope=Scope.settings,
+    )
+
+
+class CourseModule(CourseFields, SequenceModule):  # pylint: disable=abstract-method
+    """
+    The CourseDescriptor needs its module_class to be a SequenceModule, but some code that
+    expects a CourseDescriptor to have all its fields can fail if it gets a SequenceModule instead.
+    This class is to make sure that all the fields are present in all cases.
+    """
+
 
 class CourseDescriptor(CourseFields, SequenceDescriptor):
-    module_class = SequenceModule
+    module_class = CourseModule
 
     def __init__(self, *args, **kwargs):
         """
@@ -1030,6 +1068,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
     def is_cohorted(self):
         """
         Return whether the course is cohorted.
+
+        Note: No longer used. See openedx.core.djangoapps.course_groups.models.CourseCohortSettings.
         """
         config = self.cohort_config
         if config is None:
@@ -1041,6 +1081,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
     def auto_cohort(self):
         """
         Return whether the course is auto-cohorted.
+
+        Note: No longer used. See openedx.core.djangoapps.course_groups.models.CourseCohortSettings.
         """
         if not self.is_cohorted:
             return False
@@ -1054,6 +1096,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         Return the list of groups to put students into.  Returns [] if not
         specified. Returns specified list even if is_cohorted and/or auto_cohort are
         false.
+
+        Note: No longer used. See openedx.core.djangoapps.course_groups.models.CourseCohortSettings.
         """
         if self.cohort_config is None:
             return []
@@ -1074,6 +1118,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         Return the set of discussions that is explicitly cohorted.  It may be
         the empty set.  Note that all inline discussions are automatically
         cohorted based on the course's is_cohorted setting.
+
+        Note: No longer used. See openedx.core.djangoapps.course_groups.models.CourseCohortSettings.
         """
         config = self.cohort_config
         if config is None:
@@ -1087,6 +1133,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         This allow to change the default behavior of inline discussions cohorting. By
         setting this to False, all inline discussions are non-cohorted unless their
         ids are specified in cohorted_discussions.
+
+        Note: No longer used. See openedx.core.djangoapps.course_groups.models.CourseCohortSettings.
         """
         config = self.cohort_config
         if config is None:
@@ -1185,6 +1233,14 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
 
         """
+        # If this descriptor has been bound to a student, return the corresponding
+        # XModule. If not, just use the descriptor itself
+        try:
+            module = getattr(self, '_xmodule', None)
+            if not module:
+                module = self
+        except UndefinedContext:
+            module = self
 
         all_descriptors = []
         graded_sections = {}
@@ -1195,23 +1251,23 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
                 for module_descriptor in yield_descriptor_descendents(child):
                     yield module_descriptor
 
-        for c in self.get_children():
-            for s in c.get_children():
-                if s.graded:
-                    xmoduledescriptors = list(yield_descriptor_descendents(s))
-                    xmoduledescriptors.append(s)
+        for chapter in self.get_children():
+            for section in chapter.get_children():
+                if section.graded:
+                    xmoduledescriptors = list(yield_descriptor_descendents(section))
+                    xmoduledescriptors.append(section)
 
                     # The xmoduledescriptors included here are only the ones that have scores.
                     section_description = {
-                        'section_descriptor': s,
-                        'xmoduledescriptors': filter(lambda child: child.has_score, xmoduledescriptors)
+                        'section_descriptor': section,
+                        'xmoduledescriptors': [child for child in xmoduledescriptors if child.has_score]
                     }
 
-                    section_format = s.format if s.format is not None else ''
+                    section_format = section.format if section.format is not None else ''
                     graded_sections[section_format] = graded_sections.get(section_format, []) + [section_description]
 
                     all_descriptors.extend(xmoduledescriptors)
-                    all_descriptors.append(s)
+                    all_descriptors.append(section)
 
         return {'graded_sections': graded_sections,
                 'all_descriptors': all_descriptors, }
@@ -1342,4 +1398,13 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return (
             self.video_upload_pipeline is not None and
             'course_video_upload_token' in self.video_upload_pipeline
+        )
+
+    def clean_id(self, padding_char='='):
+        """
+        Returns a unique deterministic base32-encoded ID for the course.
+        The optional padding_char parameter allows you to override the "=" character used for padding.
+        """
+        return "course_{}".format(
+            b32encode(unicode(self.location.course_key)).replace('=', padding_char)
         )

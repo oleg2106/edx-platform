@@ -6,9 +6,7 @@ import warnings
 
 from django.db import models
 from django.core.exceptions import ValidationError
-from opaque_keys.edx.locations import SlashSeparatedCourseKey, Location
 from opaque_keys.edx.keys import CourseKey, UsageKey, BlockTypeKey
-from opaque_keys.edx.locator import Locator
 
 from south.modelsinspector import add_introspection_rules
 
@@ -179,3 +177,4 @@ class BlockTypeKeyField(OpaqueKeyField):
 add_introspection_rules([], [r"^xmodule_django\.models\.CourseKeyField"])
 add_introspection_rules([], [r"^xmodule_django\.models\.LocationKeyField"])
 add_introspection_rules([], [r"^xmodule_django\.models\.UsageKeyField"])
+add_introspection_rules([], [r"^xmodule_django\.models\.BlockTypeKeyField"])

@@ -3,7 +3,7 @@ Acceptance tests for Studio's Settings Details pages
 """
 from unittest import skip
 
-from acceptance.tests.studio.base_studio_test import StudioCourseTest
+from .base_studio_test import StudioCourseTest
 from ...fixtures.course import CourseFixture
 from ...pages.studio.settings import SettingsPage
 from ...pages.studio.overview import CourseOutlinePage
@@ -14,7 +14,6 @@ from ..helpers import (
     is_option_value_selected,
     element_has_text,
 )
-from flaky import flaky
 
 
 class SettingsMilestonesTest(StudioCourseTest):
@@ -41,7 +40,6 @@ class SettingsMilestonesTest(StudioCourseTest):
 
         self.assertTrue(self.settings_detail.pre_requisite_course_options)
 
-    @flaky  # TODO fix this, see SOL-449
     def test_prerequisite_course_save_successfully(self):
         """
          Scenario: Selecting course from Pre-Requisite course drop down save the selected course as pre-requisite
@@ -162,4 +160,33 @@ class SettingsMilestonesTest(StudioCourseTest):
             page=course_outline_page,
             css_selector='span.section-title',
             text='Entrance Exam'
+        ))
+
+    def test_entrance_exam_has_unit_button(self):
+        """
+        Test that entrance exam should be created after checking the 'enable entrance exam' checkbox.
+        And user has option to add units only instead of any Subsection.
+        """
+        self.settings_detail.require_entrance_exam(required=True)
+        self.settings_detail.save_changes()
+
+        # getting the course outline page.
+        course_outline_page = CourseOutlinePage(
+            self.browser, self.course_info['org'], self.course_info['number'], self.course_info['run']
+        )
+        course_outline_page.visit()
+        course_outline_page.wait_for_ajax()
+
+        # button with text 'New Unit' should be present.
+        self.assertTrue(element_has_text(
+            page=course_outline_page,
+            css_selector='.add-item a.button-new',
+            text='New Unit'
+        ))
+
+        # button with text 'New Subsection' should not be present.
+        self.assertFalse(element_has_text(
+            page=course_outline_page,
+            css_selector='.add-item a.button-new',
+            text='New Subsection'
         ))

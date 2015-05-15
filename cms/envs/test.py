@@ -26,7 +26,17 @@ from uuid import uuid4
 
 # import settings from LMS for consistent behavior with CMS
 # pylint: disable=unused-import
-from lms.envs.test import (WIKI_ENABLED, PLATFORM_NAME, SITE_NAME, DEFAULT_FILE_STORAGE, MEDIA_ROOT, MEDIA_URL)
+from lms.envs.test import (
+    WIKI_ENABLED,
+    PLATFORM_NAME,
+    SITE_NAME,
+    DEFAULT_FILE_STORAGE,
+    MEDIA_ROOT,
+    MEDIA_URL,
+    # This is practically unused but needed by the oauth2_provider package, which
+    # some tests in common/ rely on.
+    OAUTH_OIDC_ISSUER,
+)
 
 # mongo connection settings
 MONGO_PORT_NUM = int(os.environ.get('EDXAPP_TEST_MONGO_PORT', '27017'))
@@ -81,6 +91,7 @@ STATIC_URL = "/static/"
 PIPELINE_ENABLED = False
 
 TENDER_DOMAIN = "help.edge.edx.org"
+TENDER_SUBDOMAIN = "edxedge"
 
 # Update module store settings per defaults for tests
 update_module_store_settings(
@@ -176,9 +187,7 @@ simplefilter('ignore')
 ################################# CELERY ######################################
 
 CELERY_ALWAYS_EAGER = True
-CELERY_RESULT_BACKEND = 'cache'
-BROKER_TRANSPORT = 'memory'
-
+CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
 
 ########################### Server Ports ###################################
 
@@ -238,6 +247,9 @@ FEATURES['USE_MICROSITES'] = True
 # the one in lms/envs/test.py
 FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
 
+# Enable a parental consent age limit for testing
+PARENTAL_CONSENT_AGE_LIMIT = 13
+
 # Enable content libraries code for the tests
 FEATURES['ENABLE_CONTENT_LIBRARIES'] = True
 
@@ -256,11 +268,8 @@ VIDEO_CDN_URL = {
 
 # Courseware Search Index
 FEATURES['ENABLE_COURSEWARE_INDEX'] = True
+FEATURES['ENABLE_LIBRARY_INDEX'] = True
 SEARCH_ENGINE = "search.tests.mock_search_engine.MockSearchEngine"
-# Path at which to store the mock index
-MOCK_SEARCH_BACKING_FILE = (
-    TEST_ROOT / "index_file.dat"  # pylint: disable=no-value-for-parameter
-).abspath()
 
 # Dummy secret key for dev/test
 SECRET_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'

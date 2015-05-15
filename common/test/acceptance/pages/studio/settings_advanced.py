@@ -150,10 +150,10 @@ class AdvancedSettingsPage(CoursePage):
             'allow_anonymous',
             'allow_anonymous_to_peers',
             'allow_public_wiki_access',
+            'cert_html_view_overrides',
             'cert_name_long',
             'cert_name_short',
             'certificates_display_behavior',
-            'cohort_config',
             'course_image',
             'cosmetic_display_price',
             'advertised_start',
@@ -177,6 +177,7 @@ class AdvancedSettingsPage(CoursePage):
             'discussion_topics',
             'due',
             'due_date_display_format',
+            'edxnotes',
             'use_latex_compiler',
             'video_speed_optimizations',
             'enrollment_domain',
@@ -196,5 +197,5 @@ class AdvancedSettingsPage(CoursePage):
             'static_asset_path',
             'text_customization',
             'annotation_storage_url',
-            'video_upload_pipeline'
+            'social_sharing_url',
         ]

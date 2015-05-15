@@ -41,9 +41,9 @@
 @import 'course/courseware/sidebar';
 @import 'course/courseware/amplifier';
 
-## Import styles for courseware search
+## Import styles for search
 % if env["FEATURES"].get("ENABLE_COURSEWARE_SEARCH"):
-    @import 'course/courseware/courseware_search';
+    @import 'search/_search';
 % endif
 
 // course - modules
@@ -77,5 +77,8 @@
 @import "course/instructor/email";
 @import "xmodule/descriptors/css/module-styles.scss";
 
-// course - discussion
+// course - ccx_coach
+@import "course/ccx_coach/dashboard";
+
+// discussion
 @import "course/discussion/form-wmd-toolbar";

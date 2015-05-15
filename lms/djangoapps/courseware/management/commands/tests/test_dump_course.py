@@ -3,6 +3,7 @@
 """Tests for Django management commands"""
 
 import json
+from nose.plugins.attrib import attr
 from path import path
 import shutil
 from StringIO import StringIO
@@ -12,7 +13,6 @@ import factory
 
 from django.conf import settings
 from django.core.management import call_command
-from django.test.utils import override_settings
 
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
@@ -21,7 +21,7 @@ from xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_MODULESTORE, TEST_DATA_SPLIT_MODULESTORE
 )
 from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.xml_importer import import_from_xml
+from xmodule.modulestore.xml_importer import import_course_from_xml
 
 DATA_DIR = settings.COMMON_TEST_DATA_ROOT
 XML_COURSE_DIRS = ['toy', 'simple', 'open_ended']
@@ -32,10 +32,11 @@ MAPPINGS = {
 }
 
 TEST_DATA_MIXED_XML_MODULESTORE = mixed_store_config(
-    DATA_DIR, MAPPINGS, include_xml=True, xml_course_dirs=XML_COURSE_DIRS
+    DATA_DIR, MAPPINGS, include_xml=True, xml_source_dirs=XML_COURSE_DIRS,
 )
 
 
+@attr('shard_1')
 class CommandsTestBase(ModuleStoreTestCase):
     """
     Base class for testing different django commands.
@@ -45,6 +46,7 @@ class CommandsTestBase(ModuleStoreTestCase):
 
     """
     __test__ = False
+    url_name = '2012_Fall'
 
     def setUp(self):
         super(CommandsTestBase, self).setUp()
@@ -67,8 +69,8 @@ class CommandsTestBase(ModuleStoreTestCase):
         courses = store.get_courses()
         # NOTE: if xml store owns these, it won't import them into mongo
         if self.test_course_key not in [c.id for c in courses]:
-            import_from_xml(
-                store, ModuleStoreEnum.UserID.mgmt_command, DATA_DIR, XML_COURSE_DIRS, create_course_if_not_present=True
+            import_course_from_xml(
+                store, ModuleStoreEnum.UserID.mgmt_command, DATA_DIR, XML_COURSE_DIRS, create_if_not_present=True
             )
 
         return [course.id for course in store.get_courses()]
@@ -127,9 +129,12 @@ class CommandsTestBase(ModuleStoreTestCase):
         self.assertEqual(dump[child_id]['category'], 'videosequence')
         self.assertEqual(len(dump[child_id]['children']), 2)
 
-        video_id = test_course_key.make_usage_key('video', 'Welcome').to_deprecated_string()
+        video_id = unicode(test_course_key.make_usage_key('video', 'Welcome'))
         self.assertEqual(dump[video_id]['category'], 'video')
-        self.assertEqual(len(dump[video_id]['metadata']), 5)
+        self.assertItemsEqual(
+            dump[video_id]['metadata'].keys(),
+            ['download_video', 'youtube_id_0_75', 'youtube_id_1_0', 'youtube_id_1_25', 'youtube_id_1_5']
+        )
         self.assertIn('youtube_id_1_0', dump[video_id]['metadata'])
 
         # Check if there are the right number of elements
@@ -199,7 +204,7 @@ class CommandsTestBase(ModuleStoreTestCase):
 
         assert_in = self.assertIn
         assert_in('edX-simple-2012_Fall', names)
-        assert_in('edX-simple-2012_Fall/policies/2012_Fall/policy.json', names)
+        assert_in('edX-simple-2012_Fall/policies/{}/policy.json'.format(self.url_name), names)
         assert_in('edX-simple-2012_Fall/html/toylab.html', names)
         assert_in('edX-simple-2012_Fall/videosequence/A_simple_sequence.xml', names)
         assert_in('edX-simple-2012_Fall/sequential/Lecture_2.xml', names)
@@ -230,3 +235,4 @@ class CommandSplitMongoTestCase(CommandsTestBase):
     """
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
     __test__ = True
+    url_name = 'course'

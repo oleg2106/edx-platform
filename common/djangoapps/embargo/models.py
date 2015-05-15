@@ -37,6 +37,8 @@ log = logging.getLogger(__name__)
 class EmbargoedCourse(models.Model):
     """
     Enable course embargo on a course-by-course basis.
+
+    Deprecated by `RestrictedCourse`
     """
     objects = NoneToEmptyManager()
 
@@ -70,6 +72,8 @@ class EmbargoedCourse(models.Model):
 class EmbargoedState(ConfigurationModel):
     """
     Register countries to be embargoed.
+
+    Deprecated by `Country`.
     """
     # The countries to embargo
     embargoed_countries = models.TextField(
@@ -136,6 +140,14 @@ class RestrictedCourse(models.Model):
         help_text=ugettext_lazy(u"The message to show when a user is blocked from accessing a course.")
     )
 
+    disable_access_check = models.BooleanField(
+        default=False,
+        help_text=ugettext_lazy(
+            u"Allow users who enrolled in an allowed country "
+            u"to access restricted courses from excluded countries."
+        )
+    )
+
     @classmethod
     def is_restricted_course(cls, course_id):
         """
@@ -151,13 +163,38 @@ class RestrictedCourse(models.Model):
         return unicode(course_id) in cls._get_restricted_courses_from_cache()
 
     @classmethod
+    def is_disabled_access_check(cls, course_id):
+        """
+        Check if the course is in restricted list has disabled_access_check
+
+        Args:
+            course_id (str): course_id to look for
+
+        Returns:
+            Boolean
+            disabled_access_check attribute of restricted course
+        """
+
+        # checking is_restricted_course method also here to make sure course exists in the list otherwise in case of
+        # no course found it will throw the key not found error on 'disable_access_check'
+        return (
+            cls.is_restricted_course(unicode(course_id))
+            and cls._get_restricted_courses_from_cache().get(unicode(course_id))["disable_access_check"]
+        )
+
+    @classmethod
     def _get_restricted_courses_from_cache(cls):
         """
-        Cache all restricted courses and returns the list of course_keys that are restricted
+        Cache all restricted courses and returns the dict of course_keys and disable_access_check that are restricted
         """
         restricted_courses = cache.get(cls.COURSE_LIST_CACHE_KEY)
         if restricted_courses is None:
-            restricted_courses = list(RestrictedCourse.objects.values_list('course_key', flat=True))
+            restricted_courses = {
+                unicode(course.course_key): {
+                    'disable_access_check': course.disable_access_check
+                }
+                for course in RestrictedCourse.objects.all()
+            }
             cache.set(cls.COURSE_LIST_CACHE_KEY, restricted_courses)
         return restricted_courses
 
@@ -397,6 +434,8 @@ class CountryAccessRule(models.Model):
 
     CACHE_KEY = u"embargo.allowed_countries.{course_key}"
 
+    ALL_COUNTRIES = set(code[0] for code in list(countries))
+
     @classmethod
     def check_country_access(cls, course_id, country):
         """
@@ -411,6 +450,14 @@ class CountryAccessRule(models.Model):
             True if country found in allowed country
             otherwise check given country exists in list
         """
+        # If the country code is not in the list of all countries,
+        # we don't want to automatically exclude the user.
+        # This can happen, for example, when GeoIP falls back
+        # to using a continent code because it cannot determine
+        # the specific country.
+        if country not in cls.ALL_COUNTRIES:
+            return True
+
         cache_key = cls.CACHE_KEY.format(course_key=course_id)
         allowed_countries = cache.get(cache_key)
         if allowed_countries is None:
@@ -450,7 +497,7 @@ class CountryAccessRule(models.Model):
 
         # If there are no whitelist countries, default to all countries
         if not whitelist_countries:
-            whitelist_countries = set(code[0] for code in list(countries))
+            whitelist_countries = cls.ALL_COUNTRIES
 
         # Consolidate the rules into a single list of countries
         # that have access to the course.

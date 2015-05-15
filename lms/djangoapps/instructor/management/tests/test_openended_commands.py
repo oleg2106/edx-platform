@@ -6,7 +6,6 @@ from mock import patch
 from pytz import UTC
 
 from django.conf import settings
-from django.test.utils import override_settings
 from opaque_keys.edx.locations import Location
 
 import capa.xqueue_interface as xqueue_interface
@@ -14,8 +13,7 @@ from courseware.courses import get_course_with_access
 from courseware.tests.factories import StudentModuleFactory, UserFactory
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
-from xmodule.modulestore.xml_importer import import_from_xml
+from xmodule.modulestore.xml_importer import import_course_from_xml
 from xmodule.open_ended_grading_classes.openendedchild import OpenEndedChild
 from xmodule.tests.test_util_open_ended import (
     STATE_INITIAL, STATE_ACCESSING, STATE_POST_ASSESSMENT
@@ -36,7 +34,7 @@ class OpenEndedPostTest(ModuleStoreTestCase):
         super(OpenEndedPostTest, self).setUp()
         self.user = UserFactory()
         store = modulestore()
-        course_items = import_from_xml(store, self.user.id, TEST_DATA_DIR, ['open_ended'])  # pylint: disable=maybe-no-member
+        course_items = import_course_from_xml(store, self.user.id, TEST_DATA_DIR, ['open_ended'])  # pylint: disable=maybe-no-member
         self.course = course_items[0]
         self.course_id = self.course.id
 
@@ -138,7 +136,7 @@ class OpenEndedStatsTest(ModuleStoreTestCase):
 
         self.user = UserFactory()
         store = modulestore()
-        course_items = import_from_xml(store, self.user.id, TEST_DATA_DIR, ['open_ended'])  # pylint: disable=maybe-no-member
+        course_items = import_course_from_xml(store, self.user.id, TEST_DATA_DIR, ['open_ended'])  # pylint: disable=maybe-no-member
         self.course = course_items[0]
 
         self.course_id = self.course.id

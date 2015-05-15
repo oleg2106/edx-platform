@@ -14,6 +14,8 @@ from ...pages.lms.course_info import CourseInfoPage
 from ...fixtures.course import CourseFixture, XBlockFixtureDesc
 from ..helpers import skip_if_browser
 
+from flaky import flaky
+
 
 VIDEO_SOURCE_PORT = 8777
 
@@ -28,7 +30,7 @@ HTML5_SOURCES_INCORRECT = [
 ]
 
 
-@attr('shard_2')
+@attr('shard_4')
 @skipIf(is_youtube_available() is False, 'YouTube is not available!')
 class VideoBaseTest(UniqueCourseTest):
     """
@@ -46,6 +48,7 @@ class VideoBaseTest(UniqueCourseTest):
         self.tab_nav = TabNavPage(self.browser)
         self.course_nav = CourseNavPage(self.browser)
         self.course_info_page = CourseInfoPage(self.browser, self.course_id)
+        self.auth_page = AutoAuthPage(self.browser, course_id=self.course_id)
 
         self.course_fixture = CourseFixture(
             self.course_info['org'], self.course_info['number'],
@@ -56,6 +59,7 @@ class VideoBaseTest(UniqueCourseTest):
         self.assets = []
         self.verticals = None
         self.youtube_configuration = {}
+        self.user_info = {}
 
         # reset youtube stub server
         self.addCleanup(YouTubeStubConfig.reset)
@@ -123,8 +127,8 @@ class VideoBaseTest(UniqueCourseTest):
 
     def _navigate_to_courseware_video(self):
         """ Register for the course and navigate to the video unit """
-        AutoAuthPage(self.browser, course_id=self.course_id).visit()
-
+        self.auth_page.visit()
+        self.user_info = self.auth_page.user_info
         self.course_info_page.visit()
         self.tab_nav.go_to_tab('Courseware')
 
@@ -677,6 +681,36 @@ class YouTubeVideoTest(VideoBaseTest):
 
         self.assertGreaterEqual(self.video.seconds, 10)
 
+    def test_simplified_and_traditional_chinese_transcripts(self):
+        """
+        Scenario: Simplified and Traditional Chinese transcripts work as expected in Youtube mode
+
+        Given the course has a Video component in "Youtube" mode
+        And I have defined a Simplified Chinese transcript for the video
+        And I have defined a Traditional Chinese transcript for the video
+        Then I see the correct subtitle language options in cc menu
+        Then I see the correct text in the captions for Simplified and Traditional Chinese transcripts
+        And I can download the transcripts for Simplified and Traditional Chinese
+        And video subtitle menu has 'zh_HANS', 'zh_HANT' translations for 'Simplified Chinese'
+        and 'Traditional Chinese' respectively
+        """
+        data = {
+            'download_track': True,
+            'transcripts': {'zh_HANS': 'simplified_chinese.srt', 'zh_HANT': 'traditional_chinese.srt'}
+        }
+        self.metadata = self.metadata_for_mode('youtube', data)
+        self.assets.extend(['simplified_chinese.srt', 'traditional_chinese.srt'])
+        self.navigate_to_video()
+
+        langs = {'zh_HANS': '在线学习是革', 'zh_HANT': '在線學習是革'}
+        for lang_code, text in langs.items():
+            self.assertTrue(self.video.select_language(lang_code))
+            unicode_text = text.decode('utf-8')
+            self.assertIn(unicode_text, self.video.captions_text)
+            self.assertTrue(self.video.downloaded_transcript_contains_text('srt', unicode_text))
+
+        self.assertEqual(self.video.caption_languages, {'zh_HANS': 'Simplified Chinese', 'zh_HANT': 'Traditional Chinese'})
+
 
 class YouTubeHtml5VideoTest(VideoBaseTest):
     """ Test YouTube HTML5 Video Player """
@@ -684,6 +718,7 @@ class YouTubeHtml5VideoTest(VideoBaseTest):
     def setUp(self):
         super(YouTubeHtml5VideoTest, self).setUp()
 
+    @flaky  # TODO fix this, see TNL-1642
     def test_youtube_video_rendering_with_unsupported_sources(self):
         """
         Scenario: Video component is rendered in the LMS in Youtube mode

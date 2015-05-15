@@ -263,7 +263,7 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
                   <label for="course-overview">${_("Course Introduction Video")}</label>
                   <div class="input input-existing">
                     <div class="current current-course-introduction-video">
-                      <iframe width="618" height="350" src="" frameborder="0" allowfullscreen></iframe>
+                      <iframe width="618" height="350" title="${_('Course Introduction Video')}" src="" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="actions">
                       <a href="#" class="remove-item remove-course-introduction-video remove-video-data"><span class="delete-icon"></span>${_("Delete Current Video")}</a>
@@ -297,7 +297,6 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
                 </li>
                 % if settings.FEATURES.get('ENABLE_PREREQUISITE_COURSES'):
                 <li class="field field-select" id="field-pre-requisite-course">
-                  <form action="#" class="pre-requisite-course-form" method="post">
                     <label for="pre-requisite-course">${_("Prerequisite Course")}</label>
                     <select class="input" id="pre-requisite-course">
                         <option value="">${_("None")}</option>
@@ -307,7 +306,6 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
                     </select>
                     <span class="tip tip-inline">${_("Course that students must complete before beginning this course")}</span>
                     <button type="submit" class="sr" name="submit" value="submit">${_("set pre-requisite course")}</button>
-                   </form>
                 </li>
                 % endif
                 % if settings.FEATURES.get('ENTRANCE_EXAMS'):
@@ -319,7 +317,7 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
                             <label for="entrance-exam-enabled">${_("Require students to pass an exam before beginning the course.")}</label>
                         </div>
                          <div class="div-grade-requirements" hidden="hidden">
-                          <p><span class="tip tip-inline">${_("You can now view and author your course entrance exam from the ")}<a href='${course_handler_url}'>${_("Course Outline")}</a></span></p>
+                          <p><span class="tip tip-inline">${_("You can now view and author your course entrance exam from the {link_start}Course Outline{link_end}.").format(link_start="<a href='{}'>".format(course_handler_url), link_end="</a>")}</span></p>
                           <p><h3>${_("Grade Requirements")}</h3></p>
                           <p><div><input type="text" id="entrance-exam-minimum-score-pct" aria-describedby="min-score-format"><span id="min-score-format" class="tip tip-inline">${_(" %")}</span></div></p>
                           <p><span class="tip tip-inline">${_("The score student must meet in order to successfully complete the entrance exam. ")}</span></p>
@@ -348,7 +346,7 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
             advanced_config_url = utils.reverse_course_url('advanced_settings_handler', context_course.id)
           %>
         <h3 class="title-3">${_("Other Course Settings")}</h3>
-        <nav class="nav-related">
+        <nav class="nav-related" aria-label="${_('Other Course Settings')}">
           <ul>
             <li class="nav-item"><a href="${grading_config_url}">${_("Grading")}</a></li>
             <li class="nav-item"><a href="${course_team_url}">${_("Course Team")}</a></li>

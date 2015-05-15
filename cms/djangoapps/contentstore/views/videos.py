@@ -46,12 +46,14 @@ class StatusDisplayStrings(object):
     # Translators: This is the status for a video that the servers are currently processing
     _IN_PROGRESS = ugettext_noop("In Progress")
     # Translators: This is the status for a video that the servers have successfully processed
-    _COMPLETE = ugettext_noop("Complete")
+    _COMPLETE = ugettext_noop("Ready")
     # Translators: This is the status for a video that the servers have failed to process
     _FAILED = ugettext_noop("Failed")
     # Translators: This is the status for a video for which an invalid
     # processing token was provided in the course settings
     _INVALID_TOKEN = ugettext_noop("Invalid Token")
+    # Translators: This is the status for a video that was included in a course import
+    _IMPORTED = ugettext_noop("Imported")
     # Translators: This is the status for a video that is in an unknown state
     _UNKNOWN = ugettext_noop("Unknown")
 
@@ -64,13 +66,14 @@ class StatusDisplayStrings(object):
         "file_complete": _COMPLETE,
         "file_corrupt": _FAILED,
         "pipeline_error": _FAILED,
-        "invalid_token": _INVALID_TOKEN
+        "invalid_token": _INVALID_TOKEN,
+        "imported": _IMPORTED,
     }
 
     @staticmethod
     def get(val_status):
         """Map a VAL status string to a localized display string"""
-        return _(StatusDisplayStrings._STATUS_MAP.get(val_status, StatusDisplayStrings._UNKNOWN))
+        return _(StatusDisplayStrings._STATUS_MAP.get(val_status, StatusDisplayStrings._UNKNOWN))    # pylint: disable=translation-of-non-string
 
 
 @expect_json
@@ -331,8 +334,9 @@ def videos_post(course, request):
         )
 
         # persist edx_video_id as uploaded through this course
-        video_meta_data = AssetMetadata(course.id.make_asset_key(VIDEO_ASSET_TYPE, edx_video_id))
-        modulestore().save_asset_metadata(video_meta_data, request.user.id)
+        user_id = request.user.id
+        video_meta_data = AssetMetadata(course.id.make_asset_key(VIDEO_ASSET_TYPE, edx_video_id), created_by=user_id)
+        modulestore().save_asset_metadata(video_meta_data, user_id)
 
         # persist edx_video_id in VAL
         create_video({
@@ -341,6 +345,7 @@ def videos_post(course, request):
             "client_video_id": file_name,
             "duration": 0,
             "encoded_videos": [],
+            "courses": [course.id]
         })
 
         resp_files.append({"file_name": file_name, "upload_url": upload_url})

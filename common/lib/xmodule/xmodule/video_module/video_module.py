@@ -16,6 +16,7 @@ Examples of html5 videos for manual testing:
 import copy
 import json
 import logging
+import random
 from collections import OrderedDict
 from operator import itemgetter
 
@@ -232,10 +233,27 @@ class VideoModule(VideoFields, VideoTranscriptsMixin, VideoStudentViewHandlers, 
 
         track_url, transcript_language, sorted_languages = self.get_transcripts_for_student()
 
+        # CDN_VIDEO_URLS is only to be used here and will be deleted
+        # TODO(ali@edx.org): Delete this after the CDN experiment has completed.
+        html_id = self.location.html_id()
+        if self.system.user_location == 'CN' and \
+                settings.FEATURES.get('ENABLE_VIDEO_BEACON', False) and \
+                html_id in getattr(settings, 'CDN_VIDEO_URLS', {}).keys():
+            cdn_urls = getattr(settings, 'CDN_VIDEO_URLS', {})[html_id]
+            cdn_exp_group, new_source = random.choice(zip(range(len(cdn_urls)), cdn_urls))
+            if cdn_exp_group > 0:
+                sources[0] = new_source
+            cdn_eval = True
+        else:
+            cdn_eval = False
+            cdn_exp_group = None
+
         return self.system.render_template('video.html', {
             'ajax_url': self.system.ajax_url + '/save_user_state',
             'autoplay': settings.FEATURES.get('AUTOPLAY_VIDEOS', False),
             'branding_info': branding_info,
+            'cdn_eval': cdn_eval,
+            'cdn_exp_group': cdn_exp_group,
             # This won't work when we move to data that
             # isn't on the filesystem
             'data_dir': getattr(self, 'data_dir', None),
@@ -386,8 +404,7 @@ class VideoDescriptor(VideoFields, VideoTranscriptsMixin, VideoStudioViewHandler
         xml_data: A string of xml that will be translated into data and children for
             this module
         system: A DescriptorSystem for interacting with external resources
-        org and course are optional strings that will be used in the generated modules
-            url identifiers
+        id_generator is used to generate course-specific urls and identifiers
         """
         xml_object = etree.fromstring(xml_data)
         url_name = xml_object.get('url_name', xml_object.get('slug'))
@@ -398,7 +415,7 @@ class VideoDescriptor(VideoFields, VideoTranscriptsMixin, VideoStudioViewHandler
             filepath = cls._format_filepath(xml_object.tag, name_to_pathname(url_name))
             xml_object = cls.load_file(filepath, system.resources_fs, usage_id)
             system.parse_asides(xml_object, definition_id, usage_id, id_generator)
-        field_data = cls._parse_video_xml(xml_object)
+        field_data = cls._parse_video_xml(xml_object, id_generator)
         kvs = InheritanceKeyValueStore(initial_values=field_data)
         field_data = KvsFieldData(kvs)
         video = system.construct_xblock_from_class(
@@ -459,6 +476,12 @@ class VideoDescriptor(VideoFields, VideoTranscriptsMixin, VideoStudioViewHandler
             ele.set('language', transcript_language)
             ele.set('src', self.transcripts[transcript_language])
             xml.append(ele)
+
+        if self.edx_video_id and edxval_api:
+            try:
+                xml.append(edxval_api.export_to_xml(self.edx_video_id))
+            except edxval_api.ValVideoNotFoundError:
+                pass
 
         return xml
 
@@ -534,10 +557,13 @@ class VideoDescriptor(VideoFields, VideoTranscriptsMixin, VideoStudioViewHandler
         return ret
 
     @classmethod
-    def _parse_video_xml(cls, xml):
+    def _parse_video_xml(cls, xml, id_generator=None):
         """
         Parse video fields out of xml_data. The fields are set if they are
         present in the XML.
+
+        Arguments:
+            id_generator is used to generate course-specific urls and identifiers
         """
         field_data = {}
 
@@ -602,6 +628,19 @@ class VideoDescriptor(VideoFields, VideoTranscriptsMixin, VideoStudioViewHandler
         # `download_track` needs to have value `True`.
         if 'download_track' not in field_data and track is not None:
             field_data['download_track'] = True
+
+        video_asset_elem = xml.find('video_asset')
+        if (
+                edxval_api and
+                video_asset_elem is not None and
+                'edx_video_id' in field_data
+        ):
+            # Allow ValCannotCreateError to escape
+            edxval_api.import_from_xml(
+                video_asset_elem,
+                field_data['edx_video_id'],
+                course_id=getattr(id_generator, 'target_course_id', None)
+            )
 
         return field_data
 

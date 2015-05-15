@@ -13,27 +13,31 @@ from email.utils import formatdate
 import functools
 import json
 import logging
+
+from course_modes.models import CourseMode
+import pytz
+import requests
 import uuid
+
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext as _, ugettext_lazy
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
-import pytz
-import requests
-
-from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.db import models
-from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from config_models.models import ConfigurationModel
 from model_utils.models import StatusModel
 from model_utils import Choices
-
+from reverification.models import MidcourseReverificationWindow
 from verify_student.ssencrypt import (
     random_aes_key, encrypt_and_encode,
     generate_signed_message, rsa_encrypt
 )
+from xmodule_django.models import CourseKeyField
 
-from reverification.models import MidcourseReverificationWindow
 
 log = logging.getLogger(__name__)
 
@@ -177,7 +181,7 @@ class PhotoVerification(StatusModel):
     # capturing it so that we can later query for the common problems.
     error_code = models.CharField(blank=True, max_length=50)
 
-    class Meta:
+    class Meta(object):  # pylint: disable=missing-docstring
         abstract = True
         ordering = ['-created_at']
 
@@ -211,19 +215,29 @@ class PhotoVerification(StatusModel):
         ).exists()
 
     @classmethod
-    def user_has_valid_or_pending(cls, user, earliest_allowed_date=None, window=None, queryset=None):
+    def verification_valid_or_pending(cls, user, earliest_allowed_date=None, window=None, queryset=None):
         """
-        Return whether the user has a complete verification attempt that is or
-        *might* be good. This means that it's approved, been submitted, or would
-        have been submitted but had an non-user error when it was being
-        submitted. It's basically any situation in which the user has signed off
-        on the contents of the attempt, and we have not yet received a denial.
+        Check whether the user has a complete verification attempt that is
+        or *might* be good. This means that it's approved, been submitted,
+        or would have been submitted but had an non-user error when it was
+        being submitted.
+        It's basically any situation in which the user has signed off on
+        the contents of the attempt, and we have not yet received a denial.
 
-        If window=None, this will check for the user's *initial* verification.  If
-        window is anything else, this will check for the reverification associated
-        with that window.
+        Arguments:
+            user:
+            earliest_allowed_date: earliest allowed date given in the
+                settings
+            window: If window=None, this will check for the user's
+                *initial* verification.
+                If window is anything else, this will check for the
+                reverification associated with that window.
+            queryset: If a queryset is provided, that will be used instead
+                of hitting the database.
 
-        If a queryset is provided, that will be used instead of hitting the database.
+        Returns:
+            queryset: queryset of 'PhotoVerification' sorted by 'created_at' in
+            descending order.
         """
         valid_statuses = ['submitted', 'approved']
         if not window:
@@ -238,7 +252,17 @@ class PhotoVerification(StatusModel):
                 or cls._earliest_allowed_date()
             ),
             window=window,
-        ).exists()
+        ).order_by('-created_at')
+
+    @classmethod
+    def user_has_valid_or_pending(cls, user, earliest_allowed_date=None, window=None, queryset=None):
+        """
+        Check whether the user has an active or pending verification attempt
+
+        Returns:
+            bool: True or False according to existence of valid verifications
+        """
+        return cls.verification_valid_or_pending(user, earliest_allowed_date, window, queryset).exists()
 
     @classmethod
     def active_for_user(cls, user, window=None):
@@ -640,6 +664,17 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
         query = cls.objects.filter(user=user, window=None).order_by('-updated_at')
         return query[0]
 
+    @classmethod
+    def get_initial_verification(cls, user):
+        """Get initial verification for a user
+        Arguments:
+            user(User): user object
+        Return:
+            SoftwareSecurePhotoVerification (object)
+        """
+        init_verification = cls.objects.filter(user=user, status__in=["submitted", "approved"], window=None)
+        return init_verification.latest('created_at') if init_verification.exists() else None
+
     @status_before_must_be("created")
     def upload_face_image(self, img_data):
         """
@@ -881,3 +916,273 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
         log.debug("Return message:\n\n{}\n\n".format(response.text))
 
         return response
+
+    @classmethod
+    def submit_faceimage(cls, user, face_image, photo_id_key):
+        """Submit the faceimage to SoftwareSecurePhotoVerification
+
+        Arguments:
+            user(User): user object
+            face_image (bytestream): raw bytestream image data
+            photo_id_key (str) : SoftwareSecurePhotoVerification attribute
+        Returns:
+            SoftwareSecurePhotoVerification Object
+        """
+        b64_face_image = face_image.split(",")[1]
+        attempt = SoftwareSecurePhotoVerification(user=user)
+        attempt.upload_face_image(b64_face_image.decode('base64'))
+        attempt.photo_id_key = photo_id_key
+        attempt.mark_ready()
+        attempt.save()
+        attempt.submit()
+        return attempt
+
+    @classmethod
+    def verification_status_for_user(cls, user, course_id, user_enrollment_mode):
+        """
+        Returns the verification status for use in grade report.
+        """
+        if user_enrollment_mode not in CourseMode.VERIFIED_MODES:
+            return 'N/A'
+
+        user_is_verified = cls.user_is_verified(user)
+
+        if not user_is_verified:
+            return 'Not ID Verified'
+        else:
+            user_is_re_verified = cls.user_is_reverified_for_all(course_id, user)
+            if not user_is_re_verified:
+                return 'ID Verification Expired'
+            else:
+                return 'ID Verified'
+
+
+class VerificationCheckpoint(models.Model):
+    """Represents a point at which a user is challenged to reverify his or her identity.
+        Each checkpoint is uniquely identified by a (course_id, checkpoint_name) tuple.
+    """
+
+    CHECKPOINT_CHOICES = (
+        ("midterm", "midterm"),
+        ("final", "final"),
+    )
+
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    checkpoint_name = models.CharField(max_length=32, choices=CHECKPOINT_CHOICES)
+    photo_verification = models.ManyToManyField(SoftwareSecurePhotoVerification)
+
+    class Meta:  # pylint: disable=missing-docstring, old-style-class
+        unique_together = (('course_id', 'checkpoint_name'),)
+
+    def __unicode__(self):
+        """Unicode representation of the checkpoint. """
+        return u"{checkpoint} in {course}".format(
+            checkpoint=self.checkpoint_name,
+            course=self.course_id
+        )
+
+    def add_verification_attempt(self, verification_attempt):
+        """ Add the verification attempt in M2M relation of photo_verification
+
+        Arguments:
+            verification_attempt(SoftwareSecurePhotoVerification): SoftwareSecurePhotoVerification object
+
+        Returns:
+            None
+        """
+        self.photo_verification.add(verification_attempt)  # pylint: disable=no-member
+
+    def get_user_latest_status(self, user_id):
+        """ Return the latest status of the given checkpoint attempt by user
+
+        Args:
+            user_id(str): Id of user
+
+        Returns:
+            VerificationStatus object if found any else None
+        """
+        try:
+            return self.checkpoint_status.filter(user_id=user_id).latest()  # pylint: disable=E1101
+        except ObjectDoesNotExist:
+            return None
+
+    @classmethod
+    def get_verification_checkpoint(cls, course_id, checkpoint_name):
+        """Get the verification checkpoint for given course_id and checkpoint name
+
+        Arguments:
+            course_id(CourseKey): CourseKey
+            checkpoint_name(str): checkpoint name
+
+        Returns:
+            VerificationCheckpoint object if exists otherwise None
+        """
+        try:
+            return cls.objects.get(course_id=course_id, checkpoint_name=checkpoint_name)
+        except cls.DoesNotExist:
+            return None
+
+
+class VerificationStatus(models.Model):
+    """A verification status represents a user’s progress
+    through the verification process for a particular checkpoint
+    Model is an append-only table that represents the user status changes in
+    verification process
+    """
+
+    VERIFICATION_STATUS_CHOICES = (
+        ("submitted", "submitted"),
+        ("approved", "approved"),
+        ("denied", "denied"),
+        ("error", "error")
+    )
+
+    checkpoint = models.ForeignKey(VerificationCheckpoint, related_name="checkpoint_status")
+    user = models.ForeignKey(User)
+    status = models.CharField(choices=VERIFICATION_STATUS_CHOICES, db_index=True, max_length=32)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    response = models.TextField(null=True, blank=True)
+    error = models.TextField(null=True, blank=True)
+
+    # This field is used to save location of Reverification module in courseware
+    location_id = models.CharField(
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text=ugettext_lazy("Usage id of Reverification XBlock.")
+    )
+
+    class Meta(object):  # pylint: disable=missing-docstring
+        get_latest_by = "timestamp"
+        verbose_name = "Verification Status"
+        verbose_name_plural = "Verification Statuses"
+
+    @classmethod
+    def add_verification_status(cls, checkpoint, user, status, location_id=None):
+        """ Create new verification status object
+
+        Arguments:
+            checkpoint(VerificationCheckpoint): VerificationCheckpoint object
+            user(User): user object
+            status(str): String representing the status from VERIFICATION_STATUS_CHOICES
+            location_id(str): Usage key of Reverification XBlock
+        Returns:
+            None
+        """
+        cls.objects.create(checkpoint=checkpoint, user=user, status=status, location_id=location_id)
+
+    @classmethod
+    def add_status_from_checkpoints(cls, checkpoints, user, status):
+        """ Create new verification status objects against the given checkpoints
+
+        Arguments:
+            checkpoints(list): list of VerificationCheckpoint objects
+            user(User): user object
+            status(str): String representing the status from VERIFICATION_STATUS_CHOICES
+        Returns:
+            None
+        """
+        for checkpoint in checkpoints:
+            # get 'location_id' from last entry (if it exists) and add it in
+            # new entry
+            try:
+                location_id = cls.objects.filter(checkpoint=checkpoint).latest().location_id
+            except cls.DoesNotExist:
+                location_id = None
+
+            cls.objects.create(checkpoint=checkpoint, user=user, status=status, location_id=location_id)
+
+    @classmethod
+    def get_user_attempts(cls, user_id, course_key, related_assessment, location_id):
+        """
+        Get re-verification attempts against a user for a given 'checkpoint'
+        and 'course_id'.
+
+        Arguments:
+            user_id(str): User Id string
+            course_key(str): A CourseKey of a course
+            related_assessment(str): Verification checkpoint name
+            location_id(str): Location of Reverification XBlock in courseware
+
+        Returns:
+            count of re-verification attempts
+        """
+
+        return cls.objects.filter(
+            user_id=user_id,
+            checkpoint__course_id=course_key,
+            checkpoint__checkpoint_name=related_assessment,
+            location_id=location_id,
+            status="submitted"
+        ).count()
+
+    @classmethod
+    def get_location_id(cls, photo_verification):
+        """ Return the location id of xblock
+
+        Args:
+            photo_verification(SoftwareSecurePhotoVerification): SoftwareSecurePhotoVerification object
+
+        Return:
+            Location Id of xblock if any else empty string
+        """
+        try:
+            ver_status = cls.objects.filter(checkpoint__photo_verification=photo_verification).latest()
+            return ver_status.location_id
+        except cls.DoesNotExist:
+            return ""
+
+
+class InCourseReverificationConfiguration(ConfigurationModel):
+    """Configure in-course re-verification.
+
+    Enable or disable in-course re-verification feature.
+    When this flag is disabled, the "in-course re-verification" feature
+    will be disabled.
+
+    When the flag is enabled, the "in-course re-verification" feature
+    will be enabled.
+
+    """
+    pass
+
+
+class SkippedReverification(models.Model):
+    """
+    Model for tracking skipped Reverification of a user against a specific
+    course.
+    If user skipped the Reverification for a specific course then in future
+    user cannot see the reverification link.
+    """
+    user = models.ForeignKey(User)
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    checkpoint = models.ForeignKey(VerificationCheckpoint, related_name="skipped_checkpoint")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:  # pylint: disable=missing-docstring, old-style-class
+        unique_together = (('user', 'course_id'),)
+
+    @classmethod
+    def add_skipped_reverification_attempt(cls, checkpoint, user_id, course_id):
+        """ Create skipped reverification object
+
+        Arguments:
+            checkpoint(VerificationCheckpoint): VerificationCheckpoint object
+            user_id(str): User Id of currently logged in user
+            course_id(CourseKey): CourseKey
+        Returns:
+            None
+        """
+        cls.objects.create(checkpoint=checkpoint, user_id=user_id, course_id=course_id)
+
+    @classmethod
+    def check_user_skipped_reverification_exists(cls, user, course_id):
+        """Check user skipped re-verification attempt exists against specific course
+
+        Arguments:
+            user(User): user object
+            course_id(CourseKey): CourseKey
+        Returns:
+            Boolean
+        """
+        return cls.objects.filter(user=user, course_id=course_id).exists()

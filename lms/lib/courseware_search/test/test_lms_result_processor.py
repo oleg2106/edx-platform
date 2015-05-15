@@ -40,8 +40,24 @@ class LmsSearchResultProcessorTestCase(ModuleStoreTestCase):
             display_name='Test Unit',
         )
         self.html = ItemFactory.create(
-            parent=self.vertical, category='html',
+            parent=self.vertical,
+            category='html',
             display_name='Test Html control',
+        )
+        self.ghost_subsection = ItemFactory.create(
+            parent=self.section,
+            category='sequential',
+            display_name=None,
+        )
+        self.ghost_vertical = ItemFactory.create(
+            parent=self.ghost_subsection,
+            category='vertical',
+            display_name=None,
+        )
+        self.ghost_html = ItemFactory.create(
+            parent=self.ghost_vertical,
+            category='html',
+            display_name='Ghost Html control',
         )
 
     def setUp(self):
@@ -68,60 +84,6 @@ class LmsSearchResultProcessorTestCase(ModuleStoreTestCase):
 
         self.assertEqual(
             srp.url, "/courses/{}/jump_to/{}".format(unicode(self.course.id), unicode(self.html.scope_ids.usage_id)))
-
-    def test_location_parameter(self):
-        srp = LmsSearchResultProcessor(
-            {
-                "course": unicode(self.course.id),
-                "id": unicode(self.html.scope_ids.usage_id),
-                "content": {"text": "This is html test text"}
-            },
-            "test"
-        )
-
-        self.assertEqual(len(srp.location), 3)
-        self.assertEqual(srp.location[0], 'Test Section')
-        self.assertEqual(srp.location[1], 'Test Subsection')
-        self.assertEqual(srp.location[2], 'Test Unit')
-
-        srp = LmsSearchResultProcessor(
-            {
-                "course": unicode(self.course.id),
-                "id": unicode(self.vertical.scope_ids.usage_id),
-                "content": {"text": "This is html test text"}
-            },
-            "test"
-        )
-
-        self.assertEqual(len(srp.location), 3)
-        self.assertEqual(srp.location[0], 'Test Section')
-        self.assertEqual(srp.location[1], 'Test Subsection')
-        self.assertEqual(srp.location[2], 'Test Unit')
-
-        srp = LmsSearchResultProcessor(
-            {
-                "course": unicode(self.course.id),
-                "id": unicode(self.subsection.scope_ids.usage_id),
-                "content": {"text": "This is html test text"}
-            },
-            "test"
-        )
-
-        self.assertEqual(len(srp.location), 2)
-        self.assertEqual(srp.location[0], 'Test Section')
-        self.assertEqual(srp.location[1], 'Test Subsection')
-
-        srp = LmsSearchResultProcessor(
-            {
-                "course": unicode(self.course.id),
-                "id": unicode(self.section.scope_ids.usage_id),
-                "content": {"text": "This is html test text"}
-            },
-            "test"
-        )
-
-        self.assertEqual(len(srp.location), 1)
-        self.assertEqual(srp.location[0], 'Test Section')
 
     def test_should_remove(self):
         """

@@ -24,6 +24,7 @@ from opaque_keys.edx.locator import LibraryLocator, LibraryUsageLocator
 from xmodule.modulestore.exceptions import DuplicateCourseError
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
+from .user import user_with_role
 
 from .component import get_component_templates, CONTAINER_TEMPATES
 from student.auth import (
@@ -197,7 +198,6 @@ def library_blocks_view(library, user, response_format):
         'component_templates': json.dumps(component_templates),
         'xblock_info': xblock_info,
         'templates': CONTAINER_TEMPATES,
-        'lib_users_url': reverse_library_url('manage_library_users', unicode(library.location.library_key)),
     })
 
 
@@ -221,15 +221,20 @@ def manage_library_users(request, library_key_string):
     instructors = set(CourseInstructorRole(library_key).users_with_role())
     staff = set(CourseStaffRole(library_key).users_with_role()) - instructors
     users = set(LibraryUserRole(library_key).users_with_role()) - instructors - staff
-    all_users = instructors | staff | users
+
+    formatted_users = []
+    for user in instructors:
+        formatted_users.append(user_with_role(user, 'instructor'))
+    for user in staff:
+        formatted_users.append(user_with_role(user, 'staff'))
+    for user in users:
+        formatted_users.append(user_with_role(user, 'library_user'))
 
     return render_to_response('manage_users_lib.html', {
         'context_library': library,
-        'staff': staff,
-        'instructors': instructors,
-        'users': users,
-        'all_users': all_users,
+        'users': formatted_users,
         'allow_actions': bool(user_perms & STUDIO_EDIT_ROLES),
         'library_key': unicode(library_key),
         'lib_users_url': reverse_library_url('manage_library_users', library_key_string),
+        'show_children_previews': library.show_children_previews
     })

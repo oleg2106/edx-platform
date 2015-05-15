@@ -18,7 +18,8 @@ log = logging.getLogger(__name__)
 
 
 def redirect_if_blocked(course_key, access_point='enrollment', **kwargs):
-    """Redirect if the user does not have access to the course.
+    """Redirect if the user does not have access to the course. In case of blocked if access_point
+    is not enrollment and course has enabled is_disabled_access_check then user can view that course.
 
     Arguments:
         course_key (CourseKey): Location of the course the user is trying to access.
@@ -27,10 +28,14 @@ def redirect_if_blocked(course_key, access_point='enrollment', **kwargs):
         Same as `check_course_access` and `message_url_path`
 
     """
-    if settings.FEATURES.get('ENABLE_COUNTRY_ACCESS'):
+    if settings.FEATURES.get('EMBARGO'):
         is_blocked = not check_course_access(course_key, **kwargs)
         if is_blocked:
-            return message_url_path(course_key, access_point)
+            if access_point == "courseware":
+                if not RestrictedCourse.is_disabled_access_check(course_key):
+                    return message_url_path(course_key, access_point)
+            else:
+                return message_url_path(course_key, access_point)
 
 
 def check_course_access(course_key, user=None, ip_address=None, url=None):
@@ -52,7 +57,7 @@ def check_course_access(course_key, user=None, ip_address=None, url=None):
 
     """
     # No-op if the country access feature is not enabled
-    if not settings.FEATURES.get('ENABLE_COUNTRY_ACCESS'):
+    if not settings.FEATURES.get('EMBARGO'):
         return True
 
     # First, check whether there are any restrictions on the course.

@@ -60,12 +60,13 @@ DEFAULT_SETTINGS = [
     ['Default Timed Transcript', '', False],
     ['Download Transcript Allowed', 'False', False],
     ['Downloadable Transcript URL', '', False],
-    ['EdX Video ID', '', False],
     ['Show Transcript', 'True', False],
     ['Transcript Languages', '', False],
     ['Upload Handout', '', False],
+    ['Video Available on Web Only', 'False', False],
     ['Video Download Allowed', 'False', False],
     ['Video File URLs', '', False],
+    ['Video ID', '', False],
     ['Video Start Time', '00:00:00', False],
     ['Video Stop Time', '00:00:00', False],
     ['YouTube ID', '3_yD_cEKoCk', False],
@@ -80,7 +81,7 @@ DELAY = 0.5
 
 
 @js_defined('window.Video', 'window.RequireJS.require', 'window.jQuery', 'window.XModule', 'window.XBlock',
-            'window.MathJax.isReady')
+            'window.MathJax', 'window.MathJax.isReady')
 class VideoComponentPage(VideoPage):
     """
     CMS Video Component Page

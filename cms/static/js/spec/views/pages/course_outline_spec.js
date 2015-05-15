@@ -8,7 +8,7 @@ define(["jquery", "sinon", "js/common_helpers/ajax_helpers", "js/views/utils/vie
                 getItemsOfType, getItemHeaders, verifyItemsExpanded, expandItemsAndVerifyState,
                 collapseItemsAndVerifyState, createMockCourseJSON, createMockSectionJSON, createMockSubsectionJSON,
                 verifyTypePublishable, mockCourseJSON, mockEmptyCourseJSON, mockSingleSectionCourseJSON,
-                createMockVerticalJSON, createMockIndexJSON,
+                createMockVerticalJSON, createMockIndexJSON, mockCourseEntranceExamJSON
                 mockOutlinePage = readFixtures('mock/mock-course-outline-page.underscore'),
                 mockRerunNotification = readFixtures('mock/mock-course-rerun-notification.underscore');
 
@@ -228,6 +228,14 @@ define(["jquery", "sinon", "js/common_helpers/ajax_helpers", "js/views/utils/vie
                 mockSingleSectionCourseJSON = createMockCourseJSON({}, [
                     createMockSectionJSON()
                 ]);
+                mockCourseEntranceExamJSON = createMockCourseJSON({}, [
+                    createMockSectionJSON({}, [
+                        createMockSubsectionJSON({'is_header_visible': false}, [
+                            createMockVerticalJSON()
+                        ])
+                    ])
+                ]);
+
             });
 
             afterEach(function () {
@@ -259,6 +267,11 @@ define(["jquery", "sinon", "js/common_helpers/ajax_helpers", "js/views/utils/vie
                     verifyItemsExpanded('subsection', false);
                     expect(getItemsOfType('unit')).not.toExist();
                 });
+
+                it('unit initially exist for entrance exam', function() {
+                    createCourseOutlinePage(this, mockCourseEntranceExamJSON);
+                    expect(getItemsOfType('unit')).toExist();
+                });
             });
 
             describe("Rerun notification", function () {
@@ -268,7 +281,7 @@ define(["jquery", "sinon", "js/common_helpers/ajax_helpers", "js/views/utils/vie
                     expect($('.wrapper-alert-announcement')).not.toHaveClass('is-hidden');
                     $('.dismiss-button').click();
                     AjaxHelpers.expectJsonRequest(requests, 'DELETE', 'dummy_dismiss_url');
-                    AjaxHelpers.respondToDelete(requests);
+                    AjaxHelpers.respondWithNoContent(requests);
                     expect($('.wrapper-alert-announcement')).toHaveClass('is-hidden');
                 });
             });

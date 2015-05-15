@@ -6,7 +6,6 @@ import decimal
 from ipware.ip import get_ip
 
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.views.generic.base import View
@@ -72,9 +71,9 @@ class ChooseModeView(View):
 
         # We assume that, if 'professional' is one of the modes, it is the *only* mode.
         # If we offer more modes alongside 'professional' in the future, this will need to route
-        # to the usual "choose your track" page.
-        has_enrolled_professional = (enrollment_mode == "professional" and is_active)
-        if "professional" in modes and not has_enrolled_professional:
+        # to the usual "choose your track" page same is true for no-id-professional mode.
+        has_enrolled_professional = (CourseMode.is_professional_slug(enrollment_mode) and is_active)
+        if CourseMode.has_professional_mode(modes) and not has_enrolled_professional:
             return redirect(
                 reverse(
                     'verify_student_start_flow',
@@ -90,16 +89,31 @@ class ChooseModeView(View):
             return redirect(reverse('dashboard'))
 
         # If a user has already paid, redirect them to the dashboard.
-        if is_active and enrollment_mode in CourseMode.VERIFIED_MODES:
+        if is_active and (enrollment_mode in CourseMode.VERIFIED_MODES + [CourseMode.NO_ID_PROFESSIONAL_MODE]):
             return redirect(reverse('dashboard'))
 
         donation_for_course = request.session.get("donation_for_course", {})
         chosen_price = donation_for_course.get(unicode(course_key), None)
 
         course = modulestore().get_course(course_key)
+
+        # When a credit mode is available, students will be given the option
+        # to upgrade from a verified mode to a credit mode at the end of the course.
+        # This allows students who have completed photo verification to be eligible
+        # for univerity credit.
+        # Since credit isn't one of the selectable options on the track selection page,
+        # we need to check *all* available course modes in order to determine whether
+        # a credit mode is available.  If so, then we show slightly different messaging
+        # for the verified track.
+        has_credit_upsell = any(
+            CourseMode.is_credit_mode(mode) for mode
+            in CourseMode.modes_for_course(course_key, only_selectable=False)
+        )
+
         context = {
             "course_modes_choose_url": reverse("course_modes_choose", kwargs={'course_id': course_key.to_deprecated_string()}),
             "modes": modes,
+            "has_credit_upsell": has_credit_upsell,
             "course_name": course.display_name_with_default,
             "course_org": course.display_org_with_default,
             "course_num": course.display_number_with_default,

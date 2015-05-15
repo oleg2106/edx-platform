@@ -61,7 +61,7 @@ git clean -qxfd
 source scripts/jenkins-common.sh
 
 # Violations thresholds for failing the build
-PYLINT_THRESHOLD=6000
+PYLINT_THRESHOLD=7350
 
 # If the environment variable 'SHARD' is not set, default to 'all'.
 # This could happen if you are trying to use this script from
@@ -73,15 +73,19 @@ SHARD=${SHARD:="all"}
 case "$TEST_SUITE" in
 
     "quality")
+        echo "Finding fixme's and storing report..."
         paver find_fixme > fixme.log || { cat fixme.log; EXIT=1; }
+        echo "Finding pep8 violations and storing report..."
         paver run_pep8 > pep8.log || { cat pep8.log; EXIT=1; }
+        echo "Finding pylint violations and storing in report..."
         paver run_pylint -l $PYLINT_THRESHOLD > pylint.log || { cat pylint.log; EXIT=1; }
         # Run quality task. Pass in the 'fail-under' percentage to diff-quality
         paver run_quality -p 100
 
+        mkdir -p reports
+        paver run_complexity > reports/code_complexity.log || echo "Unable to calculate code complexity. Ignoring error."
         # Need to create an empty test result so the post-build
         # action doesn't fail the build.
-        mkdir -p reports
         cat > reports/quality.xml <<END
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="quality" tests="1" errors="0" failures="0" skip="0">
@@ -91,23 +95,52 @@ END
         exit $EXIT
         ;;
 
+    # TODO: Remove the "unit" TEST_SUITE in favor of "lms-unit", etc.
+    # For now it is left in here so that there is not a time limit on how fast
+    # we need to update the groovy script in the jenkins config after merging
+    # the changes needed to shard out the unit tests.
     "unit")
         case "$SHARD" in
             "lms")
-                paver test_system -s lms --extra_args="--with-flaky"
-                paver coverage
+                SHARD=1 paver test_system -s lms --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
                 ;;
             "cms-js-commonlib")
-                paver test_system -s cms --extra_args="--with-flaky"
-                paver test_js --coverage --skip_clean
-                paver test_lib --skip_clean --extra_args="--with-flaky"
-                paver coverage
+                SHARD=1 paver test_system -s cms --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
+                SHARD=1 paver test_js --coverage --skip_clean || { EXIT=1; }
+                SHARD=1 paver test_lib --skip_clean --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
                 ;;
             *)
                 paver test --extra_args="--with-flaky"
                 paver coverage
                 ;;
         esac
+        exit $EXIT
+        ;;
+
+    "lms-unit")
+        case "$SHARD" in
+            "1")
+                paver test_system -s lms --extra_args="--attr='shard_1' --with-flaky" --cov_args="-p" || { EXIT=1; }
+                ;;
+            "2")
+                paver test_system -s lms --extra_args="--attr='shard_1=False' --with-flaky" --cov_args="-p" || { EXIT=1; }
+                ;;
+            *)
+                paver test_system -s lms --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
+                ;;
+        esac
+        exit $EXIT
+        ;;
+
+    "cms-unit")
+        paver test_system -s cms --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
+        exit $EXIT
+        ;;
+
+    "commonlib-js-unit")
+        paver test_js --coverage --skip_clean || { EXIT=1; }
+        paver test_lib --skip_clean --extra_args="--with-flaky" --cov_args="-p" || { EXIT=1; }
+        exit $EXIT
         ;;
 
     "lms-acceptance")
@@ -157,23 +190,31 @@ END
         case "$SHARD" in
 
             "all")
-                paver test_bokchoy
+                paver test_bokchoy || { EXIT=1; }
                 ;;
 
             "1")
-                paver test_bokchoy --extra_args="-a shard_1 --with-flaky"
+                paver test_bokchoy --extra_args="-a shard_1 --with-flaky" || { EXIT=1; }
                 ;;
 
             "2")
-                paver test_bokchoy --extra_args="-a 'shard_2' --with-flaky"
+                paver test_bokchoy --extra_args="-a 'shard_2' --with-flaky" || { EXIT=1; }
                 ;;
 
             "3")
-                paver test_bokchoy --extra_args="-a 'shard_3' --with-flaky"
+                paver test_bokchoy --extra_args="-a 'shard_3' --with-flaky" || { EXIT=1; }
                 ;;
 
             "4")
-                paver test_bokchoy --extra_args="-a shard_1=False,shard_2=False,shard_3=False --with-flaky"
+                paver test_bokchoy --extra_args="-a 'shard_4' --with-flaky" || { EXIT=1; }
+                ;;
+
+            "5")
+                paver test_bokchoy --extra_args="-a 'shard_5' --with-flaky" || { EXIT=1; }
+                ;;
+
+            "6")
+                paver test_bokchoy --extra_args="-a shard_1=False,shard_2=False,shard_3=False,shard_4=False,shard_5=False --with-flaky" || { EXIT=1; }
                 ;;
 
             # Default case because if we later define another bok-choy shard on Jenkins
@@ -196,6 +237,4 @@ END
 END
                 ;;
         esac
-        ;;
-
 esac

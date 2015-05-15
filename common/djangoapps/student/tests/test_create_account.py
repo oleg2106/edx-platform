@@ -1,4 +1,4 @@
-"Tests for account creation"
+"""Tests for account creation"""
 import json
 
 import ddt
@@ -14,7 +14,7 @@ from django.test.utils import override_settings
 
 import mock
 
-from openedx.core.djangoapps.user_api.models import UserPreference
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
 from lang_pref import LANGUAGE_KEY
 from notification_prefs import NOTIFICATION_PREF_KEY
 
@@ -42,7 +42,7 @@ TEST_CS_URL = 'https://comments.service.test:123/'
     }
 )
 class TestCreateAccount(TestCase):
-    "Tests for account creation"
+    """Tests for account creation"""
 
     def setUp(self):
         self.username = "test_user"
@@ -63,14 +63,14 @@ class TestCreateAccount(TestCase):
             response = self.client.post(self.url, self.params)
             self.assertEqual(response.status_code, 200)
             user = User.objects.get(username=self.username)
-            self.assertEqual(UserPreference.get_preference(user, LANGUAGE_KEY), lang)
+            self.assertEqual(get_user_preference(user, LANGUAGE_KEY), lang)
 
     @ddt.data("en", "eo")
     def test_header_lang_pref_saved(self, lang):
         response = self.client.post(self.url, self.params, HTTP_ACCEPT_LANGUAGE=lang)
         user = User.objects.get(username=self.username)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(UserPreference.get_preference(user, LANGUAGE_KEY), lang)
+        self.assertEqual(get_user_preference(user, LANGUAGE_KEY), lang)
 
     def create_account_and_fetch_profile(self):
         """
@@ -175,7 +175,7 @@ class TestCreateAccount(TestCase):
         profile = self.create_account_and_fetch_profile()
         self.assertIsNone(profile.year_of_birth)
 
-    def base_extauth_bypass_sending_activation_email(self, bypass_activation_email_for_extauth_setting):
+    def base_extauth_bypass_sending_activation_email(self, bypass_activation_email):
         """
         Tests user creation without sending activation email when
         doing external auth
@@ -196,7 +196,7 @@ class TestCreateAccount(TestCase):
             student.views.create_account(request)
 
         # check that send_mail is called
-        if bypass_activation_email_for_extauth_setting:
+        if bypass_activation_email:
             self.assertFalse(mock_send_mail.called)
         else:
             self.assertTrue(mock_send_mail.called)
@@ -219,13 +219,22 @@ class TestCreateAccount(TestCase):
         """
         self.base_extauth_bypass_sending_activation_email(False)
 
+    @unittest.skipUnless(settings.FEATURES.get('AUTH_USE_SHIB'), "AUTH_USE_SHIB not set")
+    @mock.patch.dict(settings.FEATURES, {'BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH': False, 'AUTOMATIC_AUTH_FOR_TESTING': False, 'SKIP_EMAIL_VALIDATION': True})
+    def test_extauth_bypass_sending_activation_email_without_bypass(self):
+        """
+        Tests user creation without sending activation email when
+        settings.FEATURES['BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH']=False and doing external auth
+        """
+        self.base_extauth_bypass_sending_activation_email(True)
+
     @ddt.data(True, False)
     def test_discussions_email_digest_pref(self, digest_enabled):
         with mock.patch.dict("student.models.settings.FEATURES", {"ENABLE_DISCUSSION_EMAIL_DIGEST": digest_enabled}):
             response = self.client.post(self.url, self.params)
             self.assertEqual(response.status_code, 200)
             user = User.objects.get(username=self.username)
-            preference = UserPreference.get_preference(user, NOTIFICATION_PREF_KEY)
+            preference = get_user_preference(user, NOTIFICATION_PREF_KEY)
             if digest_enabled:
                 self.assertIsNotNone(preference)
             else:

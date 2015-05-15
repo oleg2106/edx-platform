@@ -34,7 +34,7 @@ from django.core.mail import EmailMultiAlternatives, get_connection
 from django.core.urlresolvers import reverse
 
 from bulk_email.models import (
-    CourseEmail, Optout, CourseEmailTemplate,
+    CourseEmail, Optout,
     SEND_TO_MYSELF, SEND_TO_ALL, TO_OPTIONS,
     SEND_TO_STAFF,
 )
@@ -48,6 +48,7 @@ from instructor_task.subtasks import (
     update_subtask_status,
 )
 from util.query import use_read_replica_if_available
+from util.date_utils import get_default_time_display
 
 log = logging.getLogger('edx.celery.task')
 
@@ -146,6 +147,7 @@ def _get_course_email_context(course):
     """
     course_id = course.id.to_deprecated_string()
     course_title = course.display_name
+    course_end_date = get_default_time_display(course.end)
     course_url = 'https://{}{}'.format(
         settings.SITE_NAME,
         reverse('course_root', kwargs={'course_id': course_id})
@@ -155,6 +157,7 @@ def _get_course_email_context(course):
         'course_title': course_title,
         'course_url': course_url,
         'course_image_url': image_url,
+        'course_end_date': course_end_date,
         'account_settings_url': 'https://{}{}'.format(settings.SITE_NAME, reverse('dashboard')),
         'platform_name': settings.PLATFORM_NAME,
     }
@@ -219,6 +222,20 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
     to_option = email_obj.to_option
     global_email_context = _get_course_email_context(course)
 
+    recipient_qsets = _get_recipient_querysets(user_id, to_option, course_id)
+    recipient_fields = ['profile__name', 'email']
+
+    log.info(u"Task %s: Preparing to queue subtasks for sending emails for course %s, email %s, to_option %s",
+             task_id, course_id, email_id, to_option)
+
+    total_recipients = sum([recipient_queryset.count() for recipient_queryset in recipient_qsets])
+
+    routing_key = settings.BULK_EMAIL_ROUTING_KEY
+    # if there are few enough emails, send them through a different queue
+    # to avoid large courses blocking emails to self and staff
+    if total_recipients <= settings.BULK_EMAIL_JOB_SIZE_THRESHOLD:
+        routing_key = settings.BULK_EMAIL_ROUTING_KEY_SMALL_JOBS
+
     def _create_send_email_subtask(to_list, initial_subtask_status):
         """Creates a subtask to send email to a given recipient list."""
         subtask_id = initial_subtask_status.task_id
@@ -231,15 +248,9 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
                 initial_subtask_status.to_dict(),
             ),
             task_id=subtask_id,
-            routing_key=settings.BULK_EMAIL_ROUTING_KEY,
+            routing_key=routing_key,
         )
         return new_subtask
-
-    recipient_qsets = _get_recipient_querysets(user_id, to_option, course_id)
-    recipient_fields = ['profile__name', 'email']
-
-    log.info(u"Task %s: Preparing to queue subtasks for sending emails for course %s, email %s, to_option %s",
-             task_id, course_id, email_id, to_option)
 
     progress = queue_subtasks_for_query(
         entry,
@@ -248,6 +259,7 @@ def perform_delegate_email_batches(entry_id, course_id, task_input, action_name)
         recipient_qsets,
         recipient_fields,
         settings.BULK_EMAIL_EMAILS_PER_TASK,
+        total_recipients,
     )
 
     # We want to return progress here, as this is what will be stored in the
@@ -763,7 +775,7 @@ def _submit_for_retry(entry_id, email_id, to_list, global_email_context, current
     # needs to be returned back to Celery.  If it fails, we return the existing
     # exception.
     try:
-        send_course_email.retry(
+        retry_task = send_course_email.retry(
             args=[
                 entry_id,
                 email_id,
@@ -776,6 +788,7 @@ def _submit_for_retry(entry_id, email_id, to_list, global_email_context, current
             max_retries=max_retries,
             throw=True,
         )
+        raise retry_task
     except RetryTaskError as retry_error:
         # If the retry call is successful, update with the current progress:
         log.exception(u'Task %s: email with id %d caused send_course_email task to retry.',
@@ -790,7 +803,7 @@ def _submit_for_retry(entry_id, email_id, to_list, global_email_context, current
         log.exception(u'Task %s: email with id %d caused send_course_email task to fail to retry. To list: %s',
                       task_id, email_id, [i['email'] for i in to_list])
         num_failed = len(to_list)
-        subtask_status.increment(subtask_status, failed=num_failed, state=FAILURE)
+        subtask_status.increment(failed=num_failed, state=FAILURE)
         return subtask_status, retry_exc
 
 

@@ -26,7 +26,7 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
     EMAIL = "bob@example.com"
     PASSWORD = "edx"
 
-    @patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def setUp(self):
         """ Create a course and user, then log in. """
         super(EnrollmentTest, self).setUp('embargo')
@@ -55,6 +55,7 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         # We should NOT be auto-enrolled, because that would be giving
         # away an expensive course for free :)
         (['professional'], 'course_modes_choose', None),
+        (['no-id-professional'], 'course_modes_choose', None),
     )
     @ddt.unpack
     def test_enroll(self, course_modes, next_url, enrollment_mode):
@@ -102,7 +103,7 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         self.assertFalse(CourseEnrollment.is_enrolled(self.user, self.course.id))
 
     @patch.dict(settings.FEATURES, {'ENABLE_MKTG_EMAIL_OPT_IN': True})
-    @patch('openedx.core.djangoapps.user_api.api.profile.update_email_opt_in')
+    @patch('openedx.core.djangoapps.user_api.preferences.api.update_email_opt_in')
     @ddt.data(
         ([], 'true'),
         ([], 'false'),
@@ -113,6 +114,9 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         (['professional'], 'true'),
         (['professional'], 'false'),
         (['professional'], None),
+        (['no-id-professional'], 'true'),
+        (['no-id-professional'], 'false'),
+        (['no-id-professional'], None),
     )
     @ddt.unpack
     def test_enroll_with_email_opt_in(self, course_modes, email_opt_in, mock_update_email_opt_in):
@@ -130,11 +134,11 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         # Verify that the profile API has been called as expected
         if email_opt_in is not None:
             opt_in = email_opt_in == 'true'
-            mock_update_email_opt_in.assert_called_once_with(self.USERNAME, self.course.org, opt_in)
+            mock_update_email_opt_in.assert_called_once_with(self.user, self.course.org, opt_in)
         else:
             self.assertFalse(mock_update_email_opt_in.called)
 
-    @patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def test_embargo_restrict(self):
         # When accessing the course from an embargoed country,
         # we should be blocked.
@@ -147,7 +151,7 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         is_enrolled = CourseEnrollment.is_enrolled(self.user, self.course.id)
         self.assertFalse(is_enrolled)
 
-    @patch.dict(settings.FEATURES, {'ENABLE_COUNTRY_ACCESS': True})
+    @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def test_embargo_allow(self):
         response = self._change_enrollment('enroll')
         self.assertEqual(response.status_code, 200)
@@ -190,7 +194,7 @@ class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase):
         """Change the student's enrollment status in a course.
 
         Args:
-            action (string): The action to perform (either "enroll" or "unenroll")
+            action (str): The action to perform (either "enroll" or "unenroll")
 
         Keyword Args:
             course_id (unicode): If provided, use this course ID.  Otherwise, use the

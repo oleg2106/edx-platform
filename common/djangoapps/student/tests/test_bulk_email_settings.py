@@ -8,15 +8,12 @@ import unittest
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from mock import patch
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 
 from student.tests.factories import UserFactory, CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.django_utils import (
-    TEST_DATA_MOCK_MODULESTORE, TEST_DATA_MIXED_TOY_MODULESTORE
-)
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_TOY_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
 
 # This import is for an lms djangoapp.
@@ -43,9 +40,9 @@ class TestStudentDashboardEmailView(ModuleStoreTestCase):
         self.url = reverse('dashboard')
         # URL for email settings modal
         self.email_modal_link = (
-            '<a href="#email-settings-modal" class="email-settings" rel="leanModal" '
+            '<a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" '
             'data-course-id="{org}/{num}/{name}" data-course-number="{num}" '
-            'data-optout="False">Email Settings</a>'
+            'data-dashboard-index="0" data-optout="False">Email Settings</a>'
         ).format(
             org=self.course.org,
             num=self.course.number,
@@ -114,9 +111,9 @@ class TestStudentDashboardEmailViewXMLBacked(ModuleStoreTestCase):
 
         # URL for email settings modal
         self.email_modal_link = (
-            '<a href="#email-settings-modal" class="email-settings" rel="leanModal" '
+            '<a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" '
             'data-course-id="{org}/{num}/{name}" data-course-number="{num}" '
-            'data-optout="False">Email Settings</a>'
+            'data-dashboard-index="0" data-optout="False">Email Settings</a>'
         ).format(
             org='edX',
             num='toy',

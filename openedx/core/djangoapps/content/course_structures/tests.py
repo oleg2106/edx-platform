@@ -1,13 +1,26 @@
 import json
+
+from xmodule.modulestore.django import SignalHandler
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from openedx.core.djangoapps.content.course_structures.models import CourseStructure
+from openedx.core.djangoapps.content.course_structures.signals import listen_for_course_publish
+from openedx.core.djangoapps.content.course_structures.tasks import _generate_course_structure, update_course_structure
 
-from openedx.core.djangoapps.content.course_structures.models import generate_course_structure, CourseStructure
+
+class SignalDisconnectTestMixin(object):
+    """
+    Mixin for tests to disable calls to signals.listen_for_course_publish when the course_published signal is fired.
+    """
+
+    def setUp(self):
+        super(SignalDisconnectTestMixin, self).setUp()
+        SignalHandler.course_published.disconnect(listen_for_course_publish)
 
 
-class CourseStructureTests(ModuleStoreTestCase):
+class CourseStructureTaskTests(ModuleStoreTestCase):
     def setUp(self, **kwargs):
-        super(CourseStructureTests, self).setUp()
+        super(CourseStructureTaskTests, self).setUp()
         self.course = CourseFactory.create()
         self.section = ItemFactory.create(parent=self.course, category='chapter', display_name='Test Section')
         CourseStructure.objects.all().delete()
@@ -38,7 +51,7 @@ class CourseStructureTests(ModuleStoreTestCase):
         }
 
         self.maxDiff = None
-        actual = generate_course_structure(self.course.id)
+        actual = _generate_course_structure(self.course.id)
         self.assertDictEqual(actual, expected)
 
     def test_structure_json(self):
@@ -77,3 +90,41 @@ class CourseStructureTests(ModuleStoreTestCase):
         structure_json = json.dumps(structure)
         cs = CourseStructure.objects.create(course_id=self.course.id, structure_json=structure_json)
         self.assertDictEqual(cs.structure, structure)
+
+    def test_block_with_missing_fields(self):
+        """
+        The generator should continue to operate on blocks/XModule that do not have graded or format fields.
+        """
+        # TODO In the future, test logging using testfixtures.LogCapture
+        # (https://pythonhosted.org/testfixtures/logging.html). Talk to TestEng before adding that library.
+        category = 'peergrading'
+        display_name = 'Testing Module'
+        module = ItemFactory.create(parent=self.section, category=category, display_name=display_name)
+        structure = _generate_course_structure(self.course.id)
+
+        usage_key = unicode(module.location)
+        actual = structure['blocks'][usage_key]
+        expected = {
+            "usage_key": usage_key,
+            "block_type": category,
+            "display_name": display_name,
+            "graded": False,
+            "format": None,
+            "children": []
+        }
+        self.assertEqual(actual, expected)
+
+    def test_update_course_structure(self):
+        """
+        Test the actual task that orchestrates data generation and updating the database.
+        """
+        # Method requires string input
+        course_id = self.course.id
+        self.assertRaises(ValueError, update_course_structure, course_id)
+
+        # Ensure a CourseStructure object is created
+        structure = _generate_course_structure(course_id)
+        update_course_structure(unicode(course_id))
+        cs = CourseStructure.objects.get(course_id=course_id)
+        self.assertEqual(cs.course_id, course_id)
+        self.assertEqual(cs.structure, structure)

@@ -9,8 +9,7 @@ var edx = edx || {};
     edx.student.account.EnrollmentInterface = {
 
         urls: {
-            enrollment: '/api/enrollment/v1/enrollment',
-            trackSelection: '/course_modes/choose/'
+            baskets: '/commerce/baskets/',
         },
 
         headers: {
@@ -18,19 +17,16 @@ var edx = edx || {};
         },
 
         /**
-         * Enroll a user in a course, then redirect the user
-         * to the track selection page.
+         * Enroll a user in a course, then redirect the user.
          * @param  {string} courseKey  Slash-separated course key.
+         * @param  {string} redirectUrl The URL to redirect to once enrollment completes.
          */
-        enroll: function( courseKey ) {
-            var data_obj = {
-                course_details: {
-                    course_id: courseKey
-                }
-            };
-            var data = JSON.stringify(data_obj);
+        enroll: function( courseKey, redirectUrl ) {
+            var data_obj = {course_id: courseKey},
+                data = JSON.stringify(data_obj);
+
             $.ajax({
-                url: this.urls.enrollment,
+                url: this.urls.baskets,
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 data: data,
@@ -45,28 +41,20 @@ var edx = edx || {};
                     // If so, redirect to a page explaining to the user
                     // why they were blocked.
                     this.redirect( responseData.user_message_url );
-                }
-                else {
-                    // Otherwise, go to the track selection page as usual.
-                    // This can occur, for example, when a course does not
-                    // have a free enrollment mode, so we can't auto-enroll.
-                    this.redirect( this.trackSelectionUrl( courseKey ) );
+                } else {
+                    // Otherwise, redirect the user to the next page.
+                    if ( redirectUrl ) {
+                        this.redirect( redirectUrl );
+                    }
                 }
             })
             .done(function() {
-                // If we successfully enrolled, go to the track selection
-                // page to allow the user to choose a paid enrollment mode.
-                this.redirect( this.trackSelectionUrl( courseKey ) );
+                // If we successfully enrolled, redirect the user
+                // to the next page (usually the student dashboard or payment flow)
+                if ( redirectUrl ) {
+                    this.redirect( redirectUrl );
+                }
             });
-        },
-
-        /**
-         * Construct the URL to the track selection page for a course.
-         * @param  {string} courseKey Slash-separated course key.
-         * @return {string} The URL to the track selection page.
-         */
-        trackSelectionUrl: function( courseKey ) {
-            return this.urls.trackSelection + courseKey + '/';
         },
 
         /**
