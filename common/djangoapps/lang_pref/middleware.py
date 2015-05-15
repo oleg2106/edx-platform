@@ -19,6 +19,10 @@ class LanguagePreferenceMiddleware(object):
         If a user's UserPreference contains a language preference and there is
         no language set on the session (i.e. from dark language overrides), use the user's preference.
         """
+        ## Mihara: We only expect Russian users for the foreseeable future.
+        ## So we hack out the entire thing by force-setting the preference before this code runs.
+        request.session['django_language'] = 'ru'
+        
         if request.user.is_authenticated() and 'django_language' not in request.session:
             user_pref = get_user_preference(request.user, LANGUAGE_KEY)
             if user_pref:
