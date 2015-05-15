@@ -43,8 +43,8 @@ git+https://github.com/hmarr/django-debug-toolbar-mongo.git@b0686a76f1ce3532088c
 
 # Mihara: We're using a fork with uneviewed translations from Transifex pulled in.
 # Fork is to be updated when new releases get into the platform with a new branch mirroring the name of the used tag.
-#-e git+https://github.com/kursitet/edx-ora2.git@477357-extra-ru#egg=edx-ora2
--e git+https://github.com/edx/edx-ora2.git@release-2015-05-08T16.15#egg=edx-ora2
+#-e git+https://github.com/edx/edx-ora2.git@release-2015-05-08T16.15#egg=edx-ora2
+-e git+https://github.com/kursitet/edx-ora2.git@release-2015-05-08T16.15-extra-ru#egg=edx-ora2
 
 -e git+https://github.com/edx/edx-submissions.git@e2361932b9bce061a018a31bb3929e9cade80f49#egg=edx-submissions
 -e git+https://github.com/edx/opaque-keys.git@df0dd602869e498e512659bb4bd243309e30e19a#egg=opaque-keys
