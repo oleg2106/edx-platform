@@ -11,7 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from xmodule.modulestore.django import modulestore
 from course_about.api import get_course_about_details
-from student.models import CourseEnrollment, CourseAccessRole
+from student.models import CourseEnrollment, CourseAccessRole, anonymous_id_for_user
 from courseware.grades import iterate_grades_for
 from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR, \
                                          FORUM_ROLE_MODERATOR, FORUM_ROLE_COMMUNITY_TA
@@ -106,6 +106,8 @@ class Command(BaseCommand):
                     'forum': forum_roles,
                   },
                   'students': [x.username for x in students],
+                  'global_anonymous_id': { x.username:anonymous_id_for_user(x, None) for x in students },
+                  'local_anonymous_id': { x.username:anonymous_id_for_user(x, course.id) for x in students },
                 }
                 
                 if not options['meta_only']:
