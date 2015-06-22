@@ -21,7 +21,7 @@
 
 #git+https://github.com/mitocw/django-cas.git@60a5b8e5a62e63e0d5d224a87f0b489201a0c695#egg=django-cas
 # Mihara: We use our own fork for this one.
--e git+https://github.com/kursitet/django-cas.git@af4b06aa6d1efe83880e38f77c24947ccc886b98#egg=django-cas
+-e git+https://github.com/kursitet/django-cas.git@79d98c95cf8130bcf0da96f27df6061492b976ad#egg=django-cas
 
 -e git+https://github.com/dgrtwo/ParsePy.git@7949b9f754d1445eff8e8f20d0e967b9a6420639#egg=parse_rest
 git+https://github.com/mfogel/django-settings-context-processor.git@b758c3930862761216267715a70bbefd206ac03a#egg=django-settings-context-processor==0.2
