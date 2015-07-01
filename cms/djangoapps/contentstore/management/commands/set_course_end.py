@@ -44,6 +44,8 @@ class Command(BaseCommand):
         except:
             raise CommandError('Could not find user with email "{0}"'.format(args[2]))
 
+        locator = CourseLocator.from_string(args[0])
+
         coursedata = CourseDetails.fetch(locator)
         old_end_date = coursedata.end_date
         coursedata.end_date = end_date
