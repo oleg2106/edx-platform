@@ -36,7 +36,7 @@ class Command(BaseCommand):
             raise CommandError('Usage is set_course_end {0}'.format(self.args))
 
         try:
-            end_date = pytz.timezone('Europe/Moscow').localize(parse_date(args[1],dayfirst=False,yearfirst=True))
+            end_date = pytz.timezone('Europe/Moscow').localize(parse_date(args[1],dayfirst=False,yearfirst=True)).astimezone(pytz.utc)
         except:
             raise CommandError('Could not parse date "{0}"'.format(args[1]))
         try:
