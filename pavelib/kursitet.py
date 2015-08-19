@@ -31,7 +31,7 @@ def i18n_clone_overrides():
 @task
 def i18n_ensure_unreviewed_translations():
     # Ensure that we're always pulling unfiltered translations.
-    sh("sed -i -e 's/tx pull --mode=reviewed --all/tx pull --all/g' /edx/app/edxapp/venvs/edxapp/src/i18n-tools/i18n/transifex.py")
+    sh("sed -i -e 's/tx pull --mode=reviewed -l/tx pull -l/g' /edx/app/edxapp/venvs/edxapp/src/i18n-tools/i18n/transifex.py")
 
 @task
 @needs(
