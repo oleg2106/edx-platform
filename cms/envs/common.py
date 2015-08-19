@@ -885,15 +885,10 @@ OPTIONAL_APPS = (
     'edxval',
 
     # milestones
-<<<<<<< HEAD
-    'milestones'
-    
-=======
     'milestones',
 
     # edX Proctoring
     'edx_proctoring',
->>>>>>> upstream/release
 )
 
 
