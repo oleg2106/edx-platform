@@ -13,6 +13,7 @@ DEBUG = True
 USE_I18N = True
 TEMPLATE_DEBUG = True
 SITE_NAME = 'localhost:8000'
+PLATFORM_NAME = ENV_TOKENS.get('PLATFORM_NAME', 'Devstack')
 # By default don't use a worker, execute tasks as if they were local functions
 CELERY_ALWAYS_EAGER = True
 
@@ -61,7 +62,10 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar_mongo.panel.MongoDebugPanel',
-    'debug_toolbar.panels.profiling.ProfilingPanel',
+    # ProfilingPanel has been intentionally removed for default devstack.py
+    # runtimes for performance reasons. If you wish to re-enable it in your
+    # local development environment, please create a new settings file
+    # that imports and extends devstack.py.
 )
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -74,6 +78,12 @@ def should_show_debug_toolbar(_):
 
 
 ########################### PIPELINE #################################
+
+# # Skip RequireJS optimizer in development
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+# Whether to run django-require in debug mode.
+REQUIRE_DEBUG = DEBUG
 
 PIPELINE_SASS_ARGUMENTS = '--debug-info --require {proj_dir}/static/sass/bourbon/lib/bourbon.rb'.format(proj_dir=PROJECT_ROOT)
 
@@ -115,9 +125,12 @@ FEATURES['MILESTONES_APP'] = True
 ########################### Entrance Exams #################################
 FEATURES['ENTRANCE_EXAMS'] = True
 
+################################ COURSE LICENSES ################################
+FEATURES['LICENSING'] = True
+
 
 ########################## Courseware Search #######################
-FEATURES['ENABLE_COURSEWARE_SEARCH'] = True
+FEATURES['ENABLE_COURSEWARE_SEARCH'] = False
 SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 
 
@@ -129,10 +142,65 @@ FEATURES['ENABLE_DASHBOARD_SEARCH'] = True
 FEATURES['CERTIFICATES_HTML_VIEW'] = True
 
 
+########################## Course Discovery #######################
+from django.utils.translation import ugettext as _
+LANGUAGE_MAP = {'terms': {lang: display for lang, display in ALL_LANGUAGES}, 'name': _('Language')}
+COURSE_DISCOVERY_MEANINGS = {
+    'org': {
+        'name': _('Organization'),
+    },
+    'modes': {
+        'name': _('Course Type'),
+        'terms': {
+            'honor': _('Honor'),
+            'verified': _('Verified'),
+        },
+    },
+    'language': LANGUAGE_MAP,
+}
+
+FEATURES['ENABLE_COURSE_DISCOVERY'] = False
+FEATURES['COURSES_ARE_BROWSEABLE'] = True
+HOMEPAGE_COURSE_MAX = 9
+
+# Software secure fake page feature flag
+FEATURES['ENABLE_SOFTWARE_SECURE_FAKE'] = True
+
+# Setting for the testing of Software Secure Result Callback
+VERIFY_STUDENT["SOFTWARE_SECURE"] = {
+    "API_ACCESS_KEY": "BBBBBBBBBBBBBBBBBBBB",
+    "API_SECRET_KEY": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+}
+
+# Skip enrollment start date filtering
+SEARCH_SKIP_ENROLLMENT_START_DATE_FILTERING = True
+
+
+########################## Shopping cart ##########################
+FEATURES['ENABLE_SHOPPING_CART'] = True
+FEATURES['STORE_BILLING_INFO'] = True
+FEATURES['ENABLE_PAID_COURSE_REGISTRATION'] = True
+FEATURES['ENABLE_COSMETIC_DISPLAY_PRICE'] = True
+
+########################## Third Party Auth #######################
+
+if FEATURES.get('ENABLE_THIRD_PARTY_AUTH') and 'third_party_auth.dummy.DummyBackend' not in AUTHENTICATION_BACKENDS:
+    AUTHENTICATION_BACKENDS = ['third_party_auth.dummy.DummyBackend'] + list(AUTHENTICATION_BACKENDS)
+
+############## ECOMMERCE API CONFIGURATION SETTINGS ###############
+ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8002"
+
+###################### Cross-domain requests ######################
+FEATURES['ENABLE_CORS_HEADERS'] = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ()
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 #####################################################################
 # See if the developer has any local overrides.
 try:
-    from .private import *      # pylint: disable=import-error
+    from .private import *      # pylint: disable=wildcard-import
 except ImportError:
     pass
 
@@ -141,8 +209,3 @@ except ImportError:
 MODULESTORE = convert_module_store_setting_if_needed(MODULESTORE)
 
 SECRET_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'
-
-########################## Course Discovery #######################
-FEATURES['ENABLE_COURSE_DISCOVERY'] = True
-FEATURES['COURSES_ARE_BROWSEABLE'] = True
-HOMEPAGE_COURSE_MAX = 9

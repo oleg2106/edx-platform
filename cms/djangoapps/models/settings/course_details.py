@@ -8,7 +8,7 @@ from django.conf import settings
 
 from opaque_keys.edx.locations import Location
 from xmodule.modulestore.exceptions import ItemNotFoundError
-from contentstore.utils import course_image_url
+from contentstore.utils import course_image_url, has_active_web_certificate
 from models.settings import course_grading
 from xmodule.fields import Date
 from xmodule.modulestore.django import modulestore
@@ -33,6 +33,7 @@ class CourseDetails(object):
         self.org = org
         self.course_id = course_id
         self.run = run
+        self.language = None
         self.start_date = None  # 'start'
         self.end_date = None  # 'end'
         self.enrollment_start = None
@@ -42,6 +43,7 @@ class CourseDetails(object):
         self.overview = ""  # html to render as the overview
         self.intro_video = None  # a video pointer
         self.effort = None  # int hours/week
+        self.license = "all-rights-reserved"  # default course license is all rights reserved
         self.course_image_name = ""
         self.course_image_asset_path = ""  # URL of the course image
         self.pre_requisite_courses = []  # pre-requisite courses
@@ -50,7 +52,8 @@ class CourseDetails(object):
         self.entrance_exam_minimum_score_pct = settings.FEATURES.get(
             'ENTRANCE_EXAM_MIN_SCORE_PCT',
             '50'
-        )  # minimum passing score for entrance exam content module/tree
+        )  # minimum passing score for entrance exam content module/tree,
+        self.has_cert_config = None  # course has active certificate configuration
 
     @classmethod
     def _fetch_about_attribute(cls, course_key, attribute):
@@ -79,6 +82,10 @@ class CourseDetails(object):
         course_details.pre_requisite_courses = descriptor.pre_requisite_courses
         course_details.course_image_name = descriptor.course_image
         course_details.course_image_asset_path = course_image_url(descriptor)
+        course_details.language = descriptor.language
+        # Default course license is "All Rights Reserved"
+        course_details.license = getattr(descriptor, "license", "all-rights-reserved")
+        course_details.has_cert_config = has_active_web_certificate(descriptor)
 
         for attribute in ABOUT_ATTRIBUTES:
             value = cls._fetch_about_attribute(course_key, attribute)
@@ -171,6 +178,14 @@ class CourseDetails(object):
         if 'pre_requisite_courses' in jsondict \
                 and sorted(jsondict['pre_requisite_courses']) != sorted(descriptor.pre_requisite_courses):
             descriptor.pre_requisite_courses = jsondict['pre_requisite_courses']
+            dirty = True
+
+        if 'license' in jsondict:
+            descriptor.license = jsondict['license']
+            dirty = True
+
+        if 'language' in jsondict and jsondict['language'] != descriptor.language:
+            descriptor.language = jsondict['language']
             dirty = True
 
         if dirty:

@@ -117,11 +117,11 @@ def enable_microsites():
             ms_config['template_dir'] = template_dir
 
             ms_config['microsite_name'] = ms_name
-            log.info('Loading microsite {0}'.format(ms_root))
+            log.info('Loading microsite %s', ms_root)
         else:
             # not sure if we have application logging at this stage of
             # startup
-            log.error('Error loading microsite {0}. Directory does not exist'.format(ms_root))
+            log.error('Error loading microsite %s. Directory does not exist', ms_root)
             # remove from our configuration as it is not valid
             del microsite_config_dict[ms_name]
 
@@ -141,4 +141,4 @@ def enable_third_party_auth():
     """
 
     from third_party_auth import settings as auth_settings
-    auth_settings.apply_settings(settings.THIRD_PARTY_AUTH, settings)
+    auth_settings.apply_settings(settings)

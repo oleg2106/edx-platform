@@ -151,6 +151,11 @@ class TrueFalseResponseTest(ResponseTest):
         self.assert_grade(problem, 'choice_foil_4', 'incorrect')
         self.assert_grade(problem, 'not_a_choice', 'incorrect')
 
+    def test_single_correct_response(self):
+        problem = self.build_problem(choices=[True, False])
+        self.assert_grade(problem, 'choice_0', 'correct')
+        self.assert_grade(problem, ['choice_0'], 'correct')
+
 
 class ImageResponseTest(ResponseTest):
     xml_factory_class = ImageResponseXMLFactory
@@ -737,6 +742,12 @@ class StringResponseTest(ResponseTest):
 
         # Other strings and the lowercase version of the string are incorrect
         self.assert_grade(problem, "Other String", "incorrect")
+
+    def test_compatible_non_attribute_additional_answer_xml(self):
+        problem = self.build_problem(answer="Donut", non_attribute_answers=["Sprinkles"])
+        self.assert_grade(problem, "Donut", "correct")
+        self.assert_grade(problem, "Sprinkles", "correct")
+        self.assert_grade(problem, "Meh", "incorrect")
 
     def test_partial_matching(self):
         problem = self.build_problem(answer="a2", case_sensitive=False, regexp=True, additional_answers=['.?\\d.?'])

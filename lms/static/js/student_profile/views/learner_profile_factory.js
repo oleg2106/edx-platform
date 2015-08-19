@@ -8,26 +8,31 @@
         'js/student_profile/views/learner_profile_fields',
         'js/student_profile/views/learner_profile_view',
         'js/student_account/views/account_settings_fields',
-        'js/views/message_banner'
+        'js/views/message_banner',
+        'string_utils'
     ], function (gettext, $, _, Backbone, Logger, AccountSettingsModel, AccountPreferencesModel, FieldsView,
                  LearnerProfileFieldsView, LearnerProfileView, AccountSettingsFieldViews, MessageBannerView) {
 
         return function (options) {
 
             var learnerProfileElement = $('.wrapper-profile');
-            var defaultVisibility = options.default_visibility;
+
+            var accountSettingsModel = new AccountSettingsModel(
+                _.extend(
+                    options.account_settings_data,
+                    {'default_public_account_fields': options.default_public_account_fields}
+                ),
+                {parse: true}
+            );
             var AccountPreferencesModelWithDefaults = AccountPreferencesModel.extend({
                 defaults: {
-                    account_privacy: defaultVisibility
+                    account_privacy: options.default_visibility
                 }
             });
-            var accountPreferencesModel = new AccountPreferencesModelWithDefaults();
-            accountPreferencesModel.url = options.preferences_api_url;
+            var accountPreferencesModel = new AccountPreferencesModelWithDefaults(options.preferences_data);
 
-            var accountSettingsModel = new AccountSettingsModel({
-                'default_public_account_fields': options.default_public_account_fields
-            });
             accountSettingsModel.url = options.accounts_api_url;
+            accountPreferencesModel.url = options.preferences_api_url;
 
             var editable = options.own_profile ? 'toggle' : 'never';
 
@@ -49,7 +54,8 @@
                     ['all_users', gettext('Full Profile')]
                 ],
                 helpMessage: '',
-                accountSettingsPageUrl: options.account_settings_page_url
+                accountSettingsPageUrl: options.account_settings_page_url,
+                persistChanges: true
             });
 
             var profileImageFieldView = new LearnerProfileFieldsView.ProfileImageFieldView({
@@ -74,6 +80,7 @@
                 new FieldsView.DropdownFieldView({
                     model: accountSettingsModel,
                     screenReaderTitle: gettext('Country'),
+                    titleVisible: false,
                     required: true,
                     editable: editable,
                     showMessages: false,
@@ -81,11 +88,13 @@
                     placeholderValue: gettext('Add Country'),
                     valueAttribute: "country",
                     options: options.country_options,
-                    helpMessage: ''
+                    helpMessage: '',
+                    persistChanges: true
                 }),
                 new AccountSettingsFieldViews.LanguageProficienciesFieldView({
                     model: accountSettingsModel,
                     screenReaderTitle: gettext('Preferred Language'),
+                    titleVisible: false,
                     required: false,
                     editable: editable,
                     showMessages: false,
@@ -93,7 +102,8 @@
                     placeholderValue: gettext('Add language'),
                     valueAttribute: "language_proficiencies",
                     options: options.language_options,
-                    helpMessage: ''
+                    helpMessage: '',
+                    persistChanges: true
                 })
             ];
 
@@ -105,7 +115,9 @@
                     title: gettext('About me'),
                     placeholderValue: gettext("Tell other learners a little about yourself: where you live, what your interests are, why you're taking courses, or what you hope to learn."),
                     valueAttribute: "bio",
-                    helpMessage: ''
+                    helpMessage: '',
+                    persistChanges: true,
+                    messagePosition: 'header'
                 })
             ];
 
@@ -121,10 +133,6 @@
                 sectionOneFieldViews: sectionOneFieldViews,
                 sectionTwoFieldViews: sectionTwoFieldViews
             });
-
-            var showLoadingError = function () {
-                learnerProfileView.showLoadingError();
-            };
 
             var getProfileVisibility = function() {
                 if (options.has_preferences_access) {
@@ -146,26 +154,12 @@
                 learnerProfileView.render();
             };
 
-            accountSettingsModel.fetch({
-                success: function () {
-                    // Fetch the preferences model if the user has access
-                    if (options.has_preferences_access) {
-                        accountPreferencesModel.fetch({
-                            success: function() {
-                                if (accountSettingsModel.get('requires_parental_consent')) {
-                                    accountPreferencesModel.set('account_privacy', 'private');
-                                }
-                                showLearnerProfileView();
-                            },
-                            error: showLoadingError
-                        });
-                    }
-                    else {
-                        showLearnerProfileView();
-                    }
-                },
-                error: showLoadingError
-            });
+            if (options.has_preferences_access) {
+                if (accountSettingsModel.get('requires_parental_consent')) {
+                    accountPreferencesModel.set('account_privacy', 'private');
+                }
+            }
+            showLearnerProfileView();
 
             return {
                 accountSettingsModel: accountSettingsModel,

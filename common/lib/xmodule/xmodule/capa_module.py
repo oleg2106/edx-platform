@@ -59,6 +59,7 @@ class CapaModule(CapaMixin, XModule):
           <other request-specific values here > }
         """
         handlers = {
+            'hint_button': self.hint_button,
             'problem_get': self.get_problem,
             'problem_check': self.check_problem,
             'problem_reset': self.reset_problem,
@@ -118,6 +119,7 @@ class CapaDescriptor(CapaFields, RawDescriptor):
     module_class = CapaModule
 
     has_score = True
+    show_in_read_only_mode = True
     template_dir_name = 'problem'
     mako_template = "widgets/problem-edit.html"
     js = {'coffee': [resource_string(__name__, 'js/src/problem/edit.coffee')]}
@@ -142,7 +144,7 @@ class CapaDescriptor(CapaFields, RawDescriptor):
         Show them only if use_latex_compiler is set to True in
         course settings.
         """
-        return ('latex' not in template['template_id'] or course.use_latex_compiler)
+        return 'latex' not in template['template_id'] or course.use_latex_compiler
 
     def get_context(self):
         _context = RawDescriptor.get_context(self)
@@ -183,7 +185,7 @@ class CapaDescriptor(CapaFields, RawDescriptor):
     @property
     def problem_types(self):
         """ Low-level problem type introspection for content libraries filtering by problem type """
-        tree = etree.XML(self.data)  # pylint: disable=no-member
+        tree = etree.XML(self.data)
         registered_tags = responsetypes.registry.registered_tags()
         return set([node.tag for node in tree.iter() if node.tag in registered_tags])
 
@@ -202,6 +204,17 @@ class CapaDescriptor(CapaFields, RawDescriptor):
         result.update(index)
         return result
 
+    def has_support(self, view, functionality):
+        """
+        Override the XBlock.has_support method to return appropriate
+        value for the multi-device functionality.
+        Returns whether the given view has support for the given functionality.
+        """
+        if functionality == "multi_device":
+            return self.lcp.has_multi_device_support
+        else:
+            return False
+
     # Proxy to CapaModule for access to any of its attributes
     answer_available = module_attr('answer_available')
     check_button_name = module_attr('check_button_name')
@@ -214,6 +227,7 @@ class CapaDescriptor(CapaFields, RawDescriptor):
     get_problem_html = module_attr('get_problem_html')
     get_state_for_lcp = module_attr('get_state_for_lcp')
     handle_input_ajax = module_attr('handle_input_ajax')
+    hint_button = module_attr('hint_button')
     handle_problem_html_error = module_attr('handle_problem_html_error')
     handle_ungraded_response = module_attr('handle_ungraded_response')
     is_attempted = module_attr('is_attempted')

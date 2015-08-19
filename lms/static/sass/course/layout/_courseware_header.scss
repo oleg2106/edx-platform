@@ -1,6 +1,8 @@
 .wrapper-course-material {
   @include clearfix();
   @include box-sizing(border-box);
+  @extend %ui-print-excluded;
+
   border-bottom: none;
   margin: 0 auto 0;
   padding: 0;
@@ -162,7 +164,7 @@ header.global.slim {
 
   h2 {
     display: block;
-    width: 550px;
+    width: 65%;
     @include float(left);
     font-size: 0.9em;
     font-weight: 600;
@@ -190,5 +192,9 @@ header.global.slim {
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0;
+  }
+
+  @media print {
+    background: transparent !important;
   }
 }

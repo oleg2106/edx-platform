@@ -1,9 +1,9 @@
 ########################################
-Course Structure API Module
+Course Structure API
 ########################################
 
 This page contains information on using the Course Structure API to
-complete these actions:
+complete the following actions.
 
 * :ref:`Get a list of courses in the edX platform <Get a List of Courses>`
 

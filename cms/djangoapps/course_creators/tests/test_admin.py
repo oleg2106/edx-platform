@@ -27,6 +27,7 @@ class CourseCreatorAdminTest(TestCase):
 
     def setUp(self):
         """ Test case setup """
+        super(CourseCreatorAdminTest, self).setUp()
         self.user = User.objects.create_user('test_user', 'test_user+courses@edx.org', 'foo')
         self.table_entry = CourseCreator(user=self.user)
         self.table_entry.save()
@@ -55,7 +56,7 @@ class CourseCreatorAdminTest(TestCase):
         def change_state_and_verify_email(state, is_creator):
             """ Changes user state, verifies creator status, and verifies e-mail is sent based on transition """
             self._change_state(state)
-            self.assertEqual(is_creator, auth.has_access(self.user, CourseCreatorRole()))
+            self.assertEqual(is_creator, auth.user_has_role(self.user, CourseCreatorRole()))
 
             context = {'studio_request_email': self.studio_request_email}
             if state == CourseCreator.GRANTED:
@@ -73,7 +74,7 @@ class CourseCreatorAdminTest(TestCase):
         with mock.patch.dict('django.conf.settings.FEATURES', self.enable_creator_group_patch):
 
             # User is initially unrequested.
-            self.assertFalse(auth.has_access(self.user, CourseCreatorRole()))
+            self.assertFalse(auth.user_has_role(self.user, CourseCreatorRole()))
 
             change_state_and_verify_email(CourseCreator.GRANTED, True)
 

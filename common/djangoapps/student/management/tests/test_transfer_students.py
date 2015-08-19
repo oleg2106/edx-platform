@@ -33,10 +33,7 @@ class TestTransferStudents(ModuleStoreTestCase):
         patcher = patch('student.models.tracker')
         self.mock_tracker = patcher.start()
         self.addCleanup(patcher.stop)
-
-    def tearDown(self):
-        """Disconnects the UNENROLL stub receiver."""
-        UNENROLL_DONE.disconnect(self.assert_unenroll_signal)
+        self.addCleanup(UNENROLL_DONE.disconnect, self.assert_unenroll_signal)
 
     def assert_unenroll_signal(self, skip_refund=False, **kwargs):   # pylint: disable=unused-argument
         """ Signal Receiver stub for testing that the unenroll signal was fired. """
@@ -47,8 +44,8 @@ class TestTransferStudents(ModuleStoreTestCase):
     def test_transfer_students(self):
         """ Verify the transfer student command works as intended. """
         student = UserFactory.create()
-        student.set_password(self.PASSWORD)  # pylint: disable=no-member
-        student.save()   # pylint: disable=no-member
+        student.set_password(self.PASSWORD)
+        student.save()
         mode = 'verified'
         # Original Course
         original_course_location = locator.CourseLocator('Org0', 'Course0', 'Run0')

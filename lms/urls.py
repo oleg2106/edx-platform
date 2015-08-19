@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 import django.contrib.auth.views
 from microsite_configuration import microsite
-import oauth_exchange.views
+import auth_exchange.views
 
 # Uncomment the next two lines to enable the admin:
 if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
@@ -28,9 +28,7 @@ urlpatterns = (
 
     url(r'^admin_dashboard$', 'dashboard.views.dashboard'),
 
-    url(r'^change_email$', 'student.views.change_email_request', name="change_email"),
     url(r'^email_confirm/(?P<key>[^/]*)$', 'student.views.confirm_email_change'),
-    url(r'^change_name$', 'student.views.change_name_request', name="change_name"),
     url(r'^event$', 'track.views.user_track'),
     url(r'^performance$', 'performance.views.performance_log'),
     url(r'^segmentio/event$', 'track.views.segmentio.segmentio_event'),
@@ -68,8 +66,6 @@ urlpatterns = (
 
     url(r'^notifier_api/', include('notifier_api.urls')),
 
-    url(r'^lang_pref/', include('lang_pref.urls')),
-
     url(r'^i18n/', include('django.conf.urls.i18n')),
 
     # Feedback Form endpoint
@@ -77,9 +73,6 @@ urlpatterns = (
 
     # Enrollment API RESTful endpoints
     url(r'^api/enrollment/v1/', include('enrollment.urls')),
-
-    # CourseInfo API RESTful endpoints
-    url(r'^api/course/details/v0/', include('course_about.urls')),
 
     # Courseware search endpoints
     url(r'^search/', include('search.urls')),
@@ -92,6 +85,12 @@ urlpatterns = (
 
     # Profile Images API endpoints
     url(r'^api/profile_images/', include('openedx.core.djangoapps.profile_images.urls')),
+
+    # Video Abstraction Layer used to allow video teams to manage video assets
+    # independently of courseware. https://github.com/edx/edx-val
+    url(r'^api/val/v0/', include('edxval.urls')),
+
+    url(r'^api/commerce/', include('commerce.api.urls', namespace='commerce_api')),
 )
 
 if settings.FEATURES["ENABLE_COMBINED_LOGIN_REGISTRATION"]:
@@ -112,12 +111,15 @@ else:
         url(r'^accounts/login$', 'student.views.accounts_login', name="accounts_login"),
     )
 
+if settings.FEATURES.get("ENABLE_CREDIT_API"):
+    # Credit API end-points
+    urlpatterns += (
+        url(r'^api/credit/', include('openedx.core.djangoapps.credit.urls', app_name="credit", namespace='credit')),
+    )
+
 if settings.FEATURES["ENABLE_MOBILE_REST_API"]:
     urlpatterns += (
         url(r'^api/mobile/v0.5/', include('mobile_api.urls')),
-        # Video Abstraction Layer used to allow video teams to manage video assets
-        # independently of courseware. https://github.com/edx/edx-val
-        url(r'^api/val/v0/', include('edxval.urls')),
     )
 
 # if settings.FEATURES.get("MULTIPLE_ENROLLMENT_ROLES"):
@@ -135,7 +137,7 @@ js_info_dict = {
 
 urlpatterns += (
     # Serve catalog of localized strings to be rendered by Javascript
-    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+    url(r'^i18n.js$', 'django.views.i18n.javascript_catalog', js_info_dict),
 )
 
 # sysadmin dashboard, to see what courses are loaded, to delete & load courses
@@ -240,6 +242,19 @@ if settings.WIKI_ENABLED:
     )
 
 if settings.COURSEWARE_ENABLED:
+    COURSE_URLS = patterns(
+        '',
+        url(
+            r'^look_up_registration_code$',
+            'instructor.views.registration_codes.look_up_registration_code',
+            name='look_up_registration_code'
+        ),
+        url(
+            r'^registration_code_details$',
+            'instructor.views.registration_codes.registration_code_details',
+            name='registration_code_details'
+        )
+    )
     urlpatterns += (
         url(r'^courses/{}/jump_to/(?P<location>.*)$'.format(settings.COURSE_ID_PATTERN),
             'courseware.views.jump_to', name="jump_to"),
@@ -360,6 +375,7 @@ if settings.COURSEWARE_ENABLED:
         url(r'^courses/{}/get_coupon_info$'.format(settings.COURSE_ID_PATTERN),
             'instructor.views.coupons.get_coupon_info', name="get_coupon_info"),
 
+        url(r'^courses/{}/'.format(settings.COURSE_ID_PATTERN), include(COURSE_URLS)),
         # see ENABLE_INSTRUCTOR_LEGACY_DASHBOARD section for legacy dash urls
 
         # Open Ended grading views
@@ -427,7 +443,25 @@ if settings.COURSEWARE_ENABLED:
         # Student Notes
         url(r'^courses/{}/edxnotes'.format(settings.COURSE_ID_PATTERN),
             include('edxnotes.urls'), name="edxnotes_endpoints"),
+
+        url(r'^api/branding/v1/', include('branding.api_urls')),
     )
+
+    if settings.FEATURES["ENABLE_TEAMS"]:
+        # Teams endpoints
+        urlpatterns += (
+            url(r'^api/team/', include('teams.api_urls')),
+            url(r'^courses/{}/teams'.format(settings.COURSE_ID_PATTERN), include('teams.urls'), name="teams_endpoints"),
+        )
+
+    if settings.FEATURES.get('ENABLE_RENDER_XBLOCK_API'):
+        # TODO (MA-789) This endpoint path still needs to be approved by the arch council.
+        # Until then, keep the version at v0.
+        urlpatterns += (
+            url(r'api/xblock/v0/xblock/{usage_key_string}$'.format(usage_key_string=settings.USAGE_KEY_PATTERN),
+                'courseware.views.render_xblock',
+                name='render_xblock'),
+        )
 
     # allow course staff to change to student view of courseware
     if settings.FEATURES.get('ENABLE_MASQUERADE'):
@@ -571,7 +605,6 @@ if settings.FEATURES.get('RUN_AS_ANALYTICS_SERVER_ENABLED'):
     urlpatterns += (
         url(r'^edinsights_service/', include('edinsights.core.urls')),
     )
-    import edinsights.core.registry
 
 # FoldIt views
 urlpatterns += (
@@ -611,20 +644,39 @@ if settings.FEATURES.get('ENABLE_THIRD_PARTY_AUTH'):
     )
 
 # OAuth token exchange
-if settings.FEATURES.get('ENABLE_THIRD_PARTY_AUTH') and settings.FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
+if settings.FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
+    if settings.FEATURES.get('ENABLE_THIRD_PARTY_AUTH'):
+        urlpatterns += (
+            url(
+                r'^oauth2/exchange_access_token/(?P<backend>[^/]+)/$',
+                auth_exchange.views.AccessTokenExchangeView.as_view(),
+                name="exchange_access_token"
+            ),
+        )
     urlpatterns += (
         url(
-            r'^oauth2/exchange_access_token/(?P<backend>[^/]+)/$',
-            oauth_exchange.views.AccessTokenExchangeView.as_view(),
-            name="exchange_access_token"
+            r'^oauth2/login/$',
+            auth_exchange.views.LoginWithAccessTokenView.as_view(),
+            name="login_with_access_token"
         ),
     )
 
 # Certificates Web/HTML View
-if settings.FEATURES.get('CERTIFICATES_HTML_VIEW', False):
-    urlpatterns += (
-        url(r'^certificates/html', 'certificates.views.render_html_view', name='cert_html_view'),
-    )
+urlpatterns += (
+    url(r'^certificates/user/(?P<user_id>[^/]*)/course/{course_id}'.format(course_id=settings.COURSE_ID_PATTERN),
+        'certificates.views.render_html_view', name='cert_html_view'),
+)
+
+BADGE_SHARE_TRACKER_URL = url(
+    r'^certificates/badge_share_tracker/{}/(?P<network>[^/]+)/(?P<student_username>[^/]+)/$'.format(
+        settings.COURSE_ID_PATTERN
+    ),
+    'certificates.views.track_share_redirect',
+    name='badge_share_tracker'
+)
+
+if settings.FEATURES.get('ENABLE_OPENBADGES', False):
+    urlpatterns += (BADGE_SHARE_TRACKER_URL,)
 
 # XDomain proxy
 urlpatterns += (
@@ -656,12 +708,18 @@ if settings.DEBUG:
     # in debug mode, allow any template to be rendered (most useful for UX reference templates)
     urlpatterns += url(r'^template/(?P<template>.+)$', 'debug.views.show_reference_template'),
 
-#Custom error pages
+if 'debug_toolbar' in settings.INSTALLED_APPS:
+    import debug_toolbar
+    urlpatterns += (
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
+
+# Custom error pages
 handler404 = 'static_template_view.views.render_404'
 handler500 = 'static_template_view.views.render_500'
 
 # display error page templates, for testing purposes
 urlpatterns += (
-    url(r'404', handler404),
-    url(r'500', handler500),
+    url(r'^404$', handler404),
+    url(r'^500$', handler500),
 )

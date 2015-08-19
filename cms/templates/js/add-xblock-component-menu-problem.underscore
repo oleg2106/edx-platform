@@ -10,7 +10,7 @@
     <div class="tab current" id="tab1">
         <ul class="new-component-template">
             <% for (var i = 0; i < templates.length; i++) { %>
-                <% if (templates[i].is_common) { %>
+                <% if (templates[i].tab == "common") { %>
                     <% if (!templates[i].boilerplate_name) { %>
                     <li class="editor-md empty">
                         <a href="#" data-category="<%= templates[i].category %>">
@@ -32,7 +32,7 @@
     <div class="tab" id="tab2">
         <ul class="new-component-template">
             <% for (var i = 0; i < templates.length; i++) { %>
-                <% if (!templates[i].is_common) { %>
+                <% if (templates[i].tab == "advanced") { %>
                 <li class="editor-manual">
                     <a href="#" data-category="<%= templates[i].category %>"
                        data-boilerplate="<%= templates[i].boilerplate_name %>">

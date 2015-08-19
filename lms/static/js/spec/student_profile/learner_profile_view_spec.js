@@ -1,4 +1,4 @@
-define(['backbone', 'jquery', 'underscore', 'js/common_helpers/ajax_helpers', 'js/common_helpers/template_helpers',
+define(['backbone', 'jquery', 'underscore', 'common/js/spec_helpers/ajax_helpers', 'common/js/spec_helpers/template_helpers',
         'js/spec/student_account/helpers',
         'js/spec/student_profile/helpers',
         'js/views/fields',
@@ -101,7 +101,8 @@ define(['backbone', 'jquery', 'underscore', 'js/common_helpers/ajax_helpers', 'j
                         placeholderValue: "Tell other edX learners a little about yourself: where you live, " +
                             "what your interests are, why you're taking courses on edX, or what you hope to learn.",
                         valueAttribute: "bio",
-                        helpMessage: ''
+                        helpMessage: '',
+                        messagePosition: 'header'
                     })
                 ];
 

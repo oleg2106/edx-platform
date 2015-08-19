@@ -45,6 +45,7 @@ class TestCreateAccount(TestCase):
     """Tests for account creation"""
 
     def setUp(self):
+        super(TestCreateAccount, self).setUp()
         self.username = "test_user"
         self.url = reverse("create_account")
         self.request_factory = RequestFactory()
@@ -85,7 +86,8 @@ class TestCreateAccount(TestCase):
     def test_marketing_cookie(self):
         response = self.client.post(self.url, self.params)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(settings.EDXMKTG_COOKIE_NAME, self.client.cookies)
+        self.assertIn(settings.EDXMKTG_LOGGED_IN_COOKIE_NAME, self.client.cookies)
+        self.assertIn(settings.EDXMKTG_USER_INFO_COOKIE_NAME, self.client.cookies)
 
     @unittest.skipUnless(
         "microsite_configuration.middleware.MicrositeMiddleware" in settings.MIDDLEWARE_CLASSES,
@@ -477,6 +479,7 @@ class TestCreateAccountValidation(TestCase):
 class TestCreateCommentsServiceUser(TransactionTestCase):
 
     def setUp(self):
+        super(TestCreateCommentsServiceUser, self).setUp()
         self.username = "test_user"
         self.url = reverse("create_account")
         self.params = {

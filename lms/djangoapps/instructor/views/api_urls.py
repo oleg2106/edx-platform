@@ -21,6 +21,8 @@ urlpatterns = patterns(
         'instructor.views.api.get_grading_config', name="get_grading_config"),
     url(r'^get_students_features(?P<csv>/csv)?$',
         'instructor.views.api.get_students_features', name="get_students_features"),
+    url(r'^get_students_who_may_enroll$',
+        'instructor.views.api.get_students_who_may_enroll', name="get_students_who_may_enroll"),
     url(r'^get_user_invoice_preference$',
         'instructor.views.api.get_user_invoice_preference', name="get_user_invoice_preference"),
     url(r'^get_sale_records(?P<csv>/csv)?$',
@@ -31,8 +33,6 @@ urlpatterns = patterns(
         'instructor.views.api.sale_validation', name="sale_validation"),
     url(r'^get_anon_ids$',
         'instructor.views.api.get_anon_ids', name="get_anon_ids"),
-    url(r'^get_distribution$',
-        'instructor.views.api.get_distribution', name="get_distribution"),
     url(r'^get_student_progress_url$',
         'instructor.views.api.get_student_progress_url', name="get_student_progress_url"),
     url(r'^reset_student_attempts$',
@@ -69,8 +69,6 @@ urlpatterns = patterns(
         'instructor.views.api.list_forum_members', name="list_forum_members"),
     url(r'^update_forum_role_membership$',
         'instructor.views.api.update_forum_role_membership', name="update_forum_role_membership"),
-    url(r'^proxy_legacy_analytics$',
-        'instructor.views.api.proxy_legacy_analytics', name="proxy_legacy_analytics"),
     url(r'^send_email$',
         'instructor.views.api.send_email', name="send_email"),
     url(r'^change_due_date$', 'instructor.views.api.change_due_date',
@@ -87,6 +85,12 @@ urlpatterns = patterns(
         'instructor.views.api.list_report_downloads', name="list_report_downloads"),
     url(r'calculate_grades_csv$',
         'instructor.views.api.calculate_grades_csv', name="calculate_grades_csv"),
+    url(r'problem_grade_report$',
+        'instructor.views.api.problem_grade_report', name="problem_grade_report"),
+
+    # Financial Report downloads..
+    url(r'^list_financial_report_downloads$',
+        'instructor.views.api.list_financial_report_downloads', name="list_financial_report_downloads"),
 
     # Registration Codes..
     url(r'get_registration_codes$',
@@ -97,6 +101,12 @@ urlpatterns = patterns(
         'instructor.views.api.active_registration_codes', name="active_registration_codes"),
     url(r'spent_registration_codes$',
         'instructor.views.api.spent_registration_codes', name="spent_registration_codes"),
+
+    # Reports..
+    url(r'get_enrollment_report$',
+        'instructor.views.api.get_enrollment_report', name="get_enrollment_report"),
+    url(r'get_exec_summary_report$',
+        'instructor.views.api.get_exec_summary_report', name="get_exec_summary_report"),
 
     # Coupon Codes..
     url(r'get_coupon_codes',
@@ -118,4 +128,8 @@ urlpatterns = patterns(
     url(r'^enable_certificate_generation$',
         'instructor.views.api.enable_certificate_generation',
         name='enable_certificate_generation'),
+
+    url(r'^start_certificate_generation',
+        'instructor.views.api.start_certificate_generation',
+        name='start_certificate_generation'),
 )

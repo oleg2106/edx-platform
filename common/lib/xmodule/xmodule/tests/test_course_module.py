@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from fs.memoryfs import MemoryFS
 
 from mock import Mock, patch
+import itertools
 
 from xblock.runtime import KvsFieldData, DictKeyValueStore
 
@@ -17,6 +18,10 @@ ORG = 'test_org'
 COURSE = 'test_course'
 
 NOW = datetime.strptime('2013-01-01T01:00:00', '%Y-%m-%dT%H:%M:00').replace(tzinfo=UTC())
+
+_TODAY = datetime.now(UTC())
+_LAST_WEEK = _TODAY - timedelta(days=7)
+_NEXT_WEEK = _TODAY + timedelta(days=7)
 
 
 class CourseFieldsTestCase(unittest.TestCase):
@@ -236,25 +241,25 @@ class IsNewCourseTestCase(unittest.TestCase):
 
     def test_is_newish(self):
         descriptor = get_dummy_course(start='2012-12-02T12:00', is_new=True)
-        assert(descriptor.is_newish is True)
+        assert descriptor.is_newish is True
 
         descriptor = get_dummy_course(start='2013-02-02T12:00', is_new=False)
-        assert(descriptor.is_newish is False)
+        assert descriptor.is_newish is False
 
         descriptor = get_dummy_course(start='2013-02-02T12:00', is_new=True)
-        assert(descriptor.is_newish is True)
+        assert descriptor.is_newish is True
 
         descriptor = get_dummy_course(start='2013-01-15T12:00')
-        assert(descriptor.is_newish is True)
+        assert descriptor.is_newish is True
 
         descriptor = get_dummy_course(start='2013-03-01T12:00')
-        assert(descriptor.is_newish is True)
+        assert descriptor.is_newish is True
 
         descriptor = get_dummy_course(start='2012-10-15T12:00')
-        assert(descriptor.is_newish is False)
+        assert descriptor.is_newish is False
 
         descriptor = get_dummy_course(start='2012-12-31T12:00')
-        assert(descriptor.is_newish is True)
+        assert descriptor.is_newish is True
 
     def test_end_date_text(self):
         # No end date set, returns empty string.
@@ -277,3 +282,119 @@ class DiscussionTopicsTestCase(unittest.TestCase):
     def test_default_discussion_topics(self):
         d = get_dummy_course('2012-12-02T12:00')
         self.assertEqual({'General': {'id': 'i4x-test_org-test_course-course-test'}}, d.discussion_topics)
+
+
+class TeamsConfigurationTestCase(unittest.TestCase):
+    """
+    Tests for the configuration of teams and the helper methods for accessing them.
+    """
+
+    def setUp(self):
+        super(TeamsConfigurationTestCase, self).setUp()
+        self.course = get_dummy_course('2012-12-02T12:00')
+        self.course.teams_configuration = dict()
+        self.count = itertools.count()
+
+    def add_team_configuration(self, max_team_size=3, topics=None):
+        """ Add a team configuration to the course. """
+        teams_configuration = {}
+        teams_configuration["topics"] = [] if topics is None else topics
+        if max_team_size is not None:
+            teams_configuration["max_team_size"] = max_team_size
+        self.course.teams_configuration = teams_configuration
+
+    def make_topic(self):
+        """ Make a sample topic dictionary. """
+        next_num = self.count.next()
+        topic_id = "topic_id_{}".format(next_num)
+        name = "Name {}".format(next_num)
+        description = "Description {}".format(next_num)
+        return {"name": name, "description": description, "id": topic_id}
+
+    def test_teams_enabled_new_course(self):
+        # Make sure we can detect when no teams exist.
+        self.assertFalse(self.course.teams_enabled)
+
+        # add topics
+        self.add_team_configuration(max_team_size=4, topics=[self.make_topic()])
+        self.assertTrue(self.course.teams_enabled)
+
+        # remove them again
+        self.add_team_configuration(max_team_size=4, topics=[])
+        self.assertFalse(self.course.teams_enabled)
+
+    def test_teams_enabled_max_size_only(self):
+        self.add_team_configuration(max_team_size=4)
+        self.assertFalse(self.course.teams_enabled)
+
+    def test_teams_enabled_no_max_size(self):
+        self.add_team_configuration(max_team_size=None, topics=[self.make_topic()])
+        self.assertTrue(self.course.teams_enabled)
+
+    def test_teams_max_size_no_teams_configuration(self):
+        self.assertIsNone(self.course.teams_max_size)
+
+    def test_teams_max_size_with_teams_configured(self):
+        size = 4
+        self.add_team_configuration(max_team_size=size, topics=[self.make_topic(), self.make_topic()])
+        self.assertTrue(self.course.teams_enabled)
+        self.assertEqual(size, self.course.teams_max_size)
+
+    def test_teams_topics_no_teams(self):
+        self.assertIsNone(self.course.teams_topics)
+
+    def test_teams_topics_no_topics(self):
+        self.add_team_configuration(max_team_size=4)
+        self.assertEqual(self.course.teams_topics, [])
+
+    def test_teams_topics_with_topics(self):
+        topics = [self.make_topic(), self.make_topic()]
+        self.add_team_configuration(max_team_size=4, topics=topics)
+        self.assertTrue(self.course.teams_enabled)
+        self.assertEqual(self.course.teams_topics, topics)
+
+
+class CourseDescriptorTestCase(unittest.TestCase):
+    """
+    Tests for a select few functions from CourseDescriptor.
+
+    I wrote these test functions in order to satisfy the coverage checker for
+    PR #8484, which modified some code within CourseDescriptor. However, this
+    class definitely isn't a comprehensive test case for CourseDescriptor, as
+    writing a such a test case was out of the scope of the PR.
+    """
+
+    def setUp(self):
+        """
+        Initialize dummy testing course.
+        """
+        super(CourseDescriptorTestCase, self).setUp()
+        self.course = get_dummy_course(start=_TODAY)
+
+    def test_clean_id(self):
+        """
+        Test CourseDescriptor.clean_id.
+        """
+        self.assertEqual(
+            self.course.clean_id(),
+            "course_ORSXG5C7N5ZGOL3UMVZXIX3DN52XE43FF52GK43UL5ZHK3Q="
+        )
+        self.assertEqual(
+            self.course.clean_id(padding_char='$'),
+            "course_ORSXG5C7N5ZGOL3UMVZXIX3DN52XE43FF52GK43UL5ZHK3Q$"
+        )
+
+    def test_has_started(self):
+        """
+        Test CourseDescriptor.has_started.
+        """
+        self.course.start = _LAST_WEEK
+        self.assertTrue(self.course.has_started())
+        self.course.start = _NEXT_WEEK
+        self.assertFalse(self.course.has_started())
+
+    def test_number(self):
+        """
+        Test CourseDescriptor.number.
+        """
+        self.assertEqual(self.course.number, COURSE)
