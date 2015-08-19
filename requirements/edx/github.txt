@@ -47,8 +47,8 @@ git+https://github.com/edx/rfc6266.git@v0.0.5-edx#egg=rfc6266==0.0.5-edx
 
 # Mihara: We're using a fork with uneviewed translations from Transifex pulled in.
 # Fork is to be updated when new releases get into the platform with a new branch mirroring the name of the used tag.
--e git+https://github.com/edx/edx-ora2.git@release-2015-07-14T11.10#egg=edx-ora2
-#-e git+https://github.com/kursitet/edx-ora2.git@release-2015-05-08T16.15-extra-ru#egg=edx-ora2
+#-e git+https://github.com/edx/edx-ora2.git@release-2015-07-14T11.10#egg=edx-ora2
+-e git+https://github.com/kursitet/edx-ora2.git@release-2015-07-14T11.10-extra-ru#egg=edx-ora2
 
 -e git+https://github.com/edx/edx-submissions.git@7c766502058e04bc9094e6cbe286e949794b80b3#egg=edx-submissions
 -e git+https://github.com/edx/opaque-keys.git@27dc382ea587483b1e3889a3d19cbd90b9023a06#egg=opaque-keys
