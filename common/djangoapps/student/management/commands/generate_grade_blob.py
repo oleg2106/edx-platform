@@ -9,15 +9,15 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
+# Why did they have to remove course_about api?!
+
 from xmodule.modulestore.django import modulestore
-from course_about.api import get_course_about_details
+from xmodule.modulestore.exceptions import ItemNotFoundError
 from student.models import CourseEnrollment, CourseAccessRole, anonymous_id_for_user
 from courseware.grades import iterate_grades_for
+from courseware.courses import course_image_url
 from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR, \
                                          FORUM_ROLE_MODERATOR, FORUM_ROLE_COMMUNITY_TA
-
-# Note: They don't want me to use it.
-from course_about.data import _fetch_course_detail as get_detail
 
 IMPORTANT_ROLES = {
     "administrator": FORUM_ROLE_ADMINISTRATOR,
@@ -49,9 +49,17 @@ class Command(BaseCommand):
                     help='Filename for grade output. JSON will be printed on stdout if this is missing.'))
 
     def handle(self, *args, **options):
-    
+
+        def get_detail(course_key, attribute):
+            usage_key = course_key.make_usage_key('about', attribute)
+            try:
+                value = modulestore().get_item(usage_key).data
+            except ItemNotFoundError:
+                value = None
+            return value
+
         exclusion_list = []
-        
+
         if options['exclude_file']:
             try:
                 with open(options['exclude_file'],'rb') as exclusion_file:
@@ -59,19 +67,18 @@ class Command(BaseCommand):
                 exclusion_list = [x.strip() for x in data]
             except IOError:
                 raise CommandError("Could not read exclusion list from '{0}'".format(options['exclude_file']))
-                
+
         store = modulestore()
         epoch = int(time.time())
         blob = {
             'epoch': epoch,
             'courses': [],
         }
-        
-        # Mihara: Notice how functions mix course.id objects and course id strings left and right...
+
         for course in store.get_courses():
-        
+
             course_id_string = course.id.to_deprecated_string()
-            
+
             if course_id_string in exclusion_list:
                 print "Skipping {0} by exclusion list."
                 continue
@@ -80,21 +87,32 @@ class Command(BaseCommand):
                 forum_roles = {}
                 for packet_name, role_name in IMPORTANT_ROLES.iteritems():
                     try:
-                        forum_roles[packet_name] = [x.username for x in Role.objects.get(course_id=course.id, name=role_name).users.all()]
+                        forum_roles[packet_name] = [
+                            x.username for x in
+                            Role.objects.get(course_id=course.id, name=role_name).users.all()
+                        ]
                     except Role.DoesNotExist:
                         pass
 
-                students = CourseEnrollment.users_enrolled_in(course.id)
+                students = CourseEnrollment.objects.users_enrolled_in(course.id)
 
                 course_block = {
                   'id': course_id_string,
                   'meta_data': {
-                    'about': get_course_about_details(course_id_string),
+                    'about': {
+                        'display_name': course.display_name,
+                        'media': {
+                            'course_image': course_image_url(course),
+                        }
+                    },
+                    # Yes, I'm duplicating them for now, because the about section is shot.
+                    'display_name': course.display_name,
+                    'banner': course_image_url(course),
+
                     'ispublic': course.ispublic,
                     'lowest_passing_grade': course.lowest_passing_grade,
                     'has_started': course.has_started(),
                     'has_ended': course.has_ended(),
-                    # Note: API currently does not return those natively.
                     'overview': get_detail(course.id,'overview'),
                     'short_description': get_detail(course.id,'short_description'),
                     'pre_requisite_courses': get_detail(course.id,'pre_requisite_courses'),
@@ -109,7 +127,7 @@ class Command(BaseCommand):
                   'global_anonymous_id': { x.username:anonymous_id_for_user(x, None) for x in students },
                   'local_anonymous_id': { x.username:anonymous_id_for_user(x, course.id) for x in students },
                 }
-                
+
                 if not options['meta_only']:
                     blob['grading_data_epoch'] = epoch
                     course_block['grading_data'] = []
@@ -124,7 +142,7 @@ class Command(BaseCommand):
                                 })
                             else:
                                 print error_message
-                    
+
                 blob['courses'].append(course_block)
         if options['output']:
             with open(options['output'],'wb') as output_file:
