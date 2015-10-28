@@ -4,6 +4,8 @@ as a convenient json file which is easy to subsequently serve
 to external systems.
 """
 import time
+import calendar
+import datetime
 import json
 from optparse import make_option
 
@@ -58,6 +60,11 @@ class Command(BaseCommand):
                 value = None
             return value
 
+        def iso_date(thing):
+            if isinstance(thing, datetime.datetime):
+                return thing.isoformat()
+            return thing
+
         exclusion_list = []
 
         if options['exclude_file']:
@@ -108,9 +115,17 @@ class Command(BaseCommand):
                     # Yes, I'm duplicating them for now, because the about section is shot.
                     'display_name': course.display_name,
                     'banner': course_image_url(course),
-
+                    'id_org': course.org,
+                    'id_number': course.number,
+                    'graded': course.graded,
+                    'hidden': course.visible_to_staff_only,
                     'ispublic': course.ispublic,
                     'lowest_passing_grade': course.lowest_passing_grade,
+                    'start': iso_date(course.start),
+                    'advertised_start': iso_date(course.advertised_start),
+                    'end': iso_date(course.end),
+                    'enrollment_end': iso_date(course.enrollment_end),
+                    'enrollment_start': iso_date(course.enrollment_start),
                     'has_started': course.has_started(),
                     'has_ended': course.has_ended(),
                     'overview': get_detail(course.id,'overview'),
