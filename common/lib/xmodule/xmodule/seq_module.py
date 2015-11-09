@@ -164,6 +164,8 @@ class SequenceModule(SequenceFields, ProctoringFields, XModule):  # pylint: disa
                 'content': rendered_child.content,
                 'title': "\n".join(titles),
                 'page_title': titles[0] if titles else '',
+                # Mihara: Also pass on block title.
+                'block_title': child.display_name_with_default,
                 'progress_status': Progress.to_js_status_str(progress),
                 'progress_detail': Progress.to_js_detail_str(progress),
                 'type': child.get_icon_class(),
