@@ -909,6 +909,9 @@ def settings_handler(request, course_key_string):
                 settings.FEATURES.get('ENABLE_MKTG_SITE', False)
             )
 
+            # Mihara: In our case, about page is always editable, because we like the fact that course description can be exported with the course.
+            about_page_editable = True
+
             short_description_editable = settings.FEATURES.get('EDITABLE_SHORT_DESCRIPTION', True)
             settings_context = {
                 'context_course': course_module,
