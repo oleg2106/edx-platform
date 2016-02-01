@@ -76,5 +76,5 @@ git+https://github.com/edx/ecommerce-api-client.git@1.1.0#egg=ecommerce-api-clie
 -e git+https://github.com/kursitet/edx-sga.git@d1391acd7cf17b8b42c6706a3a400cb1735c553a#egg=edx-sga
 # Notice this is upstreamed also:
 #-e git+https://github.com/open-craft/xblock-poll@v1.0#egg=xblock-poll
--e git+https://github.com/kursitet/xblock-poll.git@c94df046171a53cbe8880ee1bf98e3a5abb5dd90#egg=xblock-poll
+-e git+https://github.com/kursitet/xblock-poll.git@8043b22967414b9549c2858ba6bd337f3ec9413a#egg=xblock-poll
 -e git+https://github.com/kursitet/masterclass-xblock.git@f649246c90c01eb971e0bf640e97e9512bb8dbd6#egg=masterclass-xblock
