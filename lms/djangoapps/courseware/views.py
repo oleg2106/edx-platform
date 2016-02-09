@@ -688,6 +688,11 @@ def course_info(request, course_id):
             # denied permission due to the course not being live yet,
             # redirect to the dashboard page.
             if isinstance(access_response, StartDateError):
+                
+                # Mihara: Something chokes on localized non-ascii date, so this is a sneak patch.
+                # to ensure it sends the user somewhere sensible and doesn't crash.
+                return redirect(reverse('dashboard'))
+                
                 start_date = strftime_localized(course.start, 'SHORT_DATE')
                 params = urllib.urlencode({'notlive': start_date})
                 return redirect('{0}?{1}'.format(reverse('dashboard'), params))
