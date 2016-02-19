@@ -7,6 +7,8 @@ import time
 import calendar
 import datetime
 import json
+import tempfile
+import os
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
@@ -164,8 +166,11 @@ class Command(BaseCommand):
 
                 blob['courses'].append(course_block)
         if options['output']:
-            with open(options['output'],'wb') as output_file:
+            # Ensure the dump is atomic. 
+            with tempfile.NamedTemporaryFile('w', dir=os.path.dirname(options['output']), delete=False) as output_file:
                 json.dump(blob, output_file)
+                tempname = output_file.name
+            os.rename(tempname, options['output'])
         else:
             print "Blob output:"
             print json.dumps(blob, indent=2, ensure_ascii=False)
