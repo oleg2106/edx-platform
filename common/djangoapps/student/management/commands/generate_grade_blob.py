@@ -11,6 +11,8 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
+from django.contrib.auth.models import User
+
 # Why did they have to remove course_about api?!
 
 from xmodule.modulestore.django import modulestore
@@ -87,7 +89,7 @@ class Command(BaseCommand):
             course_id_string = course.id.to_deprecated_string()
 
             if course_id_string in exclusion_list:
-                print "Skipping {0} by exclusion list."
+                print "Skipping {0} by exclusion list.".format(course_id_string)
                 continue
             else:
                 print "Processing {0}".format(course_id_string)
@@ -146,10 +148,12 @@ class Command(BaseCommand):
                 if not options['meta_only']:
                     blob['grading_data_epoch'] = epoch
                     course_block['grading_data'] = []
-                    print "{0} students in course {1}".format(students.count(),course_id_string)
-                    if students.count():
+                    # Grab grades for all students that have ever had anything to do with the course.
+                    graded_students = User.objects.filter(pk__in=CourseEnrollment.objects.filter(course_id=course.id).values_list('user',flat=True))
+                    print "{0} graded students in course {1}".format(graded_students.count(),course_id_string)
+                    if graded_students.count():
                         for student, gradeset, error_message \
-                            in iterate_grades_for(course.id, students):
+                            in iterate_grades_for(course.id, graded_students):
                             if gradeset:
                                 course_block['grading_data'].append({
                                     'username': student.username,
