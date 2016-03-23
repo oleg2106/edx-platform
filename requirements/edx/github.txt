@@ -84,7 +84,7 @@ git+https://github.com/edx/XBlock.git@xblock-0.4.4#egg=XBlock==0.4.4
 # Mihara: We're using a fork with uneviewed translations from Transifex pulled in.
 # Fork is to be updated when new releases get into the platform with a new branch mirroring the name of the used tag.
 #-e git+https://github.com/edx/edx-ora2.git@0.2.4#egg=ora2==0.2.4
--e git+https://github.com/kursitet/edx-ora2.git@release-2015-07-14T11.10-extra-ru#egg=edx-ora2
+-e git+https://github.com/kursitet/edx-ora2.git@0.2.4-extra-ru#egg=edx-ora2
 
 -e git+https://github.com/edx/edx-submissions.git@0.1.3#egg=edx-submissions==0.1.3
 -e git+https://github.com/edx/opaque-keys.git@27dc382ea587483b1e3889a3d19cbd90b9023a06#egg=opaque-keys
