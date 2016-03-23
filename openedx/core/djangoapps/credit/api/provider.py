@@ -4,12 +4,12 @@ API for initiating and tracking requests for credit from a provider.
 
 import datetime
 import logging
-import pytz
 import uuid
 
+import pytz
 from django.db import transaction
-from lms.djangoapps.django_comment_client.utils import JsonResponse
 
+from lms.djangoapps.django_comment_client.utils import JsonResponse
 from openedx.core.djangoapps.credit.exceptions import (
     UserIsNotEligible,
     CreditProviderNotConfigured,
@@ -27,6 +27,8 @@ from openedx.core.djangoapps.credit.signature import signature, get_shared_secre
 from student.models import User
 from util.date_utils import to_timestamp
 
+
+# TODO: Cleanup this mess! ECOM-2908
 
 log = logging.getLogger(__name__)
 
@@ -108,7 +110,7 @@ def get_credit_provider_info(request, provider_id):  # pylint: disable=unused-ar
     return JsonResponse(credit_provider_data)
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def create_credit_request(course_key, provider_id, username):
     """
     Initiate a request for credit from a credit provider.
@@ -162,7 +164,7 @@ def create_credit_request(course_key, provider_id, username):
                 "course_org": "HogwartsX",
                 "course_num": "Potions101",
                 "course_run": "1T2015",
-                "final_grade": 0.95,
+                "final_grade": "0.95",
                 "user_username": "ron",
                 "user_email": "ron@example.com",
                 "user_full_name": "Ron Weasley",
@@ -246,15 +248,21 @@ def create_credit_request(course_key, provider_id, username):
             username=username,
             requirement__namespace="grade",
             requirement__name="grade",
+            requirement__course__course_key=course_key,
             status="satisfied"
         ).reason["final_grade"]
+
+        # NOTE (CCB): Limiting the grade to seven characters is a hack for ASU.
+        if len(unicode(final_grade)) > 7:
+            final_grade = u'{:.5f}'.format(final_grade)
+        else:
+            final_grade = unicode(final_grade)
+
     except (CreditRequirementStatus.DoesNotExist, TypeError, KeyError):
-        log.exception(
-            "Could not retrieve final grade from the credit eligibility table "
-            "for user %s in course %s.",
-            user.id, course_key
-        )
-        raise UserIsNotEligible
+        msg = 'Could not retrieve final grade from the credit eligibility table for ' \
+              'user [{user_id}] in course [{course_key}].'.format(user_id=user.id, course_key=course_key)
+        log.exception(msg)
+        raise UserIsNotEligible(msg)
 
     parameters = {
         "request_uuid": credit_request.uuid,
@@ -266,11 +274,7 @@ def create_credit_request(course_key, provider_id, username):
         "user_username": user.username,
         "user_email": user.email,
         "user_full_name": user.profile.name,
-        "user_mailing_address": (
-            user.profile.mailing_address
-            if user.profile.mailing_address is not None
-            else ""
-        ),
+        "user_mailing_address": "",
         "user_country": (
             user.profile.country.code
             if user.profile.country.code is not None

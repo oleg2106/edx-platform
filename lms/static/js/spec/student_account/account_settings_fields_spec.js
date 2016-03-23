@@ -15,11 +15,6 @@ define(['backbone', 'jquery', 'underscore', 'common/js/spec_helpers/ajax_helpers
                 timerCallback;
 
             beforeEach(function () {
-                TemplateHelpers.installTemplate('templates/fields/field_readonly');
-                TemplateHelpers.installTemplate('templates/fields/field_dropdown');
-                TemplateHelpers.installTemplate('templates/fields/field_link');
-                TemplateHelpers.installTemplate('templates/fields/field_text');
-
                 timerCallback = jasmine.createSpy('timerCallback');
                 jasmine.Clock.useMock();
             });
@@ -116,6 +111,7 @@ define(['backbone', 'jquery', 'underscore', 'common/js/spec_helpers/ajax_helpers
                     helpMessage: '',
                     valueAttribute: 'auth-yet-another',
                     connected: true,
+                    acceptsLogins: 'true',
                     connectUrl: 'yetanother.com/auth/connect',
                     disconnectUrl: 'yetanother.com/auth/disconnect'
                 });

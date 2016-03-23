@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, url
 
-from verify_student import views
+from lms.djangoapps.verify_student import views
 
 
 urlpatterns = patterns(
@@ -18,6 +18,16 @@ urlpatterns = patterns(
         # decorated with `classonlymethod` instead of `classmethod`.
         views.PayAndVerifyView.as_view(),
         name="verify_student_start_flow",
+        kwargs={
+            'message': views.PayAndVerifyView.FIRST_TIME_VERIFY_MSG
+        }
+    ),
+
+    # This is for A/B testing.
+    url(
+        r'^begin-flow/{course}/$'.format(course=settings.COURSE_ID_PATTERN),
+        views.PayAndVerifyView.as_view(),
+        name="verify_student_begin_flow",
         kwargs={
             'message': views.PayAndVerifyView.FIRST_TIME_VERIFY_MSG
         }
@@ -50,17 +60,6 @@ urlpatterns = patterns(
             'current_step': views.PayAndVerifyView.FACE_PHOTO_STEP,
             'message': views.PayAndVerifyView.VERIFY_NOW_MSG
         }
-    ),
-
-    # The user has paid and still needs to verify,
-    # but the user is NOT arriving directly from the payment flow.
-    # This is equivalent to starting a new flow
-    # with the payment steps and requirements hidden
-    # (since the user already paid).
-    url(
-        r'^verify-later/{course}/$'.format(course=settings.COURSE_ID_PATTERN),
-        views.VerifyLaterView.as_view(),
-        name="verify_student_verify_later"
     ),
 
     # The user is returning to the flow after paying.
@@ -122,7 +121,7 @@ urlpatterns = patterns(
 
 # Fake response page for incourse reverification ( software secure )
 if settings.FEATURES.get('ENABLE_SOFTWARE_SECURE_FAKE'):
-    from verify_student.tests.fake_software_secure import SoftwareSecureFakeView
+    from lms.djangoapps.verify_student.tests.fake_software_secure import SoftwareSecureFakeView
     urlpatterns += patterns(
         'verify_student.tests.fake_software_secure',
         url(r'^software-secure-fake-response', SoftwareSecureFakeView.as_view()),

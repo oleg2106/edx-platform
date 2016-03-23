@@ -34,7 +34,6 @@
         modules: getModulesList([
             'js/factories/asset_index',
             'js/factories/base',
-            'js/factories/checklists',
             'js/factories/container',
             'js/factories/course',
             'js/factories/course_create_rerun',
@@ -83,7 +82,6 @@
             'gettext': 'empty:',
             'xmodule': 'empty:',
             'mathjax': 'empty:',
-            'tender': 'empty:',
             'youtube': 'empty:'
         },
 

@@ -44,7 +44,6 @@ from util.milestones_helpers import (
     seed_milestone_relationship_types,
 )
 
-# pylint: disable=missing-docstring
 # pylint: disable=protected-access
 
 
@@ -207,7 +206,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
 
     @ddt.data(None, YESTERDAY, TOMORROW)
     @patch.dict('django.conf.settings.FEATURES', {'DISABLE_START_DATES': False})
-    @patch('courseware.access.get_current_request_hostname', Mock(return_value='preview.localhost'))
+    @patch('courseware.access_utils.get_current_request_hostname', Mock(return_value='preview.localhost'))
     def test__has_access_descriptor_in_preview_mode(self, start):
         """
         Tests that descriptor has access in preview mode.
@@ -225,7 +224,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
     )  # ddt throws an error if I don't put the None argument there
     @ddt.unpack
     @patch.dict('django.conf.settings.FEATURES', {'DISABLE_START_DATES': False})
-    @patch('courseware.access.get_current_request_hostname', Mock(return_value='localhost'))
+    @patch('courseware.access_utils.get_current_request_hostname', Mock(return_value='localhost'))
     def test__has_access_descriptor_when_not_in_preview_mode(self, start, expected_error_type):
         """
         Tests that descriptor has no access when start date in future & without preview.
@@ -237,7 +236,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
         mock_unit.start = start
         self.verify_access(mock_unit, expected_access, expected_error_type)
 
-    def test__has_access_course_desc_can_enroll(self):
+    def test__has_access_course_can_enroll(self):
         yesterday = datetime.datetime.now(pytz.utc) - datetime.timedelta(days=1)
         tomorrow = datetime.datetime.now(pytz.utc) + datetime.timedelta(days=1)
 
@@ -249,11 +248,11 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
             id=SlashSeparatedCourseKey('edX', 'test', '2012_Fall'), enrollment_domain=''
         )
         CourseEnrollmentAllowedFactory(email=user.email, course_id=course.id)
-        self.assertTrue(access._has_access_course_desc(user, 'enroll', course))
+        self.assertTrue(access._has_access_course(user, 'enroll', course))
 
         # Staff can always enroll even outside the open enrollment period
         user = StaffFactory.create(course_key=course.id)
-        self.assertTrue(access._has_access_course_desc(user, 'enroll', course))
+        self.assertTrue(access._has_access_course(user, 'enroll', course))
 
         # Non-staff cannot enroll if it is between the start and end dates and invitation only
         # and not specifically allowed
@@ -263,7 +262,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
             invitation_only=True
         )
         user = UserFactory.create()
-        self.assertFalse(access._has_access_course_desc(user, 'enroll', course))
+        self.assertFalse(access._has_access_course(user, 'enroll', course))
 
         # Non-staff can enroll if it is between the start and end dates and not invitation only
         course = Mock(
@@ -271,7 +270,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
             id=SlashSeparatedCourseKey('edX', 'test', '2012_Fall'), enrollment_domain='',
             invitation_only=False
         )
-        self.assertTrue(access._has_access_course_desc(user, 'enroll', course))
+        self.assertTrue(access._has_access_course(user, 'enroll', course))
 
         # Non-staff cannot enroll outside the open enrollment period if not specifically allowed
         course = Mock(
@@ -279,7 +278,7 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
             id=SlashSeparatedCourseKey('edX', 'test', '2012_Fall'), enrollment_domain='',
             invitation_only=False
         )
-        self.assertFalse(access._has_access_course_desc(user, 'enroll', course))
+        self.assertFalse(access._has_access_course(user, 'enroll', course))
 
     def test__user_passed_as_none(self):
         """Ensure has_access handles a user being passed as null"""
@@ -297,40 +296,30 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
             id=course_id,
             catalog_visibility=CATALOG_VISIBILITY_CATALOG_AND_ABOUT
         )
-        self.assertTrue(access._has_access_course_desc(user, 'see_in_catalog', course))
-        self.assertTrue(access._has_access_course_desc(user, 'see_about_page', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_in_catalog', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_about_page', course))
+        self.assertTrue(access._has_access_course(user, 'see_in_catalog', course))
+        self.assertTrue(access._has_access_course(user, 'see_about_page', course))
+        self.assertTrue(access._has_access_course(staff, 'see_in_catalog', course))
+        self.assertTrue(access._has_access_course(staff, 'see_about_page', course))
 
         # Now set visibility to just about page
         course = Mock(
             id=SlashSeparatedCourseKey('edX', 'test', '2012_Fall'),
             catalog_visibility=CATALOG_VISIBILITY_ABOUT
         )
-        self.assertFalse(access._has_access_course_desc(user, 'see_in_catalog', course))
-        self.assertTrue(access._has_access_course_desc(user, 'see_about_page', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_in_catalog', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_about_page', course))
+        self.assertFalse(access._has_access_course(user, 'see_in_catalog', course))
+        self.assertTrue(access._has_access_course(user, 'see_about_page', course))
+        self.assertTrue(access._has_access_course(staff, 'see_in_catalog', course))
+        self.assertTrue(access._has_access_course(staff, 'see_about_page', course))
 
         # Now set visibility to none, which means neither in catalog nor about pages
         course = Mock(
             id=SlashSeparatedCourseKey('edX', 'test', '2012_Fall'),
             catalog_visibility=CATALOG_VISIBILITY_NONE
         )
-        self.assertFalse(access._has_access_course_desc(user, 'see_in_catalog', course))
-        self.assertFalse(access._has_access_course_desc(user, 'see_about_page', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_in_catalog', course))
-        self.assertTrue(access._has_access_course_desc(staff, 'see_about_page', course))
-
-    @ddt.data(True, False)
-    @patch.dict("django.conf.settings.FEATURES", {'ACCESS_REQUIRE_STAFF_FOR_COURSE': True})
-    def test_see_exists(self, ispublic):
-        """
-        Test if user can see course
-        """
-        user = UserFactory.create(is_staff=False)
-        course = Mock(ispublic=ispublic)
-        self.assertEquals(bool(access._has_access_course_desc(user, 'see_exists', course)), ispublic)
+        self.assertFalse(access._has_access_course(user, 'see_in_catalog', course))
+        self.assertFalse(access._has_access_course(user, 'see_about_page', course))
+        self.assertTrue(access._has_access_course(staff, 'see_in_catalog', course))
+        self.assertTrue(access._has_access_course(staff, 'see_about_page', course))
 
     @patch.dict("django.conf.settings.FEATURES", {'ENABLE_PREREQUISITE_COURSES': True, 'MILESTONES_APP': True})
     def test_access_on_course_with_pre_requisites(self):
@@ -352,16 +341,16 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
 
         # user should not be able to load course even if enrolled
         CourseEnrollmentFactory(user=user, course_id=course.id)
-        response = access._has_access_course_desc(user, 'view_courseware_with_prerequisites', course)
+        response = access._has_access_course(user, 'view_courseware_with_prerequisites', course)
         self.assertFalse(response)
         self.assertIsInstance(response, access_response.MilestoneError)
         # Staff can always access course
         staff = StaffFactory.create(course_key=course.id)
-        self.assertTrue(access._has_access_course_desc(staff, 'view_courseware_with_prerequisites', course))
+        self.assertTrue(access._has_access_course(staff, 'view_courseware_with_prerequisites', course))
 
         # User should be able access after completing required course
         fulfill_course_milestone(pre_requisite_course.id, user)
-        self.assertTrue(access._has_access_course_desc(user, 'view_courseware_with_prerequisites', course))
+        self.assertTrue(access._has_access_course(user, 'view_courseware_with_prerequisites', course))
 
     @ddt.data(
         (True, True, True),
@@ -378,10 +367,10 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
         descriptor.mobile_available = mobile_available
 
         self.assertEqual(
-            bool(access._has_access_course_desc(self.student, 'load_mobile', descriptor)),
+            bool(access._has_access_course(self.student, 'load_mobile', descriptor)),
             student_expected
         )
-        self.assertEqual(bool(access._has_access_course_desc(self.staff, 'load_mobile', descriptor)), staff_expected)
+        self.assertEqual(bool(access._has_access_course(self.staff, 'load_mobile', descriptor)), staff_expected)
 
     @patch.dict("django.conf.settings.FEATURES", {'ENABLE_PREREQUISITE_COURSES': True, 'MILESTONES_APP': True})
     def test_courseware_page_unfulfilled_prereqs(self):
@@ -510,7 +499,7 @@ class CourseOverviewAccessTestCase(ModuleStoreTestCase):
 
         self.user_normal = UserFactory.create()
         self.user_beta_tester = BetaTesterFactory.create(course_key=self.course_not_started.id)
-        self.user_completed_pre_requisite = UserFactory.create()  # pylint: disable=invalid-name
+        self.user_completed_pre_requisite = UserFactory.create()
         fulfill_course_milestone(self.user_completed_pre_requisite, self.course_started.id)
         self.user_staff = UserFactory.create(is_staff=True)
         self.user_anonymous = AnonymousUserFactory.create()
@@ -553,7 +542,6 @@ class CourseOverviewAccessTestCase(ModuleStoreTestCase):
             user_attr_name (str): the name of the attribute on self that is the
                 User to test with.
             action (str): action to test with.
-                See COURSE_OVERVIEW_SUPPORTED_ACTIONS for valid values.
             course_attr_name (str): the name of the attribute on self that is
                 the CourseDescriptor to test with.
         """

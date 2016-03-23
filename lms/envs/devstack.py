@@ -1,6 +1,7 @@
 """
 Specific overrides to the base prod settings to make development easier.
 """
+from os.path import abspath, dirname, join
 
 from .aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
@@ -11,19 +12,25 @@ MEDIA_ROOT = "/edx/var/edxapp/uploads"
 
 DEBUG = True
 USE_I18N = True
-TEMPLATE_DEBUG = True
+DEFAULT_TEMPLATE_ENGINE['OPTIONS']['debug'] = True
 SITE_NAME = 'localhost:8000'
 PLATFORM_NAME = ENV_TOKENS.get('PLATFORM_NAME', 'Devstack')
 # By default don't use a worker, execute tasks as if they were local functions
 CELERY_ALWAYS_EAGER = True
+HTTPS = 'off'
 
 ################################ LOGGERS ######################################
 
+# Silence noisy logs
 import logging
-
-# Disable noisy loggers
-for pkg_name in ['track.contexts', 'track.middleware', 'dd.dogapi']:
-    logging.getLogger(pkg_name).setLevel(logging.CRITICAL)
+LOG_OVERRIDES = [
+    ('track.contexts', logging.CRITICAL),
+    ('track.middleware', logging.CRITICAL),
+    ('dd.dogapi', logging.CRITICAL),
+    ('django_comment_client.utils', logging.CRITICAL),
+]
+for log_name, log_level in LOG_OVERRIDES:
+    logging.getLogger(log_name).setLevel(log_level)
 
 
 ################################ EMAIL ########################################
@@ -79,8 +86,17 @@ def should_show_debug_toolbar(_):
 
 ########################### PIPELINE #################################
 
-# # Skip RequireJS optimizer in development
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+PIPELINE_ENABLED = False
+STATICFILES_STORAGE = 'openedx.core.storage.DevelopmentStorage'
+
+# Revert to the default set of finders as we don't want the production pipeline
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Disable JavaScript compression in development
+PIPELINE_JS_COMPRESSOR = None
 
 # Whether to run django-require in debug mode.
 REQUIRE_DEBUG = DEBUG
@@ -121,6 +137,8 @@ PASSWORD_COMPLEXITY = {}
 ########################### Milestones #################################
 FEATURES['MILESTONES_APP'] = True
 
+########################### Milestones #################################
+FEATURES['ORGANIZATIONS_APP'] = True
 
 ########################### Entrance Exams #################################
 FEATURES['ENTRANCE_EXAMS'] = True
@@ -130,7 +148,7 @@ FEATURES['LICENSING'] = True
 
 
 ########################## Courseware Search #######################
-FEATURES['ENABLE_COURSEWARE_SEARCH'] = False
+FEATURES['ENABLE_COURSEWARE_SEARCH'] = True
 SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 
 
@@ -143,7 +161,7 @@ FEATURES['CERTIFICATES_HTML_VIEW'] = True
 
 
 ########################## Course Discovery #######################
-from django.utils.translation import ugettext as _
+_ = lambda s: s
 LANGUAGE_MAP = {'terms': {lang: display for lang, display in ALL_LANGUAGES}, 'name': _('Language')}
 COURSE_DISCOVERY_MEANINGS = {
     'org': {
@@ -159,7 +177,9 @@ COURSE_DISCOVERY_MEANINGS = {
     'language': LANGUAGE_MAP,
 }
 
-FEATURES['ENABLE_COURSE_DISCOVERY'] = False
+FEATURES['ENABLE_COURSE_DISCOVERY'] = True
+# Setting for overriding default filtering facets for Course discovery
+# COURSE_DISCOVERY_FILTERS = ["org", "language", "modes"]
 FEATURES['COURSES_ARE_BROWSEABLE'] = True
 HOMEPAGE_COURSE_MAX = 9
 
@@ -199,10 +219,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 #####################################################################
 # See if the developer has any local overrides.
-try:
-    from .private import *      # pylint: disable=wildcard-import
-except ImportError:
-    pass
+if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
+    from .private import *  # pylint: disable=import-error,wildcard-import
 
 #####################################################################
 # Lastly, run any migrations, if needed.

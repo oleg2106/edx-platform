@@ -17,10 +17,21 @@ from .common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        'ATOMIC_REQUESTS': True,
     },
 
 }
-######################### Static file overrides ####################################
+
+######################### PIPELINE ####################################
+
+# Use RequireJS optimized storage
+STATICFILES_STORAGE = 'openedx.core.lib.django_require.staticstorage.OptimizedCachedRequireJsStorage'
+
+# Revert to the default set of finders as we don't want to dynamically pick up files from the pipeline
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 # Redirect to the test_root folder within the repo
 TEST_ROOT = REPO_ROOT / "test_root"
@@ -33,4 +44,3 @@ STATIC_ROOT = (TEST_ROOT / "staticfiles" / "cms").abspath()
 # 1. Uglify is by far the slowest part of the build process
 # 2. Having full source code makes debugging tests easier for developers
 os.environ['REQUIRE_BUILD_PROFILE_OPTIMIZE'] = 'none'
-PIPELINE_JS_COMPRESSOR = None

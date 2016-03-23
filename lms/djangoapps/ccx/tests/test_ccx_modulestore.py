@@ -14,7 +14,7 @@ from xmodule.modulestore.tests.django_utils import (
 from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
-from ..models import CustomCourseForEdX
+from lms.djangoapps.ccx.models import CustomCourseForEdX
 
 
 class TestCCXModulestoreWrapper(SharedModuleStoreTestCase):
@@ -45,7 +45,7 @@ class TestCCXModulestoreWrapper(SharedModuleStoreTestCase):
             ) for _ in xrange(2) for s in sequentials
         ]
         cls.blocks = [
-            ItemFactory.create(parent=v) for _ in xrange(2) for v in verticals
+            ItemFactory.create(parent=v, category='html') for _ in xrange(2) for v in verticals
         ]
 
     def setUp(self):
@@ -65,7 +65,7 @@ class TestCCXModulestoreWrapper(SharedModuleStoreTestCase):
         )
         ccx.save()
 
-        self.ccx_locator = CCXLocator.from_course_locator(self.course.id, ccx.id)  # pylint: disable=no-member
+        self.ccx_locator = CCXLocator.from_course_locator(self.course.id, ccx.id)
 
     def get_all_children_bf(self, block):
         """traverse the children of block in a breadth-first order"""

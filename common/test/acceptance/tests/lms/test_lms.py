@@ -109,7 +109,7 @@ class LoginFromCombinedPageTest(UniqueCourseTest):
         self.login_page.visit().toggle_form()
         self.assertEqual(self.login_page.current_form, "register")
 
-    @flaky  # TODO fix this, see ECOM-1165
+    @flaky  # ECOM-1165
     def test_password_reset_success(self):
         # Create a user account
         email, password = self._create_unique_user()  # pylint: disable=unused-variable
@@ -480,7 +480,7 @@ class PayAndVerifyTest(EventsTestMixin, UniqueCourseTest):
         self.assertEqual(enrollment_mode, 'verified')
 
 
-@attr('shard_5')
+@attr('shard_1')
 class CourseWikiTest(UniqueCourseTest):
     """
     Tests that verify the course wiki.
@@ -534,7 +534,7 @@ class CourseWikiTest(UniqueCourseTest):
         self.assertEqual(content, actual_content)
 
 
-@attr('shard_5')
+@attr('shard_1')
 class HighLevelTabTest(UniqueCourseTest):
     """
     Tests that verify each of the high-level tabs available within a course.
@@ -708,7 +708,6 @@ class PDFTextBooksTabTest(UniqueCourseTest):
         # Auto-auth register for the course
         AutoAuthPage(self.browser, course_id=self.course_id).visit()
 
-    @skip('TODO: fix this, see TNL-2083')
     def test_verify_textbook_tabs(self):
         """
         Test multiple pdf textbooks loads correctly in lms.
@@ -720,78 +719,7 @@ class PDFTextBooksTabTest(UniqueCourseTest):
             self.tab_nav.go_to_tab("PDF Book {}".format(i))
 
 
-@attr('shard_5')
-class VideoTest(UniqueCourseTest):
-    """
-    Navigate to a video in the courseware and play it.
-    """
-    def setUp(self):
-        """
-        Initialize pages and install a course fixture.
-        """
-        super(VideoTest, self).setUp()
-
-        self.course_info_page = CourseInfoPage(self.browser, self.course_id)
-        self.course_nav = CourseNavPage(self.browser)
-        self.tab_nav = TabNavPage(self.browser)
-        self.video = VideoPage(self.browser)
-
-        # Install a course fixture with a video component
-        course_fix = CourseFixture(
-            self.course_info['org'], self.course_info['number'],
-            self.course_info['run'], self.course_info['display_name']
-        )
-
-        course_fix.add_children(
-            XBlockFixtureDesc('chapter', 'Test Section').add_children(
-                XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
-                    XBlockFixtureDesc('vertical', 'Test Unit').add_children(
-                        XBlockFixtureDesc('video', 'Video')
-                    )))).install()
-
-        # Auto-auth register for the course
-        AutoAuthPage(self.browser, course_id=self.course_id).visit()
-
-    @skip("BLD-563: Video Player Stuck on Pause")
-    def test_video_player(self):
-        """
-        Play a video in the courseware.
-        """
-
-        # Navigate to a video
-        self.course_info_page.visit()
-        self.tab_nav.go_to_tab('Courseware')
-
-        # The video should start off paused
-        # Since the video hasn't loaded yet, it's elapsed time is 0
-        self.assertFalse(self.video.is_playing)
-        self.assertEqual(self.video.elapsed_time, 0)
-
-        # Play the video
-        self.video.play()
-
-        # Now we should be playing
-        self.assertTrue(self.video.is_playing)
-
-        # Commented the below EmptyPromise, will move to its page once this test is working and stable
-        # Also there is should be no Promise check in any test as this should be done in Page Object
-        # Wait for the video to load the duration
-        # EmptyPromise(
-        #     lambda: self.video.duration > 0,
-        #     'video has duration', timeout=20
-        # ).fulfill()
-
-        # Pause the video
-        self.video.pause()
-
-        # Expect that the elapsed time and duration are reasonable
-        # Again, we can't expect the video to actually play because of
-        # latency through the ssh tunnel
-        self.assertGreaterEqual(self.video.elapsed_time, 0)
-        self.assertGreaterEqual(self.video.duration, self.video.elapsed_time)
-
-
-@attr('shard_5')
+@attr('shard_1')
 class VisibleToStaffOnlyTest(UniqueCourseTest):
     """
     Tests that content with visible_to_staff_only set to True cannot be viewed by students.
@@ -876,7 +804,7 @@ class VisibleToStaffOnlyTest(UniqueCourseTest):
         self.assertEqual(["Html Child in visible unit"], self.course_nav.sequence_items)
 
 
-@attr('shard_5')
+@attr('shard_1')
 class TooltipTest(UniqueCourseTest):
     """
     Tests that tooltips are displayed
@@ -921,7 +849,7 @@ class TooltipTest(UniqueCourseTest):
         self.assertTrue(self.courseware_page.tooltips_displayed())
 
 
-@attr('shard_5')
+@attr('shard_1')
 class PreRequisiteCourseTest(UniqueCourseTest):
     """
     Tests that pre-requisite course messages are displayed
@@ -1006,7 +934,7 @@ class PreRequisiteCourseTest(UniqueCourseTest):
         self.settings_page.save_changes()
 
 
-@attr('shard_5')
+@attr('shard_1')
 class ProblemExecutionTest(UniqueCourseTest):
     """
     Tests of problems.
@@ -1085,7 +1013,7 @@ class ProblemExecutionTest(UniqueCourseTest):
         self.assertFalse(problem_page.is_correct())
 
 
-@attr('shard_5')
+@attr('shard_1')
 class EntranceExamTest(UniqueCourseTest):
     """
     Tests that course has an entrance exam.
@@ -1121,7 +1049,7 @@ class EntranceExamTest(UniqueCourseTest):
             When I view the courseware that has an entrance exam
             Then there should be an "Entrance Exam" chapter.'
         """
-        entrance_exam_link_selector = 'div#accordion nav div h3 a'
+        entrance_exam_link_selector = '.accordion .course-navigation .chapter .group-heading'
         # visit courseware page and make sure there is not entrance exam chapter.
         self.courseware_page.visit()
         self.courseware_page.wait_for_page()
@@ -1156,7 +1084,7 @@ class EntranceExamTest(UniqueCourseTest):
         ))
 
 
-@attr('shard_5')
+@attr('shard_1')
 class NotLiveRedirectTest(UniqueCourseTest):
     """
     Test that a banner is shown when the user is redirected to

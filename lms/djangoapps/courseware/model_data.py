@@ -45,6 +45,7 @@ from xmodule.modulestore.django import modulestore
 from xblock.core import XBlockAside
 from courseware.user_state_client import DjangoXBlockUserStateClient
 
+
 log = logging.getLogger(__name__)
 
 

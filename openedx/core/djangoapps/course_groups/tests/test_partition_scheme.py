@@ -21,7 +21,7 @@ from openedx.core.djangoapps.user_api.partition_schemes import RandomUserPartiti
 from ..partition_scheme import CohortPartitionScheme, get_cohorted_user_partition
 from ..models import CourseUserGroupPartitionGroup
 from ..views import link_cohort_to_partition_group, unlink_cohort_partition_group
-from ..cohorts import add_user_to_cohort, get_course_cohorts
+from ..cohorts import add_user_to_cohort, remove_user_from_cohort, get_course_cohorts
 from .helpers import CohortFactory, config_course_cohorts
 
 
@@ -100,7 +100,7 @@ class TestCohortPartitionScheme(ModuleStoreTestCase):
         self.assert_student_in_group(self.groups[1])
 
         # move the student out of the cohort
-        second_cohort.users.remove(self.student)
+        remove_user_from_cohort(second_cohort, self.student.username)
         self.assert_student_in_group(None)
 
     def test_cohort_partition_group_assignment(self):
@@ -317,14 +317,14 @@ class TestGetCohortedUserPartition(ModuleStoreTestCase):
         self.course.user_partitions.append(self.random_user_partition)
         self.course.user_partitions.append(self.cohort_user_partition)
         self.course.user_partitions.append(self.second_cohort_user_partition)
-        self.assertEqual(self.cohort_user_partition, get_cohorted_user_partition(self.course_key))
+        self.assertEqual(self.cohort_user_partition, get_cohorted_user_partition(self.course))
 
     def test_no_cohort_user_partitions(self):
         """
         Test get_cohorted_user_partition returns None when there are no cohorted user partitions.
         """
         self.course.user_partitions.append(self.random_user_partition)
-        self.assertIsNone(get_cohorted_user_partition(self.course_key))
+        self.assertIsNone(get_cohorted_user_partition(self.course))
 
 
 class TestMasqueradedGroup(StaffMasqueradeTestCase):
