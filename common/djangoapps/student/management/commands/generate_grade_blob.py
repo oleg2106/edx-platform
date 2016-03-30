@@ -131,7 +131,7 @@ class Command(BaseCommand):
                 'id_number': course.number,
                 'graded': course.graded,
                 'hidden': course.visible_to_staff_only,
-                'ispublic': course.visible_to_staff_only, # course.ispublic was removed in dogwood.
+                'ispublic': not (course.visible_to_staff_only or False), # course.ispublic was removed in dogwood.
                 'grading_policy': course.grading_policy,
                 'advanced_modules': course.advanced_modules,
                 'lowest_passing_grade': course.lowest_passing_grade,
