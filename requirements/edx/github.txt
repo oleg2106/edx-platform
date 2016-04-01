@@ -115,4 +115,4 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.0.0#egg=xblock-lti-consume
 # Notice this is upstreamed also:
 #-e git+https://github.com/open-craft/xblock-poll@e7a6c95c300e95c51e42bfd1eba70489c05a6527#egg=xblock-poll
 -e git+https://github.com/kursitet/xblock-poll.git@8043b22967414b9549c2858ba6bd337f3ec9413a#egg=xblock-poll
--e git+https://github.com/kursitet/masterclass-xblock.git@f649246c90c01eb971e0bf640e97e9512bb8dbd6#egg=masterclass-xblock
+-e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
