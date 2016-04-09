@@ -116,3 +116,9 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.0.0#egg=xblock-lti-consume
 #-e git+https://github.com/open-craft/xblock-poll@e7a6c95c300e95c51e42bfd1eba70489c05a6527#egg=xblock-poll
 -e git+https://github.com/kursitet/xblock-poll.git@8043b22967414b9549c2858ba6bd337f3ec9413a#egg=xblock-poll
 -e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
+-e git+https://github.com/open-craft/xblock-image-explorer.git@9b01df4bca8aca89d300850a357fb1647cbd3173#egg=xblock-image-explorer
+-e git+https://github.com/METIT-BU/xblock-carousel.git@16f9a0bc9cb46e418c68f3c519ec96fdf85f0165#egg=xblock-carousel
+-e git+https://github.com/Stanford-Online/xblock-submit-and-compare.git@2d5d0f7156ab35abe4bb3a51927cc447511b8d98#egg=xblock-submit-and-compare
+-e git+https://github.com/Stanford-Online/xblock-free-text-response.git@b734b0f841fda3814858c853ff20e63235e6b3ca#egg=xblock-free-text-response
+-e git+https://github.com/Stanford-Online/DoneXBlock.git@0a38297377c262313b4677ec44deb9fac4db5afb#egg=DoneXBlock
+
