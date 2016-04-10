@@ -118,6 +118,20 @@ def anonymous_id_for_user(user, course_id, save=True):
     if cached_id is not None:
         return cached_id
 
+    # Mihara: Emergency hot hack. Due to a change in secret key, we ended up with 
+    # a full database of potentially lost user submissions.
+    # Until this is clarified, we'll just always return the ID from the database if it exists.
+
+    try:
+        record = AnonymousUserId.objects.get(user=user, course_id=course_id)
+        digest = record.anonymous_user_id
+        if not hasattr(user, '_anonymous_id'):
+            user._anonymous_id = {}  # pylint: disable=protected-access
+        user._anonymous_id[course_id] = digest  # pylint: disable=protected-access
+        return digest
+    except AnonymousUserId.DoesNotExist:
+        pass
+
     # include the secret key as a salt, and to make the ids unique across different LMS installs.
     hasher = hashlib.md5()
     hasher.update(settings.SECRET_KEY)
