@@ -131,7 +131,16 @@ def anonymous_id_for_user(user, course_id, save=True):
 
     user._anonymous_id[course_id] = digest  # pylint: disable=protected-access
 
+    # Mihara: Emergency hot hack. Due to a change in secret key, we ended up with 
+    # a full database of potentially lost user submissions.
+    # Until this is clarified, we'll just return the ID from the database if we find it does not match.
+
     if save is False:
+        try:
+            record = AnonymousUserId.objects.get(user=user, course_id=course_id)
+            digest = record.anonymous_user_id
+        except AnonymousUserId.DoesNotExist:
+            return digest
         return digest
 
     try:
@@ -149,6 +158,7 @@ def anonymous_id_for_user(user, course_id, save=True):
                 anonymous_user_id.anonymous_user_id,
                 digest
             )
+            return anonymous_user_id.anonymous_user_id
     except IntegrityError:
         # Another thread has already created this entry, so
         # continue
