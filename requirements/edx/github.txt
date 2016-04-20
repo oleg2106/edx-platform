@@ -119,6 +119,6 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.0.0#egg=xblock-lti-consume
 -e git+https://github.com/kursitet/DoneXBlock.git@027340b619ad3047385144bb713f91748be417a3#egg=DoneXBlock
 -e git+https://github.com/kursitet/xblock-carousel.git@89e8c080b24579a50779e3c836fbf45bc39ba2c1#egg=xblock-carousel
 -e git+https://github.com/kursitet/xblock-free-text-response.git@8c9966f372ddaa08bd047fd637aeec229b8fc19f#egg=xblock-free-text-response
--e git+https://github.com/kursitet/xblock-submit-and-compare.git@b90ef59a7ca39a27531659e5062307673ab52601#egg=xblock-submit-and-compare
+-e git+https://github.com/kursitet/xblock-submit-and-compare.git@b2c81ae8c42c1099431337d03c41b2f8d00ab3931#egg=xblock-submit-and-compare
 -e git+https://github.com/open-craft/xblock-image-explorer.git@9b01df4bca8aca89d300850a357fb1647cbd3173#egg=xblock-image-explorer
 
