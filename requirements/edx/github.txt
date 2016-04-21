@@ -117,8 +117,8 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.0.0#egg=xblock-lti-consume
 -e git+https://github.com/kursitet/xblock-poll.git@f8dde3304f32c4bf915538f9556efe9babc17b33#egg=xblock-poll
 -e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
 -e git+https://github.com/kursitet/DoneXBlock.git@027340b619ad3047385144bb713f91748be417a3#egg=DoneXBlock
--e git+https://github.com/kursitet/xblock-carousel.git@b97b73080e577ab766ae526f23165e3bfc6d2f89#egg=xblock-carousel
--e git+https://github.com/kursitet/xblock-free-text-response.git@7618e2bc2fc3ee90814dc04d44bd497f6fd36d99#egg=xblock-free-text-response
+-e git+https://github.com/kursitet/xblock-carousel.git@bf51f791d36825d8dd1d70fe6cfb7157278fcea5#egg=xblock-carousel
+-e git+https://github.com/kursitet/xblock-free-text-response.git@68895bb1daef6e5ae828cbc59c65f0b36006f3c1#egg=xblock-free-text-response
 -e git+https://github.com/kursitet/xblock-submit-and-compare.git@076b5e57a3ec0becfc5f8235fe58a31ff18b1842#egg=xblock-submit-and-compare
 -e git+https://github.com/open-craft/xblock-image-explorer.git@9b01df4bca8aca89d300850a357fb1647cbd3173#egg=xblock-image-explorer
 
