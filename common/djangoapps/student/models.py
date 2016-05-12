@@ -338,11 +338,16 @@ class UserProfile(models.Model):
         If session_id doesn't match the existing session,
         deletes the old session object.
         """
+
+        # Mihara: To prevent inability to have concurrent logins /between/ CMS and LMS,
+        # differentiate session ID fields by service variant.
+        id_field_name = 'session_id_'+ settings.SERVICE_VARIANT
+
         meta = self.get_meta()
-        old_login = meta.get('session_id', None)
+        old_login = meta.get(id_field_name, None)
         if old_login:
             SessionStore(session_key=old_login).delete()
-        meta['session_id'] = session_id
+        meta[id_field_name] = session_id
         self.set_meta(meta)
         self.save()
 
