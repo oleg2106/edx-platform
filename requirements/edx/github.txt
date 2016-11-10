@@ -114,7 +114,7 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.0.0#egg=xblock-lti-consume
 -e git+https://github.com/kursitet/edx-sga.git@b73b848c296040d2209c70d02d421d62de8c009c#egg=edx-sga
 # Notice this is upstreamed also:
 #-e git+https://github.com/open-craft/xblock-poll@e7a6c95c300e95c51e42bfd1eba70489c05a6527#egg=xblock-poll
--e git+https://github.com/kursitet/xblock-poll.git@f8dde3304f32c4bf915538f9556efe9babc17b33#egg=xblock-poll
+-e git+https://github.com/kursitet/xblock-poll.git@016ae3794f6e6e2df9b8688f1573d3c75c47b4da#egg=xblock-poll
 -e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
 -e git+https://github.com/kursitet/DoneXBlock.git@027340b619ad3047385144bb713f91748be417a3#egg=DoneXBlock
 -e git+https://github.com/kursitet/xblock-carousel.git@bf51f791d36825d8dd1d70fe6cfb7157278fcea5#egg=xblock-carousel
