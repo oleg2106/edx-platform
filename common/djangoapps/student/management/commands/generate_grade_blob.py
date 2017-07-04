@@ -9,11 +9,16 @@ import datetime
 import json
 import tempfile
 import os
+
+from bson import json_util
+
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
 from django.contrib.auth.models import User
+
+from django.test.client import RequestFactory
 
 # Why did they have to remove course_about api?!
 
@@ -21,6 +26,8 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from student.models import CourseEnrollment, anonymous_id_for_user
 from courseware.grades import iterate_grades_for
+from courseware.model_data import FieldDataCache
+from courseware import module_render as render
 from openedx.core.lib.courses import course_image_url
 
 class Command(BaseCommand):
@@ -97,6 +104,11 @@ class Command(BaseCommand):
             'courses': [],
         }
 
+        # For course TOC we need a user and a request. Find the first superuser defined,
+        # that will be our user.
+        request_user = User.objects.filter(is_superuser=True).first()
+        factory = RequestFactory()
+
         for course in store.get_courses():
 
             course_id_string = course.id.to_deprecated_string()
@@ -115,6 +127,21 @@ class Command(BaseCommand):
 
             students = CourseEnrollment.objects.users_enrolled_in(course.id)
 
+            # The standard method of getting a table of contents for a course is incredibly obtuse.
+            # We have to go all the way to simulating a request.
+
+            request = factory.get('/')
+            request.user = request_user
+
+            field_data_cache = FieldDataCache.cache_for_descriptor_descendents(
+                course.id,
+                request_user,
+                course,
+                depth=1
+            )
+
+            toc = render.toc_for_course(request_user, request, course, None, None, field_data_cache)
+
             course_block = {
               'id': course_id_string,
               'meta_data': {
@@ -124,6 +151,7 @@ class Command(BaseCommand):
                         'course_image': course_image_url(course),
                     }
                 },
+                'toc': toc, # This was difficult to get, keep it safe.
                 # Yes, I'm duplicating them for now, because the about section is shot.
                 'display_name': course.display_name,
                 'banner': course_image_url(course),
@@ -173,9 +201,9 @@ class Command(BaseCommand):
         if options['output']:
             # Ensure the dump is atomic.
             with tempfile.NamedTemporaryFile('w', dir=os.path.dirname(options['output']), delete=False) as output_file:
-                json.dump(blob, output_file)
+                json.dump(blob, output_file, default=json_util.default)
                 tempname = output_file.name
             os.rename(tempname, options['output'])
         else:
             print "Blob output:"
-            print json.dumps(blob, indent=2, ensure_ascii=False)
+            print json.dumps(blob, indent=2, ensure_ascii=False, default=json_util.default)
