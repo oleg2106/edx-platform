@@ -26,9 +26,9 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from student.models import CourseEnrollment, anonymous_id_for_user
 from courseware.grades import iterate_grades_for
-from courseware.model_data import FieldDataCache
-from courseware import module_render as render
 from openedx.core.lib.courses import course_image_url
+
+from course_api.blocks.api import get_blocks
 
 class Command(BaseCommand):
     can_import_settings = True
@@ -127,20 +127,46 @@ class Command(BaseCommand):
 
             students = CourseEnrollment.objects.users_enrolled_in(course.id)
 
-            # The standard method of getting a table of contents for a course is incredibly obtuse.
+            # The method of getting a table of contents for a course is quite obtuse.
             # We have to go all the way to simulating a request.
 
             request = factory.get('/')
             request.user = request_user
 
-            field_data_cache = FieldDataCache.cache_for_descriptor_descendents(
-                course.id,
-                request_user,
-                course,
-                depth=1
-            )
+            raw_blocks = get_blocks(request, store.make_course_usage_key(course.id), request_user, 
+                                requested_fields=['id', 'type', 'display_name', 'children', 'lms_web_url'])
 
-            toc = render.toc_for_course(request_user, request, course, None, None, field_data_cache)
+            # We got the block structure. Now we need to massage it so we get the proper jump urls without site domain.
+            # Because on the test server the site domain is wrong.
+            blocks = {}
+            for block_key, block in raw_blocks['blocks'].items():
+                try:
+                    direct_url = '/courses/' + block.get('lms_web_url').split('/courses/')[1]
+                except IndexError:
+                    direct_url = ''
+                blocks[block_key] = {
+                    'id': block.get('id', ''),
+                    'display_name': block.get('display_name', ''),
+                    'type': block.get('type', ''),
+                    'children_ids': block.get('children', []),
+                    'url': direct_url
+                }
+
+            # Then we need to recursively stitch it into a tree.
+            # We're only interested in three layers of the hierarchy for now: 'course', 'chapter', 'sequential', 'vertical'.
+            # Everything else is the individual blocks and problems we don't care about right now.
+
+            INTERESTING_BLOCKS = ['course', 'chapter', 'sequential', 'vertical']
+
+            def _get_children(parent):
+                children = [blocks.get(n) for n in parent['children_ids'] if blocks.get(n) and blocks.get(n)['type'] in INTERESTING_BLOCKS]
+                for child in children:
+                    child['children'] = _get_children(child)
+                parent['children'] = children
+                del parent['children_ids']
+                return children
+
+            block_tree = _get_children(blocks[raw_blocks['root']])
 
             course_block = {
               'id': course_id_string,
@@ -151,7 +177,7 @@ class Command(BaseCommand):
                         'course_image': course_image_url(course),
                     }
                 },
-                'toc': toc, # This was difficult to get, keep it safe.
+                'block_tree': block_tree,
                 # Yes, I'm duplicating them for now, because the about section is shot.
                 'display_name': course.display_name,
                 'banner': course_image_url(course),
