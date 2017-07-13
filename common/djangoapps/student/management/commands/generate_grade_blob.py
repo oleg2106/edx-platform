@@ -159,7 +159,7 @@ class Command(BaseCommand):
             INTERESTING_BLOCKS = ['course', 'chapter', 'sequential', 'vertical']
 
             def _get_children(parent):
-                children = [blocks.get(n) for n in parent['children_ids'] if blocks.get(n) and blocks.get(n)['type'] in INTERESTING_BLOCKS]
+                children = [blocks.get(n) for n in parent['children_ids'] if blocks.get(n)] # and blocks.get(n)['type'] in INTERESTING_BLOCKS]
                 for child in children:
                     child['children'] = _get_children(child)
                 parent['children'] = children
