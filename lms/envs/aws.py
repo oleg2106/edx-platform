@@ -1005,3 +1005,7 @@ ICP_LICENSE = ENV_TOKENS.get('ICP_LICENSE', None)
 
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = ENV_TOKENS.get('COURSEGRAPH_JOB_QUEUE', LOW_PRIORITY_QUEUE)
+
+############# Mihara: Setting for Kursitet-specific code ###########
+KURSITET_API_ENDPOINT = ENV_TOKENS.get('KURSITET_API_ENDPOINT') # Url where Kursitet is listening for data from us.
+KURSITET_API_TOKEN = ENV_TOKENS.get('KURSITET_API_TOKEN') # API token that Kursitet will use to authenticate us.

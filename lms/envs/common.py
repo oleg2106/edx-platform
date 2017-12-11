@@ -3213,3 +3213,7 @@ COURSES_API_CACHE_TIMEOUT = 3600  # Value is in seconds
 
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = LOW_PRIORITY_QUEUE
+
+############# Mihara: Setting for Kursitet-specific code ###########
+KURSITET_API_ENDPOINT = None # Url where Kursitet is listening for data from us.
+KURSITET_API_TOKEN = None # API token that Kursitet will use to authenticate us.
