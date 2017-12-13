@@ -15,7 +15,7 @@ from xmodule.modulestore.exceptions import ItemNotFoundError
 from course_api.blocks.api import get_blocks
 
 
-def get_student_grades(course):
+def get_student_grades(course, graded_students):
     """
     Return all the student grades for a given course.
     Expects a course object rather than a course locator.
@@ -23,9 +23,6 @@ def get_student_grades(course):
 
     data_block = []
 
-    graded_students = User.objects.filter(
-        pk__in=CourseEnrollment.objects.filter(
-            course_id=course.id).values_list('user', flat=True))
     if graded_students.count():
         for student in graded_students:
             grade = CourseGradeFactory().create(student, course)
@@ -44,6 +41,10 @@ def get_course_block(course, get_grades=False):
     """
     Return a blob of course metadata the way kursitet likes it.
     Expects a course object rather than a course locator.
+
+    For the record: This only works in LMS context, because in CMS context,
+    there's no jump_to, and these urls can't be reversed. Which means
+    that CMS needs to trigger an LMS worker to send data...
     """
 
     def iso_date(thing):
@@ -181,6 +182,6 @@ def get_course_block(course, get_grades=False):
     }
 
     if get_grades:
-        course_block['grading_data'] = get_student_grades(course)
+        course_block['grading_data'] = get_student_grades(course, students)
 
     return course_block
