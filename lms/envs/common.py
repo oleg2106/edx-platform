@@ -2232,7 +2232,7 @@ INSTALLED_APPS = (
     'openedx.core.djangoapps.waffle_utils',
 
     # Mihara: Kursitet-specific code goes here:
-    'kursitet',
+    'openedx.core.djangoapps.kursitet',
 
     # Features
     'openedx.features.course_bookmarks',

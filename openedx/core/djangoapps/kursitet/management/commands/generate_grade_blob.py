@@ -13,7 +13,7 @@ from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 from xmodule.modulestore.django import modulestore
 
-from kursitet.metadata import get_course_block
+from openedx.core.djangoapps.kursitet.metadata import get_course_block
 
 
 class Command(BaseCommand):
