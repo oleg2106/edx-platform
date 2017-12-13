@@ -1038,8 +1038,6 @@ INSTALLED_APPS = (
     # Waffle related utilities
     'openedx.core.djangoapps.waffle_utils',
 
-    # Mihara: Kursitet-specific code goes here:
-    'kursitet',
 )
 
 
