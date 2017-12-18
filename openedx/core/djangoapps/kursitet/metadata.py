@@ -187,10 +187,14 @@ def get_course_block(course, get_grades=False):
     return course_block
 
 
+def get_course_by_id(course_id):
+    store = modulestore()
+    course = store.get_course(course_id)
+    return course
+
+
 def get_course_block_by_id(course_id, get_grades=False):
     """
     Use a course id to find the course object and get its metadata block.
     """
-    store = modulestore()
-    course = store.get_course(course_id)
-    return get_course_block(course, get_grades=get_grades)
+    return get_course_block(get_course_by_id(course_id), get_grades=get_grades)
