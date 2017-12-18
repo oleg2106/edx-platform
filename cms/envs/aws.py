@@ -509,3 +509,4 @@ COURSEGRAPH_JOB_QUEUE = ENV_TOKENS.get('COURSEGRAPH_JOB_QUEUE', LOW_PRIORITY_QUE
 ############# Mihara: Setting for Kursitet-specific code ###########
 KURSITET_API_ENDPOINT = ENV_TOKENS.get('KURSITET_API_ENDPOINT') # Url where Kursitet is listening for data from us.
 KURSITET_API_TOKEN = ENV_TOKENS.get('KURSITET_API_TOKEN') # API token that Kursitet will use to authenticate us.
+KURSITET_PLATFORM_NAME = ENV_TOKENS.get('KURSITET_PLATFORM_NAME') # Name of our platform record in Kursitet

@@ -25,8 +25,10 @@ def send_kursitet_course_update(self, course_id):
     """
     Send an update packet of course metadata to Kursitet.
     """
-    if not settings.KURSITET_API_ENDPOINT or not settings.KURSITET_API_TOKEN:
-        log.warn("Kursitet API endpoint not configured, "
+    if not settings.KURSITET_API_ENDPOINT \
+       or not settings.KURSITET_API_TOKEN \
+       or not settings.KURSITET_PLATFORM_NAME:
+        log.warn("Kursitet API not configured, "
                  "not posting a course metadata update.")
         return
 
@@ -34,6 +36,7 @@ def send_kursitet_course_update(self, course_id):
 
     # Get our course data block...
     course_data = get_course_block_by_id(locator, get_grades=False)
+    course_data['platform'] = settings.KURSITET_PLATFORM_NAME
 
     log.info("Sending kursitet course update for course {}".format(
         unicode(locator)))
