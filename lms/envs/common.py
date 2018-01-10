@@ -1223,6 +1223,9 @@ MIDDLEWARE_CLASSES = (
     # for expiring inactive sessions
     'openedx.core.djangoapps.session_inactivity_timeout.middleware.SessionInactivityTimeout',
 
+    # Mihara: Inject our middleware which will wrap certain views in login_required.
+    'openedx.core.djangoapps.kursitet.middleware.ExtraLoginRequired',
+
     # use Django built in clickjacking protection
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
