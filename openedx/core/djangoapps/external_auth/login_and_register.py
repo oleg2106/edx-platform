@@ -8,6 +8,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from opaque_keys.edx.keys import CourseKey
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils.http import urlencode
 
 import openedx.core.djangoapps.external_auth.views
 from xmodule.modulestore.django import modulestore
@@ -66,7 +68,14 @@ def login(request):
         response = openedx.core.djangoapps.external_auth.views.redirect_with_get('root', request.GET)
     elif settings.FEATURES.get('AUTH_USE_CAS'):
         # If CAS is enabled, redirect auth handling to there
-        response = redirect(reverse('cas-login'))
+        #response = redirect(reverse('cas-login'))
+        # Mihara: Seamless CAS login on direct links.
+        redirect_to = request.GET.get('next')
+        if redirect_to:
+            response = redirect(reverse('cas-login')+"?"+urlencode({REDIRECT_FIELD_NAME: redirect_to}))
+        else:
+            response = redirect(reverse('cas-login'))
+
     elif settings.FEATURES.get('AUTH_USE_SHIB'):
         redirect_to = request.GET.get('next')
         if redirect_to:

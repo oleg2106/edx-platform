@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.decorators.clickjacking import xframe_options_deny
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils.http import urlencode
 
 from edxmako.shortcuts import render_to_response
 from openedx.core.djangoapps.external_auth.views import redirect_with_get, ssl_get_cert_from_request, ssl_login_shortcut
@@ -52,7 +54,15 @@ def login_page(request):
             return redirect('/course/')
     if settings.FEATURES.get('AUTH_USE_CAS'):
         # If CAS is enabled, redirect auth handling to there
-        return redirect(reverse('cas-login'))
+        #return redirect(reverse('cas-login'))
+        # Mihara: Since CMS does not use external_auth.login_and_register, the functionality needs to be
+        # duplicated here:
+        redirect_to = request.GET.get('next')
+        if redirect_to:
+            response = redirect(reverse('cas-login')+"?"+urlencode({REDIRECT_FIELD_NAME: redirect_to}))
+        else:
+            response = redirect(reverse('cas-login'))
+        return response
 
     return render_to_response(
         'login.html',
