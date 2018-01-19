@@ -63,6 +63,9 @@ log = logging.getLogger(__name__)
 AUDIT_LOG = logging.getLogger("audit")
 SessionStore = import_module(settings.SESSION_ENGINE).SessionStore  # pylint: disable=invalid-name
 
+# Mihara: Needed for a patch further down.
+from xmodule.util.django import get_current_request_hostname
+
 # enroll status changed events - signaled to email_marketing.  See email_marketing.tasks for more info
 
 
@@ -354,8 +357,24 @@ class UserProfile(models.Model):
         """
 
         # Mihara: To prevent inability to have concurrent logins /between/ CMS and LMS,
-        # differentiate session ID fields by service variant.
-        id_field_name = 'session_id_'+ settings.SERVICE_VARIANT
+        # differentiate session ID fields by service variant and preview mode.
+
+        # This had to be copied verbatim from courseware.access_utils to prevent an extra import.
+        def in_preview_mode():
+            """
+            Returns whether the user is in preview mode or not.
+            """
+            hostname = get_current_request_hostname()
+            preview_lms_base = settings.FEATURES.get('PREVIEW_LMS_BASE', None)
+            return bool(preview_lms_base and hostname and hostname.split(':')[0] == preview_lms_base.split(':')[0])
+
+        if settings.SERVICE_VARIANT == 'lms':
+            if in_preview_mode():
+                id_field_name = 'session_id_lms_preview'
+            else:
+                id_field_name = 'session_id_lms'
+        else:
+            id_field_name = 'session_id_'+ settings.SERVICE_VARIANT
 
         meta = self.get_meta()
         old_login = meta.get(id_field_name, None)
