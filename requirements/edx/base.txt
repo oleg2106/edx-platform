@@ -212,4 +212,6 @@ web-fragments==0.2.2
 xblock==1.0.0
 
 # Third Party XBlocks
-edx-sga==0.6.2
+# Mihara: We're still using our own fork. :(
+#edx-sga==0.6.2
+-e git+https://github.com/kursitet/edx-sga.git@ccad7d69b84ff598b05dc919f1abafde0115ee9f#egg=edx-sga
