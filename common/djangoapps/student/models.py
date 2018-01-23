@@ -379,6 +379,8 @@ class UserProfile(models.Model):
         meta = self.get_meta()
         old_login = meta.get(id_field_name, None)
         if old_login:
+            log.info("Destroying concurrent login session for user {} with session field name {}.".format(
+                self.user.username, id_field_name))
             SessionStore(session_key=old_login).delete()
         meta[id_field_name] = session_id
         self.set_meta(meta)
