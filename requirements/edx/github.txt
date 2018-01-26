@@ -95,5 +95,14 @@ git+https://github.com/edx/xblock-lti-consumer.git@v1.1.5#egg=lti_consumer-xbloc
 git+https://github.com/edx/edx-proctoring.git@0.18.1#egg=edx-proctoring==0.18.1
 
 # Third Party XBlocks
-git+https://github.com/open-craft/xblock-poll@v1.2.7#egg=xblock-poll==1.2.7
+#git+https://github.com/open-craft/xblock-poll@v1.2.7#egg=xblock-poll==1.2.7
+-e git+https://github.com/kursitet/xblock-poll.git@016ae3794f6e6e2df9b8688f1573d3c75c47b4da#egg=xblock-poll
+
 git+https://github.com/edx-solutions/xblock-drag-and-drop-v2@v2.0.18#egg=xblock-drag-and-drop-v2==2.0.18
+
+# Mihara: Futher xblocks.
+-e git+https://github.com/kursitet/xblock-carousel.git@bf51f791d36825d8dd1d70fe6cfb7157278fcea5#egg=xblock-carousel
+-e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
+-e git+https://github.com/kursitet/xblock-submit-and-compare.git@48a28592278c2450280d543ea09868dbe299d529#egg=xblock-submit-and-compare
+-e git+https://github.com/open-craft/xblock-image-explorer.git@9b01df4bca8aca89d300850a357fb1647cbd3173#egg=xblock-image-explorer
+-e git+https://github.com/kursitet/xblock-free-text-response@b1d6c07d5f1a4aebb7c1e702e8a1bac5e451ff9c#egg=xblock-free-text-response
