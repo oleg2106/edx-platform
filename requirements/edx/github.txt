@@ -92,7 +92,11 @@ git+https://github.com/solashirai/crowdsourcehinter.git@518605f0a95190949fe77bd3
 -e git+https://github.com/kursitet/DoneXBlock.git@027340b619ad3047385144bb713f91748be417a#egg=done-xblock
 
 git+https://github.com/edx/edx-milestones.git@v0.1.10#egg=edx-milestones==0.1.10
-git+https://github.com/edx/xblock-utils.git@v1.0.5#egg=xblock-utils==1.0.5
+
+# Mihara: We need to use our patched version because we speak Russian.
+#git+https://github.com/edx/xblock-utils.git@v1.0.5#egg=xblock-utils==1.0.5
+-e git+https://github.com/kursitet/xblock-utils.git@db0bf5f791142a21b70c89937ba747733ea401eb#egg=xblock-utils==1.0.5
+
 -e git+https://github.com/edx-solutions/xblock-google-drive.git@138e6fa0bf3a2013e904a085b9fed77dab7f3f21#egg=xblock-google-drive
 git+https://github.com/edx/edx-user-state-client.git@1.0.1#egg=edx-user-state-client==1.0.1
 git+https://github.com/edx/xblock-lti-consumer.git@v1.1.5#egg=lti_consumer-xblock==1.1.5
@@ -110,4 +114,4 @@ git+https://github.com/edx-solutions/xblock-drag-and-drop-v2@v2.0.18#egg=xblock-
 #-e git+https://github.com/kursitet/masterclass-xblock.git@fc7914ea8cc9c7733d0c0d52e615384fcb7ddca2#egg=masterclass-xblock
 -e git+https://github.com/kursitet/xblock-submit-and-compare.git@48a28592278c2450280d543ea09868dbe299d529#egg=xblock-submit-and-compare
 -e git+https://github.com/open-craft/xblock-image-explorer.git@9b01df4bca8aca89d300850a357fb1647cbd3173#egg=xblock-image-explorer
--e git+https://github.com/kursitet/xblock-free-text-response@b1d6c07d5f1a4aebb7c1e702e8a1bac5e451ff9c#egg=xblock-free-text-response
+-e git+https://github.com/kursitet/xblock-free-text-response@486e790fc56ef2d21d2591ba5647b1716e0cd82e#egg=xblock-free-text-response
