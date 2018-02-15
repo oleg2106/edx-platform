@@ -24,7 +24,9 @@ from openedx.core.djangolib.markup import HTML, Text
                     tabindex="0"
                 >
                     <div class="section-name">
-                        <h3>${ section['display_name'] }</h3>
+                        ## Mihara: Replacing nonbreakable spaces with nonbreakable spaces manually. HTML is not allowed anymore, but we have courses where they use nonbreakable spaces.
+                        ## Which is stupid, like the titles that span more than one line and require nonbreakable spaces, but what can I do?
+                        <h3>${ section['display_name'].replace(u'&nbsp;',u'\u00a0') }</h3>
                     </div>
                     <ol class="outline-item focusable" role="group" tabindex="0">
                         % for subsection in section.get('children', []):
@@ -41,7 +43,7 @@ from openedx.core.djangolib.markup import HTML, Text
                                 >
                                     <div class="subsection-text">
                                         ## Subsection title
-                                        <span class="subsection-title">${ subsection['display_name'] }</span>
+                                        <span class="subsection-title">${ subsection['display_name'].replace(u'&nbsp;',u'\u00a0') }</span>
 
                                         <div class="details">
                                             ## There are behavior differences between rendering of subsections which have
