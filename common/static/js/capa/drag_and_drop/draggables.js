@@ -291,6 +291,15 @@
                     draggableObj.iconWidthSmall = draggableObj.iconWidth;
                     draggableObj.iconHeightSmall = draggableObj.iconHeight;
 
+                    // Mihara: See https://github.com/edx/edx-platform/pull/9334 
+                    // but otherwise this is unrelated: Something does not account for padding
+                    // when making the dragged icon. This is a bit of a hack, because
+                    // I don't know where is the *correct* place to fix this,
+                    // but since this entire module is deprecated, screw it,
+                    // *this* one works.
+                    // Notice this is done *after* iconWidthSmall is computed.
+                    draggableObj.iconWidth += 18;
+
                     draggableObj.iconEl.css({
                         'left': 50 - draggableObj.iconWidthSmall * 0.5,
                         'top': 50 - draggableObj.iconHeightSmall * 0.5
