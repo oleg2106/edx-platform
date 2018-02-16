@@ -2236,6 +2236,7 @@ INSTALLED_APPS = (
 
     # Mihara: Kursitet-specific code goes here:
     'openedx.core.djangoapps.kursitet',
+    'xblock_i18n',
 
     # Features
     'openedx.features.course_bookmarks',
