@@ -89,7 +89,7 @@ git+https://github.com/solashirai/crowdsourcehinter.git@518605f0a95190949fe77bd3
 
 # Mihara: Swapping this out for a localized version. As if anyone ever used this:
 #-e git+https://github.com/edx/DoneXBlock.git@01a14f3bd80ae47dd08cdbbe2f88f3eb88d00fba#egg=done-xblock
--e git+https://github.com/kursitet/DoneXBlock.git@0b96a2d8313ae279b41a09bae6e0ee63edfc7228#egg=done-xblock
+-e git+https://github.com/kursitet/DoneXBlock.git@b8a47e736c74c63b5eae056eb4cbd245d5b9be72#egg=done-xblock
 
 git+https://github.com/edx/edx-milestones.git@v0.1.10#egg=edx-milestones==0.1.10
 
