@@ -279,6 +279,8 @@ class WeightedSubsectionsGrader(CourseGrader):
                 'percent': weighted_percent,
                 'detail': section_detail,
                 'category': assignment_type,
+                #oleg2106 we need it in progress template
+                'weight': weight,
             }
 
         return {
