@@ -6034,7 +6034,7 @@ msgstr "{relative} - {absolute}"
 #: lms/djangoapps/courseware/date_summary.py
 #, python-brace-format
 msgid "in {relative} - {absolute}"
-msgstr "в {relative} - {absolute}"
+msgstr "через {relative} - {absolute}"
 
 #: lms/djangoapps/courseware/date_summary.py
 msgid "Course Starts"
