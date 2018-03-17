@@ -16040,7 +16040,7 @@ msgstr "Добро пожаловать на {org} {course_name}!"
 #: openedx/features/course_experience/templates/course_experience/course-home-fragment.html
 #: openedx/features/course_experience/templates/course_experience/course-outline-fragment.html
 msgid "Resume Course"
-msgstr "Вернуться к курсу"
+msgstr "Продолжить"
 
 #: lms/templates/courseware/info.html
 msgid "View Updates in Studio"
