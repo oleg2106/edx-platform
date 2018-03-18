@@ -214,4 +214,4 @@ xblock==1.0.0
 # Third Party XBlocks
 # Mihara: We're still using our own fork. :(
 #edx-sga==0.6.2
--e git+https://github.com/kursitet/edx-sga.git@ccad7d69b84ff598b05dc919f1abafde0115ee9f#egg=edx-sga
+-e git+https://github.com/kursitet/edx-sga.git@c5888693d7c92f45a4764d2f136336b0cd34cb6c#egg=edx-sga
