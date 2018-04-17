@@ -152,6 +152,30 @@ def invalid_args(func, argdict):
         return set()  # All accepted
     return set(argdict) - set(args)
 
+import re
+level_pattern = re.compile(r'(.*)\((LG):(\d+)\)')
+
+def is_level_grader(name):
+    res = re.match(level_pattern, name)
+    if res is not None:
+       return res.group(2) == 'LG'
+    else:
+       return False
+
+def get_level_grader_value(name):
+    res = re.match(level_pattern, name)
+    if res is not None:
+       return int(res.group(3))
+    else:
+       return 0
+
+def get_level_grader_name(name):
+    res = re.match(level_pattern, name)
+    if res is not None:
+       return res.group(1)
+    else:
+       return name
+
 
 def grader_from_conf(conf):
     """
@@ -161,6 +185,7 @@ def grader_from_conf(conf):
     with AssignmentFormatGraders will be generated. Every dictionary should contain
     the parameters for making an AssignmentFormatGrader, in addition to a 'weight' key.
     """
+
     if isinstance(conf, CourseGrader):
         return conf
 
@@ -170,8 +195,12 @@ def grader_from_conf(conf):
         weight = subgraderconf.pop("weight", 0)
         try:
             if 'min_count' in subgraderconf:
-                #This is an AssignmentFormatGrader
-                subgrader_class = AssignmentFormatGrader
+                if is_level_grader(subgraderconf['short_label']):
+                    #This is an LevelFormatGrader
+                    subgrader_class = LevelFormatGrader
+                else:
+                    #This is an AssignmentFormatGrader
+                    subgrader_class = AssignmentFormatGrader
             else:
                 raise ValueError("Configuration has no appropriate grader class.")
 
@@ -266,8 +295,13 @@ class WeightedSubsectionsGrader(CourseGrader):
         total_percent = 0.0
         section_breakdown = []
         grade_breakdown = OrderedDict()
+        level_grade = False
 
         for subgrader, assignment_type, weight in self.subgraders:
+            
+            if isinstance(subgrader, LevelFormatGrader):
+               level_grade = True
+
             subgrade_result = subgrader.grade(grade_sheet, generate_random_scores)
 
             weighted_percent = subgrade_result['percent'] * weight
@@ -286,7 +320,8 @@ class WeightedSubsectionsGrader(CourseGrader):
         return {
             'percent': total_percent,
             'section_breakdown': section_breakdown,
-            'grade_breakdown': grade_breakdown
+            'grade_breakdown': grade_breakdown,
+            'level_grade': level_grade
         }
 
 
@@ -345,6 +380,9 @@ class AssignmentFormatGrader(CourseGrader):
         self.show_only_average = show_only_average
         self.starting_index = starting_index
         self.hide_average = hide_average
+    
+    def _calc_percentage(self, earned, possible):
+        return earned / possible
 
     def grade(self, grade_sheet, generate_random_scores=False):
         def total_with_drops(breakdown, drop_count):
@@ -382,7 +420,7 @@ class AssignmentFormatGrader(CourseGrader):
                     possible = scores[i].graded_total.possible
                     section_name = scores[i].display_name
 
-                percentage = earned / possible
+                percentage = self._calc_percentage(earned, possible)
                 summary_format = u"{section_type} {index} - {name} - {percent:.0%} ({earned:.3n}/{possible:.3n})"
                 summary = summary_format.format(
                     index=i + self.starting_index,
@@ -448,6 +486,39 @@ class AssignmentFormatGrader(CourseGrader):
         }
 
 
+class LevelFormatGrader(AssignmentFormatGrader):
+    """
+    Special grader for one course Matvertical
+    """
+    def __init__(
+            self,
+            type,  # pylint: disable=redefined-builtin
+            min_count,
+            drop_count,
+            category=None,
+            section_type=None,
+            short_label=None,
+            show_only_average=False,
+            hide_average=False,
+            starting_index=1
+    ):
+        super(LevelFormatGrader, self).__init__(
+            type,
+            min_count,
+            drop_count,
+            category,
+            section_type,
+            short_label,
+            show_only_average,
+            hide_average,
+            starting_index)
+        self.grader_level = get_level_grader_value(self.short_label)/100.0 
+        self.short_label = get_level_grader_name(self.short_label) 
+
+    def _calc_percentage(self, earned, possible):
+        percentage = earned / possible
+        return 1 if percentage >= self.grader_level else 0 
+        
 def _iter_graded(scores):
     """
     Yield the scores that belong to explicitly graded blocks
