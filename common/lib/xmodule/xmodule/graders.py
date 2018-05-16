@@ -195,7 +195,7 @@ def grader_from_conf(conf):
         weight = subgraderconf.pop("weight", 0)
         try:
             if 'min_count' in subgraderconf:
-                if is_level_grader(subgraderconf['short_label']):
+                if 'short_label' in subgraderconf and is_level_grader(subgraderconf['short_label']):
                     #This is an LevelFormatGrader
                     subgrader_class = LevelFormatGrader
                 else:
