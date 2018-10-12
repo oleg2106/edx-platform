@@ -173,7 +173,15 @@ class CourseEndDate(DateSummary):
     Displays the end date of the course.
     """
     css_class = 'end-date'
-    title = ugettext_lazy('Course End')
+    
+    #oleg2106 we want to split title into present and past
+    #title = ugettext_lazy('Course End')
+    @property
+    def title(self):
+        if datetime.now(utc) <= self.date:
+            return ugettext_lazy('Course End')
+        else:
+            return ugettext_lazy('Course finished on')
 
     @property
     def is_enabled(self):
