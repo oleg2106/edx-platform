@@ -6029,7 +6029,11 @@ msgstr "Повысить до уровня «Подтверждённый сер
 #: lms/djangoapps/courseware/date_summary.py
 #, python-brace-format
 msgid "{relative} ago - {absolute}"
-msgstr "{relative} - {absolute}"
+msgstr "{relative} назад - {absolute}"
+
+#: lms/djangoapps/courseware/date_summary.py
+msgid "Course finished on"
+msgstr "Курс завершился"
 
 #: lms/djangoapps/courseware/date_summary.py
 #, python-brace-format
