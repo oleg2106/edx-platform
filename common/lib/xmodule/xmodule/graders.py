@@ -305,7 +305,9 @@ class WeightedSubsectionsGrader(CourseGrader):
             subgrade_result = subgrader.grade(grade_sheet, generate_random_scores)
 
             #oleg2106 recount the weight becouse of dropped attempts
-            section_weight = weight / (subgrade_result['sections_count'] - subgrader.drop_count)
+            section_weight = 0
+            if (subgrade_result['sections_count'] > subgrader.drop_count):
+                section_weight = weight / (subgrade_result['sections_count'] - subgrader.drop_count)
             for key, section_info in enumerate(subgrade_result['section_breakdown']):
                 subgrade_result['section_breakdown'][key]['weight'] = section_weight
                 subgrade_result['section_breakdown'][key]['weight_percent'] = subgrade_result['section_breakdown'][key]['percent'] * section_weight
