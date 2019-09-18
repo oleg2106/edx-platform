@@ -407,7 +407,7 @@ function(HTML5Video, HTML5HLSVideo, Resizer, HLS, _) {
     }
 
     function setPlaybackRate(newSpeed) {
-        this.videoPlayer.player.setPlaybackRate(newSpeed);
+        this.videoPlayer.player.setPlaybackRate(Number(newSpeed));
     }
 
     function onSpeedChange(newSpeed) {
@@ -645,7 +645,7 @@ function(HTML5Video, HTML5HLSVideo, Resizer, HLS, _) {
         }
 
         if (this.isHtml5Mode()) {
-            this.videoPlayer.player.setPlaybackRate(this.speed);
+            this.videoPlayer.player.setPlaybackRate(Number(this.speed));
         }
 
 
