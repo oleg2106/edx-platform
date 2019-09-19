@@ -6078,8 +6078,8 @@ msgid ""
 "This course is archived, which means you can review course content but it is"
 " no longer active."
 msgstr ""
-"Курс находится в архиве, то есть у вас есть доступ к материалам курса, но "
-"фактически курс завершён."
+"Обучение завершено, курс перемещён в архив. "
+"Материалы курса доступны для информационных целей."
 
 #: lms/djangoapps/courseware/date_summary.py
 #, python-brace-format
@@ -11598,6 +11598,11 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "Закладки"
 
+#: openedx/features/course_search/templates/course_search/course-search-fragment.html
+#: openedx/features/course_bookmarks/templates/course_bookmarks/course-bookmarks.html
+msgid "My Bookmarks"
+msgstr "Закладки"
+
 #: openedx/features/course_experience/plugins.py
 #: cms/templates/widgets/header.html
 #: openedx/features/course_experience/templates/course_experience/course-updates-fragment.html
@@ -13464,6 +13469,10 @@ msgstr[0] "Вы использовали {num_used} из {num_total} попыт�
 msgstr[1] "Вы использовали {num_used} из {num_total} попыток"
 msgstr[2] "Вы использовали {num_used} из {num_total} попыток"
 msgstr[3] "Вы использовали {num_used} из {num_total} попыток"
+
+#: lms/templates/problem.html
+msgid "Answers are displayed within the problem"
+msgstr "Ответы отображены внутри задания"
 
 #: lms/templates/problem.html
 msgid ""
