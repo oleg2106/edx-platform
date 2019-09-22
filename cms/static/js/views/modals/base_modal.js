@@ -113,6 +113,11 @@ define(['jquery', 'underscore', 'gettext', 'js/views/baseview'],
             },
 
             cancel: function(event) {
+                // added by @happyblitz. http://redmine.sgdev.xyz/issues/14373
+                // we disallow body scrolling whereas the modal window is open
+                // so when the modal window is closing our task is to allow scrolling back
+                document.body.classList.remove("noscroll");
+
                 if (event) {
                     event.preventDefault();
                     event.stopPropagation(); // Make sure parent modals don't see the click
@@ -186,9 +191,14 @@ define(['jquery', 'underscore', 'gettext', 'js/views/baseview'],
                 left = (availableWidth - modalWidth) / 2;
                 top = (availableHeight - modalHeight) / 2;
 
+                // fix by @happyblitz. http://redmine.sgdev.xyz/issues/14373
+                // Default modal screen is small for our preference.
+                // This hack will make it full screen size
                 modalWindow.css({
-                    top: top + $(window).scrollTop(),
-                    left: left + $(window).scrollLeft()
+                    //top: top + $(window).scrollTop(),
+                    //left: left + $(window).scrollLeft()
+                    top: $(window).scrollTop(),
+                    left: 0
                 });
             }
         });

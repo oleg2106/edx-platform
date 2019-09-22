@@ -153,6 +153,11 @@ define(['jquery', 'underscore', 'gettext', 'js/views/modals/base_modal', 'common
             },
 
             save: function(event) {
+                // added by @happyblitz. http://redmine.sgdev.xyz/issues/14373
+                // we disallow body scrolling whereas the modal window is open
+                // so when the modal window is closing our task is to allow scrolling back
+                document.body.classList.remove("noscroll");
+
                 var self = this,
                     editorView = this.editorView,
                     xblockInfo = this.xblockInfo,
