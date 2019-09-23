@@ -108,10 +108,21 @@ define([
                     collection: this.collection
                 });
                 pagingView.registerSortableColumn('js-asset-name-col', gettext('Name'), 'display_name', 'asc');
-                pagingView.registerSortableColumn('js-asset-date-col', gettext('Date Added'), 'date_added', 'desc');
+
+                // was changed by @happyblitz http://redmine.sgdev.xyz/issues/14433
+                // we call directly the method toggleSortOrder at the bottom,
+                // so default sort "desc" would toggle into asc first while we want to keep it
+                //pagingView.registerSortableColumn('js-asset-date-col', gettext('Date Added'), 'date_added', 'desc');
+                pagingView.registerSortableColumn('js-asset-date-col', gettext('Date Added'), 'date_added', 'asc');
+
                 pagingView.registerFilterableColumn('js-asset-type-col', gettext('Type'), 'asset_type');
                 pagingView.setInitialSortColumn('js-asset-date-col');
                 pagingView.setInitialFilterColumn('js-asset-type-col');
+
+                // was added by @happyblitz http://redmine.sgdev.xyz/issues/14433
+                // for some reason initial sorting doesn't work, so we are calling it manually
+                pagingView.toggleSortOrder('js-asset-date-col');
+
                 pagingView.setPage(1);
                 return pagingView;
             },
