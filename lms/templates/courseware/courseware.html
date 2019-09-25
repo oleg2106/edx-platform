@@ -165,21 +165,19 @@ ${HTML(fragment.foot_html())}
                                 </span>
                                 <span class="icon fa fa-angle-right" aria-hidden="true"></span>
                             % endif
-                            ## Mihara: See also openedx/features/course_experience/templates/course_experience/course-outline-fragment.html
-                            ## Same reason.
                             % if chapter:
                                 <span class="nav-item nav-item-chapter">
-                                    <a href="${course_url}#${unicode(chapter.location)}">${(chapter.display_name_with_default or '').replace(u'&nbsp;',u'\u00a0')}</a>
+                                    <a href="${course_url}#${unicode(chapter.location)}">${(chapter.display_name_with_default or '')}</a>
                                 </span>
                                 <span class="icon fa fa-angle-right" aria-hidden="true"></span>
                             % endif
                             % if section:
                                 <span class="nav-item nav-item-section">
-                                    <a href="${course_url}#${unicode(section.location)}">${(section.display_name_with_default or '').replace(u'&nbsp;',u'\u00a0')}</a>
+                                    <a href="${course_url}#${unicode(section.location)}">${(section.display_name_with_default or '')}</a>
                                 </span>
                                 <span class="icon fa fa-angle-right" aria-hidden="true"></span>
                             % endif
-                            <span class="nav-item nav-item-sequence">${(sequence_title or '').replace(u'&nbsp;',u'\u00a0')}</span>
+                            <span class="nav-item nav-item-sequence">${(sequence_title or '')}</span>
                         </div>
                     </div>
                 </nav>
