@@ -17,8 +17,8 @@
                     <div class="list-item-left-section">
                         <h3 id="bookmark-link-<%- index %>" class="list-item-breadcrumbtrail">
                             <%=
-                                HtmlUtils.HTML(_.map(_.pluck(bookmark.get('path'), 'display_name'), _.escape)
-                                    .concat([_.escape(bookmark.get('display_name'))])
+                                HtmlUtils.HTML(_.pluck(bookmark.get('path'), 'display_name')
+                                    .concat([bookmark.get('display_name')])
                                     .join(' <span class="icon fa fa-caret-right" aria-hidden="true"></span><span class="sr">-</span> '))
                             %>
                         </h3>
