@@ -743,24 +743,24 @@ msgstr ""
 "настройкам. Нажмите кнопку «Ввод» для установки выбранного языка."
 
 #: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
-msgid "Hide closed captions"
-msgstr "Скрыть боковые субтитры"
-
-#: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
 msgid "(Caption will be displayed when you start playing the video.)"
 msgstr "(Субтитры будут показаны, когда вы начнёте воспроизводить видео)"
 
 #: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
 msgid "Turn on closed captioning"
-msgstr "Включить боковые субтитры"
-
-#: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
-msgid "Turn on transcripts"
 msgstr "Включить встроенные субтитры"
 
 #: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
-msgid "Turn off transcripts"
+msgid "Turn on transcripts"
+msgstr "Включить боковые субтитры"
+
+#: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
+msgid "Hide closed captions"
 msgstr "Отключить встроенные субтитры"
+
+#: common/lib/xmodule/xmodule/js/src/video/09_video_caption.js
+msgid "Turn off transcripts"
+msgstr "Скрыть боковые субтитры"
 
 #: common/static/common/js/components/utils/view_utils.js
 msgid "Required field."
@@ -790,11 +790,11 @@ msgstr ""
 
 #: common/static/common/js/components/views/paging_header.js
 msgid "Showing {firstIndex} out of {numItems} total"
-msgstr "Показывать совокупность {firstIndex} к {numItems} "
+msgstr "Показаны закладки {firstIndex} из {numItems} "
 
 #: common/static/common/js/components/views/paging_header.js
 msgid "Showing {firstIndex}-{lastIndex} out of {numItems} total"
-msgstr "Показывать совокупность {firstIndex}-{lastIndex} к {numItems} "
+msgstr "Показаны закладки {firstIndex}-{lastIndex} из {numItems} "
 
 #: common/static/common/js/discussion/utils.js
 msgid "Loading content"
@@ -7743,7 +7743,7 @@ msgstr "Сделать фото"
 
 #: openedx/features/course_bookmarks/static/course_bookmarks/templates/bookmarks-list.underscore
 msgid "Bookmarked on"
-msgstr "Закладка на"
+msgstr "Закладка добавлена"
 
 #: openedx/features/course_bookmarks/static/course_bookmarks/templates/bookmarks-list.underscore
 #: openedx/features/course_search/static/course_search/templates/course_search_item.underscore
