@@ -25,11 +25,29 @@ from openedx.features.enterprise_support import api as enterprise_api
 from student.models import CourseEnrollment
 from student.roles import GlobalStaff
 
+# added by @happyblitz as part of https://github.com/edx/edx-platform/pull/17446
+import crum
+
 log = logging.getLogger(__name__)
 
 DATADOG_FEEDBACK_METRIC = "lms_feedback_submissions"
 SUPPORT_BACKEND_ZENDESK = "support_ticket"
 SUPPORT_BACKEND_EMAIL = "email"
+
+# added by @happyblitz as part of https://github.com/edx/edx-platform/pull/17446
+def fix_crum_request(func):
+    """
+    A decorator that ensures that the 'crum' package (a middleware that stores and fetches the current request in
+    thread-local storage) can correctly fetch the current request. Under certain conditions, the current request cannot
+    be fetched by crum (e.g.: when HTTP errors are raised in our views via 'raise Http404', et. al.). This decorator
+    manually sets the current request for crum if it cannot be fetched.
+    """
+    @wraps(func)
+    def wrapper(request, *args, **kwargs):
+        if not crum.get_current_request():
+            crum.set_current_request(request=request)
+        return func(request, *args, **kwargs)
+    return wrapper
 
 
 def ensure_valid_course_key(view_func):

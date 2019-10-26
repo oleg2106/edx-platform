@@ -14,6 +14,9 @@ from mako.exceptions import TopLevelLookupException
 from edxmako.shortcuts import render_to_response, render_to_string
 from util.cache import cache_if_anonymous
 
+# added by @happyblitz as part of https://github.com/edx/edx-platform/pull/17446
+from util.views import fix_crum_request
+
 valid_templates = []
 
 if settings.STATIC_GRAB:
@@ -73,10 +76,13 @@ def render_press_release(request, slug):
     else:
         return resp
 
-
+# added by @happyblitz as part of https://github.com/edx/edx-platform/pull/17446
+@fix_crum_request
 def render_404(request):
     return HttpResponseNotFound(render_to_string('static_templates/404.html', {}, request=request))
 
 
+# added by @happyblitz as part of https://github.com/edx/edx-platform/pull/17446
+@fix_crum_request
 def render_500(request):
     return HttpResponseServerError(render_to_string('static_templates/server-error.html', {}, request=request))
