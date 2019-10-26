@@ -51,7 +51,9 @@
                 });
                 if (moveType === 'target') {
                     this.iconEl.css({
-                        'left': target.offset.left + 0.5 * target.w - this.iconWidth * 0.5 + offset - this.iconElLeftOffset,
+                        // @happyblitz http://redmine.sgdev.xyz/issues/14287
+                        //'left': target.offset.left + 0.5 * target.w - this.iconWidth * 0.5 + offset - this.iconElLeftOffset,
+                        'left': target.offset.left + 0.5 * (target.w - this.iconWidth),
                         'top': target.offset.top + 0.5 * target.h - this.iconHeight * 0.5 + offset
                     });
                 } else {
@@ -253,8 +255,12 @@
                     offset = 1;
                 }
 
+                // changed by @happyblitz http://redmine.sgdev.xyz/issues/14287
+                // place the center of the dragable element to the center of the target element
+                // and not to its left side
                 this.iconEl.css({
-                    'left': target.offset.left + 0.5 * target.w - this.iconWidth * 0.5 + offset - this.iconElLeftOffset,
+                    //'left': target.offset.left + 0.5 * target.w - this.iconWidth * 0.5 + offset - this.iconElLeftOffset,
+                    'left': target.offset.left + 0.5 * (target.w - this.iconWidth),
                     'top': target.offset.top + 0.5 * target.h - this.iconHeight * 0.5 + offset
                 });
 
