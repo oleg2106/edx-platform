@@ -170,6 +170,7 @@ define(['jquery', 'underscore', 'backbone', 'gettext', 'js/views/pages/base_page
                 // added by @happyblitz. http://redmine.sgdev.xyz/issues/14373
                 // we disallow body scrolling whereas the modal window is open
                 document.body.classList.add("noscroll");
+                console.error("noscroll was added");
 
                 var xblockElement = this.findXBlockElement(event.target),
                     self = this,
