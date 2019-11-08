@@ -194,12 +194,18 @@ define(['jquery', 'underscore', 'gettext', 'js/views/baseview'],
                 // fix by @happyblitz. http://redmine.sgdev.xyz/issues/14373
                 // Default modal screen is small for our preference.
                 // This hack will make it full screen size
-                modalWindow.css({
-                    //top: top + $(window).scrollTop(),
-                    //left: left + $(window).scrollLeft()
-                    top: $(window).scrollTop(),
-                    left: 0
-                });
+                // upd. We want only alter problem modal windows
+                if (modalWindow.hasClass('modal-editor')) {
+                    modalWindow.css({
+                        top: $(window).scrollTop(),
+                        left: 0
+                    });
+                } else {
+                    modalWindow.css({
+                        top: top + $(window).scrollTop(),
+                        left: left + $(window).scrollLeft()
+                    });
+                }
             }
         });
 
